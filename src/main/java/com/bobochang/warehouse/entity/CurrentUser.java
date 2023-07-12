@@ -1,4 +1,4 @@
-package com.bobochang.warehouse.utils;
+package com.bobochang.warehouse.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
