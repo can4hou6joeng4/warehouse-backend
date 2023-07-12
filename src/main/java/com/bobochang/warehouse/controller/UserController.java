@@ -1,10 +1,13 @@
 package com.bobochang.warehouse.controller;
 
+import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.entity.Auth;
 import com.bobochang.warehouse.entity.CurrentUser;
 import com.bobochang.warehouse.entity.Result;
+import com.bobochang.warehouse.entity.User;
 import com.bobochang.warehouse.service.AuthService;
+import com.bobochang.warehouse.service.UserService;
 import com.bobochang.warehouse.utils.TokenUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -27,6 +30,8 @@ public class UserController {
     @Resource
     private AuthService authService;
     @Resource
+    private UserService userService;
+    @Resource
     private TokenUtils tokenUtils;
 
     /**
@@ -44,4 +49,14 @@ public class UserController {
         //响应
         return Result.ok(authTreeList);
     }
+
+    @GetMapping("/user-list")
+    public Result userListPage(Page page, User user) {
+        //执行业务
+        page = userService.queryUserPage(page, user);
+        //响应
+        return Result.ok(page);
+    }
+
+
 }

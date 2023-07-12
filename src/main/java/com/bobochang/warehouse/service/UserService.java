@@ -1,5 +1,6 @@
 package com.bobochang.warehouse.service;
 
+import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.entity.User;
 
 /**
@@ -11,4 +12,8 @@ import com.bobochang.warehouse.entity.User;
 public interface UserService {
 
     public User findUserByCode(String userCode);
+
+    public Page queryUserPage(Page page, User user);
+
+
 }
