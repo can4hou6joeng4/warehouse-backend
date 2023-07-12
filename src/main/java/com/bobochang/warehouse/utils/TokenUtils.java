@@ -4,12 +4,14 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.pn.exception.BusinessException;
+import com.bobochang.warehouse.entity.CurrentUser;
+import com.bobochang.warehouse.exception.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -37,7 +39,7 @@ public class TokenUtils {
     //token中存放用户真实姓名对应的名字
     private static final String CLAIM_NAME_USERNAME = "CLAIM_NAME_USERNAME";
 
-    private String sign(CurrentUser currentUser,String securityKey){
+    private String sign(CurrentUser currentUser, String securityKey){
         String token = JWT.create()
                 .withClaim(CLAIM_NAME_USERID, currentUser.getUserId())
                 .withClaim(CLAIM_NAME_USERCODE, currentUser.getUserCode())
