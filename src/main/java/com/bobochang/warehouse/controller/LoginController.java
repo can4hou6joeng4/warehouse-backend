@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 public class LoginController {
 
 	//注入UserService
-	@Resource
+	@Autowired
 	private UserService userService;
 
 	//注入redis模板
