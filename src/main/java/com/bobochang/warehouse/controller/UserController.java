@@ -1,16 +1,16 @@
 package com.bobochang.warehouse.controller;
 
+import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.dto.AssignRoleDto;
 import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.page.Page;
-import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.service.AuthService;
 import com.bobochang.warehouse.service.RoleService;
 import com.bobochang.warehouse.service.UserService;
 import com.bobochang.warehouse.utils.TokenUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -24,13 +24,13 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    @Resource
+    @Autowired
     private AuthService authService;
-    @Resource
+    @Autowired
     private UserService userService;
-    @Resource
+    @Autowired
     private RoleService roleService;
-    @Resource
+    @Autowired
     private TokenUtils tokenUtils;
 
     /**

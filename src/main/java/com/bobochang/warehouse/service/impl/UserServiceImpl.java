@@ -2,14 +2,14 @@ package com.bobochang.warehouse.service.impl;
 
 
 import com.bobochang.warehouse.entity.Result;
-import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.entity.User;
 import com.bobochang.warehouse.mapper.UserMapper;
+import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.UserService;
 import com.bobochang.warehouse.utils.DigestUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Resource
+    @Autowired
     private UserMapper userMapper;
 
     @Override
