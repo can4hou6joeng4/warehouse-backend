@@ -1,9 +1,11 @@
 package com.bobochang.warehouse.mapper;
 
 import com.bobochang.warehouse.entity.Auth;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+@Mapper
 public interface AuthMapper {
 
 	//根据用户id查询用户所有权限(菜单)的方法
