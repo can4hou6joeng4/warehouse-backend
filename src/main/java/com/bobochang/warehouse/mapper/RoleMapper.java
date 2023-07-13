@@ -1,9 +1,13 @@
 package com.bobochang.warehouse.mapper;
 
 import com.bobochang.warehouse.entity.Role;
+import com.bobochang.warehouse.page.Page;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface RoleMapper {
 
     //查询状态正常的所有角色的方法
@@ -20,5 +24,29 @@ public interface RoleMapper {
 
     //添加用户角色关系的方法
     public void insertUserRole(Integer userId, Integer roleId);
+
+    //查询角色总行数的方法
+    public int selectRoleCount(Role role);
+
+    //分页查询角色的方法
+    public List<Role> selectRolePage(@Param("page") Page page, @Param("role") Role role);
+
+    //根据角色名称或者角色代码查询角色的方法
+    public Role findRoleByNameOrCode(String roleName, String roleCode);
+
+    //添加角色的方法
+    public int insertRole(Role role);
+
+    //根据角色id修改角色状态的方法
+    public int updateRoleState(Role role);
+
+    //根据角色id查询角色已分配的所有权限(菜单)的id
+    public List<Integer> findAuthIds(Integer roleId);
+
+    //根据角色id删除角色的方法
+    public int deleteRoleById(Integer roleId);
+
+    //根据角色id修改角色描述的方法
+    public int updateDescById(Role role);
 
 }

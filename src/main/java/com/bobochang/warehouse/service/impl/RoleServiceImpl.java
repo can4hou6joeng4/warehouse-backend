@@ -1,21 +1,26 @@
 package com.bobochang.warehouse.service.impl;
 
 import com.bobochang.warehouse.dto.AssignRoleDto;
+import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.entity.Role;
+import com.bobochang.warehouse.mapper.AuthMapper;
 import com.bobochang.warehouse.mapper.RoleMapper;
+import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class RoleServiceImpl implements RoleService {
 
 
-    @Resource
+    @Autowired
     private RoleMapper roleMapper;
+    @Autowired
+    private AuthMapper authMapper;
 
 
     //查询所有角色的业务方法
@@ -51,5 +56,78 @@ public class RoleServiceImpl implements RoleService {
             //添加用户角色关系
             roleMapper.insertUserRole(userId, roleId);
         }
+    }
+
+    //分页查询角色的业务方法
+    @Override
+    public Page queryRolePage(Page page, Role role) {
+
+        //查询角色总行数
+        int roleCount = roleMapper.selectRoleCount(role);
+
+        //分页查询角色
+        List<Role> roleList = roleMapper.selectRolePage(page, role);
+
+        //将查询到的总行数和当前页数据组装到Page对象
+        page.setTotalNum(roleCount);
+        page.setResultList(roleList);
+
+        return page;
+    }
+
+    //添加角色的业务方法
+    @Override
+    public Result saveRole(Role role) {
+
+        //根据角色名或角色代码查询角色
+        Role oldRole = roleMapper.findRoleByNameOrCode(role.getRoleName(), role.getRoleCode());
+        if (oldRole != null) {//角色已存在
+            return Result.err(Result.CODE_ERR_BUSINESS, "该角色已存在！");
+        }
+        //角色不存在,添加角色
+        roleMapper.insertRole(role);
+        return Result.ok("添加角色成功！");
+    }
+
+    //修改角色状态的业务方法
+    @Override
+    public Result updateRoleState(Role role) {
+        //根据角色id修改角色状态
+        int i = roleMapper.updateRoleState(role);
+        if (i > 0) {
+            return Result.ok("修改成功！");
+        }
+        return Result.err(Result.CODE_ERR_BUSINESS, "修改失败！");
+    }
+
+    //查询角色已分配的权限(菜单)的业务方法
+    @Override
+    public List<Integer> queryAuthIds(Integer roleId) {
+        //根据角色id查询角色已分配的所有权限(菜单)的id
+        return roleMapper.findAuthIds(roleId);
+    }
+
+    //删除角色的业务方法
+    @Transactional//事务处理
+    @Override
+    public void deleteRole(Integer roleId) {
+        //根据角色id删除角色
+        int i = roleMapper.deleteRoleById(roleId);
+        if (i > 0) {
+            //根据角色id删除给角色已分配的所有权限(菜单)
+            authMapper.delAuthByRoleId(roleId);
+        }
+    }
+
+    //修改角色描述的业务方法
+    @Override
+    public Result updateRoleDesc(Role role) {
+
+        //根据角色id修改角色描述
+        int i = roleMapper.updateDescById(role);
+        if (i > 0) {
+            return Result.ok("角色修改成功！");
+        }
+        return Result.err(Result.CODE_ERR_BUSINESS, "角色修改失败！");
     }
 }
