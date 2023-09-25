@@ -46,6 +46,10 @@ public class SecurityFilter implements Filter {
         urlList.add("/captcha/captchaImage");
         urlList.add("/login");
         urlList.add("/logout");
+        urlList.add("/contract/contract-list");
+        urlList.add("/contract/addContract");
+        urlList.add("/contract/updateState");
+        urlList.add("/contract/updateContract");
         //对上传图片的url接口/product/img-upload的请求直接放行
         urlList.add("/product/img-upload");
         //对static下的/img/upload中的静态资源图片的访问直接放行

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bobochang.warehouse.mapper.ContractMapper">
+
+    <resultMap id="contractResult" type="Contract">
+        <id property="contractId" column="contract_id"/>
+        <result property="contractName" column="contract_name"/>
+        <result property="contractDesc" column="contract_desc"/>
+        <result property="contractState" column="contract_state"/>
+        <result property="associatedArea" column="associated_area"/>
+        <result property="files" column="files"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!--
+        // 根据合同 id 查询合同的方法
+        public Contract findContractById(Integer contractId)
+    -->
+    <select id="findContractById" resultType="contract">
+        select *
+        from contract
+        where contract_id = #{contractId}
+    </select>
+
+    <!--
+        // 根据合同名称查询合同
+        public Contract findContractByName(String contractName)
+    -->
+    <select id="findContractByName" resultType="contract">
+        select *
+        from contract
+        where contract_name = #{contractName}
+    </select>
+
+    <!--
+        // 查询合同总行数的方法
+        public int selectContractCount(Contract contract)
+    -->
+    <select id="selectContractCount" resultType="integer">
+        select count(*) from contract
+        <where>
+            <if test="contractState != null and contractState != ''">
+                and contract_state = #{contractState}
+            </if>
+        </where>
+    </select>
+
+    <!--
+        // 分页查询合同
+        public List<Contract> selectContractPage(@Param("page")Page page, @Param("contract")Contract contract);
+    -->
+    <select id="selectContractPage" resultMap="contractResult">
+        select * from contract
+    </select>
+
+    <!--
+        // 添加合同
+        public int insertContract(Contract contract);
+    -->
+    <insert id="insertContract">
+        insert into contract
+        (contract_name, contract_desc, contract_state, associated_area, create_time)
+        values (#{contractName}, #{contractDesc}, #{contractState}, #{associatedArea}, now())
+    </insert>
+
+    <!--
+        // 根据合同 id 修改合同状态
+        public int updateContractState(Contract contract);
+    -->
+    <update id="updateContractState">
+        update contract
+        set contract_state = #{contractState},
+            update_time=#{updateTime}
+        where contract_id = #{contractId}
+    </update>
+
+    <!--
+        // 根据合同 id 修改合同昵称
+        public int updateNameById(Contract contract);
+    -->
+    <update id="updateNameById">
+        update contract
+        set contract_name=#{contractName},
+            update_time=#{updateTime}
+        where contract_id = #{contractId}
+    </update>
+</mapper>
