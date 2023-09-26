@@ -18,7 +18,7 @@ public interface ContractMapper {
     public int selectContractCount(Contract contract);
 
     // 分页查询合同
-    public List<Contract> selectContractPage();
+    public List<Contract> selectContractPage(Page page, Contract contract);
 
     // 添加合同
     public int insertContract(Contract contract);

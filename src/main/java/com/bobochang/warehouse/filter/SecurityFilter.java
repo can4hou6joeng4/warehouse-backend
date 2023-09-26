@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * 登录限制过滤器:
@@ -52,8 +53,9 @@ public class SecurityFilter implements Filter {
         urlList.add("/contract/updateContract");
         //对上传图片的url接口/product/img-upload的请求直接放行
         urlList.add("/product/img-upload");
+        urlList.add("/contract/img-upload");
         //对static下的/img/upload中的静态资源图片的访问直接放行
-        if (urlList.contains(path) || path.contains("/img/upload")) {
+        if (urlList.contains(path) || path.contains("/img/upload") || Pattern.compile("/contract/download-image/.*").matcher(path).matches()) {
             chain.doFilter(request, response);
             return;
         }

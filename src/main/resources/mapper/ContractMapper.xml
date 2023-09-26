@@ -52,8 +52,17 @@
         // 分页查询合同
         public List<Contract> selectContractPage(@Param("page")Page page, @Param("contract")Contract contract);
     -->
-    <select id="selectContractPage" resultMap="contractResult">
+    <select id="selectContractPage" resultType="com.bobochang.warehouse.entity.Contract">
         select * from contract
+        <where>
+            <if test="contract.contractName != null and contract.contractName != ''">
+                and contract_name like concat('%', #{contract.contractName}, '%')
+            </if>
+            <if test="contract.contractState != null and contract.contractState != ''">
+                and contract_state like concat('%', #{contract.contractState}, '%')
+            </if>
+        </where>
+        limit #{page.limitIndex}, #{page.pageSize}
     </select>
 
     <!--
@@ -62,8 +71,8 @@
     -->
     <insert id="insertContract">
         insert into contract
-        (contract_name, contract_desc, contract_state, associated_area, create_time)
-        values (#{contractName}, #{contractDesc}, #{contractState}, #{associatedArea}, now())
+        (contract_name, contract_desc, contract_state, associated_area, files, create_time)
+        values (#{contractName}, #{contractDesc}, #{contractState}, #{associatedArea}, #{files}, now())
     </insert>
 
     <!--
@@ -84,6 +93,7 @@
     <update id="updateNameById">
         update contract
         set contract_name=#{contractName},
+            files=#{files},
             update_time=#{updateTime}
         where contract_id = #{contractId}
     </update>

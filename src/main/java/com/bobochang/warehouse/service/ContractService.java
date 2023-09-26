@@ -17,7 +17,7 @@ public interface ContractService {
     public Contract findContractById(Integer contractId);
 
     // 分页查询合同
-    public Result queryContractPage();
+    public Page queryContractPage(Page page,Contract contract);
 
     // 添加合同
     public Result saveContract(Contract contract);
