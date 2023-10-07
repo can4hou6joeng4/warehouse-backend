@@ -46,6 +46,7 @@ public class SecurityFilter implements Filter {
         List<String> urlList = new ArrayList<>();
         urlList.add("/captcha/captchaImage");
         urlList.add("/login");
+        urlList.add("/wx-login");
         urlList.add("/logout");
         urlList.add("/contract/contract-list");
         urlList.add("/contract/addContract");

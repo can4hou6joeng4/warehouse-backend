@@ -92,4 +92,36 @@ public class LoginController {
 		return Result.ok();
 	}
 
+	/**
+	 * 用于微信小程序的登录接口 /wx-login
+	 * @param loginUser
+	 * @return
+	 */
+	@PostMapping("/wx-login")
+	public Result WxLogin(@RequestBody LoginUser loginUser) {
+		/*
+		  校验用户名密码:
+		 */
+		//根据用户名查询用户
+		User user = userService.findUserByCode(loginUser.getUserCode());
+		if (user!=null) {//查到了用户
+			if (user.getUserState().equals(WarehouseConstants.USER_STATE_PASS)) {//查到的用户状态是已审核
+				//将用户录入的密码进行加密
+				String password = DigestUtil.hmacSign(loginUser.getUserPwd());
+				if (password.equals(user.getUserPwd())) {//查到的用户的密码和用户录入的密码相同
+					//生成token并响应给前端
+					CurrentUser currentUser = new CurrentUser(user.getUserId(), user.getUserCode(), user.getUserName());
+					String token = tokenUtils.loginSign(currentUser, user.getUserPwd());
+					return Result.ok("登录成功！", token);
+				} else {//查到的用户的密码和用户录入的密码不同
+					return Result.err(Result.CODE_ERR_BUSINESS, "密码不正确！");
+				}
+			} else {//查到的用户状态是未审核
+				return Result.err(Result.CODE_ERR_BUSINESS, "用户未审核！");
+			}
+		}else{//没有查到用户
+			return Result.err(Result.CODE_ERR_BUSINESS, "该用户不存在！");
+		}
+	}
+
 }

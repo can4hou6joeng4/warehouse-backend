@@ -175,5 +175,15 @@ public class UserController {
         return Result.ok("分配角色成功！");
     }
 
-
+    /**
+     * 查询用户的详细信息
+     * @param token
+     * @return
+     */
+    @GetMapping("/user-info")
+    public Result getUserInfo(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
+        CurrentUser currentUser = tokenUtils.getCurrentUser(token);
+        int userId = currentUser.getUserId();
+        return userService.searchById(userId);
+    }
 }

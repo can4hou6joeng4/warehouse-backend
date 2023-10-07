@@ -18,6 +18,9 @@ public interface UserMapper {
     // 根据账号查询用户信息
     public User findUserByCode(String userCode);
 
+    public User findUserById(Integer userId);
+
+
     //查询用户总行数的方法
     public int selectUserCount(User user);
 
@@ -38,4 +41,6 @@ public interface UserMapper {
 
     //根据用户id修改密码的方法
     public int updatePwdById(User user);
+
+    public User searchById(int UserId);
 }

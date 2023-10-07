@@ -107,4 +107,21 @@ public class UserServiceImpl implements UserService {
         //密码修改失败
         return Result.err(Result.CODE_ERR_BUSINESS, "密码重置失败！");
     }
+
+    /**
+     * 根据用户id查询用户的注册日期
+     * @param userId
+     * @return
+     */
+    @Override
+    public String searchUserHiredate(int userId) {
+        String hiredate= String.valueOf(userMapper.findUserById(userId).getCreateTime());
+        return hiredate;
+    }
+
+    @Override
+    public Result searchById(int userId) {
+        User user = userMapper.searchById(userId);
+        return Result.ok(user);
+    }
 }

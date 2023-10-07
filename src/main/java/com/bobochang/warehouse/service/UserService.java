@@ -31,4 +31,8 @@ public interface UserService {
     //重置密码的业务方法
     public Result resetPwd(Integer userId);
 
+    // 查询用户的创建日期
+    String searchUserHiredate(int userId);
+
+    Result searchById(int userId);
 }
