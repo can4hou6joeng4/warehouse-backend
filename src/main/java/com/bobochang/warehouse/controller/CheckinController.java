@@ -244,15 +244,18 @@ public class CheckinController {
      */
     @GetMapping("/checkin-page-list")
     public Result checkinPageList(PageCheckinDto page, Checkin checkin){
-        log.info(page.getStartDate());
-        System.out.println(page.getLimitIndex());
+        log.info("开始日期",page.getStartDate());
 //        log.info(String.valueOf(page.getLimitIndex()));
 
         page = checkinService.queryChekinPage(page,checkin);
         return Result.ok("page",page);
     }
 
-
+    /**
+     * 查询当月缺勤日期
+     * @param page
+     * @return
+     */
     @GetMapping("/check-date")
     public Result checkDate(PageCheckinDto page){
         LocalDate currentDate = LocalDate.now();

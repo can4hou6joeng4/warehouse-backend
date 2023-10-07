@@ -96,11 +96,14 @@
     FROM checkin c
     JOIN user_info u ON c.user_id = u.user_id
     <where>
+      <if test="page.userName != null and page.userName != ''">
+        AND u.user_name like concat('%', #{page.userName}, '%')
+      </if>
       <if test="page.startDate != null and page.startDate != ''">
-        AND c.date &gt;= #{page.startDate}
+        AND DATE(c.date) &gt;= DATE(#{page.startDate})
       </if>
       <if test="page.endDate != null and page.endDate != ''">
-        AND c.date &lt;= #{page.endDate}
+        AND DATE(c.date) &lt;= DATE(#{page.endDate})
       </if>
     </where>
     GROUP BY c.user_id

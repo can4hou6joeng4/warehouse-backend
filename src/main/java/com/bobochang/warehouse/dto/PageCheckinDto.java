@@ -41,6 +41,8 @@ public class PageCheckinDto {
     private String endDate;
 
     private Integer userId;
+    private String userName;
+
     @NotNull
     @Range(min=2000,max = 3000)
     private Integer year;
