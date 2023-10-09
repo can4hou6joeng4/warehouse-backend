@@ -113,6 +113,30 @@
             <artifactId>hutool-all</artifactId>
             <version>5.8.18</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring-boot-starter</artifactId>
+            <version>7.0.0.Beta2</version>
+            <exclusions>
+                <exclusion>
+                    <!-- 重点坑，不排除mybatis的话，在启动项目时会报错mybatisplus缺少类   -->
+                    <artifactId>mybatis</artifactId>
+                    <groupId>org.mybatis</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--画图 -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-image-generator</artifactId>
+            <version>5.22.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-bpmn-layout</artifactId>
+            <version>6.0.0.RC1</version>
+        </dependency>
     </dependencies>
 
     <build>

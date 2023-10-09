@@ -7,8 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import cn.hutool.core.util.StrUtil;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 
 import javax.annotation.PostConstruct;
@@ -17,7 +20,10 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 @MapperScan("com.bobochang.warehouse.mapper")
-@SpringBootApplication
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class,
+        SecurityAutoConfiguration.class,
+        ManagementWebSecurityAutoConfiguration.class
+})
 @Slf4j
 public class WarehouseBackendApplication {
 
