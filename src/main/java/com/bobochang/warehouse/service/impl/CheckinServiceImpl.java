@@ -143,10 +143,10 @@ public class CheckinServiceImpl implements CheckinService {
                 entity.setRisk(risk);
                 entity.setDate(DateUtil.today());
                 entity.setCreateTime(d1);
-                checkinMapper.insert(entity);
+//                checkinMapper.insert(entity);
                 return Result.ok("签到成功");
             }else{
-                return Result.err(500,"签到失败");
+                return Result.err(500,"人脸识别失败，签到失败");
             }
         }
     }
@@ -166,6 +166,7 @@ public class CheckinServiceImpl implements CheckinService {
             MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
             requestBody.add("photo", new FileSystemResource(path));
             requestBody.add("userId", userId);
+            requestBody.add("userName","pengyuyan");
 
             // 发送请求
             ResponseEntity<String> response = restTemplate.exchange(
@@ -175,9 +176,16 @@ public class CheckinServiceImpl implements CheckinService {
                     String.class
             );
 
+            log.info(String.valueOf(response.getBody()));
+
             // 处理响应结果
             if (response.getStatusCode().is2xxSuccessful()) {
-                return true;
+                if(String.valueOf(response.getBody()).equals("pengyuyan")){
+                    return true;
+                }
+                else{
+                    return false;
+                }
             } else {
                 return false;
             }

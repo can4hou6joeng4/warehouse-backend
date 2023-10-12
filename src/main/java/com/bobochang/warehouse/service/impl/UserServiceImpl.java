@@ -119,9 +119,19 @@ public class UserServiceImpl implements UserService {
         return hiredate;
     }
 
+    /**
+     * 按照用户id查询用户详细信息
+     * @param userId
+     * @return
+     */
     @Override
     public Result searchById(int userId) {
         User user = userMapper.searchById(userId);
         return Result.ok(user);
+    }
+
+    @Override
+    public String searchRoleCodeById(int userId) {
+        return userMapper.searchRoleCodeById(userId);
     }
 }

@@ -4,6 +4,7 @@ package com.bobochang.warehouse.controller;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.page.Page;
+import com.bobochang.warehouse.service.ActivitiService;
 import com.bobochang.warehouse.service.InStoreService;
 import com.bobochang.warehouse.service.PurchaseService;
 import com.bobochang.warehouse.service.StoreService;
@@ -33,6 +34,9 @@ public class PurchaseController {
     //注入InStoreService
     @Resource
     private InStoreService inStoreService;
+
+    @Resource
+    private ActivitiService activitiService;
 
     /**
      * 添加采购单的url接口/purchase/purchase-add
@@ -79,9 +83,15 @@ public class PurchaseController {
      * @RequestBody Purchase purchase将请求传递的json数据封装到参数Purchase对象;
      */
     @RequestMapping("/purchase-update")
-    public Result updatePurchase(@RequestBody Purchase purchase) {
+    public Result updatePurchase(@RequestBody Purchase purchase,@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         //执行业务
         Result result = purchaseService.updatePurchase(purchase);
+
+        Flow flow = new Flow();
+        flow.setOutStoreId(purchase.getBuyId());
+        String userCode = tokenUtils.getCurrentUser(token).getUserCode();
+        activitiService.completeTask(userCode, flow);
+
         //响应
         return result;
     }

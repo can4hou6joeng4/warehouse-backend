@@ -77,4 +77,14 @@ public class ContractServiceImpl implements ContractService {
         }
         return Result.err(Result.CODE_ERR_BUSINESS, "修改失败");
     }
+
+    @Override
+    public int searchContractCount(Contract contract) {
+        return contractMapper.selectContractCount(contract);
+    }
+
+    @Override
+    public Contract findContractById(int contractId) {
+        return contractMapper.findContractById(contractId);
+    }
 }

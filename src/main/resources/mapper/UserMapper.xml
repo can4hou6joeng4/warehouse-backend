@@ -121,4 +121,13 @@
         FROM user_info WHERE user_id=#{userId} AND user_state=1 AND is_delete=0
     </select>
 
+    <!--    根据userid查询用户的角色信息 -->
+    <select id="searchRoleCodeById" parameterType="int" resultType="string">
+        select role_code from user_info u
+            left join user_role ur on u.user_id = ur.user_id
+            left join role r on ur.role_id=r.role_id
+        where u.user_id = #{userId}
+    </select>
+
+
 </mapper>

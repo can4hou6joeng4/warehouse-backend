@@ -2,11 +2,9 @@ package com.bobochang.warehouse.controller;
 
 
 import com.bobochang.warehouse.constants.WarehouseConstants;
-import com.bobochang.warehouse.entity.CurrentUser;
-import com.bobochang.warehouse.entity.OutStore;
-import com.bobochang.warehouse.entity.Result;
-import com.bobochang.warehouse.entity.Store;
+import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.page.Page;
+import com.bobochang.warehouse.service.ActivitiService;
 import com.bobochang.warehouse.service.OutStoreService;
 import com.bobochang.warehouse.service.StoreService;
 import com.bobochang.warehouse.utils.TokenUtils;
@@ -33,6 +31,9 @@ public class OutStoreController {
     //注入StoreService
     @Autowired
     private StoreService storeService;
+
+    @Autowired
+    private ActivitiService activitiService;
 
     /**
      * 添加出库单的url接口/outstore/outstore-add
@@ -90,9 +91,16 @@ public class OutStoreController {
      * 确定出库的url接口/outstore/outstore-confirm
      */
     @RequestMapping("/outstore-confirm")
-    public Result confirmOutStore(@RequestBody OutStore outStore){
+    public Result confirmOutStore(@RequestBody OutStore outStore,@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
         //执行业务
         Result result = outStoreService.confirmOutStore(outStore);
+
+        Flow flow = new Flow();
+        flow.setOutStoreId(outStore.getOutsId());
+        String userCode = tokenUtils.getCurrentUser(token).getUserCode();
+        activitiService.completeTask(userCode, flow);
+
+//        activitiService.completeTask(outStore.getUserCode(), flow);
         //响应
         return result;
     }

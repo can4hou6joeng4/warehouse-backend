@@ -35,4 +35,6 @@ public interface UserService {
     String searchUserHiredate(int userId);
 
     Result searchById(int userId);
+
+    String searchRoleCodeById(int userId);
 }

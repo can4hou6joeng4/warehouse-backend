@@ -43,4 +43,6 @@ public interface UserMapper {
     public int updatePwdById(User user);
 
     public User searchById(int UserId);
+
+    public String searchRoleCodeById(int userId);
 }

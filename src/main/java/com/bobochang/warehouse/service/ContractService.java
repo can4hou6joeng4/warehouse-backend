@@ -27,4 +27,8 @@ public interface ContractService {
 
     // 修改合同昵称
     public Result updateContractName(Contract contract);
+
+    public int searchContractCount(Contract contract);
+
+    Contract findContractById(int contractId);
 }
