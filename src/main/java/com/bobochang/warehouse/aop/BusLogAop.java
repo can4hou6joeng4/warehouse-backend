@@ -27,6 +27,8 @@ public class BusLogAop implements Ordered {
     @Autowired
     private BusLogDao busLogDao;
 
+    public static final String path = "";
+
     /**
      * 定义BusLogAop的切入点为标记@BusLog注解的方法
      */
@@ -52,7 +54,6 @@ public class BusLogAop implements Ordered {
         }
         //目标方法执行完成后，获取目标类、目标方法上的业务日志注解上的功能名称和功能描述
         Object target = proceedingJoinPoint.getTarget();
-        Object[] args = proceedingJoinPoint.getArgs();
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
         BusLog anno1 = target.getClass().getAnnotation(BusLog.class);
         BusLog anno2 = signature.getMethod().getAnnotation(BusLog.class);
@@ -64,13 +65,7 @@ public class BusLogAop implements Ordered {
         busLogBean.setBusDescrip(logDescrip);
         busLogBean.setOperPerson(operPerson);
         busLogBean.setOperTime(new Date());
-        JsonMapper jsonMapper = new JsonMapper();
-        String json = null;
-        try {
-            json = jsonMapper.writeValueAsString(args);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        String text = operPerson + "-" + logName + "-" + new Date();
         //把参数报文写入到文件中
         OutputStream outputStream = null;
         try {
@@ -78,7 +73,7 @@ public class BusLogAop implements Ordered {
             String paramFilePath = logName + File.separator + DateUtil.format(new Date(), DatePattern.PURE_DATE_FORMATTER) + ".log";
             // todo 判断当前文件夹是否存在 若存在则追加 反之创建
             outputStream = new FileOutputStream(paramFilePath);
-            outputStream.write(json.getBytes(StandardCharsets.UTF_8));
+            outputStream.write(text.getBytes(StandardCharsets.UTF_8));
             busLogBean.setParamFile(paramFilePath);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
