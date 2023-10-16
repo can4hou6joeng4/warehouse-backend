@@ -12,5 +12,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface BusLogMapper {
 
-    public BusLog insertLog(BusLogDao busLogDao);
+    public void insertLog(BusLogDao busLogDao);
 }

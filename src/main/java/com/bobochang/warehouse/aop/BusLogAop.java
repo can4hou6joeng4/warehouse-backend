@@ -4,6 +4,7 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.entity.BusLogDao;
+import com.bobochang.warehouse.service.impl.BusLogServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +26,10 @@ import java.util.Date;
 @Slf4j
 public class BusLogAop implements Ordered {
     @Autowired
-    private BusLogDao busLogDao;
+    private BusLogServiceImpl busLogService;
 
-    public static final String path = "";
+
+    public static final String path= "D:/project/warehouse/warehouse-backend/log/";
 
     /**
      * 定义BusLogAop的切入点为标记@BusLog注解的方法
@@ -70,11 +72,12 @@ public class BusLogAop implements Ordered {
         OutputStream outputStream = null;
         try {
             // String paramFilePath = System.getProperty("user.dir") + File.separator + DateUtil.format(new Date(), DatePattern.PURE_DATETIME_MS_PATTERN) + ".log";
-            String paramFilePath = logName + File.separator + DateUtil.format(new Date(), DatePattern.PURE_DATE_FORMATTER) + ".log";
+            String paramFilePath = path + logName + File.separator + DateUtil.format(new Date(), DatePattern.PURE_DATE_FORMATTER) + ".log";
             // todo 判断当前文件夹是否存在 若存在则追加 反之创建
+//            File dirFile = new File(path + logName);
             outputStream = new FileOutputStream(paramFilePath);
             outputStream.write(text.getBytes(StandardCharsets.UTF_8));
-            busLogBean.setParamFile(paramFilePath);
+//            busLogBean.setParamFile(paramFilePath);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -91,7 +94,8 @@ public class BusLogAop implements Ordered {
             }
         }
         //保存业务操作日志信息
-        this.busLogDao.insert(busLogBean);
+//        this.busLogDao.insert(busLogBean);
+        busLogService.insert(busLogBean);
         log.info("----BusAop 环绕通知 end");
         return result;
     }

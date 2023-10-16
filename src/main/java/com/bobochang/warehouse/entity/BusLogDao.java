@@ -13,11 +13,7 @@ import java.util.Date;
  * @Date 2023/10/16 - 14:46
  */
 @Data
-@Component
 public class BusLogDao {
-    @Autowired
-    private BusLogMapper busLogMapper;
-
     private String busName;
 
     private String busDescrip;
@@ -25,10 +21,4 @@ public class BusLogDao {
     private String operPerson;
 
     private Date operTime;
-
-    private String paramFile;
-
-    public void insert(BusLogDao busLogDao) {
-        busLogMapper.insertLog(busLogDao);
-    }
 }
