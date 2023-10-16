@@ -95,6 +95,10 @@ public class LoginController {
     @BusLog(descrip = "用户注销")
     public Result logout(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String clientToken) {
         String operPerson = tokenUtils.getCurrentUser(clientToken).getUserName();
+        return performLogout(operPerson, clientToken);
+    }
+
+    private Result performLogout(String operPerson, String clientToken) {
         //从redis移除token
         stringRedisTemplate.delete(clientToken);
         log.info("用户：" + tokenUtils.getCurrentUser(clientToken).getUserName() + "退出系统");

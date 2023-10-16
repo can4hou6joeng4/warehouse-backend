@@ -5,12 +5,16 @@ import cn.hutool.core.date.DateUtil;
 import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.entity.BusLogDao;
 import com.bobochang.warehouse.service.impl.BusLogServiceImpl;
+import com.bobochang.warehouse.utils.TokenUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.el.parser.Token;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +33,8 @@ public class BusLogAop implements Ordered {
     private BusLogServiceImpl busLogService;
 
 
-    public static final String path= "D:/project/warehouse/warehouse-backend/log/";
+    public static final String path = "D:/project/warehouse/warehouse-backend/log/";
+
 
     /**
      * 定义BusLogAop的切入点为标记@BusLog注解的方法
@@ -70,16 +75,34 @@ public class BusLogAop implements Ordered {
         String text = operPerson + "-" + logName + "-" + new Date();
         //把参数报文写入到文件中
         OutputStream outputStream = null;
+        String logFolder = path + logName;
+        String logFilePath = logFolder + File.separator + DateUtil.format(new Date(), DatePattern.PURE_DATE_FORMATTER) + ".log";
+
+        File folder = new File(logFolder);
+        File file = new File(logFilePath);
         try {
-            // String paramFilePath = System.getProperty("user.dir") + File.separator + DateUtil.format(new Date(), DatePattern.PURE_DATETIME_MS_PATTERN) + ".log";
-            String paramFilePath = path + logName + File.separator + DateUtil.format(new Date(), DatePattern.PURE_DATE_FORMATTER) + ".log";
-            // todo 判断当前文件夹是否存在 若存在则追加 反之创建
-//            File dirFile = new File(path + logName);
-            outputStream = new FileOutputStream(paramFilePath);
+            if (!folder.exists()) {
+                // 如果文件夹不存在，创建文件夹
+                if (folder.mkdirs()) {
+                    log.info("文件夹已创建: " + logFolder);
+                } else {
+                    log.error("文件夹创建失败: " + logFolder);
+                }
+            }
+
+            if (!file.exists()) {
+                // 如果文件不存在，创建文件
+                if (file.createNewFile()) {
+                    log.info("文件已创建: " + logFilePath);
+                } else {
+                    log.error("文件创建失败: " + logFilePath);
+                }
+            }
+
+            // 使用FileOutputStream追加内容
+            outputStream = new FileOutputStream(file, true);
             outputStream.write(text.getBytes(StandardCharsets.UTF_8));
-//            busLogBean.setParamFile(paramFilePath);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -90,11 +113,9 @@ public class BusLogAop implements Ordered {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
         }
-        //保存业务操作日志信息
-//        this.busLogDao.insert(busLogBean);
+
         busLogService.insert(busLogBean);
         log.info("----BusAop 环绕通知 end");
         return result;
