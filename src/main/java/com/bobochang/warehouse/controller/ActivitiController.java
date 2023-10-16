@@ -43,6 +43,13 @@ public class ActivitiController {
     @Autowired
     private UserService userService;
 
+
+    /**
+     * 上传工作流的xml文件
+     * @param file
+     * @param fileName
+     * @return
+     */
 //    @PostMapping("/xml-upload")
 //    public Result xmlUpload(@RequestParam("file") String file,@RequestParam("fileName") String fileName){
 //        String filePath = activitiService.xmlUpload(file, fileName);
@@ -65,8 +72,6 @@ public class ActivitiController {
      */
     @PostMapping("/start-instance")
     public Result startInstance(@RequestBody Map<String, String > map){
-        System.out.println(map.get("contractId"));
-        System.out.println(map.get("state"));
         return activitiService.startInstance(map);
     }
 
@@ -80,10 +85,28 @@ public class ActivitiController {
         return activitiService.haveTask(tokenUtils.getCurrentUser(token).getUserId());
     }
 
+    /**
+     * 分页查看流程实例
+     * @param token
+     * @return
+     */
     @GetMapping("/activiti-page-list")
     public Result activitiPageList(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
         // 根据token获得用户的角色
         String roleCode = userService.searchRoleCodeById(tokenUtils.getCurrentUser(token).getUserId());
         return Result.ok(activitiService.searchTask(roleCode));
+    }
+
+    /**
+     * 完成任务，主要是超级管理员
+     * @param token
+     * @return
+     */
+    @GetMapping("/complete-task")
+    public Result completeTask(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
+        String userCode = tokenUtils.getCurrentUser(token).getUserCode();
+        Flow flow = new Flow();
+        activitiService.completeTask(userCode, flow);
+        return Result.ok();
     }
 }

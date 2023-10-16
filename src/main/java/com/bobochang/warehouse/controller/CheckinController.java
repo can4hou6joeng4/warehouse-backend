@@ -68,6 +68,7 @@ public class CheckinController {
      */
     @PostMapping("/checkin")
     public Result checkin(@RequestParam("photo") MultipartFile file,@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
+        log.info("请求签到");
         if(file==null){
             return Result.err(500,"没有上传文件");
         }

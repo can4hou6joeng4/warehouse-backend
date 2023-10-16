@@ -9,9 +9,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface FlowService {
+    // 添加工作流业务记录
     public void insertFlow(Flow flow);
 
+    // 更新工作流业务记录
     void updateFlow(Flow flow);
 
-    String selectByInstanceId(String instanceId);
+    // 根据流程实例id查询工作流记录
+    Flow selectByInstanceId(String instanceId);
 }

@@ -32,5 +32,5 @@ public interface FlowMapper {
 
     void updateFlow(Flow flow);
 
-    String selectByInstanceId(String instanceId);
+    Flow selectByInstanceId(String instanceId);
 }

@@ -28,7 +28,7 @@ public class Flow {
     //出库单id
     private int outStoreId;
 
-    //部署状态：1=进行中，0=已结束
+    //流程状态：0：无需采购，1：需要采购
     private Integer state;
 
     private Date createTime;

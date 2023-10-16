@@ -87,8 +87,9 @@ public class PurchaseController {
         //执行业务
         Result result = purchaseService.updatePurchase(purchase);
 
+        // 完成流程任务
         Flow flow = new Flow();
-        flow.setOutStoreId(purchase.getBuyId());
+        flow.setPurchaseId(purchase.getBuyId());
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
         activitiService.completeTask(userCode, flow);
 

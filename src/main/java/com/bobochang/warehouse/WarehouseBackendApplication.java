@@ -10,14 +10,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import cn.hutool.core.util.StrUtil;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @MapperScan("com.bobochang.warehouse.mapper")
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class,
@@ -42,6 +44,9 @@ public class WarehouseBackendApplication {
      */
     @PostConstruct
     public void init(){
+        /*
+          考勤时间设定
+         */
         List<SysConfig> list=sysConfigMapper.selectAllParam();
         list.forEach(one->{
             String key=one.getParamKey();
@@ -50,7 +55,6 @@ public class WarehouseBackendApplication {
             try{
                 Field field=constants.getClass().getDeclaredField(key);
                 field.set(constants,value);
-                System.out.println(field);
             }catch (Exception e){
                 log.error("执行异常",e);
             }

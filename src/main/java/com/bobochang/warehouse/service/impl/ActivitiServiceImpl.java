@@ -13,11 +13,13 @@ import com.bobochang.warehouse.service.FlowService;
 import com.bobochang.warehouse.service.UserService;
 import jdk.dynalink.linker.LinkerServices;
 import lombok.extern.slf4j.Slf4j;
+import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricProcessInstanceQuery;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
@@ -62,7 +64,18 @@ public class ActivitiServiceImpl implements ActivitiService {
     @Autowired
     private HistoryService historyService;
 
+    @Autowired
+    private RepositoryService repositoryService;
 
+    @Value("${warehouse.deploymentId}")
+    private String deploymentId;
+
+    /**
+     * 上传流程定义的xml文件
+     * @param file xml文件
+     * @param fileName 文件名称
+     * @return
+     */
     @Override
     public String xmlUpload(String file,String fileName) {
         if (file.isEmpty()) {
@@ -75,9 +88,7 @@ public class ActivitiServiceImpl implements ActivitiService {
             String uploadDirPath = uploadDirFile.getAbsolutePath();
             // 获得文件字节流并写入文件
             byte[] fileBytes = file.getBytes();
-
             String filePath = uploadDirPath+"\\"+fileName+".bpmn20.xml";
-
             Files.write(Path.of(filePath), fileBytes);
             return filePath;
         } catch (IOException e) {
@@ -85,13 +96,21 @@ public class ActivitiServiceImpl implements ActivitiService {
         }
     }
 
+    /**
+     * 查看用户是否有任务未完成
+     * @param userId
+     * @return
+     */
     @Override
     public Result haveTask(int userId) {
         String roleCode = userService.searchRoleCodeById(userId);
 
+        // 查询未审核的合同列表，如果有为审核的合同
         Contract contract = new Contract();
         contract.setContractState("0");
         int contractCount = contractService.searchContractCount(contract);
+
+        // 如果是超级管理员则看合同有没有审核
         if (roleCode.equals("supper_manage")){
             if(contractCount == 0){
                 return Result.ok("暂无要处理的合同");
@@ -99,10 +118,11 @@ public class ActivitiServiceImpl implements ActivitiService {
                 return Result.ok("有还未审核的合同");
             }
         }else{
+            // 其他用户则是查询是否有任务
             TaskQuery query = taskService.createTaskQuery().taskAssignee(roleCode);
             List<Task> taskList = query.list();
 
-            // Convert Task entities to DTOs
+            // 将查询到的任务用系统实例类封装返回，否则会有延迟加载的错误
             List<TaskDTO> taskDTOList = new ArrayList<>();
             for (Task task : taskList) {
                 TaskDTO taskDTO = new TaskDTO();
@@ -113,10 +133,15 @@ public class ActivitiServiceImpl implements ActivitiService {
         }
     }
 
+    /**
+     * 开启流程实例
+     * @param map
+     * @return
+     */
     @Override
     public Result startInstance(Map<String, String> map) {
         try{
-            // 改变合同状态，将合同状态由未审核转为待结算
+            // 改变合同状态，将合同状态由未审核转为待结算，进而开启流程实例
             Contract contract = new Contract();
             System.out.println(map.get("state"));
             contract.setContractId(Integer.valueOf(map.get("contractId")));
@@ -131,12 +156,13 @@ public class ActivitiServiceImpl implements ActivitiService {
             variables.put("purchase_man", "purchase_man");
             variables.put("in_store", "in_store");
             variables.put("status", Integer.valueOf(map.get("state")));
-            ProcessInstance processInstance = runtimeService.startProcessInstanceById("test2:1:bdcff597-68a1-11ee-af2b-48a47209a1e7",variables);
+            ProcessInstance processInstance = runtimeService.startProcessInstanceById(deploymentId,variables);
 
             // 保存实例记录
             Flow flow = new Flow();
             flow.setInstanceId(processInstance.getId());
             flow.setContractId(contract.getContractId());
+            flow.setState(Integer.valueOf(map.get("state")));
             flowService.insertFlow(flow);
 
             // 完成第一个合同审核的任务
@@ -151,11 +177,18 @@ public class ActivitiServiceImpl implements ActivitiService {
         }
     }
 
+    /**
+     * 完成流程中的任务
+     * @param userCode
+     * @param flow
+     */
     @Override
     public void completeTask(String userCode, Flow flow) {
+        // 查询用户角色
         User user = userService.findUserByCode(userCode);
         String assignee = userService.searchRoleCodeById(user.getUserId());
 
+        // 根据角色查看自身未完成的任务并完成任务
         TaskQuery query = taskService.createTaskQuery().taskAssignee(assignee);
 
         flow.setInstanceId(query.list().stream()
@@ -164,21 +197,37 @@ public class ActivitiServiceImpl implements ActivitiService {
 
         taskService.complete(query.list().get(0).getId());
 
+        // 更新工作流记录
         flowService.updateFlow(flow);
     }
 
+    /**
+     * 查看用户所有的流程任务
+     * @param roleCode
+     * @return
+     */
     @Override
     public List<Object> searchTask(String roleCode) {
         List<Object> result = new ArrayList<>();
-        result.addAll(runningTask(roleCode));
-        result.addAll(historyTask(roleCode));
+
+        List<Map<String, String>> taskNodes = searchAllTaskByDefinitionId();
+        result.addAll(runningTask(roleCode,taskNodes));
+        result.addAll(historyTask(roleCode,taskNodes));
         if(roleCode.equals("supper_manage")){
-            result.addAll(allTask(roleCode));
+            result.addAll(allTask(roleCode,taskNodes));
         }
-        return result;
+        return result.stream()
+                .distinct()
+                .collect(Collectors.toList());
     }
 
-    private List<Object> runningTask(String assignee){
+    /**
+     * 查询的是轮到用户完成任务的流程实例
+     * @param assignee
+     * @param taskNodes
+     * @return
+     */
+    private List<Object> runningTask(String assignee,List<Map<String, String>> taskNodes){
         TaskQuery runningQuery = taskService.createTaskQuery().taskAssignee(assignee);
         List<Task> runningTasks = runningQuery.list();
 
@@ -200,21 +249,18 @@ public class ActivitiServiceImpl implements ActivitiService {
                 taskMap.put("assignee",taskDTO.getAssignee());
 
                 // 获得流程的所有任务
-                List<Object> allTask = new ArrayList<>();
-                List<Task> tasks = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).list();
-                for (Task task1 : tasks) {
-                    Map<String, Object> taskInfo = new HashMap<>();
-                    taskInfo.put("taskId", task1.getId());
-                    taskInfo.put("taskName", task1.getName());
-                    taskInfo.put("assignee", task1.getAssignee());
-                    taskInfo.put("claimTime", task1.getClaimTime());
-                    allTask.add(taskInfo);
+                Flow flow = flowService.selectByInstanceId(task.getProcessInstanceId());
+                Integer contractId = flow.getContractId();
+                Integer state = flow.getState();
+
+                List<Map<String, String>> allTask = new ArrayList<>(taskNodes);
+                if(state == 0){
+                    allTask.removeIf(map -> map.get("taskName").equals("采购确认") || map.get("taskName").equals("入库确认"));
                 }
                 taskMap.put("allTask", allTask);
 
                 // 获得当前流程所属合同名称
-                String contractId = flowService.selectByInstanceId(task.getProcessInstanceId());
-                Contract contract = contractService.findContractById(Integer.valueOf(contractId));
+                Contract contract = contractService.findContractById(contractId);
                 taskMap.put("contractName", contract.getContractName());
 
                 taskMap.put("flag","进行中");
@@ -225,7 +271,13 @@ public class ActivitiServiceImpl implements ActivitiService {
         return result;
     }
 
-    private List<Object> historyTask(String assignee){
+    /**
+     * 查询的是用户历史流程实例
+     * @param assignee
+     * @param taskNodes
+     * @return
+     */
+    private List<Object> historyTask(String assignee,List<Map<String, String>> taskNodes){
         List<Object> list = new ArrayList<>();
 
         HistoricProcessInstanceQuery historicQuery = historyService.createHistoricProcessInstanceQuery()
@@ -239,23 +291,16 @@ public class ActivitiServiceImpl implements ActivitiService {
                 log.info(historicProcessInstance.getId());
                 taskMap.put("instanceId", historicProcessInstance.getId());
 
-                List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery()
-                        .processInstanceId(historicProcessInstance.getId())
-                        .list();
-                List<Map<String, Object>> allHisTask = new ArrayList<>();
-                for (HistoricTaskInstance historicTask : historicTasks) {
-                    Map<String, Object> taskHisInfo = new HashMap<>();
-                    taskHisInfo.put("taskId", historicTask.getId());
-                    taskHisInfo.put("taskName", historicTask.getName());
-                    taskHisInfo.put("assignee", historicTask.getAssignee());
-                    taskHisInfo.put("claimTime", historicTask.getClaimTime());
-                    allHisTask.add(taskHisInfo);
+                Flow flow = flowService.selectByInstanceId(historicProcessInstance.getId());
+                List<Map<String, String>> allTask = new ArrayList<>(taskNodes);
+                if(flow.getState() == 0){
+                    allTask.removeIf(map -> map.get("taskName").equals("采购确认") || map.get("taskName").equals("入库确认"));
                 }
-                taskMap.put("allTask",allHisTask);
+                taskMap.put("allTask",allTask);
 
                 // 获得当前流程所属合同名称
-                String contractId = flowService.selectByInstanceId(historicProcessInstance.getId());
-                Contract contract = contractService.findContractById(Integer.valueOf(contractId));
+                int contractId = flow.getContractId();
+                Contract contract = contractService.findContractById(contractId);
                 taskMap.put("contractName", contract.getContractName());
 
                 taskMap.put("flag","已结束");
@@ -266,10 +311,16 @@ public class ActivitiServiceImpl implements ActivitiService {
         return list;
     }
 
-    private List<Object> allTask(String assignee){
+    /**
+     * 超级管理员用于查询正在进行中的所有流程实例
+     * @param assignee
+     * @param taskNodes
+     * @return
+     */
+    private List<Object> allTask(String assignee,List<Map<String, String>> taskNodes){
         List<Object> list = new ArrayList<>();
         List<ProcessInstance> processInstances = runtimeService.createProcessInstanceQuery()
-                .processDefinitionId("test2:1:bdcff597-68a1-11ee-af2b-48a47209a1e7")
+                .processDefinitionId(deploymentId)
                 .list();
         for (ProcessInstance processInstance : processInstances){
             Map<String, Object> taskMap = new HashMap<>();
@@ -286,22 +337,18 @@ public class ActivitiServiceImpl implements ActivitiService {
             taskMap.put("task", taskDTO.getName());
             taskMap.put("assignee",taskDTO.getAssignee());
 
+            Flow flow = flowService.selectByInstanceId(processInstance.getId());
+
             // 获得流程的所有任务
-            List<Object> allTask = new ArrayList<>();
-            List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstance.getProcessInstanceId()).list();
-            for (Task task1 : tasks) {
-                Map<String, Object> taskInfo = new HashMap<>();
-                taskInfo.put("taskId", task1.getId());
-                taskInfo.put("taskName", task1.getName());
-                taskInfo.put("assignee", task1.getAssignee());
-                taskInfo.put("claimTime", task1.getClaimTime());
-                allTask.add(taskInfo);
+            List<Map<String, String>> allTask = new ArrayList<>(taskNodes);
+            if(flow.getState() == 0){
+                allTask.removeIf(map -> map.get("taskName").equals("采购确认") || map.get("taskName").equals("入库确认"));
             }
             taskMap.put("allTask", allTask);
 
             // 获得当前流程所属合同名称
-            String contractId = flowService.selectByInstanceId(processInstance.getId());
-            Contract contract = contractService.findContractById(Integer.valueOf(contractId));
+            int contractId = flow.getContractId();
+            Contract contract = contractService.findContractById(contractId);
             taskMap.put("contractName", contract.getContractName());
 
             taskMap.put("flag","进行中");
@@ -311,28 +358,30 @@ public class ActivitiServiceImpl implements ActivitiService {
         return list;
     }
 
-    private List<Object> searchAllTaskByDefinitionId(){
-        List<Object> allTask = new ArrayList<>();
+    /**
+     * 根据部署的流程定义id查询该流程的所有任务列表
+     * @return
+     */
+    private List<Map<String, String>> searchAllTaskByDefinitionId(){
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
+                .processDefinitionId(deploymentId)
+                .singleResult();
+        List<Map<String, String>> taskNodes = new ArrayList<>();
 
-        List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery()
-                .processDefinitionId("test2:1:bdcff597-68a1-11ee-af2b-48a47209a1e7")
-                .list();
 
-        for (HistoricTaskInstance historicTask : historicTasks) {
-            Task task = taskService.newTask(historicTask.getId());
-            task.setName(historicTask.getName());
-            task.setAssignee(historicTask.getAssignee());
+        if (processDefinition != null) {
+            List<UserTask> userTasks = repositoryService.getBpmnModel(deploymentId)
+                    .getMainProcess().findFlowElementsOfType(UserTask.class);
 
-            TaskDTO taskDTO = new TaskDTO();
-            BeanUtils.copyProperties(task,taskDTO);
-
-            Map<String, Object> taskInfo = new HashMap<>();
-//            taskInfo.put("taskId", taskDTO.getId());
-            taskInfo.put("taskName", taskDTO.getName());
-            taskInfo.put("assignee", taskDTO.getAssignee());
-            allTask.add(taskInfo);
+            for (UserTask userTask : userTasks) {
+                Map<String, String> taskInfo = new HashMap<>();
+                taskInfo.put("taskName",userTask.getName());
+                taskInfo.put("taskAssignee",userTask.getAssignee());
+                taskInfo.put("taskId",userTask.getId());
+                taskNodes.add(taskInfo);
+            }
         }
 
-        return allTask;
+        return taskNodes;
     }
 }

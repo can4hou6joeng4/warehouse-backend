@@ -76,8 +76,9 @@ public class InStoreController {
         //执行业务
         Result result = inStoreService.confirmInStore(inStore);
 
+        // 完成流程任务
         Flow flow = new Flow();
-        flow.setOutStoreId(inStore.getInsId());
+        flow.setInStoreId(inStore.getInsId());
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
         activitiService.completeTask(userCode, flow);
         //响应

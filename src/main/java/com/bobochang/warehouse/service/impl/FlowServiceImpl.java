@@ -36,7 +36,7 @@ public class FlowServiceImpl implements FlowService {
     }
 
     @Override
-    public String selectByInstanceId(String instanceId) {
+    public Flow selectByInstanceId(String instanceId) {
         return flowMapper.selectByInstanceId(instanceId);
     }
 }

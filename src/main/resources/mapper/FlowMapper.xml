@@ -16,8 +16,8 @@
     where instance_id = #{instanceId}
   </update>
 
-  <select id="selectByInstanceId" parameterType="java.lang.String" resultType="java.lang.String">
-    select contract_id from flow
+  <select id="selectByInstanceId" parameterType="java.lang.String" resultType="com.bobochang.warehouse.entity.Flow">
+    select * from flow
     where instance_id = #{instanceId}
   </select>
 

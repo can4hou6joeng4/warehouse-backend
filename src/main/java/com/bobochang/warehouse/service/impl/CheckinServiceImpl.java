@@ -143,7 +143,7 @@ public class CheckinServiceImpl implements CheckinService {
                 entity.setRisk(risk);
                 entity.setDate(DateUtil.today());
                 entity.setCreateTime(d1);
-//                checkinMapper.insert(entity);
+                checkinMapper.insert(entity);
                 return Result.ok("签到成功");
             }else{
                 return Result.err(500,"人脸识别失败，签到失败");

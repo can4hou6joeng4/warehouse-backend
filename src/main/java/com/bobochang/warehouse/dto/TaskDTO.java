@@ -14,6 +14,8 @@ public class TaskDTO {
     private String name;
     private String assignee;
     // Other relevant fields
-
+    private String taskAssignee;
+    private String taskId;
+    private String taskName;
     // Getters and setters
 }
