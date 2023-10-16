@@ -52,6 +52,17 @@ public class BusLogAop implements Ordered {
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) {
         log.info("----BusAop 环绕通知 start");
+        // 获取方法参数
+        Object[] args = proceedingJoinPoint.getArgs();
+
+        // 寻找operPerson的值
+        String operPerson = null;
+        for (Object arg : args) {
+            if (arg instanceof String) {
+                operPerson = (String) arg;
+                break;
+            }
+        }
         //执行目标方法
         Object result = null;
         try {
@@ -67,7 +78,6 @@ public class BusLogAop implements Ordered {
         BusLogDao busLogBean = new BusLogDao();
         String logName = anno1.name();
         String logDescrip = anno2.descrip();
-        String operPerson = anno2.operPerson();
         busLogBean.setBusName(logName);
         busLogBean.setBusDescrip(logDescrip);
         busLogBean.setOperPerson(operPerson);
@@ -80,9 +90,9 @@ public class BusLogAop implements Ordered {
 
         File folder = new File(logFolder);
         File file = new File(logFilePath);
+
         try {
             if (!folder.exists()) {
-                // 如果文件夹不存在，创建文件夹
                 if (folder.mkdirs()) {
                     log.info("文件夹已创建: " + logFolder);
                 } else {
@@ -91,7 +101,6 @@ public class BusLogAop implements Ordered {
             }
 
             if (!file.exists()) {
-                // 如果文件不存在，创建文件
                 if (file.createNewFile()) {
                     log.info("文件已创建: " + logFilePath);
                 } else {
@@ -99,9 +108,12 @@ public class BusLogAop implements Ordered {
                 }
             }
 
+            // 在text末尾添加换行符
+            String textWithNewLine = text + "\n";
+
             // 使用FileOutputStream追加内容
             outputStream = new FileOutputStream(file, true);
-            outputStream.write(text.getBytes(StandardCharsets.UTF_8));
+            outputStream.write(textWithNewLine.getBytes(StandardCharsets.UTF_8));
 
         } catch (IOException e) {
             e.printStackTrace();
