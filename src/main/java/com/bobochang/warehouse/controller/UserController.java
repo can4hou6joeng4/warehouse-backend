@@ -1,5 +1,6 @@
 package com.bobochang.warehouse.controller;
 
+import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.dto.AssignRoleDto;
 import com.bobochang.warehouse.entity.*;
@@ -9,6 +10,7 @@ import com.bobochang.warehouse.service.RoleService;
 import com.bobochang.warehouse.service.UserService;
 import com.bobochang.warehouse.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -22,6 +24,8 @@ import java.util.List;
  */
 @RequestMapping("/user")
 @RestController
+@Transactional
+@BusLog(name = "用户管理")
 public class UserController {
 
     @Autowired
@@ -66,6 +70,7 @@ public class UserController {
      * 将请求头Token的值即客户端归还的token赋值给参数变量token;
      */
     @PostMapping("/addUser")
+    @BusLog(descrip = "添加用户")
     public Result addUser(@RequestBody User user,
                           @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         //获取当前登录的用户
@@ -86,6 +91,7 @@ public class UserController {
      * 将请求头Token的值即客户端归还的token赋值给参数变量token;
      */
     @PutMapping("/updateState")
+    @BusLog(descrip = "修改用户状态")
     public Result updateUserState(@RequestBody User user,
                                   @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         //获取当前登录的用户
@@ -108,6 +114,7 @@ public class UserController {
      * 删除用户的url接口/user/deleteUser/{userId}
      */
     @DeleteMapping("/deleteUser/{userId}")
+    @BusLog(descrip = "删除用户")
     public Result deleteUser(@PathVariable Integer userId) {
         //执行业务
         userService.deleteUserById(userId);
@@ -123,6 +130,7 @@ public class UserController {
      * 将请求头Token的值即客户端归还的token赋值给参数变量token;
      */
     @PutMapping("/updateUser")
+    @BusLog(descrip = "修改用户")
     public Result updateUser(@RequestBody User user,
                              @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         //获取当前登录的用户
@@ -143,6 +151,7 @@ public class UserController {
      * 重置密码的url接口/user/updatePwd/{userId}
      */
     @PutMapping("/updatePwd/{userId}")
+    @BusLog(descrip = "重置密码")
     public Result resetPassWord(@PathVariable Integer userId) {
         //执行业务
         Result result = userService.resetPwd(userId);
@@ -168,7 +177,8 @@ public class UserController {
      * 封装到参数AssignRoleDto对象中;
      */
     @RequestMapping("/assignRole")
-    public Result assignRole(@RequestBody AssignRoleDto assignRoleDto){
+    @BusLog(descrip = "分配角色")
+    public Result assignRole(@RequestBody AssignRoleDto assignRoleDto) {
         //执行业务
         roleService.assignRole(assignRoleDto);
         //响应
@@ -177,11 +187,12 @@ public class UserController {
 
     /**
      * 查询用户的详细信息
+     *
      * @param token
      * @return
      */
     @GetMapping("/user-info")
-    public Result getUserInfo(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
+    public Result getUserInfo(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         CurrentUser currentUser = tokenUtils.getCurrentUser(token);
         int userId = currentUser.getUserId();
         return userService.searchById(userId);

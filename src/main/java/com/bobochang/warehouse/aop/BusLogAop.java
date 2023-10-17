@@ -6,23 +6,20 @@ import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.entity.BusLogDao;
 import com.bobochang.warehouse.service.impl.BusLogServiceImpl;
 import com.bobochang.warehouse.utils.OperPersonHolder;
-import com.bobochang.warehouse.utils.TokenUtils;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.el.parser.Token;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
@@ -75,8 +72,8 @@ public class BusLogAop implements Ordered {
         busLogBean.setBusName(logName);
         busLogBean.setBusDescrip(logDescrip);
         busLogBean.setOperPerson(operPerson);
-        busLogBean.setOperTime(new Date());
-        String text = operPerson + "-" + logName + "-" + logDescrip + "-" + new Date();
+        busLogBean.setOperTime(DateUtil.now());
+        String text = operPerson + "-" + logName + "-" + logDescrip + "-" + DateUtil.now();
         //把参数报文写入到文件中
         OutputStream outputStream = null;
         String logFolder = path + logName;

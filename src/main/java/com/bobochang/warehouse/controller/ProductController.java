@@ -1,12 +1,15 @@
 package com.bobochang.warehouse.controller;
 
+import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.*;
+import com.bobochang.warehouse.utils.OperPersonHolder;
 import com.bobochang.warehouse.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +21,8 @@ import java.util.List;
 
 @RequestMapping("/product")
 @RestController
+@Transactional
+@BusLog(name = "材料管理")
 public class ProductController {
 
     //注入StoreService
@@ -54,11 +59,11 @@ public class ProductController {
 
     /**
      * 查询所有仓库的url接口/product/store-list
-     *
+     * <p>
      * 返回值Result对象给客户端响应查询到的List<Store>;
      */
     @RequestMapping("/store-list")
-    public Result storeList(){
+    public Result storeList() {
         //执行业务
         List<Store> storeList = storeService.queryAllStore();
         //响应
@@ -67,11 +72,11 @@ public class ProductController {
 
     /**
      * 查询所有品牌的url接口/product/brand-list
-     *
+     * <p>
      * 返回值Result对象给客户端响应查询到的List<Brand>;
      */
     @RequestMapping("/brand-list")
-    public Result brandList(){
+    public Result brandList() {
         //执行业务
         List<Brand> brandList = brandService.queryAllBrand();
         //响应
@@ -80,11 +85,11 @@ public class ProductController {
 
     /**
      * 查询所有商品分类树的url接口/product/category-tree
-     *
+     * <p>
      * 返回值Result对象给客户端响应查询到的所有商品分类树List<ProductType>;
      */
     @RequestMapping("/category-tree")
-    public Result categoryTree(){
+    public Result categoryTree() {
         //执行业务
         List<ProductType> typeTreeList = productTypeService.allProductTypeTree();
         //响应
@@ -93,11 +98,11 @@ public class ProductController {
 
     /**
      * 查询所有供应商的url接口/product/supply-list
-     *
+     * <p>
      * 返回值Result对象给客户端响应查询到的List<Supply>;
      */
     @RequestMapping("/supply-list")
-    public Result supplyList(){
+    public Result supplyList() {
         //执行业务
         List<Supply> supplyList = supplyService.queryAllSupply();
         //响应
@@ -106,11 +111,11 @@ public class ProductController {
 
     /**
      * 查询所有产地的url接口/product/place-list
-     *
+     * <p>
      * 返回值Result对象给客户端响应查询到的List<Place>;
      */
     @RequestMapping("/place-list")
-    public Result placeList(){
+    public Result placeList() {
         //执行业务
         List<Place> placeList = placeService.queryAllPlace();
         //响应
@@ -119,11 +124,11 @@ public class ProductController {
 
     /**
      * 查询所有单位的url接口/product/unit-list
-     *
+     * <p>
      * 返回值Result对象给客户端响应查询到的List<Unit>;
      */
     @RequestMapping("/unit-list")
-    public Result unitList(){
+    public Result unitList() {
         //执行业务
         List<Unit> unitList = unitService.queryAllUnit();
         //响应
@@ -132,16 +137,16 @@ public class ProductController {
 
     /**
      * 分页查询商品的url接口/product/product-page-list
-     *
+     * <p>
      * 参数Page对象用于接收请求参数页码pageNum、每页行数pageSize;
      * 参数Product对象用于接收请求参数仓库id storeId、商品名称productName、
      * 品牌名称brandName、分类名称typeName、供应商名称supplyName、产地名称
      * placeName、上下架状态upDownState、是否过期isOverDate;
-     *
+     * <p>
      * 返回值Result对象向客户端响应组装了所有分页信息的Page对象;
      */
     @RequestMapping("/product-page-list")
-    public Result productPageList(Page page, Product product){
+    public Result productPageList(Page page, Product product) {
         //执行业务
         page = productService.queryProductPage(page, product);
         //响应
@@ -157,14 +162,14 @@ public class ProductController {
 
     /**
      * 上传图片的url接口/product/img-upload
-     *
+     * <p>
      * 参数MultipartFile file对象封装了上传的图片;
      *
      * @CrossOrigin表示该url接口允许跨域请求;
      */
     @CrossOrigin
     @PostMapping("/img-upload")
-    public Result uploadImg(MultipartFile file){
+    public Result uploadImg(MultipartFile file) {
 
         try {
             //拿到图片上传到的目录(类路径classes下的static/img/upload)的File对象
@@ -191,11 +196,13 @@ public class ProductController {
      * 将请求头Token的值即客户端归还的token赋值给参数变量token;
      */
     @RequestMapping("/product-add")
+    @BusLog(descrip = "添加材料")
     public Result addProduct(@RequestBody Product product,
-                             @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
+                             @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
 
         //获取当前登录的用户
         CurrentUser currentUser = tokenUtils.getCurrentUser(token);
+        OperPersonHolder.setOperPerson(currentUser.getUserName());
         //获取当前登录的用户id,即添加商品的用户id
         int createBy = currentUser.getUserId();
         product.setCreateBy(createBy);
@@ -213,7 +220,8 @@ public class ProductController {
      * @RequestBody Product product用于接收并封装请求json数据;
      */
     @RequestMapping("/state-change")
-    public Result changeProductState(@RequestBody Product product){
+    @BusLog(descrip = "修改商品状态")
+    public Result changeProductState(@RequestBody Product product) {
         //执行业务
         Result result = productService.updateProductState(product);
         //响应
@@ -224,7 +232,7 @@ public class ProductController {
      * 删除商品的url接口/product/product-delete/{productId}
      */
     @RequestMapping("/product-delete/{productId}")
-    public Result deleteProduct(@PathVariable Integer productId){
+    public Result deleteProduct(@PathVariable Integer productId) {
         //执行业务
         Result result = productService.deleteProduct(productId);
         //响应
@@ -240,7 +248,7 @@ public class ProductController {
      */
     @RequestMapping("/product-update")
     public Result updateProduct(@RequestBody Product product,
-                                @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
+                                @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
 
         //获取当前登录的用户
         CurrentUser currentUser = tokenUtils.getCurrentUser(token);

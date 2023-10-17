@@ -1,5 +1,6 @@
 package com.bobochang.warehouse.controller;
 
+import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.dto.AssignAuthDto;
 import com.bobochang.warehouse.entity.CurrentUser;
@@ -8,8 +9,10 @@ import com.bobochang.warehouse.entity.Role;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.AuthService;
 import com.bobochang.warehouse.service.RoleService;
+import com.bobochang.warehouse.utils.OperPersonHolder;
 import com.bobochang.warehouse.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -18,6 +21,7 @@ import java.util.List;
 
 @RequestMapping("/role")
 @RestController
+@Transactional
 public class RoleController {
 
     @Autowired
@@ -64,10 +68,12 @@ public class RoleController {
      * 将请求头Token的值即客户端归还的token赋值给参数变量token;
      */
     @RequestMapping("/role-add")
+    @BusLog(descrip = "添加角色")
     public Result addRole(@RequestBody Role role,
                           @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         //获取当前登录的用户
         CurrentUser currentUser = tokenUtils.getCurrentUser(token);
+        OperPersonHolder.setOperPerson(currentUser.getUserName());
         //获取当前登录的用户id,即创建新角色的用户id
         int createBy = currentUser.getUserId();
         role.setCreateBy(createBy);
@@ -85,6 +91,7 @@ public class RoleController {
      * 将请求头Token的值即客户端归还的token赋值给参数变量token;
      */
     @RequestMapping("/role-state-update")
+    @BusLog(descrip = "修改角色状态")
     public Result updateRoleState(@RequestBody Role role,
                                   @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         //获取当前登录的用户
@@ -125,6 +132,7 @@ public class RoleController {
      * 封装到参数AssignAuthDto对象中;
      */
     @RequestMapping("/auth-grant")
+    @BusLog(descrip = "为角色分配权限")
     public Result assignAuth(@RequestBody AssignAuthDto assignAuthDto) {
         //执行业务
         authService.assignAuth(assignAuthDto);
@@ -136,6 +144,7 @@ public class RoleController {
      * 删除角色的url接口/role/role-delete/{roleId}
      */
     @RequestMapping("/role-delete/{roleId}")
+    @BusLog(descrip = "删除角色")
     public Result deleteRole(@PathVariable Integer roleId) {
         //执行业务
         roleService.deleteRole(roleId);
@@ -151,6 +160,7 @@ public class RoleController {
      * 将请求头Token的值即客户端归还的token赋值给参数变量token;
      */
     @RequestMapping("/role-update")
+    @BusLog(descrip = "修改角色")
     public Result updateRole(@RequestBody Role role,
                              @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         //获取当前登录的用户

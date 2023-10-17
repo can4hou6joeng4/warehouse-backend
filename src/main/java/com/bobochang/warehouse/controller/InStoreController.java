@@ -1,6 +1,7 @@
 package com.bobochang.warehouse.controller;
 
 
+import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.entity.Flow;
 import com.bobochang.warehouse.entity.InStore;
@@ -12,6 +13,7 @@ import com.bobochang.warehouse.service.InStoreService;
 import com.bobochang.warehouse.service.StoreService;
 import com.bobochang.warehouse.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import java.util.List;
 
 @RequestMapping("/instore")
 @RestController
+@BusLog(name = "入库管理")
 public class InStoreController {
 
     //注入StoreService
@@ -42,7 +45,7 @@ public class InStoreController {
      * 查询所有仓库的url接口/instore/store-list
      */
     @RequestMapping("/store-list")
-    public Result storeList(){
+    public Result storeList() {
         //执行业务
         List<Store> storeList = storeService.queryAllStore();
         //响应
@@ -51,15 +54,15 @@ public class InStoreController {
 
     /**
      * 分页查询入库单的url接口/instore/instore-page-list
-     *
+     * <p>
      * 参数Page对象用于接收请求参数页码pageNum、每页行数pageSize;
      * 参数InStore对象用于接收请求参数仓库id storeId、商品名称productName、
      * 起止时间startTime和endTime;
-     *
+     * <p>
      * 返回值Result对象向客户端响应组装了所有分页信息的Page对象;
      */
     @RequestMapping("/instore-page-list")
-    public Result inStorePageList(Page page, InStore inStore){
+    public Result inStorePageList(Page page, InStore inStore) {
         //执行业务
         page = inStoreService.queryInStorePage(page, inStore);
         //响应
@@ -72,7 +75,9 @@ public class InStoreController {
      * @RequestBody InStore inStore将请求传递的json数据封装到参数InStore对象;
      */
     @RequestMapping("/instore-confirm")
-    public Result confirmInStore(@RequestBody InStore inStore,@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
+    @Transactional
+    @BusLog(descrip = "入库确认")
+    public Result confirmInStore(@RequestBody InStore inStore, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         //执行业务
         Result result = inStoreService.confirmInStore(inStore);
 

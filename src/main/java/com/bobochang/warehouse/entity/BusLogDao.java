@@ -20,5 +20,5 @@ public class BusLogDao {
 
     private String operPerson;
 
-    private Date operTime;
+    private String operTime;
 }

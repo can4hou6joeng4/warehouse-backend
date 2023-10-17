@@ -124,6 +124,7 @@ public class LoginController {
                     //生成token并响应给前端
                     CurrentUser currentUser = new CurrentUser(user.getUserId(), user.getUserCode(), user.getUserName());
                     String token = tokenUtils.loginSign(currentUser, user.getUserPwd());
+                    OperPersonHolder.setOperPerson(currentUser.getUserName());
                     return Result.ok("登录成功！", token);
                 } else {//查到的用户的密码和用户录入的密码不同
                     return Result.err(Result.CODE_ERR_BUSINESS, "密码不正确！");

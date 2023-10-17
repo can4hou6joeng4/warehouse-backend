@@ -1,5 +1,6 @@
 package com.bobochang.warehouse.controller;
 
+import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.entity.Store;
 import com.bobochang.warehouse.page.Page;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RequestMapping("/store")
 @RestController
+@BusLog(name = "仓库管理")
 public class StoreController {
 
     //注入StoreService
@@ -54,6 +56,7 @@ public class StoreController {
      * @RequestBody Store store将请求传递的json数据封装到参数Store对象;
      */
     @RequestMapping("/store-add")
+    @BusLog(descrip = "添加仓库")
     public Result addStore(@RequestBody Store store) {
         //执行业务
         Result result = storeService.saveStore(store);
@@ -67,6 +70,7 @@ public class StoreController {
      * @RequestBody Store store将请求传递的json数据封装到参数Store对象;
      */
     @RequestMapping("/store-update")
+    @BusLog(descrip = "修改仓库")
     public Result updateStore(@RequestBody Store store) {
         //执行业务
         Result result = storeService.updateStore(store);
@@ -80,6 +84,7 @@ public class StoreController {
      * @PathVariable Integer storeId将路径占位符storeId的值赋值给参数变量storeId;
      */
     @RequestMapping("/store-delete/{storeId}")
+    @BusLog(descrip = "删除仓库")
     public Result deleteStore(@PathVariable Integer storeId) {
         //执行业务
         Result result = storeService.deleteStore(storeId);
@@ -97,6 +102,7 @@ public class StoreController {
      * 返回值Result对象向客户端响应组装了当前页数据的List;
      */
     @RequestMapping("/exportTable")
+    @BusLog(descrip = "导出仓库数据")
     public Result exportTable(Page page, Store store) {
         //分页查询仓库
         page = storeService.queryStorePage(page, store);

@@ -1,5 +1,6 @@
 package com.bobochang.warehouse.controller;
 
+import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.Result;
@@ -16,6 +17,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +37,8 @@ import java.util.List;
  */
 @RequestMapping("/contract")
 @RestController
+@Transactional
+@BusLog(name = "合同管理")
 public class ContractController {
 
     @Autowired
@@ -53,23 +57,26 @@ public class ContractController {
      * 返回值Result对象向客户端响应组装了所有分页信息的Page对象;
      */
     @GetMapping("/contract-list")
-    public Result findAllContract(Page page,Contract contract) {
+    public Result findAllContract(Page page, Contract contract) {
         page = contractService.queryContractPage(page, contract);
         return Result.ok(page);
     }
 
     @PostMapping("/addContract")
+    @BusLog(descrip = "添加合同")
     public Result addContract(@RequestBody Contract contract) {
         return contractService.saveContract(contract);
     }
 
     @PutMapping("/updateState")
+    @BusLog(descrip = "更新合同状态")
     public Result updateContractState(@RequestBody Contract contract) {
         contract.setUpdateTime(new Date());
         return contractService.updateContractState(contract);
     }
 
     @PutMapping("/updateContract")
+    @BusLog(descrip = "更新合同")
     public Result updateContract(@RequestBody Contract contract) {
         contract.setUpdateTime(new Date());
         return contractService.updateContractName(contract);
@@ -77,12 +84,14 @@ public class ContractController {
 
     /**
      * 合同上传文件的接口
+     *
      * @param file 上传的文件
      * @return
      */
     @CrossOrigin
     @PostMapping("/img-upload")
-    public Result uploadImg(MultipartFile file){
+    @BusLog(descrip = "上传合同文件")
+    public Result uploadImg(MultipartFile file) {
 
         try {
             //拿到图片上传到的目录(类路径classes下的static/img/upload)的File对象
@@ -111,7 +120,7 @@ public class ContractController {
      * 返回值Result对象向客户端响应组装了所有分页信息的Page对象;
      */
     @RequestMapping("/exportTable")
-        public Result exportTable(Page page, Contract contract) {
+    public Result exportTable(Page page, Contract contract) {
         //分页查询仓库
         page = contractService.queryContractPage(page, contract);
         //拿到当前页数据
@@ -122,12 +131,14 @@ public class ContractController {
 
     /**
      * 下载合同图片 /contract/download-image/{imgName}
+     *
      * @param imgName 图片名称
      * @return 图片资源文件
      * @throws IOException
      */
     @SneakyThrows
     @GetMapping("/download-image/{imgName}")
+    @BusLog(descrip = "下载合同图片")
     public ResponseEntity<Resource> downloadImage(@PathVariable String imgName) throws IOException {
         System.out.println(imgName);
         File uploadDirFile = ResourceUtils.getFile(uploadPath);
