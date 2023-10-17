@@ -51,9 +51,6 @@ public class BusLogAop implements Ordered {
     public Object around(ProceedingJoinPoint proceedingJoinPoint) {
         log.info("----BusAop 环绕通知 start");
 
-        // 获取operPerson的值
-        String operPerson = OperPersonHolder.getOperPerson();
-
         //执行目标方法
         Object result = null;
         try {
@@ -62,6 +59,8 @@ public class BusLogAop implements Ordered {
             throwable.printStackTrace();
         }
         //目标方法执行完成后，获取目标类、目标方法上的业务日志注解上的功能名称和功能描述
+        // 获取operPerson的值
+        String operPerson = OperPersonHolder.getOperPerson();
         Object target = proceedingJoinPoint.getTarget();
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
         BusLog anno1 = target.getClass().getAnnotation(BusLog.class);

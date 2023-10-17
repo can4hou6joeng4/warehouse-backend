@@ -1,7 +1,7 @@
 package com.bobochang.warehouse.utils;
 
 public class OperPersonHolder {
-    private static ThreadLocal<String> operPersonThreadLocal = new ThreadLocal<>();
+    private static InheritableThreadLocal<String> operPersonThreadLocal = new InheritableThreadLocal<>();
 
     public static void setOperPerson(String operPerson) {
         operPersonThreadLocal.set(operPerson);
