@@ -76,7 +76,7 @@ public class BusLogAop implements Ordered {
         busLogBean.setBusDescrip(logDescrip);
         busLogBean.setOperPerson(operPerson);
         busLogBean.setOperTime(new Date());
-        String text = operPerson + "-" + logName + "-" + new Date();
+        String text = operPerson + "-" + logName + "-" + logDescrip + "-" + new Date();
         //把参数报文写入到文件中
         OutputStream outputStream = null;
         String logFolder = path + logName;
