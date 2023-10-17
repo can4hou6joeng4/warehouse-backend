@@ -4,11 +4,14 @@ import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.dto.AssignRoleDto;
 import com.bobochang.warehouse.entity.*;
+import com.bobochang.warehouse.mapper.UserMapper;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.AuthService;
 import com.bobochang.warehouse.service.RoleService;
 import com.bobochang.warehouse.service.UserService;
+import com.bobochang.warehouse.utils.OperPersonHolder;
 import com.bobochang.warehouse.utils.TokenUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +29,7 @@ import java.util.List;
 @RestController
 @Transactional
 @BusLog(name = "用户管理")
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -36,6 +40,9 @@ public class UserController {
     private RoleService roleService;
     @Autowired
     private TokenUtils tokenUtils;
+    @Autowired
+    private UserMapper userMapper;
+
 
     /**
      * 加载当前登录用户权限(菜单)树的url接口/user/auth-list
@@ -179,6 +186,7 @@ public class UserController {
     @RequestMapping("/assignRole")
     @BusLog(descrip = "分配角色")
     public Result assignRole(@RequestBody AssignRoleDto assignRoleDto) {
+        log.info(OperPersonHolder.getOperPerson());
         //执行业务
         roleService.assignRole(assignRoleDto);
         //响应

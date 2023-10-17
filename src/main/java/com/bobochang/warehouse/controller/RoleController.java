@@ -22,6 +22,7 @@ import java.util.List;
 @RequestMapping("/role")
 @RestController
 @Transactional
+@BusLog(name = "角色管理")
 public class RoleController {
 
     @Autowired
@@ -134,6 +135,7 @@ public class RoleController {
     @RequestMapping("/auth-grant")
     @BusLog(descrip = "为角色分配权限")
     public Result assignAuth(@RequestBody AssignAuthDto assignAuthDto) {
+        System.out.println(OperPersonHolder.getOperPerson());
         //执行业务
         authService.assignAuth(assignAuthDto);
         //响应

@@ -166,7 +166,7 @@ public class CheckinServiceImpl implements CheckinService {
             MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
             requestBody.add("photo", new FileSystemResource(path));
             requestBody.add("userId", userId);
-            requestBody.add("userName","pengyuyan");
+            requestBody.add("userName","jiangwen");
 
             // 发送请求
             ResponseEntity<String> response = restTemplate.exchange(
@@ -180,7 +180,7 @@ public class CheckinServiceImpl implements CheckinService {
 
             // 处理响应结果
             if (response.getStatusCode().is2xxSuccessful()) {
-                if(String.valueOf(response.getBody()).equals("pengyuyan")){
+                if(String.valueOf(response.getBody()).equals("jiangwen")){
                     return true;
                 }
                 else{

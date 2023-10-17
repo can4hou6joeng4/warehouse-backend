@@ -98,7 +98,7 @@ public class ActivitiServiceImpl implements ActivitiService {
 
     /**
      * 查看用户是否有任务未完成
-     * @param userId
+     * @param userId 用户id
      * @return
      */
     @Override
@@ -135,7 +135,7 @@ public class ActivitiServiceImpl implements ActivitiService {
 
     /**
      * 开启流程实例
-     * @param map
+     * @param map 包括合同状态以及工作流的类型
      * @return
      */
     @Override
@@ -143,18 +143,17 @@ public class ActivitiServiceImpl implements ActivitiService {
         try{
             // 改变合同状态，将合同状态由未审核转为待结算，进而开启流程实例
             Contract contract = new Contract();
-            System.out.println(map.get("state"));
             contract.setContractId(Integer.valueOf(map.get("contractId")));
             contract.setContractState("1");
 
             contractService.updateContractState(contract);
             // 启动流程实例
             Map<String, Object> variables = new HashMap<>();
-            variables.put("produce_man", "produce_man");
-            variables.put("out_store", "out_store");
-            variables.put("supper_manage", "supper_manage");
-            variables.put("purchase_man", "purchase_man");
-            variables.put("in_store", "in_store");
+//            variables.put("produce_man", "produce_man");
+//            variables.put("out_store", "out_store");
+//            variables.put("supper_manage", "supper_manage");
+//            variables.put("purchase_man", "purchase_man");
+//            variables.put("in_store", "in_store");
             variables.put("status", Integer.valueOf(map.get("state")));
             ProcessInstance processInstance = runtimeService.startProcessInstanceById(deploymentId,variables);
 
@@ -179,8 +178,8 @@ public class ActivitiServiceImpl implements ActivitiService {
 
     /**
      * 完成流程中的任务
-     * @param userCode
-     * @param flow
+     * @param userCode 用户代码
+     * @param flow 流程实例
      */
     @Override
     public void completeTask(String userCode, Flow flow) {
@@ -203,7 +202,7 @@ public class ActivitiServiceImpl implements ActivitiService {
 
     /**
      * 查看用户所有的流程任务
-     * @param roleCode
+     * @param roleCode 用户代码
      * @return
      */
     @Override
@@ -223,9 +222,9 @@ public class ActivitiServiceImpl implements ActivitiService {
 
     /**
      * 查询的是轮到用户完成任务的流程实例
-     * @param assignee
-     * @param taskNodes
-     * @return
+     * @param assignee 用户角色信息
+     * @param taskNodes 所有任务列表
+     * @return list
      */
     private List<Object> runningTask(String assignee,List<Map<String, String>> taskNodes){
         TaskQuery runningQuery = taskService.createTaskQuery().taskAssignee(assignee);
@@ -250,17 +249,10 @@ public class ActivitiServiceImpl implements ActivitiService {
 
                 // 获得流程的所有任务
                 Flow flow = flowService.selectByInstanceId(task.getProcessInstanceId());
-                Integer contractId = flow.getContractId();
-                Integer state = flow.getState();
-
-                List<Map<String, String>> allTask = new ArrayList<>(taskNodes);
-                if(state == 0){
-                    allTask.removeIf(map -> map.get("taskName").equals("采购确认") || map.get("taskName").equals("入库确认"));
-                }
-                taskMap.put("allTask", allTask);
+                taskMap.put("allTask",differentTask(flow.getState(),taskNodes));
 
                 // 获得当前流程所属合同名称
-                Contract contract = contractService.findContractById(contractId);
+                Contract contract = contractService.findContractById(flow.getContractId());
                 taskMap.put("contractName", contract.getContractName());
 
                 taskMap.put("flag","进行中");
@@ -273,9 +265,9 @@ public class ActivitiServiceImpl implements ActivitiService {
 
     /**
      * 查询的是用户历史流程实例
-     * @param assignee
-     * @param taskNodes
-     * @return
+     * @param assignee 用户的角色信息
+     * @param taskNodes 所有任务列表
+     * @return list
      */
     private List<Object> historyTask(String assignee,List<Map<String, String>> taskNodes){
         List<Object> list = new ArrayList<>();
@@ -288,19 +280,13 @@ public class ActivitiServiceImpl implements ActivitiService {
             for (HistoricProcessInstance historicProcessInstance: historicProcessInstances){
                 Map<String, Object> taskMap = new HashMap<>();
 
-                log.info(historicProcessInstance.getId());
                 taskMap.put("instanceId", historicProcessInstance.getId());
 
                 Flow flow = flowService.selectByInstanceId(historicProcessInstance.getId());
-                List<Map<String, String>> allTask = new ArrayList<>(taskNodes);
-                if(flow.getState() == 0){
-                    allTask.removeIf(map -> map.get("taskName").equals("采购确认") || map.get("taskName").equals("入库确认"));
-                }
-                taskMap.put("allTask",allTask);
+                taskMap.put("allTask",differentTask(flow.getState(),taskNodes));
 
                 // 获得当前流程所属合同名称
-                int contractId = flow.getContractId();
-                Contract contract = contractService.findContractById(contractId);
+                Contract contract = contractService.findContractById(flow.getContractId());
                 taskMap.put("contractName", contract.getContractName());
 
                 taskMap.put("flag","已结束");
@@ -313,9 +299,9 @@ public class ActivitiServiceImpl implements ActivitiService {
 
     /**
      * 超级管理员用于查询正在进行中的所有流程实例
-     * @param assignee
-     * @param taskNodes
-     * @return
+     * @param assignee 用户角色信息
+     * @param taskNodes 所有任务的列表
+     * @return list
      */
     private List<Object> allTask(String assignee,List<Map<String, String>> taskNodes){
         List<Object> list = new ArrayList<>();
@@ -340,15 +326,10 @@ public class ActivitiServiceImpl implements ActivitiService {
             Flow flow = flowService.selectByInstanceId(processInstance.getId());
 
             // 获得流程的所有任务
-            List<Map<String, String>> allTask = new ArrayList<>(taskNodes);
-            if(flow.getState() == 0){
-                allTask.removeIf(map -> map.get("taskName").equals("采购确认") || map.get("taskName").equals("入库确认"));
-            }
-            taskMap.put("allTask", allTask);
+            taskMap.put("allTask", differentTask(flow.getState(), taskNodes));
 
             // 获得当前流程所属合同名称
-            int contractId = flow.getContractId();
-            Contract contract = contractService.findContractById(contractId);
+            Contract contract = contractService.findContractById(flow.getContractId());
             taskMap.put("contractName", contract.getContractName());
 
             taskMap.put("flag","进行中");
@@ -360,7 +341,7 @@ public class ActivitiServiceImpl implements ActivitiService {
 
     /**
      * 根据部署的流程定义id查询该流程的所有任务列表
-     * @return
+     * @return taskNodes 返回该流程定义的所有任务
      */
     private List<Map<String, String>> searchAllTaskByDefinitionId(){
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
@@ -383,5 +364,38 @@ public class ActivitiServiceImpl implements ActivitiService {
         }
 
         return taskNodes;
+    }
+
+    /**
+     * 区分不同流程实例的任务
+     * @param taskState 任务状态
+     * @param taskNodes 所有任务的列表
+     * @return allTask 返回当前流程实例的任务列表
+     */
+    private List<Map<String, String>> differentTask(Integer taskState, List<Map<String, String>> taskNodes){
+        List<Map<String, String>> allTask = new ArrayList<>(taskNodes);
+        if(taskState == 0){
+            allTask.removeIf(map -> map.get("taskName").equals("采购确认") || map.get("taskName").equals("入库确认"));
+        }
+        return allTask;
+    }
+
+    @Override
+    public void completeGroupTask(String userCode, Flow flow) {
+        // 查询用户角色
+        User user = userService.findUserByCode(userCode);
+        String assignee = userService.searchRoleCodeById(user.getUserId());
+
+        // 根据角色查看自身未完成的任务并完成任务
+        TaskQuery query = taskService.createTaskQuery().taskAssignee(assignee);
+
+        flow.setInstanceId(query.list().stream()
+                .map(Task::getProcessInstanceId)
+                .collect(Collectors.toList()).get(0));
+
+        taskService.complete(query.list().get(0).getId());
+
+        // 更新工作流记录
+        flowService.updateFlow(flow);
     }
 }

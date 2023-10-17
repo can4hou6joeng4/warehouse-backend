@@ -262,4 +262,20 @@ public class ProductController {
         //响应
         return result;
     }
+
+    /**
+     * 导出材料列表信息数据
+     * @param page
+     * @param product
+     * @return
+     */
+    @RequestMapping("/exportTable")
+    public Result exportTable(Page page, Product product) {
+        //分页查询仓库
+        page = productService.queryProductPage(page, product);
+        //拿到当前页数据
+        List<?> resultList = page.getResultList();
+        //响应
+        return Result.ok(resultList);
+    }
 }

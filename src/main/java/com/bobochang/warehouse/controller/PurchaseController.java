@@ -90,6 +90,7 @@ public class PurchaseController {
         // 完成流程任务
         Flow flow = new Flow();
         flow.setPurchaseId(purchase.getBuyId());
+
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
         activitiService.completeTask(userCode, flow);
 
@@ -137,5 +138,21 @@ public class PurchaseController {
 
         //响应
         return result;
+    }
+
+    /**
+     * 导出采购列表信息数据
+     * @param page
+     * @param purchase
+     * @return
+     */
+    @RequestMapping("/exportTable")
+    public Result exportTable(Page page, Purchase purchase) {
+        //分页查询仓库
+        page = purchaseService.queryPurchasePage(page, purchase);
+        //拿到当前页数据
+        List<?> resultList = page.getResultList();
+        //响应
+        return Result.ok(resultList);
     }
 }
