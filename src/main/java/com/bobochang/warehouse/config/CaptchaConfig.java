@@ -1,7 +1,6 @@
 package com.bobochang.warehouse.config;
 
 import com.bobochang.warehouse.utils.GlobalVariable;
-import com.bobochang.warehouse.utils.OperPersonHolder;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import org.springframework.context.annotation.Bean;
@@ -48,9 +47,5 @@ public class CaptchaConfig {
     public GlobalVariable globalVariable() {
         return new GlobalVariable();
     }
-//    @Bean
-//    public OperPersonHolder operPersonHolder() {
-//        return new OperPersonHolder();
-//    }
 
 }

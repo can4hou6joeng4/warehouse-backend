@@ -8,7 +8,6 @@ import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.ActivitiService;
 import com.bobochang.warehouse.service.OutStoreService;
 import com.bobochang.warehouse.service.StoreService;
-import com.bobochang.warehouse.utils.OperPersonHolder;
 import com.bobochang.warehouse.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,7 +53,6 @@ public class OutStoreController {
 
         //获取当前登录的用户
         CurrentUser currentUser = tokenUtils.getCurrentUser(token);
-        OperPersonHolder.setOperPerson(currentUser.getUserName());
         //获取当前登录的用户id,即添加出库单的用户id
         int createBy = currentUser.getUserId();
         outStore.setCreateBy(createBy);
@@ -101,7 +99,6 @@ public class OutStoreController {
     @Transactional
     @BusLog(descrip = "出库单确认")
     public Result confirmOutStore(@RequestBody OutStore outStore, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
-        OperPersonHolder.setOperPerson(tokenUtils.getCurrentUser(token).getUserName());
         //执行业务
         Result result = outStoreService.confirmOutStore(outStore);
 

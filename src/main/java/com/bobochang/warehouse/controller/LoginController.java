@@ -9,14 +9,11 @@ import com.bobochang.warehouse.entity.User;
 import com.bobochang.warehouse.service.UserService;
 import com.bobochang.warehouse.utils.DigestUtil;
 import com.bobochang.warehouse.utils.GlobalVariable;
-import com.bobochang.warehouse.utils.OperPersonHolder;
 import com.bobochang.warehouse.utils.TokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
 
 @RestController
 @Slf4j
@@ -65,9 +62,7 @@ public class LoginController {
                     //生成token并响应给前端
                     CurrentUser currentUser = new CurrentUser(user.getUserId(), user.getUserCode(), user.getUserName());
                     String token = tokenUtils.loginSign(currentUser, user.getUserPwd());
-//                    OperPersonHolder.setOperPerson(currentUser.getUserName());
                     globalVariable.setValue(currentUser.getUserName());
-                    System.out.println(OperPersonHolder.getOperPerson());
                     log.info("用户：" + currentUser.getUserName() + "登录成功");
                     return Result.ok("登录成功！", token);
                 } else {//查到的用户的密码和用户录入的密码不同
@@ -103,8 +98,6 @@ public class LoginController {
     @DeleteMapping("/logout")
     @BusLog(descrip = "用户注销")
     public Result logout(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String clientToken) {
-//        String operPerson = tokenUtils.getCurrentUser(clientToken).getUserName();
-//        OperPersonHolder.setOperPerson(operPerson);
         //从redis移除token
         stringRedisTemplate.delete(clientToken);
         log.info("用户：" + tokenUtils.getCurrentUser(clientToken).getUserName() + "退出系统");
@@ -132,7 +125,6 @@ public class LoginController {
                     //生成token并响应给前端
                     CurrentUser currentUser = new CurrentUser(user.getUserId(), user.getUserCode(), user.getUserName());
                     String token = tokenUtils.loginSign(currentUser, user.getUserPwd());
-                    OperPersonHolder.setOperPerson(currentUser.getUserName());
                     return Result.ok("登录成功！", token);
                 } else {//查到的用户的密码和用户录入的密码不同
                     return Result.err(Result.CODE_ERR_BUSINESS, "密码不正确！");

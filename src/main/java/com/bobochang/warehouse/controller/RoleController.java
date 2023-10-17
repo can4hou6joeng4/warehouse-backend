@@ -9,13 +9,11 @@ import com.bobochang.warehouse.entity.Role;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.AuthService;
 import com.bobochang.warehouse.service.RoleService;
-import com.bobochang.warehouse.utils.OperPersonHolder;
 import com.bobochang.warehouse.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -74,7 +72,6 @@ public class RoleController {
                           @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         //获取当前登录的用户
         CurrentUser currentUser = tokenUtils.getCurrentUser(token);
-        OperPersonHolder.setOperPerson(currentUser.getUserName());
         //获取当前登录的用户id,即创建新角色的用户id
         int createBy = currentUser.getUserId();
         role.setCreateBy(createBy);
@@ -135,7 +132,6 @@ public class RoleController {
     @RequestMapping("/auth-grant")
     @BusLog(descrip = "为角色分配权限")
     public Result assignAuth(@RequestBody AssignAuthDto assignAuthDto) {
-        System.out.println(OperPersonHolder.getOperPerson());
         //执行业务
         authService.assignAuth(assignAuthDto);
         //响应

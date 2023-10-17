@@ -9,7 +9,6 @@ import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.AuthService;
 import com.bobochang.warehouse.service.RoleService;
 import com.bobochang.warehouse.service.UserService;
-import com.bobochang.warehouse.utils.OperPersonHolder;
 import com.bobochang.warehouse.utils.TokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -186,7 +185,6 @@ public class UserController {
     @RequestMapping("/assignRole")
     @BusLog(descrip = "分配角色")
     public Result assignRole(@RequestBody AssignRoleDto assignRoleDto) {
-        log.info(OperPersonHolder.getOperPerson());
         //执行业务
         roleService.assignRole(assignRoleDto);
         //响应

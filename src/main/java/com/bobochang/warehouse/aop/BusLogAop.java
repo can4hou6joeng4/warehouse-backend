@@ -6,7 +6,6 @@ import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.entity.BusLogDao;
 import com.bobochang.warehouse.service.impl.BusLogServiceImpl;
 import com.bobochang.warehouse.utils.GlobalVariable;
-import com.bobochang.warehouse.utils.OperPersonHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -53,8 +52,6 @@ public class BusLogAop implements Ordered {
     public Object around(ProceedingJoinPoint proceedingJoinPoint) {
         log.info("----BusAop 环绕通知 start");
 
-        // 获取operPerson的值
-
         //执行目标方法
         Object result = null;
         try {
@@ -63,7 +60,7 @@ public class BusLogAop implements Ordered {
             throwable.printStackTrace();
         }
         //目标方法执行完成后，获取目标类、目标方法上的业务日志注解上的功能名称和功能描述
-//        String operPerson = OperPersonHolder.getOperPerson();
+        // 获取operPerson的值
         String operPerson = globalVariable.getValue();
         Object target = proceedingJoinPoint.getTarget();
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();

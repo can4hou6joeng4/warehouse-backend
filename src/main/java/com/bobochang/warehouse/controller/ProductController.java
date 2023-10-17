@@ -5,7 +5,6 @@ import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.*;
-import com.bobochang.warehouse.utils.OperPersonHolder;
 import com.bobochang.warehouse.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +13,6 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -202,7 +200,6 @@ public class ProductController {
 
         //获取当前登录的用户
         CurrentUser currentUser = tokenUtils.getCurrentUser(token);
-        OperPersonHolder.setOperPerson(currentUser.getUserName());
         //获取当前登录的用户id,即添加商品的用户id
         int createBy = currentUser.getUserId();
         product.setCreateBy(createBy);
