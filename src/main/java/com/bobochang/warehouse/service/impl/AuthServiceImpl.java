@@ -5,6 +5,7 @@ import com.bobochang.warehouse.dto.AssignAuthDto;
 import com.bobochang.warehouse.entity.Auth;
 import com.bobochang.warehouse.mapper.AuthMapper;
 import com.bobochang.warehouse.service.AuthService;
+import com.bobochang.warehouse.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
+
+    @Autowired
+    private RoleService roleService;
 
 
     /**
@@ -104,6 +108,11 @@ public class AuthServiceImpl implements AuthService {
         //循环添加角色权限(菜单)关系
         for (Integer authId : authIds) {
             authMapper.insertRoleAuth(roleId, authId);
+        }
+
+        List<String> list = roleService.findAllUserIdByRoleId(roleId);
+        for (String userId : list) {
+            redisTemplate.delete(userId+":authTree");
         }
     }
 

@@ -141,4 +141,8 @@
         where role_id = #{roleId}
     </update>
 
+    <select id="findAllUserIdByRoleId" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select user_id from db_warehouse.user_role where role_id = #{roleId}
+    </select>
+
 </mapper>

@@ -149,11 +149,11 @@ public class ActivitiServiceImpl implements ActivitiService {
             contractService.updateContractState(contract);
             // 启动流程实例
             Map<String, Object> variables = new HashMap<>();
-//            variables.put("produce_man", "produce_man");
-//            variables.put("out_store", "out_store");
-//            variables.put("supper_manage", "supper_manage");
-//            variables.put("purchase_man", "purchase_man");
-//            variables.put("in_store", "in_store");
+            variables.put("produce_man", "produce_man");
+            variables.put("out_store", "out_store");
+            variables.put("supper_manage", "supper_manage");
+            variables.put("purchase_man", "purchase_man");
+            variables.put("in_store", "in_store");
             variables.put("status", Integer.valueOf(map.get("state")));
             ProcessInstance processInstance = runtimeService.startProcessInstanceById(deploymentId,variables);
 

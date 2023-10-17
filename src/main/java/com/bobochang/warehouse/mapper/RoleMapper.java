@@ -49,4 +49,5 @@ public interface RoleMapper {
     //根据角色id修改角色描述的方法
     public int updateDescById(Role role);
 
+    List<String> findAllUserIdByRoleId(Integer roleId);
 }

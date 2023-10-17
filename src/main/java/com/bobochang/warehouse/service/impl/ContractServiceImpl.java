@@ -22,7 +22,7 @@ public class ContractServiceImpl implements ContractService {
     @Autowired
     private ContractMapper contractMapper;
 
-    @Value("${file.access-path}")
+    @Value("${file.upload-path}")
     private String accessPath;
 
     @Override

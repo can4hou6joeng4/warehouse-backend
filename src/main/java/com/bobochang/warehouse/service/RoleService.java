@@ -36,4 +36,5 @@ public interface RoleService {
     //修改角色描述的业务方法
     public Result updateRoleDesc(Role role);
 
+    List<String> findAllUserIdByRoleId(Integer roleId);
 }

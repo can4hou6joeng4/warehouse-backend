@@ -94,12 +94,8 @@ public class ContractController {
     public Result uploadImg(MultipartFile file) {
 
         try {
-            //拿到图片上传到的目录(类路径classes下的static/img/upload)的File对象
-            File uploadDirFile = ResourceUtils.getFile(uploadPath);
-            //拿到图片上传到的目录的磁盘路径
-            String uploadDirPath = uploadDirFile.getAbsolutePath();
             //拿到图片保存到的磁盘路径
-            String fileUploadPath = uploadDirPath + "\\" + file.getOriginalFilename();
+            String fileUploadPath = uploadPath + "\\" + file.getOriginalFilename();
             //保存图片
             file.transferTo(new File(fileUploadPath));
             //成功响应
@@ -140,12 +136,8 @@ public class ContractController {
     @GetMapping("/download-image/{imgName}")
     @BusLog(descrip = "下载合同图片")
     public ResponseEntity<Resource> downloadImage(@PathVariable String imgName) throws IOException {
-        System.out.println(imgName);
-        File uploadDirFile = ResourceUtils.getFile(uploadPath);
-        //拿到图片上传到的目录的磁盘路径
-        String uploadDirPath = uploadDirFile.getAbsolutePath();
         //拿到图片保存到的磁盘路径
-        String fileUploadPath = uploadDirPath + "\\" + imgName;
+        String fileUploadPath = uploadPath + "\\" + imgName;
         // 读取图片文件
         Resource resource = new FileSystemResource(fileUploadPath);
 

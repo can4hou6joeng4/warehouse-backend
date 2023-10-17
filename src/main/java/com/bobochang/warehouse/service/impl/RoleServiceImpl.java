@@ -130,4 +130,9 @@ public class RoleServiceImpl implements RoleService {
         }
         return Result.err(Result.CODE_ERR_BUSINESS, "角色修改失败！");
     }
+
+    @Override
+    public List<String> findAllUserIdByRoleId(Integer roleId) {
+        return roleMapper.findAllUserIdByRoleId(roleId);
+    }
 }
