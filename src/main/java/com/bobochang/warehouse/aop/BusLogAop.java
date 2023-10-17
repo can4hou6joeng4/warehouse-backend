@@ -5,6 +5,7 @@ import cn.hutool.core.date.DateUtil;
 import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.entity.BusLogDao;
 import com.bobochang.warehouse.service.impl.BusLogServiceImpl;
+import com.bobochang.warehouse.utils.OperPersonHolder;
 import com.bobochang.warehouse.utils.TokenUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -52,17 +53,10 @@ public class BusLogAop implements Ordered {
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) {
         log.info("----BusAop 环绕通知 start");
-        // 获取方法参数
-        Object[] args = proceedingJoinPoint.getArgs();
 
-        // 寻找operPerson的值
-        String operPerson = null;
-        for (Object arg : args) {
-            if (arg instanceof String) {
-                operPerson = (String) arg;
-                break;
-            }
-        }
+        // 获取operPerson的值
+        String operPerson = OperPersonHolder.getOperPerson();
+
         //执行目标方法
         Object result = null;
         try {

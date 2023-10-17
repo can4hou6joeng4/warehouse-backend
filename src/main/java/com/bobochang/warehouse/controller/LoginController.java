@@ -8,6 +8,7 @@ import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.entity.User;
 import com.bobochang.warehouse.service.UserService;
 import com.bobochang.warehouse.utils.DigestUtil;
+import com.bobochang.warehouse.utils.OperPersonHolder;
 import com.bobochang.warehouse.utils.TokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,7 @@ public class LoginController {
     @BusLog(descrip = "用户注销")
     public Result logout(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String clientToken) {
         String operPerson = tokenUtils.getCurrentUser(clientToken).getUserName();
+        OperPersonHolder.setOperPerson(operPerson);
         //从redis移除token
         stringRedisTemplate.delete(clientToken);
         log.info("用户：" + tokenUtils.getCurrentUser(clientToken).getUserName() + "退出系统");
