@@ -22,7 +22,7 @@ public interface ActivitiService {
     // 完成流程实例中的任务
     public void completeTask(String userCode, Flow flow);
 
-    void completeGroupTask(String userCode, Flow flow);
+    void completeTaskByAdmin(String userCode, Flow flow);
 
     // 查看用户所有流程实例的任务
     List<Object> searchTask(String roleCode);

@@ -109,4 +109,17 @@ public class ActivitiController {
         activitiService.completeTask(userCode, flow);
         return Result.ok();
     }
+
+    /**
+     * 管理员代替角色完成任务
+     * @param token
+     * @param flow 任务流记录
+     * @return
+     */
+    @PostMapping("/complete-task-admin")
+    public Result completeTaskByAdmin(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,@RequestBody Flow flow){
+        String userCode = tokenUtils.getCurrentUser(token).getUserCode();
+        activitiService.completeTaskByAdmin(userCode, flow);
+        return Result.ok();
+    }
 }

@@ -381,21 +381,21 @@ public class ActivitiServiceImpl implements ActivitiService {
     }
 
     @Override
-    public void completeGroupTask(String userCode, Flow flow) {
+    public void completeTaskByAdmin(String userCode, Flow flow) {
         // 查询用户角色
         User user = userService.findUserByCode(userCode);
         String assignee = userService.searchRoleCodeById(user.getUserId());
+        log.info(assignee);
+        if(!Objects.equals(assignee, "supper_manage")){
+            throw new RuntimeException("权限不足");
+        }else{
+            // 根据角色查看自身未完成的任务并完成任务
+            TaskQuery query = taskService.createTaskQuery().processInstanceId(flow.getInstanceId());
 
-        // 根据角色查看自身未完成的任务并完成任务
-        TaskQuery query = taskService.createTaskQuery().taskAssignee(assignee);
+            taskService.complete(query.list().get(0).getId());
 
-        flow.setInstanceId(query.list().stream()
-                .map(Task::getProcessInstanceId)
-                .collect(Collectors.toList()).get(0));
-
-        taskService.complete(query.list().get(0).getId());
-
-        // 更新工作流记录
-        flowService.updateFlow(flow);
+            // 更新工作流记录
+            flowService.updateFlow(flow);
+        }
     }
 }
