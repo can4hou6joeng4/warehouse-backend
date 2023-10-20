@@ -1,83 +1,22 @@
 package com.bobochang.warehouse.service.impl;
 
-
-import com.bobochang.warehouse.entity.InStore;
-import com.bobochang.warehouse.entity.Result;
-import com.bobochang.warehouse.mapper.InStoreMapper;
-import com.bobochang.warehouse.mapper.ProductMapper;
-import com.bobochang.warehouse.mapper.PurchaseMapper;
-import com.bobochang.warehouse.page.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.bobochang.warehouse.domain.InStore;
 import com.bobochang.warehouse.service.InStoreService;
+import com.bobochang.warehouse.mapper.InStoreMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import java.util.List;
-
+/**
+* @author magic'book
+* @description 针对表【in_store(入库单)】的数据库操作Service实现
+* @createDate 2023-10-19 17:22:39
+*/
 @Service
-public class InStoreServiceImpl implements InStoreService {
+public class InStoreServiceImpl extends ServiceImpl<InStoreMapper, InStore>
+    implements InStoreService{
 
-    //注入InStoreMapper
-    @Resource
-    private InStoreMapper inStoreMapper;
-
-    //注入PurchaseMapper
-    @Resource
-    private PurchaseMapper purchaseMapper;
-
-    //注入ProductMapper
-    @Resource
-    private ProductMapper productMapper;
-
-    //添加入库单的业务方法
-    @Transactional//事务处理
-    @Override
-    public Result saveInStore(InStore inStore, Integer buyId) {
-        //添加入库单
-        int i = inStoreMapper.insertInStore(inStore);
-        if(i>0){
-            //根据id将采购单状态改为已入库
-            int j = purchaseMapper.updateIsInById(buyId);
-            if(j>0){
-                return Result.ok("入库单添加成功！");
-            }
-            return Result.err(Result.CODE_ERR_BUSINESS, "入库单添加失败！");
-        }
-        return Result.err(Result.CODE_ERR_BUSINESS, "入库单添加失败！");
-    }
-
-    //分页查询入库单的业务方法
-    @Override
-    public Page queryInStorePage(Page page, InStore inStore) {
-
-        //查询入库单总行数
-        int inStoreCount = inStoreMapper.selectInStoreCount(inStore);
-
-        //分页查询入库单
-        List<InStore> inStoreList = inStoreMapper.selectInStorePage(page, inStore);
-
-        //将查询到的总行数和当前页数据封装到Page对象
-        page.setTotalNum(inStoreCount);
-        page.setResultList(inStoreList);
-
-        return page;
-    }
-
-    //确定入库的业务方法
-    @Transactional//事务处理
-    @Override
-    public Result confirmInStore(InStore inStore) {
-
-        //根据id将入库单状态改为已入库
-        int i = inStoreMapper.updateIsInById(inStore.getInsId());
-        if(i>0){
-            //根据商品id增加商品库存
-            int j = productMapper.addInventById(inStore.getProductId(), inStore.getInNum());
-            if(j>0){
-                return Result.ok("入库成功！");
-            }
-            return Result.err(Result.CODE_ERR_BUSINESS, "入库失败！");
-        }
-        return Result.err(Result.CODE_ERR_BUSINESS, "入库失败！");
-    }
 }
+
+
+
+

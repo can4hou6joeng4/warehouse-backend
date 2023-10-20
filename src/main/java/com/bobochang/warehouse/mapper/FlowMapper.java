@@ -1,36 +1,18 @@
 package com.bobochang.warehouse.mapper;
 
-import com.bobochang.warehouse.entity.Flow;
-import org.apache.ibatis.annotations.Mapper;
+import com.bobochang.warehouse.domain.Flow;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
+/**
+* @author magic'book
+* @description 针对表【flow】的数据库操作Mapper
+* @createDate 2023-10-19 17:22:39
+* @Entity generator.domain.Flow
+*/
+public interface FlowMapper extends BaseMapper<Flow> {
 
-@Mapper //如果不在 dao 层增加 @Mapper 注解，就在启动类增加扫描 dao 层的包
-public interface FlowMapper {
-
-    /**
-     * 根据用户名查询
-     * @param username
-     * @return
-     */
-//    FlowInfo getByUsername(String username);
-
-    /**
-     * 查询所有流程
-     * @return
-     */
-
-    //根据流程id查询
-//    FlowInfo findOneFlow(Integer id);
-
-//    Integer addDeployState(Flow flow);
-
-    //更新部署状态
-//    void updateDeployState(Integer id);
-
-    void insertFlow(Flow flow);
-
-    void updateFlow(Flow flow);
-
-    Flow selectByInstanceId(String instanceId);
 }
+
+
+
+

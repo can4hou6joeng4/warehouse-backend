@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.bobochang.warehouse.mapper.UnitMapper">
 
-    <!--
-      //查询所有单位的方法
-      public List<Unit> findAllUnit()
-    -->
-    <select id="findAllUnit" resultType="com.bobochang.warehouse.entity.Unit">
-        select * from unit
-    </select>
+    <resultMap id="BaseResultMap" type="com.bobochang.warehouse.domain.Unit">
+            <id property="unitId" column="unit_id" jdbcType="INTEGER"/>
+            <result property="unitName" column="unit_name" jdbcType="VARCHAR"/>
+            <result property="unitDesc" column="unit_desc" jdbcType="VARCHAR"/>
+    </resultMap>
 
+    <sql id="Base_Column_List">
+        unit_id,unit_name,unit_desc
+    </sql>
 </mapper>

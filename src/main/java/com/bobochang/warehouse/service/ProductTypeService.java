@@ -1,25 +1,13 @@
 package com.bobochang.warehouse.service;
 
+import com.bobochang.warehouse.domain.ProductType;
+import com.baomidou.mybatisplus.extension.service.IService;
 
-import com.bobochang.warehouse.entity.ProductType;
-import com.bobochang.warehouse.entity.Result;
+/**
+* @author magic'book
+* @description 针对表【product_type(商品分类表)】的数据库操作Service
+* @createDate 2023-10-19 17:22:39
+*/
+public interface ProductTypeService extends IService<ProductType> {
 
-import java.util.List;
-
-public interface ProductTypeService {
-
-    //查询所有商品分类树的业务方法
-    public List<ProductType> allProductTypeTree();
-
-    //校验分类编码是否已存在的业务方法
-    public Result queryTypeByCode(String typeCode);
-
-    //添加商品分类的业务方法
-    public Result saveProductType(ProductType productType);
-
-    //删除商品分类的业务方法
-    public Result removeProductType(Integer typeId);
-
-    //修改商品分类的业务方法
-    public Result updateProductType(ProductType productType);
 }

@@ -3,6 +3,7 @@ package com.bobochang.warehouse.config;
 import com.bobochang.warehouse.utils.GlobalVariable;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -47,5 +48,4 @@ public class CaptchaConfig {
     public GlobalVariable globalVariable() {
         return new GlobalVariable();
     }
-
 }

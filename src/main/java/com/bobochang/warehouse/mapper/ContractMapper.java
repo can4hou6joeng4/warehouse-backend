@@ -1,31 +1,18 @@
 package com.bobochang.warehouse.mapper;
 
-import com.bobochang.warehouse.entity.Contract;
-import com.bobochang.warehouse.page.Page;
-import org.apache.ibatis.annotations.Mapper;
+import com.bobochang.warehouse.domain.Contract;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
+/**
+* @author magic'book
+* @description 针对表【contract(合同表)】的数据库操作Mapper
+* @createDate 2023-10-19 17:22:39
+* @Entity generator.domain.Contract
+*/
+public interface ContractMapper extends BaseMapper<Contract> {
 
-@Mapper
-public interface ContractMapper {
-    // 根据合同 id 查询合同
-    public Contract findContractById(Integer contractId);
-
-    // 根据合同名称查询合同
-    public Contract findContractByName(String contractName);
-
-    // 查询合同总行数
-    public int selectContractCount(Contract contract);
-
-    // 分页查询合同
-    public List<Contract> selectContractPage(Page page, Contract contract);
-
-    // 添加合同
-    public int insertContract(Contract contract);
-
-    // 根据合同 id 修改合同状态
-    public int updateContractState(Contract contract);
-
-    // 根据合同 id 修改合同名称
-    public int updateNameById(Contract contract);
 }
+
+
+
+

@@ -1,14 +1,18 @@
 package com.bobochang.warehouse.mapper;
 
+import com.bobochang.warehouse.domain.Unit;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import com.bobochang.warehouse.entity.Unit;
-import org.apache.ibatis.annotations.Mapper;
+/**
+* @author magic'book
+* @description 针对表【unit(规格单位表)】的数据库操作Mapper
+* @createDate 2023-10-19 17:22:39
+* @Entity generator.domain.Unit
+*/
+public interface UnitMapper extends BaseMapper<Unit> {
 
-import java.util.List;
-
-@Mapper
-public interface UnitMapper {
-
-    //查询所有单位的方法
-    public List<Unit> findAllUnit();
 }
+
+
+
+
