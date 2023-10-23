@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bobochang.warehouse.mapper.FaceModelMapper">
 
-    <resultMap id="BaseResultMap" type="com.bobochang.warehouse.domain.FaceModel">
+    <resultMap id="BaseResultMap" type="com.bobochang.warehouse.entity.FaceModel">
             <result property="id" column="id" jdbcType="INTEGER"/>
             <result property="userId" column="user_id" jdbcType="INTEGER"/>
             <result property="faceModel" column="face_model" jdbcType="VARCHAR"/>

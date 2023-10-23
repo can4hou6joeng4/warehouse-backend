@@ -2,7 +2,7 @@ package com.bobochang.warehouse.controller;
 
 import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
-import com.bobochang.warehouse.domain.UserInfo;
+import com.bobochang.warehouse.entity.User;
 import com.bobochang.warehouse.entity.CurrentUser;
 import com.bobochang.warehouse.entity.LoginUser;
 import com.bobochang.warehouse.entity.Result;
@@ -53,7 +53,7 @@ public class LoginController {
 		  校验用户名密码:
 		 */
         //根据用户名查询用户
-        UserInfo user = userInfoService.findUserByCode(loginUser.getUserCode());
+        User user = userInfoService.findUserByCode(loginUser.getUserCode());
         if (user != null) {//查到了用户
             if (user.getUserState().equals(WarehouseConstants.USER_STATE_PASS)) {//查到的用户状态是已审核
                 //将用户录入的密码进行加密

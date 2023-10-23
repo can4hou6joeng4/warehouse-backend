@@ -1,81 +1,142 @@
 package com.bobochang.warehouse.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.bobochang.warehouse.domain.UserInfo;
 import com.bobochang.warehouse.entity.Result;
+import com.bobochang.warehouse.entity.Unit;
+import com.bobochang.warehouse.entity.User;
+import com.bobochang.warehouse.mapper.UnitMapper;
+import com.bobochang.warehouse.mapper.UserMapper;
 import com.bobochang.warehouse.page.Page;
+import com.bobochang.warehouse.service.UnitService;
 import com.bobochang.warehouse.service.UserInfoService;
-import com.bobochang.warehouse.mapper.UserInfoMapper;
+import com.bobochang.warehouse.utils.DigestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
-* @author magic'book
-* @description 针对表【user_info(用户表)】的数据库操作Service实现
-* @createDate 2023-10-19 17:22:39
-*/
+ * 2023/7/12 - 10:07
+ *
+ * @author bobochang
+ * @description
+ */
 @Service
-public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
-    implements UserInfoService{
+public class UserInfoServiceImpl extends ServiceImpl<UserMapper, User>
+        implements UserInfoService {
+
     @Autowired
-    private UserInfoMapper userInfoMapper;
+    private UserMapper userMapper;
 
     @Override
-    public UserInfo findUserByCode(String userCode) {
-        QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_code",userCode);
-        return userInfoMapper.selectOne(queryWrapper);
+    public User findUserByCode(String userCode) {
+        return userMapper.findUserByCode(userCode);
     }
 
     @Override
-    public Page queryUserPage(Page page, UserInfo user) {
-        return null;
+    public Page queryUserPage(Page page, User user) {
+        //查询用户总行数
+        int userCount = userMapper.selectUserCount(user);
+
+        //分页查询用户
+        List<User> userList = userMapper.selectUserPage(page, user);
+
+        //将查询到的总行数和当前页数据组装到Page对象
+        page.setTotalNum(userCount);
+        page.setResultList(userList);
+
+        return page;
     }
 
+    //添加用户的业务方法
     @Override
-    public Result saveUser(UserInfo user) {
-        return null;
+    public Result saveUser(User user) {
+        //根据用户名查询用户
+        User oldUser = userMapper.findUserByCode(user.getUserCode());
+        if(oldUser!=null){//用户已存在
+            return Result.err(Result.CODE_ERR_BUSINESS, "该用户已存在！");
+        }
+        //用户不存在,对密码加密,添加用户
+        String userPwd = DigestUtil.hmacSign(user.getUserPwd());
+        user.setUserPwd(userPwd);
+        userMapper.insertUser(user);
+        return Result.ok("添加用户成功！");
     }
 
+    //修改用户状态的业务方法
     @Override
-    public Result updateUserState(UserInfo user) {
-        return null;
+    public Result updateUserState(User user) {
+        //根据用户id修改用户状态
+        int i = userMapper.updateUserState(user);
+        if(i>0){
+            return Result.ok("修改成功！");
+        }
+        return Result.err(Result.CODE_ERR_BUSINESS, "修改失败！");
     }
 
+    //根据用户id删除用户的业务方法
     @Override
     public int deleteUserById(Integer userId) {
-        return 0;
+        //根据用户id修改用户状态为删除状态
+        return userMapper.setUserDelete(userId);
     }
 
+    //修改用户昵称的业务方法
     @Override
-    public Result updateUserName(UserInfo user) {
-        return null;
+    public Result updateUserName(User user) {
+        //根据用户id修改用户昵称
+        int i = userMapper.updateNameById(user);
+        if(i>0){//修改成功
+            return Result.ok("用户修改成功！");
+        }
+        //修改失败
+        return Result.err(Result.CODE_ERR_BUSINESS, "用户修改失败！");
     }
 
+    //重置密码的业务方法
     @Override
     public Result resetPwd(Integer userId) {
-        return null;
+
+        //创建User对象并保存用户id和加密后的重置密码123456
+        User user = new User();
+        user.setUserId(userId);
+        user.setUserPwd(DigestUtil.hmacSign("123456"));
+
+        //根据用户id修改密码
+        int i = userMapper.updatePwdById(user);
+
+        if(i>0){//密码修改成功
+            return Result.ok("密码重置成功！");
+        }
+        //密码修改失败
+        return Result.err(Result.CODE_ERR_BUSINESS, "密码重置失败！");
     }
 
+    /**
+     * 根据用户id查询用户的注册日期
+     * @param userId
+     * @return
+     */
     @Override
     public String searchUserHiredate(int userId) {
-        return null;
+        String hiredate= String.valueOf(userMapper.findUserById(userId).getCreateTime());
+        return hiredate;
     }
 
+    /**
+     * 按照用户id查询用户详细信息
+     * @param userId
+     * @return
+     */
     @Override
     public Result searchById(int userId) {
-        return null;
+        User user = userMapper.searchById(userId);
+        return Result.ok(user);
     }
 
     @Override
     public String searchRoleCodeById(int userId) {
-        return null;
+        return userMapper.searchRoleCodeById(userId);
     }
 }
-
-
-
-

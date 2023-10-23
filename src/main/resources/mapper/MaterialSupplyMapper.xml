@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bobochang.warehouse.mapper.MaterialSupplyMapper">
+
+    <resultMap id="BaseResultMap" type="com.bobochang.warehouse.entity.MaterialSupply">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="materialId" column="material_id" jdbcType="INTEGER"/>
+            <result property="supplyId" column="supply_id" jdbcType="INTEGER"/>
+            <result property="quotation" column="quotation" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,material_id,supply_id,
+        quotation
+    </sql>
+</mapper>

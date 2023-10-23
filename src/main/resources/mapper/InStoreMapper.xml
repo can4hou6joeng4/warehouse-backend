@@ -4,19 +4,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bobochang.warehouse.mapper.InStoreMapper">
 
-    <resultMap id="BaseResultMap" type="com.bobochang.warehouse.domain.InStore">
+    <resultMap id="BaseResultMap" type="com.bobochang.warehouse.entity.InStore">
             <id property="insId" column="ins_id" jdbcType="INTEGER"/>
             <result property="storeId" column="store_id" jdbcType="INTEGER"/>
-            <result property="productId" column="product_id" jdbcType="INTEGER"/>
+            <result property="materialId" column="material_id" jdbcType="INTEGER"/>
             <result property="inNum" column="in_num" jdbcType="INTEGER"/>
+            <result property="relativeNum" column="relative_num" jdbcType="INTEGER"/>
+            <result property="price" column="price" jdbcType="DECIMAL"/>
+            <result property="freight" column="freight" jdbcType="DECIMAL"/>
+            <result property="carNumber" column="car_number" jdbcType="VARCHAR"/>
+            <result property="contractId" column="contract_id" jdbcType="INTEGER"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
             <result property="createBy" column="create_by" jdbcType="INTEGER"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="isIn" column="is_in" jdbcType="CHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        ins_id,store_id,product_id,
-        in_num,create_by,create_time,
+        ins_id,store_id,material_id,
+        in_num,relative_num,price,
+        freight,car_number,contract_id,
+        remarks,create_by,create_time,
         is_in
     </sql>
 </mapper>

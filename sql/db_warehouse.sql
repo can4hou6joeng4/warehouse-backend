@@ -74,7 +74,7 @@ CREATE TABLE `act_ge_bytearray` (
 
 LOCK TABLES `act_ge_bytearray` WRITE;
 /*!40000 ALTER TABLE `act_ge_bytearray` DISABLE KEYS */;
-INSERT INTO `act_ge_bytearray` VALUES ('c58a8d78-6cc6-11ee-ac98-48a47209a1e7',1,'D:\\project\\warehouse\\warehouse-backend\\target\\classes\\processes\\test2.bpmn20.xml','c58a6667-6cc6-11ee-ac98-48a47209a1e7',_binary '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<definitions xmlns=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:activiti=\"http://activiti.org/bpmn\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:omgdc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:omgdi=\"http://www.omg.org/spec/DD/20100524/DI\" typeLanguage=\"http://www.w3.org/2001/XMLSchema\" expressionLanguage=\"http://www.w3.org/1999/XPath\" targetNamespace=\"http://www.activiti.org/processdef\">\r\n  <process id=\"test2\" name=\"test2\" isExecutable=\"true\">\r\n    <startEvent id=\"sid-1e09c08d-3f2b-4fe1-9e08-ac8928a24079\"/>\r\n    <userTask id=\"sid-001\" name=\"合同确认\" activiti:assignee=\"supper_manage\"/>\r\n    <sequenceFlow id=\"sid-f2266cbf-1832-444c-8557-8c2c63cb9e4c\" sourceRef=\"sid-1e09c08d-3f2b-4fe1-9e08-ac8928a24079\" targetRef=\"sid-001\"/>\r\n    <exclusiveGateway id=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\"/>\r\n    <sequenceFlow id=\"sid-85a068be-7050-495a-adf8-a6d3274c50b5\" sourceRef=\"sid-001\" targetRef=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\"/>\r\n    <sequenceFlow id=\"sid-07ed102e-5c07-4b3d-8ea7-a7f5084131ed\" sourceRef=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\" targetRef=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\" name=\"状态为0，不需要采购\">\r\n      <conditionExpression xsi:type=\"tFormalExpression\">${status&lt;1}</conditionExpression>\r\n    </sequenceFlow>\r\n    <userTask id=\"sid-03\" name=\"采购确认\" activiti:assignee=\"purchase_man\"/>\r\n    <sequenceFlow id=\"sid-3336c44f-efd1-46d6-8936-5898eda984fc\" sourceRef=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\" targetRef=\"sid-03\" name=\"状态为1，需要采购\">\r\n      <conditionExpression xsi:type=\"tFormalExpression\">${status&gt;0}</conditionExpression>\r\n    </sequenceFlow>\r\n    <userTask id=\"sid-04\" name=\"入库确认\" activiti:assignee=\"in_store\"/>\r\n    <userTask id=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\" name=\"出库确认\" activiti:assignee=\"out_store\"/>\r\n    <sequenceFlow id=\"sid-f8134f82-5c6e-4e1d-95db-6711258ab146\" sourceRef=\"sid-03\" targetRef=\"sid-04\"/>\r\n    <sequenceFlow id=\"sid-a1ef8239-1c5c-4fc3-89c0-59f1ce4935a4\" sourceRef=\"sid-04\" targetRef=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\"/>\r\n    <userTask id=\"sid-84446ab7-1ca8-44ce-9758-41116ac6c93d\" name=\"生产确认\" activiti:assignee=\"supper_manage\"/>\r\n    <sequenceFlow id=\"sid-a19e4b01-c0c9-481c-a0a7-33b019b1eacc\" sourceRef=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\" targetRef=\"sid-84446ab7-1ca8-44ce-9758-41116ac6c93d\"/>\r\n    <endEvent id=\"sid-62652f38-4a57-4de4-814d-0238e76e9684\"/>\r\n    <sequenceFlow id=\"sid-d451b9b6-f941-40f5-8d9d-fb0e8284da6f\" sourceRef=\"sid-84446ab7-1ca8-44ce-9758-41116ac6c93d\" targetRef=\"sid-0cf982c9-1429-49c3-bd13-baf82b13c441\"/>\r\n    <userTask id=\"sid-0cf982c9-1429-49c3-bd13-baf82b13c441\" name=\"结算确认\" activiti:assignee=\"supper_manage\"/>\r\n    <sequenceFlow id=\"sid-36990bdc-9b68-4224-bfe1-53b32d21ccbe\" sourceRef=\"sid-0cf982c9-1429-49c3-bd13-baf82b13c441\" targetRef=\"sid-62652f38-4a57-4de4-814d-0238e76e9684\"/>\r\n  </process>\r\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_test2\">\r\n    <bpmndi:BPMNPlane bpmnElement=\"test2\" id=\"BPMNPlane_test2\">\r\n      <bpmndi:BPMNShape id=\"shape-eb913ff1-5b45-4637-b9ac-05ee88293705\" bpmnElement=\"sid-1e09c08d-3f2b-4fe1-9e08-ac8928a24079\">\r\n        <omgdc:Bounds x=\"0.0\" y=\"-75.0\" width=\"30.0\" height=\"30.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNShape id=\"shape-e885664f-e517-4061-8000-9f99bcca5661\" bpmnElement=\"sid-001\">\r\n        <omgdc:Bounds x=\"-35.0\" y=\"-15.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-474d8589-7cea-41a9-9c9c-91b4bb177409\" bpmnElement=\"sid-f2266cbf-1832-444c-8557-8c2c63cb9e4c\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"-45.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"-15.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-a98ebdf3-89d7-4de4-89d7-112688535da2\" bpmnElement=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\">\r\n        <omgdc:Bounds x=\"-5.0\" y=\"110.0\" width=\"40.0\" height=\"40.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-4494a9c3-a064-4b7e-943a-fb28bb59a6dd\" bpmnElement=\"sid-85a068be-7050-495a-adf8-a6d3274c50b5\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"65.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"110.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-e2722641-0337-461d-b87d-8db8b656b49f\" bpmnElement=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\">\r\n        <omgdc:Bounds x=\"-35.0\" y=\"430.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-b3246a6e-2351-4ddd-9720-ba4090c6ccfb\" bpmnElement=\"sid-07ed102e-5c07-4b3d-8ea7-a7f5084131ed\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"150.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"430.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-49fa569c-24d4-44d9-98c5-ae8878a45a83\" bpmnElement=\"sid-03\">\r\n        <omgdc:Bounds x=\"155.0\" y=\"205.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-f488e788-9e2c-4e9b-a416-45a5b1456113\" bpmnElement=\"sid-3336c44f-efd1-46d6-8936-5898eda984fc\">\r\n        <omgdi:waypoint x=\"35.0\" y=\"130.0\"/>\r\n        <omgdi:waypoint x=\"155.0\" y=\"225.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-65c37638-4c19-4758-b623-ca3a25b0e34d\" bpmnElement=\"sid-04\">\r\n        <omgdc:Bounds x=\"155.0\" y=\"390.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-8bb5b775-67a2-4bee-9daf-4e315f3e52a0\" bpmnElement=\"sid-f8134f82-5c6e-4e1d-95db-6711258ab146\">\r\n        <omgdi:waypoint x=\"205.0\" y=\"285.0\"/>\r\n        <omgdi:waypoint x=\"205.0\" y=\"390.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNEdge id=\"edge-8883547e-90df-4cbe-a5f6-a9115e753bd7\" bpmnElement=\"sid-a1ef8239-1c5c-4fc3-89c0-59f1ce4935a4\">\r\n        <omgdi:waypoint x=\"155.0\" y=\"450.0\"/>\r\n        <omgdi:waypoint x=\"65.0\" y=\"450.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-29428fe0-b1df-4c25-b156-b2a2a8f8c8e6\" bpmnElement=\"sid-84446ab7-1ca8-44ce-9758-41116ac6c93d\">\r\n        <omgdc:Bounds x=\"-35.0\" y=\"585.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-9ce9d85c-1051-4c0e-b868-0af7c2ebc492\" bpmnElement=\"sid-a19e4b01-c0c9-481c-a0a7-33b019b1eacc\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"510.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"585.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-160de2f7-aac4-4c76-889f-5e016c43a008\" bpmnElement=\"sid-62652f38-4a57-4de4-814d-0238e76e9684\">\r\n        <omgdc:Bounds x=\"0.0\" y=\"885.0\" width=\"30.0\" height=\"30.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-967dbe17-1458-494c-9b9f-1b3f8d6216ce\" bpmnElement=\"sid-d451b9b6-f941-40f5-8d9d-fb0e8284da6f\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"665.0\"/>\r\n        <omgdi:waypoint x=\"14.999985\" y=\"725.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-c876b611-831b-4419-a251-6e65d64332a1\" bpmnElement=\"sid-0cf982c9-1429-49c3-bd13-baf82b13c441\">\r\n        <omgdc:Bounds x=\"-35.0\" y=\"735.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-344e4609-9949-4b8c-86cc-3731347f354f\" bpmnElement=\"sid-36990bdc-9b68-4224-bfe1-53b32d21ccbe\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"815.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"885.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n    </bpmndi:BPMNPlane>\r\n  </bpmndi:BPMNDiagram>\r\n</definitions>\r\n',0),('d6c6ef3f-6cc6-11ee-8873-48a47209a1e7',1,'/processes/test2.bpmn20.xml','d6c6ef3e-6cc6-11ee-8873-48a47209a1e7',_binary '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<definitions xmlns=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:activiti=\"http://activiti.org/bpmn\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:omgdc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:omgdi=\"http://www.omg.org/spec/DD/20100524/DI\" typeLanguage=\"http://www.w3.org/2001/XMLSchema\" expressionLanguage=\"http://www.w3.org/1999/XPath\" targetNamespace=\"http://www.activiti.org/processdef\">\r\n  <process id=\"test2\" name=\"test2\" isExecutable=\"true\">\r\n    <startEvent id=\"sid-1e09c08d-3f2b-4fe1-9e08-ac8928a24079\"/>\r\n    <userTask id=\"sid-001\" name=\"合同确认\" activiti:assignee=\"supper_manage\"/>\r\n    <sequenceFlow id=\"sid-f2266cbf-1832-444c-8557-8c2c63cb9e4c\" sourceRef=\"sid-1e09c08d-3f2b-4fe1-9e08-ac8928a24079\" targetRef=\"sid-001\"/>\r\n    <exclusiveGateway id=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\"/>\r\n    <sequenceFlow id=\"sid-85a068be-7050-495a-adf8-a6d3274c50b5\" sourceRef=\"sid-001\" targetRef=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\"/>\r\n    <sequenceFlow id=\"sid-07ed102e-5c07-4b3d-8ea7-a7f5084131ed\" sourceRef=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\" targetRef=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\" name=\"状态为0，不需要采购\">\r\n      <conditionExpression xsi:type=\"tFormalExpression\">${status&lt;1}</conditionExpression>\r\n    </sequenceFlow>\r\n    <userTask id=\"sid-03\" name=\"采购确认\" activiti:assignee=\"purchase_man\"/>\r\n    <sequenceFlow id=\"sid-3336c44f-efd1-46d6-8936-5898eda984fc\" sourceRef=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\" targetRef=\"sid-03\" name=\"状态为1，需要采购\">\r\n      <conditionExpression xsi:type=\"tFormalExpression\">${status&gt;0}</conditionExpression>\r\n    </sequenceFlow>\r\n    <userTask id=\"sid-04\" name=\"入库确认\" activiti:assignee=\"in_store\"/>\r\n    <userTask id=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\" name=\"出库确认\" activiti:assignee=\"out_store\"/>\r\n    <sequenceFlow id=\"sid-f8134f82-5c6e-4e1d-95db-6711258ab146\" sourceRef=\"sid-03\" targetRef=\"sid-04\"/>\r\n    <sequenceFlow id=\"sid-a1ef8239-1c5c-4fc3-89c0-59f1ce4935a4\" sourceRef=\"sid-04\" targetRef=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\"/>\r\n    <userTask id=\"sid-84446ab7-1ca8-44ce-9758-41116ac6c93d\" name=\"生产确认\" activiti:assignee=\"supper_manage\"/>\r\n    <sequenceFlow id=\"sid-a19e4b01-c0c9-481c-a0a7-33b019b1eacc\" sourceRef=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\" targetRef=\"sid-84446ab7-1ca8-44ce-9758-41116ac6c93d\"/>\r\n    <endEvent id=\"sid-62652f38-4a57-4de4-814d-0238e76e9684\"/>\r\n    <sequenceFlow id=\"sid-d451b9b6-f941-40f5-8d9d-fb0e8284da6f\" sourceRef=\"sid-84446ab7-1ca8-44ce-9758-41116ac6c93d\" targetRef=\"sid-0cf982c9-1429-49c3-bd13-baf82b13c441\"/>\r\n    <userTask id=\"sid-0cf982c9-1429-49c3-bd13-baf82b13c441\" name=\"结算确认\" activiti:assignee=\"supper_manage\"/>\r\n    <sequenceFlow id=\"sid-36990bdc-9b68-4224-bfe1-53b32d21ccbe\" sourceRef=\"sid-0cf982c9-1429-49c3-bd13-baf82b13c441\" targetRef=\"sid-62652f38-4a57-4de4-814d-0238e76e9684\"/>\r\n  </process>\r\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_test2\">\r\n    <bpmndi:BPMNPlane bpmnElement=\"test2\" id=\"BPMNPlane_test2\">\r\n      <bpmndi:BPMNShape id=\"shape-eb913ff1-5b45-4637-b9ac-05ee88293705\" bpmnElement=\"sid-1e09c08d-3f2b-4fe1-9e08-ac8928a24079\">\r\n        <omgdc:Bounds x=\"0.0\" y=\"-75.0\" width=\"30.0\" height=\"30.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNShape id=\"shape-e885664f-e517-4061-8000-9f99bcca5661\" bpmnElement=\"sid-001\">\r\n        <omgdc:Bounds x=\"-35.0\" y=\"-15.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-474d8589-7cea-41a9-9c9c-91b4bb177409\" bpmnElement=\"sid-f2266cbf-1832-444c-8557-8c2c63cb9e4c\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"-45.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"-15.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-a98ebdf3-89d7-4de4-89d7-112688535da2\" bpmnElement=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\">\r\n        <omgdc:Bounds x=\"-5.0\" y=\"110.0\" width=\"40.0\" height=\"40.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-4494a9c3-a064-4b7e-943a-fb28bb59a6dd\" bpmnElement=\"sid-85a068be-7050-495a-adf8-a6d3274c50b5\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"65.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"110.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-e2722641-0337-461d-b87d-8db8b656b49f\" bpmnElement=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\">\r\n        <omgdc:Bounds x=\"-35.0\" y=\"430.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-b3246a6e-2351-4ddd-9720-ba4090c6ccfb\" bpmnElement=\"sid-07ed102e-5c07-4b3d-8ea7-a7f5084131ed\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"150.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"430.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-49fa569c-24d4-44d9-98c5-ae8878a45a83\" bpmnElement=\"sid-03\">\r\n        <omgdc:Bounds x=\"155.0\" y=\"205.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-f488e788-9e2c-4e9b-a416-45a5b1456113\" bpmnElement=\"sid-3336c44f-efd1-46d6-8936-5898eda984fc\">\r\n        <omgdi:waypoint x=\"35.0\" y=\"130.0\"/>\r\n        <omgdi:waypoint x=\"155.0\" y=\"225.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-65c37638-4c19-4758-b623-ca3a25b0e34d\" bpmnElement=\"sid-04\">\r\n        <omgdc:Bounds x=\"155.0\" y=\"390.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-8bb5b775-67a2-4bee-9daf-4e315f3e52a0\" bpmnElement=\"sid-f8134f82-5c6e-4e1d-95db-6711258ab146\">\r\n        <omgdi:waypoint x=\"205.0\" y=\"285.0\"/>\r\n        <omgdi:waypoint x=\"205.0\" y=\"390.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNEdge id=\"edge-8883547e-90df-4cbe-a5f6-a9115e753bd7\" bpmnElement=\"sid-a1ef8239-1c5c-4fc3-89c0-59f1ce4935a4\">\r\n        <omgdi:waypoint x=\"155.0\" y=\"450.0\"/>\r\n        <omgdi:waypoint x=\"65.0\" y=\"450.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-29428fe0-b1df-4c25-b156-b2a2a8f8c8e6\" bpmnElement=\"sid-84446ab7-1ca8-44ce-9758-41116ac6c93d\">\r\n        <omgdc:Bounds x=\"-35.0\" y=\"585.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-9ce9d85c-1051-4c0e-b868-0af7c2ebc492\" bpmnElement=\"sid-a19e4b01-c0c9-481c-a0a7-33b019b1eacc\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"510.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"585.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-160de2f7-aac4-4c76-889f-5e016c43a008\" bpmnElement=\"sid-62652f38-4a57-4de4-814d-0238e76e9684\">\r\n        <omgdc:Bounds x=\"0.0\" y=\"885.0\" width=\"30.0\" height=\"30.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-967dbe17-1458-494c-9b9f-1b3f8d6216ce\" bpmnElement=\"sid-d451b9b6-f941-40f5-8d9d-fb0e8284da6f\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"665.0\"/>\r\n        <omgdi:waypoint x=\"14.999985\" y=\"725.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-c876b611-831b-4419-a251-6e65d64332a1\" bpmnElement=\"sid-0cf982c9-1429-49c3-bd13-baf82b13c441\">\r\n        <omgdc:Bounds x=\"-35.0\" y=\"735.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-344e4609-9949-4b8c-86cc-3731347f354f\" bpmnElement=\"sid-36990bdc-9b68-4224-bfe1-53b32d21ccbe\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"815.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"885.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n    </bpmndi:BPMNPlane>\r\n  </bpmndi:BPMNDiagram>\r\n</definitions>\r\n',0);
+INSERT INTO `act_ge_bytearray` VALUES ('568f20a3-6f19-11ee-9f92-48a47209a1e7',1,'D:\\project\\warehouse\\warehouse-backend\\target\\classes\\processes\\test2.bpmn20.xml','568f20a2-6f19-11ee-9f92-48a47209a1e7',_binary '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<definitions xmlns=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:activiti=\"http://activiti.org/bpmn\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:omgdc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:omgdi=\"http://www.omg.org/spec/DD/20100524/DI\" typeLanguage=\"http://www.w3.org/2001/XMLSchema\" expressionLanguage=\"http://www.w3.org/1999/XPath\" targetNamespace=\"http://www.activiti.org/processdef\">\r\n  <process id=\"test2\" name=\"test2\" isExecutable=\"true\">\r\n    <startEvent id=\"sid-1e09c08d-3f2b-4fe1-9e08-ac8928a24079\"/>\r\n    <userTask id=\"sid-001\" name=\"合同确认\" activiti:assignee=\"supper_manage\"/>\r\n    <sequenceFlow id=\"sid-f2266cbf-1832-444c-8557-8c2c63cb9e4c\" sourceRef=\"sid-1e09c08d-3f2b-4fe1-9e08-ac8928a24079\" targetRef=\"sid-001\"/>\r\n    <exclusiveGateway id=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\"/>\r\n    <sequenceFlow id=\"sid-85a068be-7050-495a-adf8-a6d3274c50b5\" sourceRef=\"sid-001\" targetRef=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\"/>\r\n    <sequenceFlow id=\"sid-07ed102e-5c07-4b3d-8ea7-a7f5084131ed\" sourceRef=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\" targetRef=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\" name=\"状态为0，不需要采购\">\r\n      <conditionExpression xsi:type=\"tFormalExpression\">${status&lt;1}</conditionExpression>\r\n    </sequenceFlow>\r\n    <userTask id=\"sid-03\" name=\"采购确认\" activiti:assignee=\"purchase_man\"/>\r\n    <sequenceFlow id=\"sid-3336c44f-efd1-46d6-8936-5898eda984fc\" sourceRef=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\" targetRef=\"sid-03\" name=\"状态为1，需要采购\">\r\n      <conditionExpression xsi:type=\"tFormalExpression\">${status&gt;0}</conditionExpression>\r\n    </sequenceFlow>\r\n    <userTask id=\"sid-04\" name=\"入库确认\" activiti:assignee=\"in_store\"/>\r\n    <userTask id=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\" name=\"出库确认\" activiti:assignee=\"out_store\"/>\r\n    <sequenceFlow id=\"sid-f8134f82-5c6e-4e1d-95db-6711258ab146\" sourceRef=\"sid-03\" targetRef=\"sid-04\"/>\r\n    <sequenceFlow id=\"sid-a1ef8239-1c5c-4fc3-89c0-59f1ce4935a4\" sourceRef=\"sid-04\" targetRef=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\"/>\r\n    <userTask id=\"sid-84446ab7-1ca8-44ce-9758-41116ac6c93d\" name=\"生产确认\" activiti:assignee=\"supper_manage\"/>\r\n    <sequenceFlow id=\"sid-a19e4b01-c0c9-481c-a0a7-33b019b1eacc\" sourceRef=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\" targetRef=\"sid-84446ab7-1ca8-44ce-9758-41116ac6c93d\"/>\r\n    <endEvent id=\"sid-62652f38-4a57-4de4-814d-0238e76e9684\"/>\r\n    <sequenceFlow id=\"sid-d451b9b6-f941-40f5-8d9d-fb0e8284da6f\" sourceRef=\"sid-84446ab7-1ca8-44ce-9758-41116ac6c93d\" targetRef=\"sid-0cf982c9-1429-49c3-bd13-baf82b13c441\"/>\r\n    <userTask id=\"sid-0cf982c9-1429-49c3-bd13-baf82b13c441\" name=\"结算确认\" activiti:assignee=\"supper_manage\"/>\r\n    <sequenceFlow id=\"sid-36990bdc-9b68-4224-bfe1-53b32d21ccbe\" sourceRef=\"sid-0cf982c9-1429-49c3-bd13-baf82b13c441\" targetRef=\"sid-62652f38-4a57-4de4-814d-0238e76e9684\"/>\r\n  </process>\r\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_test2\">\r\n    <bpmndi:BPMNPlane bpmnElement=\"test2\" id=\"BPMNPlane_test2\">\r\n      <bpmndi:BPMNShape id=\"shape-eb913ff1-5b45-4637-b9ac-05ee88293705\" bpmnElement=\"sid-1e09c08d-3f2b-4fe1-9e08-ac8928a24079\">\r\n        <omgdc:Bounds x=\"0.0\" y=\"-75.0\" width=\"30.0\" height=\"30.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNShape id=\"shape-e885664f-e517-4061-8000-9f99bcca5661\" bpmnElement=\"sid-001\">\r\n        <omgdc:Bounds x=\"-35.0\" y=\"-15.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-474d8589-7cea-41a9-9c9c-91b4bb177409\" bpmnElement=\"sid-f2266cbf-1832-444c-8557-8c2c63cb9e4c\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"-45.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"-15.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-a98ebdf3-89d7-4de4-89d7-112688535da2\" bpmnElement=\"sid-38ca953b-2358-448d-a355-a4f5994269d8\">\r\n        <omgdc:Bounds x=\"-5.0\" y=\"110.0\" width=\"40.0\" height=\"40.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-4494a9c3-a064-4b7e-943a-fb28bb59a6dd\" bpmnElement=\"sid-85a068be-7050-495a-adf8-a6d3274c50b5\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"65.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"110.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-e2722641-0337-461d-b87d-8db8b656b49f\" bpmnElement=\"sid-c4db8201-27cd-4c94-b5e0-a4c32be06784\">\r\n        <omgdc:Bounds x=\"-35.0\" y=\"430.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-b3246a6e-2351-4ddd-9720-ba4090c6ccfb\" bpmnElement=\"sid-07ed102e-5c07-4b3d-8ea7-a7f5084131ed\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"150.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"430.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-49fa569c-24d4-44d9-98c5-ae8878a45a83\" bpmnElement=\"sid-03\">\r\n        <omgdc:Bounds x=\"155.0\" y=\"205.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-f488e788-9e2c-4e9b-a416-45a5b1456113\" bpmnElement=\"sid-3336c44f-efd1-46d6-8936-5898eda984fc\">\r\n        <omgdi:waypoint x=\"35.0\" y=\"130.0\"/>\r\n        <omgdi:waypoint x=\"155.0\" y=\"225.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-65c37638-4c19-4758-b623-ca3a25b0e34d\" bpmnElement=\"sid-04\">\r\n        <omgdc:Bounds x=\"155.0\" y=\"390.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-8bb5b775-67a2-4bee-9daf-4e315f3e52a0\" bpmnElement=\"sid-f8134f82-5c6e-4e1d-95db-6711258ab146\">\r\n        <omgdi:waypoint x=\"205.0\" y=\"285.0\"/>\r\n        <omgdi:waypoint x=\"205.0\" y=\"390.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNEdge id=\"edge-8883547e-90df-4cbe-a5f6-a9115e753bd7\" bpmnElement=\"sid-a1ef8239-1c5c-4fc3-89c0-59f1ce4935a4\">\r\n        <omgdi:waypoint x=\"155.0\" y=\"450.0\"/>\r\n        <omgdi:waypoint x=\"68.33333\" y=\"453.3333\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-29428fe0-b1df-4c25-b156-b2a2a8f8c8e6\" bpmnElement=\"sid-84446ab7-1ca8-44ce-9758-41116ac6c93d\">\r\n        <omgdc:Bounds x=\"-35.0\" y=\"585.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-9ce9d85c-1051-4c0e-b868-0af7c2ebc492\" bpmnElement=\"sid-a19e4b01-c0c9-481c-a0a7-33b019b1eacc\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"510.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"585.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-160de2f7-aac4-4c76-889f-5e016c43a008\" bpmnElement=\"sid-62652f38-4a57-4de4-814d-0238e76e9684\">\r\n        <omgdc:Bounds x=\"0.0\" y=\"885.0\" width=\"30.0\" height=\"30.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-967dbe17-1458-494c-9b9f-1b3f8d6216ce\" bpmnElement=\"sid-d451b9b6-f941-40f5-8d9d-fb0e8284da6f\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"665.0\"/>\r\n        <omgdi:waypoint x=\"14.999985\" y=\"725.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-c876b611-831b-4419-a251-6e65d64332a1\" bpmnElement=\"sid-0cf982c9-1429-49c3-bd13-baf82b13c441\">\r\n        <omgdc:Bounds x=\"-35.0\" y=\"735.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-344e4609-9949-4b8c-86cc-3731347f354f\" bpmnElement=\"sid-36990bdc-9b68-4224-bfe1-53b32d21ccbe\">\r\n        <omgdi:waypoint x=\"15.0\" y=\"815.0\"/>\r\n        <omgdi:waypoint x=\"15.0\" y=\"885.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n    </bpmndi:BPMNPlane>\r\n  </bpmndi:BPMNDiagram>\r\n</definitions>\r\n',0),('568f20a4-6f19-11ee-9f92-48a47209a1e7',1,'D:\\project\\warehouse\\warehouse-backend\\target\\classes\\processes\\demo2.bpmn20.xml','568f20a2-6f19-11ee-9f92-48a47209a1e7',_binary '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<definitions xmlns=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:activiti=\"http://activiti.org/bpmn\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:omgdc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:omgdi=\"http://www.omg.org/spec/DD/20100524/DI\" typeLanguage=\"http://www.w3.org/2001/XMLSchema\" expressionLanguage=\"http://www.w3.org/1999/XPath\" targetNamespace=\"http://www.activiti.org/processdef\">\r\n  <process id=\"demo2\" name=\"demo2\" isExecutable=\"true\">\r\n    <startEvent id=\"sid-47c7534b-e46e-4102-ab11-f13f19ad6a51\"/>\r\n    <userTask id=\"sid-ca5603eb-799a-470a-bb87-4e699f171e3a\" activiti:assignee=\"supper_manage\" name=\"测试申请\"/>\r\n    <userTask id=\"sid-705207da-86ad-451b-a349-3b8e658a3ef3\" activiti:candidateUsers=\"supper_manage,purchase_man\" name=\"测试审核\"/>\r\n    <sequenceFlow id=\"sid-d402ed32-6952-44ab-aedd-3b98b15d79c6\" sourceRef=\"sid-ca5603eb-799a-470a-bb87-4e699f171e3a\" targetRef=\"sid-705207da-86ad-451b-a349-3b8e658a3ef3\"/>\r\n    <endEvent id=\"sid-a1fbacc3-e8f7-4f1d-bebe-507958a5966b\"/>\r\n    <sequenceFlow id=\"sid-248d5852-19b7-440b-a1ae-5a1fda6308ea\" sourceRef=\"sid-705207da-86ad-451b-a349-3b8e658a3ef3\" targetRef=\"sid-a1fbacc3-e8f7-4f1d-bebe-507958a5966b\"/>\r\n    <sequenceFlow id=\"sid-a412a932-9331-45a3-ba4b-db42378e89d6\" sourceRef=\"sid-47c7534b-e46e-4102-ab11-f13f19ad6a51\" targetRef=\"sid-ca5603eb-799a-470a-bb87-4e699f171e3a\"/>\r\n  </process>\r\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_demo2\">\r\n    <bpmndi:BPMNPlane bpmnElement=\"demo2\" id=\"BPMNPlane_demo2\">\r\n      <bpmndi:BPMNShape id=\"shape-8a760683-b3c8-4e9a-bf88-bd91e611effe\" bpmnElement=\"sid-47c7534b-e46e-4102-ab11-f13f19ad6a51\">\r\n        <omgdc:Bounds x=\"-60.0\" y=\"-235.0\" width=\"30.0\" height=\"30.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNShape id=\"shape-6eb4f96e-38b7-4e92-8ad4-5524b89919d7\" bpmnElement=\"sid-ca5603eb-799a-470a-bb87-4e699f171e3a\">\r\n        <omgdc:Bounds x=\"-95.0\" y=\"-170.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNShape id=\"shape-f93b869c-0900-4829-b4af-b88b7a6f8655\" bpmnElement=\"sid-705207da-86ad-451b-a349-3b8e658a3ef3\">\r\n        <omgdc:Bounds x=\"-95.0\" y=\"-60.0\" width=\"100.0\" height=\"80.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-a876b94e-8d18-4721-b126-2fe7644b6243\" bpmnElement=\"sid-d402ed32-6952-44ab-aedd-3b98b15d79c6\">\r\n        <omgdi:waypoint x=\"-45.0\" y=\"-90.0\"/>\r\n        <omgdi:waypoint x=\"-45.0\" y=\"-60.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNShape id=\"shape-adb007a0-2a50-4707-a35d-bcd49729eafe\" bpmnElement=\"sid-a1fbacc3-e8f7-4f1d-bebe-507958a5966b\">\r\n        <omgdc:Bounds x=\"-60.0\" y=\"45.0\" width=\"30.0\" height=\"30.0\"/>\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNEdge id=\"edge-2956f3a0-c49e-46c8-a656-c07027d4109a\" bpmnElement=\"sid-248d5852-19b7-440b-a1ae-5a1fda6308ea\">\r\n        <omgdi:waypoint x=\"-45.0\" y=\"20.0\"/>\r\n        <omgdi:waypoint x=\"-45.0\" y=\"45.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n      <bpmndi:BPMNEdge id=\"edge-eb9d179d-5105-4ab4-b07a-e4245756ac6e\" bpmnElement=\"sid-a412a932-9331-45a3-ba4b-db42378e89d6\">\r\n        <omgdi:waypoint x=\"-45.0\" y=\"-205.0\"/>\r\n        <omgdi:waypoint x=\"-45.0\" y=\"-170.0\"/>\r\n      </bpmndi:BPMNEdge>\r\n    </bpmndi:BPMNPlane>\r\n  </bpmndi:BPMNDiagram>\r\n</definitions>\r\n',0);
 /*!40000 ALTER TABLE `act_ge_bytearray` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +140,6 @@ CREATE TABLE `act_hi_actinst` (
 
 LOCK TABLES `act_hi_actinst` WRITE;
 /*!40000 ALTER TABLE `act_hi_actinst` DISABLE KEYS */;
-INSERT INTO `act_hi_actinst` VALUES ('187b9cb0-6cc7-11ee-8577-48a47209a1e7','test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7','187b4f8f-6cc7-11ee-8577-48a47209a1e7','sid-1e09c08d-3f2b-4fe1-9e08-ac8928a24079',NULL,NULL,NULL,'startEvent',NULL,'2023-10-17 16:28:06.011','2023-10-17 16:28:06.015',4,NULL,''),('187cae21-6cc7-11ee-8577-48a47209a1e7','test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7','187b4f8f-6cc7-11ee-8577-48a47209a1e7','sid-001','187f1f22-6cc7-11ee-8577-48a47209a1e7',NULL,'合同确认','userTask','supper_manage','2023-10-17 16:28:06.018','2023-10-17 16:28:06.174',156,NULL,''),('18947be4-6cc7-11ee-8577-48a47209a1e7','test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7','187b4f8f-6cc7-11ee-8577-48a47209a1e7','sid-38ca953b-2358-448d-a355-a4f5994269d8',NULL,NULL,NULL,'exclusiveGateway',NULL,'2023-10-17 16:28:06.174','2023-10-17 16:28:06.195',21,NULL,''),('1897fe55-6cc7-11ee-8577-48a47209a1e7','test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7','187b4f8f-6cc7-11ee-8577-48a47209a1e7','sid-03','1897fe56-6cc7-11ee-8577-48a47209a1e7',NULL,'采购确认','userTask','purchase_man','2023-10-17 16:28:06.197','2023-10-17 16:31:14.349',188152,NULL,''),('5a29291b-6cc8-11ee-8577-48a47209a1e7','test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7','187b4f8f-6cc7-11ee-8577-48a47209a1e7','sid-c4db8201-27cd-4c94-b5e0-a4c32be06784','5a29773c-6cc8-11ee-8577-48a47209a1e7',NULL,'出库确认','userTask','out_store','2023-10-17 16:37:05.697','2023-10-17 16:41:02.161',236464,NULL,''),('88bddce8-6cc7-11ee-8577-48a47209a1e7','test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7','187b4f8f-6cc7-11ee-8577-48a47209a1e7','sid-04','88bddce9-6cc7-11ee-8577-48a47209a1e7',NULL,'入库确认','userTask','in_store','2023-10-17 16:31:14.350','2023-10-17 16:37:05.696',351346,NULL,''),('e71b294e-6cc8-11ee-8577-48a47209a1e7','test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7','187b4f8f-6cc7-11ee-8577-48a47209a1e7','sid-84446ab7-1ca8-44ce-9758-41116ac6c93d','e71bc58f-6cc8-11ee-8577-48a47209a1e7',NULL,'生产确认','userTask','supper_manage','2023-10-17 16:41:02.164',NULL,NULL,NULL,'');
 /*!40000 ALTER TABLE `act_hi_actinst` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +243,6 @@ CREATE TABLE `act_hi_detail` (
 
 LOCK TABLES `act_hi_detail` WRITE;
 /*!40000 ALTER TABLE `act_hi_detail` DISABLE KEYS */;
-INSERT INTO `act_hi_detail` VALUES ('187ada54-6cc7-11ee-8577-48a47209a1e7','VariableUpdate','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,NULL,'produce_man','string',0,'2023-10-17 16:28:06.006',NULL,NULL,NULL,'produce_man',NULL),('187b2876-6cc7-11ee-8577-48a47209a1e7','VariableUpdate','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,NULL,'purchase_man','string',0,'2023-10-17 16:28:06.008',NULL,NULL,NULL,'purchase_man',NULL),('187b2878-6cc7-11ee-8577-48a47209a1e7','VariableUpdate','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,NULL,'in_store','string',0,'2023-10-17 16:28:06.008',NULL,NULL,NULL,'in_store',NULL),('187b287a-6cc7-11ee-8577-48a47209a1e7','VariableUpdate','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,NULL,'supper_manage','string',0,'2023-10-17 16:28:06.008',NULL,NULL,NULL,'supper_manage',NULL),('187b287c-6cc7-11ee-8577-48a47209a1e7','VariableUpdate','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,NULL,'out_store','string',0,'2023-10-17 16:28:06.008',NULL,NULL,NULL,'out_store',NULL),('187b287e-6cc7-11ee-8577-48a47209a1e7','VariableUpdate','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,NULL,'status','integer',0,'2023-10-17 16:28:06.008',NULL,NULL,1,'1',NULL);
 /*!40000 ALTER TABLE `act_hi_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,7 +273,6 @@ CREATE TABLE `act_hi_identitylink` (
 
 LOCK TABLES `act_hi_identitylink` WRITE;
 /*!40000 ALTER TABLE `act_hi_identitylink` DISABLE KEYS */;
-INSERT INTO `act_hi_identitylink` VALUES ('187f4633-6cc7-11ee-8577-48a47209a1e7',NULL,'participant','supper_manage',NULL,'187a6522-6cc7-11ee-8577-48a47209a1e7'),('18984c77-6cc7-11ee-8577-48a47209a1e7',NULL,'participant','purchase_man',NULL,'187a6522-6cc7-11ee-8577-48a47209a1e7'),('5a2a137d-6cc8-11ee-8577-48a47209a1e7',NULL,'participant','out_store',NULL,'187a6522-6cc7-11ee-8577-48a47209a1e7'),('88be792a-6cc7-11ee-8577-48a47209a1e7',NULL,'participant','in_store',NULL,'187a6522-6cc7-11ee-8577-48a47209a1e7');
 /*!40000 ALTER TABLE `act_hi_identitylink` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -314,7 +311,6 @@ CREATE TABLE `act_hi_procinst` (
 
 LOCK TABLES `act_hi_procinst` WRITE;
 /*!40000 ALTER TABLE `act_hi_procinst` DISABLE KEYS */;
-INSERT INTO `act_hi_procinst` VALUES ('187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,'test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7','2023-10-17 16:28:06.003',NULL,NULL,NULL,'sid-1e09c08d-3f2b-4fe1-9e08-ac8928a24079',NULL,NULL,NULL,'',NULL);
 /*!40000 ALTER TABLE `act_hi_procinst` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,7 +353,6 @@ CREATE TABLE `act_hi_taskinst` (
 
 LOCK TABLES `act_hi_taskinst` WRITE;
 /*!40000 ALTER TABLE `act_hi_taskinst` DISABLE KEYS */;
-INSERT INTO `act_hi_taskinst` VALUES ('187f1f22-6cc7-11ee-8577-48a47209a1e7','test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7','sid-001','187a6522-6cc7-11ee-8577-48a47209a1e7','187b4f8f-6cc7-11ee-8577-48a47209a1e7','合同确认',NULL,NULL,NULL,'supper_manage','2023-10-17 16:28:06.035',NULL,'2023-10-17 16:28:06.163',128,NULL,50,NULL,NULL,NULL,''),('1897fe56-6cc7-11ee-8577-48a47209a1e7','test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7','sid-03','187a6522-6cc7-11ee-8577-48a47209a1e7','187b4f8f-6cc7-11ee-8577-48a47209a1e7','采购确认',NULL,NULL,NULL,'purchase_man','2023-10-17 16:28:06.197',NULL,'2023-10-17 16:31:14.339',188142,NULL,50,NULL,NULL,NULL,''),('5a29773c-6cc8-11ee-8577-48a47209a1e7','test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7','sid-c4db8201-27cd-4c94-b5e0-a4c32be06784','187a6522-6cc7-11ee-8577-48a47209a1e7','187b4f8f-6cc7-11ee-8577-48a47209a1e7','出库确认',NULL,NULL,NULL,'out_store','2023-10-17 16:37:05.699',NULL,'2023-10-17 16:41:02.147',236448,NULL,50,NULL,NULL,NULL,''),('88bddce9-6cc7-11ee-8577-48a47209a1e7','test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7','sid-04','187a6522-6cc7-11ee-8577-48a47209a1e7','187b4f8f-6cc7-11ee-8577-48a47209a1e7','入库确认',NULL,NULL,NULL,'in_store','2023-10-17 16:31:14.350',NULL,'2023-10-17 16:37:05.683',351333,NULL,50,NULL,NULL,NULL,''),('e71bc58f-6cc8-11ee-8577-48a47209a1e7','test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7','sid-84446ab7-1ca8-44ce-9758-41116ac6c93d','187a6522-6cc7-11ee-8577-48a47209a1e7','187b4f8f-6cc7-11ee-8577-48a47209a1e7','生产确认',NULL,NULL,NULL,'supper_manage','2023-10-17 16:41:02.168',NULL,NULL,NULL,NULL,50,NULL,NULL,NULL,'');
 /*!40000 ALTER TABLE `act_hi_taskinst` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -396,7 +391,6 @@ CREATE TABLE `act_hi_varinst` (
 
 LOCK TABLES `act_hi_varinst` WRITE;
 /*!40000 ALTER TABLE `act_hi_varinst` DISABLE KEYS */;
-INSERT INTO `act_hi_varinst` VALUES ('187ada53-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,'produce_man','string',0,NULL,NULL,NULL,'produce_man',NULL,'2023-10-17 16:28:06.006','2023-10-17 16:28:06.006'),('187b2875-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,'purchase_man','string',0,NULL,NULL,NULL,'purchase_man',NULL,'2023-10-17 16:28:06.008','2023-10-17 16:28:06.008'),('187b2877-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,'in_store','string',0,NULL,NULL,NULL,'in_store',NULL,'2023-10-17 16:28:06.008','2023-10-17 16:28:06.008'),('187b2879-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,'supper_manage','string',0,NULL,NULL,NULL,'supper_manage',NULL,'2023-10-17 16:28:06.008','2023-10-17 16:28:06.008'),('187b287b-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,'out_store','string',0,NULL,NULL,NULL,'out_store',NULL,'2023-10-17 16:28:06.008','2023-10-17 16:28:06.008'),('187b287d-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,'status','integer',0,NULL,NULL,1,'1',NULL,'2023-10-17 16:28:06.008','2023-10-17 16:28:06.008');
 /*!40000 ALTER TABLE `act_hi_varinst` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -455,7 +449,7 @@ CREATE TABLE `act_re_deployment` (
 
 LOCK TABLES `act_re_deployment` WRITE;
 /*!40000 ALTER TABLE `act_re_deployment` DISABLE KEYS */;
-INSERT INTO `act_re_deployment` VALUES ('c58a6667-6cc6-11ee-ac98-48a47209a1e7','SpringAutoDeployment',NULL,NULL,'','2023-10-17 08:25:46.853',NULL),('d6c6ef3e-6cc6-11ee-8873-48a47209a1e7',NULL,NULL,NULL,'','2023-10-17 08:26:15.775',NULL);
+INSERT INTO `act_re_deployment` VALUES ('568f20a2-6f19-11ee-9f92-48a47209a1e7','SpringAutoDeployment',NULL,NULL,'','2023-10-20 07:21:51.210',NULL);
 /*!40000 ALTER TABLE `act_re_deployment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -533,7 +527,7 @@ CREATE TABLE `act_re_procdef` (
 
 LOCK TABLES `act_re_procdef` WRITE;
 /*!40000 ALTER TABLE `act_re_procdef` DISABLE KEYS */;
-INSERT INTO `act_re_procdef` VALUES ('test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7',1,'http://www.activiti.org/processdef','test2','test2',1,'c58a6667-6cc6-11ee-ac98-48a47209a1e7','D:\\project\\warehouse\\warehouse-backend\\target\\classes\\processes\\test2.bpmn20.xml',NULL,NULL,0,1,1,'',NULL),('test2:2:d6f55240-6cc6-11ee-8873-48a47209a1e7',1,'http://www.activiti.org/processdef','test2','test2',2,'d6c6ef3e-6cc6-11ee-8873-48a47209a1e7','/processes/test2.bpmn20.xml',NULL,NULL,0,1,1,'',NULL);
+INSERT INTO `act_re_procdef` VALUES ('demo2:1:56b39896-6f19-11ee-9f92-48a47209a1e7',1,'http://www.activiti.org/processdef','demo2','demo2',1,'568f20a2-6f19-11ee-9f92-48a47209a1e7','D:\\project\\warehouse\\warehouse-backend\\target\\classes\\processes\\demo2.bpmn20.xml',NULL,NULL,0,1,1,'',NULL),('test2:1:56b37185-6f19-11ee-9f92-48a47209a1e7',1,'http://www.activiti.org/processdef','test2','test2',1,'568f20a2-6f19-11ee-9f92-48a47209a1e7','D:\\project\\warehouse\\warehouse-backend\\target\\classes\\processes\\test2.bpmn20.xml',NULL,NULL,0,1,1,'',NULL);
 /*!40000 ALTER TABLE `act_re_procdef` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -673,7 +667,6 @@ CREATE TABLE `act_ru_execution` (
 
 LOCK TABLES `act_ru_execution` WRITE;
 /*!40000 ALTER TABLE `act_ru_execution` DISABLE KEYS */;
-INSERT INTO `act_ru_execution` VALUES ('187a6522-6cc7-11ee-8577-48a47209a1e7',1,'187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,NULL,'test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7',NULL,'187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,1,0,1,0,0,1,NULL,'',NULL,'2023-10-17 16:28:06.003',NULL,NULL,0,0,0,0,0,0,0,0,0),('187b4f8f-6cc7-11ee-8577-48a47209a1e7',5,'187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,'187a6522-6cc7-11ee-8577-48a47209a1e7','test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7',NULL,'187a6522-6cc7-11ee-8577-48a47209a1e7','sid-84446ab7-1ca8-44ce-9758-41116ac6c93d',1,0,0,0,0,1,NULL,'',NULL,'2023-10-17 16:28:06.009',NULL,NULL,0,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `act_ru_execution` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -711,7 +704,6 @@ CREATE TABLE `act_ru_identitylink` (
 
 LOCK TABLES `act_ru_identitylink` WRITE;
 /*!40000 ALTER TABLE `act_ru_identitylink` DISABLE KEYS */;
-INSERT INTO `act_ru_identitylink` VALUES ('187f4633-6cc7-11ee-8577-48a47209a1e7',1,NULL,'participant','supper_manage',NULL,'187a6522-6cc7-11ee-8577-48a47209a1e7',NULL),('18984c77-6cc7-11ee-8577-48a47209a1e7',1,NULL,'participant','purchase_man',NULL,'187a6522-6cc7-11ee-8577-48a47209a1e7',NULL),('5a2a137d-6cc8-11ee-8577-48a47209a1e7',1,NULL,'participant','out_store',NULL,'187a6522-6cc7-11ee-8577-48a47209a1e7',NULL),('88be792a-6cc7-11ee-8577-48a47209a1e7',1,NULL,'participant','in_store',NULL,'187a6522-6cc7-11ee-8577-48a47209a1e7',NULL);
 /*!40000 ALTER TABLE `act_ru_identitylink` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -883,7 +875,6 @@ CREATE TABLE `act_ru_task` (
 
 LOCK TABLES `act_ru_task` WRITE;
 /*!40000 ALTER TABLE `act_ru_task` DISABLE KEYS */;
-INSERT INTO `act_ru_task` VALUES ('e71bc58f-6cc8-11ee-8577-48a47209a1e7',1,'187b4f8f-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7','test2:1:c5a76449-6cc6-11ee-ac98-48a47209a1e7','生产确认',NULL,NULL,'sid-84446ab7-1ca8-44ce-9758-41116ac6c93d',NULL,'supper_manage',NULL,50,'2023-10-17 08:41:02.164',NULL,NULL,1,'',NULL,NULL);
 /*!40000 ALTER TABLE `act_ru_task` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -970,7 +961,6 @@ CREATE TABLE `act_ru_variable` (
 
 LOCK TABLES `act_ru_variable` WRITE;
 /*!40000 ALTER TABLE `act_ru_variable` DISABLE KEYS */;
-INSERT INTO `act_ru_variable` VALUES ('187ada53-6cc7-11ee-8577-48a47209a1e7',1,'string','produce_man','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,NULL,NULL,NULL,'produce_man',NULL),('187b2875-6cc7-11ee-8577-48a47209a1e7',1,'string','purchase_man','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,NULL,NULL,NULL,'purchase_man',NULL),('187b2877-6cc7-11ee-8577-48a47209a1e7',1,'string','in_store','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,NULL,NULL,NULL,'in_store',NULL),('187b2879-6cc7-11ee-8577-48a47209a1e7',1,'string','supper_manage','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,NULL,NULL,NULL,'supper_manage',NULL),('187b287b-6cc7-11ee-8577-48a47209a1e7',1,'string','out_store','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,NULL,NULL,NULL,'out_store',NULL),('187b287d-6cc7-11ee-8577-48a47209a1e7',1,'integer','status','187a6522-6cc7-11ee-8577-48a47209a1e7','187a6522-6cc7-11ee-8577-48a47209a1e7',NULL,NULL,NULL,1,'1',NULL);
 /*!40000 ALTER TABLE `act_ru_variable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -984,20 +974,20 @@ DROP TABLE IF EXISTS `auth_info`;
 CREATE TABLE `auth_info` (
   `auth_id` int NOT NULL AUTO_INCREMENT,
   `parent_id` int DEFAULT NULL COMMENT '父id为空或为0，表示一级权限',
-  `auth_name` varchar(100) DEFAULT NULL,
-  `auth_desc` varchar(300) DEFAULT NULL,
+  `auth_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `auth_desc` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `auth_grade` int DEFAULT NULL,
-  `auth_type` char(1) DEFAULT NULL COMMENT '1 模块 、2  列表、 3  按钮',
-  `auth_url` varchar(100) DEFAULT NULL,
-  `auth_code` varchar(100) DEFAULT NULL,
+  `auth_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '1 模块 、2  列表、 3  按钮',
+  `auth_url` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `auth_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `auth_order` int DEFAULT NULL,
-  `auth_state` char(1) DEFAULT '1' COMMENT '1 启用 、0 禁用',
+  `auth_state` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '1' COMMENT '1 启用 、0 禁用',
   `create_by` int DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_by` int DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`auth_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8 COMMENT='权限表';
+  PRIMARY KEY (`auth_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='权限表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1019,13 +1009,13 @@ DROP TABLE IF EXISTS `bus_log`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bus_log` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增id',
-  `bus_name` varchar(100) DEFAULT NULL COMMENT '业务名称',
-  `bus_descrip` varchar(255) DEFAULT NULL COMMENT '业务操作描述',
-  `oper_person` varchar(100) DEFAULT NULL COMMENT '操作人',
+  `bus_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '业务名称',
+  `bus_descrip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '业务操作描述',
+  `oper_person` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '操作人',
   `oper_time` datetime DEFAULT NULL COMMENT '操作时间',
-  `ip_from` varchar(50) DEFAULT NULL COMMENT '操作来源ip',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8 COMMENT='业务操作日志';
+  `ip_from` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '操作来源ip',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=174 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='业务操作日志';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1034,7 +1024,7 @@ CREATE TABLE `bus_log` (
 
 LOCK TABLES `bus_log` WRITE;
 /*!40000 ALTER TABLE `bus_log` DISABLE KEYS */;
-INSERT INTO `bus_log` VALUES (89,'登录管理','用户登录','管理员','2023-10-17 15:34:26',NULL),(90,'登录管理','用户注销','管理员','2023-10-17 15:34:37',NULL),(91,'登录管理','用户登录','管理员','2023-10-17 15:34:47',NULL),(92,'登录管理','用户登录','管理员','2023-10-17 15:34:56',NULL),(93,'登录管理','用户注销','管理员','2023-10-17 15:36:47',NULL),(94,'登录管理','用户登录','管理员','2023-10-17 15:36:57',NULL),(95,'登录管理','用户登录','管理员','2023-10-17 15:37:03',NULL),(96,'角色管理','为角色分配权限','管理员','2023-10-17 15:37:16',NULL),(97,'登录管理','用户注销','管理员','2023-10-17 15:37:17',NULL),(98,'登录管理','用户登录','管理员','2023-10-17 15:37:21',NULL),(99,'仓库管理','添加仓库','管理员','2023-10-17 15:43:08',NULL),(100,'仓库管理','修改仓库','管理员','2023-10-17 15:43:20',NULL),(101,'材料管理','添加材料','管理员','2023-10-17 15:50:53',NULL),(102,'材料管理','添加材料','管理员','2023-10-17 15:58:05',NULL),(103,'合同管理','上传合同文件','管理员','2023-10-17 15:59:40',NULL),(104,'合同管理','添加合同','管理员','2023-10-17 15:59:40',NULL),(105,'合同管理','下载合同图片','管理员','2023-10-17 15:59:44',NULL),(106,'合同管理','更新合同','管理员','2023-10-17 16:00:01',NULL),(107,'用户管理','添加用户',NULL,'2023-10-17 16:14:53',NULL),(108,'用户管理','修改用户状态',NULL,'2023-10-17 16:14:54',NULL),(109,'用户管理','分配角色',NULL,'2023-10-17 16:14:58',NULL),(110,'角色管理','为角色分配权限',NULL,'2023-10-17 16:15:07',NULL),(111,'登录管理','用户注销',NULL,'2023-10-17 16:15:10',NULL),(112,'登录管理','用户登录','outadmin','2023-10-17 16:15:16',NULL),(113,'出库管理','添加出库单','outadmin','2023-10-17 16:16:58',NULL),(114,'出库管理','出库单确认','outadmin','2023-10-17 16:17:02',NULL),(115,'登录管理','用户注销','outadmin','2023-10-17 16:17:05',NULL),(116,'登录管理','用户登录','管理员','2023-10-17 16:17:08',NULL),(117,'用户管理','添加用户','管理员','2023-10-17 16:18:04',NULL),(118,'用户管理','修改用户状态','管理员','2023-10-17 16:18:05',NULL),(119,'用户管理','分配角色','管理员','2023-10-17 16:18:10',NULL),(120,'角色管理','为角色分配权限','管理员','2023-10-17 16:18:19',NULL),(121,'用户管理','添加用户','管理员','2023-10-17 16:18:39',NULL),(122,'用户管理','修改用户状态','管理员','2023-10-17 16:18:40',NULL),(123,'用户管理','分配角色','管理员','2023-10-17 16:18:44',NULL),(124,'角色管理','为角色分配权限','管理员','2023-10-17 16:18:56',NULL),(125,'登录管理','用户注销','管理员','2023-10-17 16:19:00',NULL),(126,'登录管理','用户登录','puradmin','2023-10-17 16:19:05',NULL),(127,'登录管理','用户注销','puradmin','2023-10-17 16:19:46',NULL),(128,'登录管理','用户登录','inadmin','2023-10-17 16:19:54',NULL),(129,'登录管理','用户注销','inadmin','2023-10-17 16:20:14',NULL),(130,'登录管理','用户登录','puradmin','2023-10-17 16:20:23',NULL),(131,'登录管理','用户注销','puradmin','2023-10-17 16:20:49',NULL),(132,'登录管理','用户登录','puradmin','2023-10-17 16:24:01',NULL),(133,'登录管理','用户登录','puradmin','2023-10-17 16:24:07',NULL),(134,'登录管理','用户登录','管理员','2023-10-17 16:24:12',NULL),(135,'登录管理','用户登录','管理员','2023-10-17 16:27:26',NULL),(136,'合同管理','上传合同文件','管理员','2023-10-17 16:27:46',NULL),(137,'合同管理','添加合同','管理员','2023-10-17 16:27:46',NULL),(138,'登录管理','用户注销','管理员','2023-10-17 16:28:13',NULL),(139,'登录管理','用户登录','puradmin','2023-10-17 16:28:18',NULL),(140,'登录管理','用户注销','puradmin','2023-10-17 16:29:39',NULL),(141,'登录管理','用户登录','puradmin','2023-10-17 16:29:46',NULL),(142,'登录管理','用户注销','puradmin','2023-10-17 16:29:54',NULL),(143,'登录管理','用户登录','inadmin','2023-10-17 16:29:59',NULL),(144,'登录管理','用户注销','inadmin','2023-10-17 16:30:09',NULL),(145,'登录管理','用户登录','puradmin','2023-10-17 16:30:13',NULL),(146,'登录管理','用户注销','puradmin','2023-10-17 16:31:38',NULL),(147,'登录管理','用户登录','inadmin','2023-10-17 16:31:44',NULL),(148,'登录管理','用户注销','inadmin','2023-10-17 16:31:49',NULL),(149,'登录管理','用户登录','管理员','2023-10-17 16:31:53',NULL),(150,'角色管理','为角色分配权限','管理员','2023-10-17 16:32:05',NULL),(151,'登录管理','用户注销','管理员','2023-10-17 16:32:06',NULL),(152,'登录管理','用户登录','puradmin','2023-10-17 16:32:35',NULL),(153,'登录管理','用户注销','puradmin','2023-10-17 16:33:33',NULL),(154,'登录管理','用户登录','inadmin','2023-10-17 16:33:42',NULL),(155,'登录管理','用户注销','inadmin','2023-10-17 16:35:12',NULL),(156,'登录管理','用户登录','puradmin','2023-10-17 16:35:18',NULL),(157,'登录管理','用户注销','puradmin','2023-10-17 16:36:19',NULL),(158,'登录管理','用户登录','inadmin','2023-10-17 16:36:25',NULL),(159,'入库管理','入库确认','inadmin','2023-10-17 16:37:05',NULL),(160,'登录管理','用户注销','inadmin','2023-10-17 16:37:08',NULL),(161,'登录管理','用户登录','管理员','2023-10-17 16:37:11',NULL),(162,'登录管理','用户注销','管理员','2023-10-17 16:37:16',NULL),(163,'登录管理','用户登录','管理员','2023-10-17 16:37:46',NULL),(164,'登录管理','用户注销','管理员','2023-10-17 16:38:35',NULL),(165,'登录管理','用户登录','outadmin','2023-10-17 16:38:41',NULL),(166,'出库管理','添加出库单','outadmin','2023-10-17 16:40:39',NULL),(167,'出库管理','出库单确认','outadmin','2023-10-17 16:41:02',NULL),(168,'登录管理','用户注销','outadmin','2023-10-17 16:41:05',NULL),(169,'登录管理','用户登录','管理员','2023-10-17 16:41:08',NULL);
+INSERT INTO `bus_log` VALUES (89,'登录管理','用户登录','管理员','2023-10-17 15:34:26',NULL),(90,'登录管理','用户注销','管理员','2023-10-17 15:34:37',NULL),(91,'登录管理','用户登录','管理员','2023-10-17 15:34:47',NULL),(92,'登录管理','用户登录','管理员','2023-10-17 15:34:56',NULL),(93,'登录管理','用户注销','管理员','2023-10-17 15:36:47',NULL),(94,'登录管理','用户登录','管理员','2023-10-17 15:36:57',NULL),(95,'登录管理','用户登录','管理员','2023-10-17 15:37:03',NULL),(96,'角色管理','为角色分配权限','管理员','2023-10-17 15:37:16',NULL),(97,'登录管理','用户注销','管理员','2023-10-17 15:37:17',NULL),(98,'登录管理','用户登录','管理员','2023-10-17 15:37:21',NULL),(99,'仓库管理','添加仓库','管理员','2023-10-17 15:43:08',NULL),(100,'仓库管理','修改仓库','管理员','2023-10-17 15:43:20',NULL),(101,'材料管理','添加材料','管理员','2023-10-17 15:50:53',NULL),(102,'材料管理','添加材料','管理员','2023-10-17 15:58:05',NULL),(103,'合同管理','上传合同文件','管理员','2023-10-17 15:59:40',NULL),(104,'合同管理','添加合同','管理员','2023-10-17 15:59:40',NULL),(105,'合同管理','下载合同图片','管理员','2023-10-17 15:59:44',NULL),(106,'合同管理','更新合同','管理员','2023-10-17 16:00:01',NULL),(107,'用户管理','添加用户',NULL,'2023-10-17 16:14:53',NULL),(108,'用户管理','修改用户状态',NULL,'2023-10-17 16:14:54',NULL),(109,'用户管理','分配角色',NULL,'2023-10-17 16:14:58',NULL),(110,'角色管理','为角色分配权限',NULL,'2023-10-17 16:15:07',NULL),(111,'登录管理','用户注销',NULL,'2023-10-17 16:15:10',NULL),(112,'登录管理','用户登录','outadmin','2023-10-17 16:15:16',NULL),(113,'出库管理','添加出库单','outadmin','2023-10-17 16:16:58',NULL),(114,'出库管理','出库单确认','outadmin','2023-10-17 16:17:02',NULL),(115,'登录管理','用户注销','outadmin','2023-10-17 16:17:05',NULL),(116,'登录管理','用户登录','管理员','2023-10-17 16:17:08',NULL),(117,'用户管理','添加用户','管理员','2023-10-17 16:18:04',NULL),(118,'用户管理','修改用户状态','管理员','2023-10-17 16:18:05',NULL),(119,'用户管理','分配角色','管理员','2023-10-17 16:18:10',NULL),(120,'角色管理','为角色分配权限','管理员','2023-10-17 16:18:19',NULL),(121,'用户管理','添加用户','管理员','2023-10-17 16:18:39',NULL),(122,'用户管理','修改用户状态','管理员','2023-10-17 16:18:40',NULL),(123,'用户管理','分配角色','管理员','2023-10-17 16:18:44',NULL),(124,'角色管理','为角色分配权限','管理员','2023-10-17 16:18:56',NULL),(125,'登录管理','用户注销','管理员','2023-10-17 16:19:00',NULL),(126,'登录管理','用户登录','puradmin','2023-10-17 16:19:05',NULL),(127,'登录管理','用户注销','puradmin','2023-10-17 16:19:46',NULL),(128,'登录管理','用户登录','inadmin','2023-10-17 16:19:54',NULL),(129,'登录管理','用户注销','inadmin','2023-10-17 16:20:14',NULL),(130,'登录管理','用户登录','puradmin','2023-10-17 16:20:23',NULL),(131,'登录管理','用户注销','puradmin','2023-10-17 16:20:49',NULL),(132,'登录管理','用户登录','puradmin','2023-10-17 16:24:01',NULL),(133,'登录管理','用户登录','puradmin','2023-10-17 16:24:07',NULL),(134,'登录管理','用户登录','管理员','2023-10-17 16:24:12',NULL),(135,'登录管理','用户登录','管理员','2023-10-17 16:27:26',NULL),(136,'合同管理','上传合同文件','管理员','2023-10-17 16:27:46',NULL),(137,'合同管理','添加合同','管理员','2023-10-17 16:27:46',NULL),(138,'登录管理','用户注销','管理员','2023-10-17 16:28:13',NULL),(139,'登录管理','用户登录','puradmin','2023-10-17 16:28:18',NULL),(140,'登录管理','用户注销','puradmin','2023-10-17 16:29:39',NULL),(141,'登录管理','用户登录','puradmin','2023-10-17 16:29:46',NULL),(142,'登录管理','用户注销','puradmin','2023-10-17 16:29:54',NULL),(143,'登录管理','用户登录','inadmin','2023-10-17 16:29:59',NULL),(144,'登录管理','用户注销','inadmin','2023-10-17 16:30:09',NULL),(145,'登录管理','用户登录','puradmin','2023-10-17 16:30:13',NULL),(146,'登录管理','用户注销','puradmin','2023-10-17 16:31:38',NULL),(147,'登录管理','用户登录','inadmin','2023-10-17 16:31:44',NULL),(148,'登录管理','用户注销','inadmin','2023-10-17 16:31:49',NULL),(149,'登录管理','用户登录','管理员','2023-10-17 16:31:53',NULL),(150,'角色管理','为角色分配权限','管理员','2023-10-17 16:32:05',NULL),(151,'登录管理','用户注销','管理员','2023-10-17 16:32:06',NULL),(152,'登录管理','用户登录','puradmin','2023-10-17 16:32:35',NULL),(153,'登录管理','用户注销','puradmin','2023-10-17 16:33:33',NULL),(154,'登录管理','用户登录','inadmin','2023-10-17 16:33:42',NULL),(155,'登录管理','用户注销','inadmin','2023-10-17 16:35:12',NULL),(156,'登录管理','用户登录','puradmin','2023-10-17 16:35:18',NULL),(157,'登录管理','用户注销','puradmin','2023-10-17 16:36:19',NULL),(158,'登录管理','用户登录','inadmin','2023-10-17 16:36:25',NULL),(159,'入库管理','入库确认','inadmin','2023-10-17 16:37:05',NULL),(160,'登录管理','用户注销','inadmin','2023-10-17 16:37:08',NULL),(161,'登录管理','用户登录','管理员','2023-10-17 16:37:11',NULL),(162,'登录管理','用户注销','管理员','2023-10-17 16:37:16',NULL),(163,'登录管理','用户登录','管理员','2023-10-17 16:37:46',NULL),(164,'登录管理','用户注销','管理员','2023-10-17 16:38:35',NULL),(165,'登录管理','用户登录','outadmin','2023-10-17 16:38:41',NULL),(166,'出库管理','添加出库单','outadmin','2023-10-17 16:40:39',NULL),(167,'出库管理','出库单确认','outadmin','2023-10-17 16:41:02',NULL),(168,'登录管理','用户注销','outadmin','2023-10-17 16:41:05',NULL),(169,'登录管理','用户登录','管理员','2023-10-17 16:41:08',NULL),(170,'登录管理','用户登录','管理员','2023-10-19 14:35:18',NULL),(171,'登录管理','用户登录','管理员','2023-10-19 14:46:08',NULL),(172,'登录管理','用户登录','管理员','2023-10-19 14:48:39',NULL),(173,'合同管理','添加合同','管理员','2023-10-19 14:48:59',NULL);
 /*!40000 ALTER TABLE `bus_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1046,19 +1036,18 @@ DROP TABLE IF EXISTS `buy_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `buy_list` (
-  `buy_id` int NOT NULL AUTO_INCREMENT,
-  `product_id` int DEFAULT NULL,
-  `store_id` int DEFAULT NULL,
-  `buy_num` int DEFAULT NULL,
-  `fact_buy_num` int DEFAULT NULL,
-  `buy_time` datetime DEFAULT NULL,
-  `supply_id` int DEFAULT NULL,
-  `place_id` int DEFAULT NULL,
-  `buy_user` varchar(20) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `is_in` char(1) DEFAULT NULL COMMENT '0 否 1 是',
-  PRIMARY KEY (`buy_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COMMENT='采购单';
+  `buy_id` int NOT NULL AUTO_INCREMENT COMMENT '采购id',
+  `material_id` int DEFAULT NULL COMMENT '材料id',
+  `store_id` int DEFAULT NULL COMMENT '仓库id',
+  `buy_num` int DEFAULT NULL COMMENT '实际购买数量',
+  `fact_buy_num` int DEFAULT NULL COMMENT '计划购买数量',
+  `buy_time` datetime DEFAULT NULL COMMENT '采购时间',
+  `buy_user` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '购买人',
+  `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '联系方式',
+  `contract_id` int DEFAULT NULL COMMENT '所属合同id',
+  `is_in` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '0 否 1 是',
+  PRIMARY KEY (`buy_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='采购单';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1067,7 +1056,7 @@ CREATE TABLE `buy_list` (
 
 LOCK TABLES `buy_list` WRITE;
 /*!40000 ALTER TABLE `buy_list` DISABLE KEYS */;
-INSERT INTO `buy_list` VALUES (48,33,5,100,100,'2023-10-17 16:19:33',6,NULL,'测试采购','12345678910','1'),(49,33,5,30,30,'2023-10-17 16:20:38',6,NULL,'10','12345678910','1'),(50,33,5,100,90,'2023-10-17 16:28:43',6,NULL,'test','12345678910','1'),(51,33,5,20,NULL,'2023-10-17 16:30:32',6,NULL,'test','12345678910','0');
+INSERT INTO `buy_list` VALUES (48,33,5,100,100,'2023-10-17 16:19:33','测试采购','12345678910',NULL,'1'),(49,33,5,30,30,'2023-10-17 16:20:38','10','12345678910',NULL,'1'),(50,33,5,100,90,'2023-10-17 16:28:43','test','12345678910',NULL,'1'),(51,33,5,20,NULL,'2023-10-17 16:30:32','test','12345678910',NULL,'0');
 /*!40000 ALTER TABLE `buy_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1081,17 +1070,17 @@ DROP TABLE IF EXISTS `checkin`;
 CREATE TABLE `checkin` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `country` varchar(255) DEFAULT NULL,
-  `province` varchar(255) DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
-  `district` varchar(255) DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `country` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `province` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `district` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `status` tinyint unsigned DEFAULT NULL,
   `risk` int unsigned DEFAULT NULL,
   `date` date DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1111,16 +1100,18 @@ DROP TABLE IF EXISTS `contract`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `contract` (
-  `contract_id` int NOT NULL AUTO_INCREMENT,
-  `contract_name` varchar(100) DEFAULT NULL,
-  `contract_desc` varchar(100) DEFAULT NULL,
-  `contract_state` char(1) DEFAULT NULL COMMENT '0未审核、1 待结算 、2 结算中、 3 已结算',
-  `associated_area` varchar(100) DEFAULT NULL COMMENT '关联工区',
-  `files` varchar(500) DEFAULT NULL COMMENT '相关附件',
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`contract_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8 COMMENT='合同表';
+  `contract_id` int NOT NULL AUTO_INCREMENT COMMENT '合同id',
+  `contract_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '合同名称',
+  `caterial_id` int DEFAULT NULL COMMENT '材料id',
+  `start_time` datetime DEFAULT NULL COMMENT '工期开始时间',
+  `end_time` datetime DEFAULT NULL COMMENT '工期结束时间',
+  `product_material_id` int DEFAULT NULL COMMENT '选择比例',
+  `contract_state` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '0未审核、1 待结算 、2 结算中、 3 已结算',
+  `files` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '相关附件',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`contract_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='合同表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1129,7 +1120,7 @@ CREATE TABLE `contract` (
 
 LOCK TABLES `contract` WRITE;
 /*!40000 ALTER TABLE `contract` DISABLE KEYS */;
-INSERT INTO `contract` VALUES (105,'测试添加合同','测试添加合同','1','测试添加合同','/img/upload//img/upload/OIP.jpg','2023-10-17 15:59:40',NULL),(106,'test','test','1','test','/img/upload/OIP.jpg','2023-10-17 16:27:46',NULL);
+INSERT INTO `contract` VALUES (105,'测试添加合同',NULL,NULL,NULL,NULL,'1','/img/upload//img/upload/OIP.jpg','2023-10-17 15:59:40',NULL),(106,'test1',NULL,NULL,NULL,NULL,'1','classpath:static/img/upload/img/upload/OIP.jpg','2023-10-17 16:27:46','2023-10-20 16:28:23'),(107,'测试',NULL,NULL,NULL,NULL,'1','classpath:static/img/uploadnull','2023-10-19 14:48:59',NULL),(108,'123',NULL,NULL,NULL,NULL,'0','classpath:static/img/uploadnull','2023-10-20 16:32:09','2023-10-20 16:32:09');
 /*!40000 ALTER TABLE `contract` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1143,8 +1134,8 @@ DROP TABLE IF EXISTS `face_model`;
 CREATE TABLE `face_model` (
   `id` int unsigned DEFAULT NULL,
   `user_id` int unsigned DEFAULT NULL,
-  `face_model` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `face_model` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1174,7 +1165,7 @@ CREATE TABLE `flow` (
   `state` int DEFAULT NULL COMMENT '实例状态：1=进行中，0=已结束',
   `create_time` datetime DEFAULT NULL COMMENT '部署时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1183,7 +1174,7 @@ CREATE TABLE `flow` (
 
 LOCK TABLES `flow` WRITE;
 /*!40000 ALTER TABLE `flow` DISABLE KEYS */;
-INSERT INTO `flow` VALUES (32,'187a6522-6cc7-11ee-8577-48a47209a1e7',106,0,0,27,1,'2023-10-17 16:28:06');
+INSERT INTO `flow` VALUES (32,'187a6522-6cc7-11ee-8577-48a47209a1e7',106,0,0,27,1,'2023-10-17 16:28:06'),(33,'97db05b6-6e4b-11ee-ad2e-48a47209a1e7',107,0,0,0,0,'2023-10-19 14:49:04');
 /*!40000 ALTER TABLE `flow` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1197,7 +1188,7 @@ DROP TABLE IF EXISTS `holidays`;
 CREATE TABLE `holidays` (
   `id` int unsigned DEFAULT NULL,
   `date` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1217,15 +1208,21 @@ DROP TABLE IF EXISTS `in_store`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `in_store` (
-  `ins_id` int NOT NULL AUTO_INCREMENT,
-  `store_id` int DEFAULT NULL,
-  `product_id` int DEFAULT NULL,
-  `in_num` int DEFAULT NULL,
-  `create_by` int DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `is_in` char(1) DEFAULT NULL COMMENT '0 否 1 是',
-  PRIMARY KEY (`ins_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COMMENT='入库单';
+  `ins_id` int NOT NULL AUTO_INCREMENT COMMENT '入库单id',
+  `store_id` int DEFAULT NULL COMMENT '仓库id',
+  `material_id` int DEFAULT NULL COMMENT '原材料id',
+  `in_num` int NOT NULL COMMENT '入库数量/公司数量',
+  `relative_num` int DEFAULT NULL COMMENT '对方数量',
+  `price` decimal(10,2) DEFAULT NULL COMMENT '单价',
+  `freight` decimal(10,2) DEFAULT NULL COMMENT '运费单价',
+  `car_number` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '入库车牌号',
+  `contract_id` int DEFAULT NULL COMMENT '所属合同id',
+  `remarks` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '备注',
+  `create_by` int DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `is_in` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '0 否 1 是',
+  PRIMARY KEY (`ins_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='入库单';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1234,8 +1231,94 @@ CREATE TABLE `in_store` (
 
 LOCK TABLES `in_store` WRITE;
 /*!40000 ALTER TABLE `in_store` DISABLE KEYS */;
-INSERT INTO `in_store` VALUES (48,5,33,100,38,'2023-10-17 16:19:42','0'),(49,5,33,30,38,'2023-10-17 16:28:52','0'),(50,5,33,90,39,'2023-10-17 16:36:54','1');
+INSERT INTO `in_store` VALUES (48,5,33,100,NULL,NULL,NULL,NULL,NULL,NULL,38,'2023-10-17 16:19:42','0'),(49,5,33,30,NULL,NULL,NULL,NULL,NULL,NULL,38,'2023-10-17 16:28:52','0'),(50,5,33,90,NULL,NULL,NULL,NULL,NULL,NULL,39,'2023-10-17 16:36:54','1');
 /*!40000 ALTER TABLE `in_store` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `inspection`
+--
+
+DROP TABLE IF EXISTS `inspection`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `inspection` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '检测id',
+  `material_id` int DEFAULT NULL COMMENT '材料id',
+  `inspection_result` int DEFAULT NULL COMMENT '检测结果：0：未通过 1：通过',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_by` int DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_by` int DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `inspection`
+--
+
+LOCK TABLES `inspection` WRITE;
+/*!40000 ALTER TABLE `inspection` DISABLE KEYS */;
+/*!40000 ALTER TABLE `inspection` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `material`
+--
+
+DROP TABLE IF EXISTS `material`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `material` (
+  `material_id` int NOT NULL AUTO_INCREMENT COMMENT '材料id',
+  `store_id` int DEFAULT NULL COMMENT '仓库id',
+  `material_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '材料名称及规格',
+  `material_num` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '材料在库数量',
+  `unit` int DEFAULT NULL COMMENT '单位',
+  `introduce` longtext CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT '材料介绍',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `create_by` int DEFAULT NULL COMMENT '创建人',
+  `update_by` int DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`material_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='商品表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `material`
+--
+
+LOCK TABLES `material` WRITE;
+/*!40000 ALTER TABLE `material` DISABLE KEYS */;
+INSERT INTO `material` VALUES (33,5,'测试修改材料','test',8,'','2023-10-17 15:50:53','2023-10-17 15:57:37',1,1);
+/*!40000 ALTER TABLE `material` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `material_supply`
+--
+
+DROP TABLE IF EXISTS `material_supply`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `material_supply` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `material_id` int DEFAULT NULL COMMENT '材料id',
+  `supply_id` int DEFAULT NULL COMMENT '供应商id',
+  `quotation` decimal(10,2) DEFAULT NULL COMMENT '报价',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `material_supply`
+--
+
+LOCK TABLES `material_supply` WRITE;
+/*!40000 ALTER TABLE `material_supply` DISABLE KEYS */;
+INSERT INTO `material_supply` VALUES (1,33,6,20.00);
+/*!40000 ALTER TABLE `material_supply` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1246,17 +1329,20 @@ DROP TABLE IF EXISTS `out_store`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `out_store` (
-  `outs_id` int NOT NULL AUTO_INCREMENT,
-  `product_id` int DEFAULT NULL,
-  `store_id` int DEFAULT NULL,
-  `tally_id` int DEFAULT NULL,
-  `out_price` decimal(8,2) DEFAULT NULL,
-  `out_num` int DEFAULT NULL,
-  `create_by` int DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `is_out` char(1) DEFAULT NULL COMMENT '0 否 1 是',
-  PRIMARY KEY (`outs_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='出库单';
+  `outs_id` int NOT NULL AUTO_INCREMENT COMMENT '出库单id',
+  `product_id` int DEFAULT NULL COMMENT '产品id',
+  `store_id` int DEFAULT NULL COMMENT '仓库id',
+  `out_num` int DEFAULT NULL COMMENT '出库数量',
+  `work_region` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '工区名称',
+  `custom` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '客户',
+  `contract_id` int DEFAULT NULL COMMENT '所属合同id',
+  `car_number` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '出库车牌',
+  `remarks` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '备注',
+  `create_by` int DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `is_out` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '0 否 1 是',
+  PRIMARY KEY (`outs_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='出库单';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1265,7 +1351,7 @@ CREATE TABLE `out_store` (
 
 LOCK TABLES `out_store` WRITE;
 /*!40000 ALTER TABLE `out_store` DISABLE KEYS */;
-INSERT INTO `out_store` VALUES (26,33,5,NULL,NULL,20,37,'2023-10-17 16:16:58','1'),(27,33,5,NULL,NULL,20,37,'2023-10-17 16:40:39','1');
+INSERT INTO `out_store` VALUES (26,33,5,20,NULL,NULL,NULL,NULL,NULL,37,'2023-10-17 16:16:58','1'),(27,33,5,20,NULL,NULL,NULL,NULL,NULL,37,'2023-10-17 16:40:39','1');
 /*!40000 ALTER TABLE `out_store` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1277,30 +1363,18 @@ DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product` (
-  `product_id` int NOT NULL AUTO_INCREMENT,
-  `store_id` int DEFAULT NULL,
-  `brand_id` int DEFAULT NULL,
-  `product_name` varchar(200) DEFAULT NULL,
-  `product_num` varchar(50) DEFAULT NULL,
-  `product_invent` int DEFAULT NULL,
-  `type_id` int DEFAULT NULL,
-  `supply_id` int DEFAULT NULL,
-  `place_id` int DEFAULT NULL,
-  `unit_id` int DEFAULT NULL,
-  `introduce` longtext,
-  `up_down_state` char(1) DEFAULT NULL COMMENT '0 下架 1 上架',
-  `in_price` decimal(10,2) DEFAULT NULL,
-  `sale_price` decimal(10,2) DEFAULT NULL,
-  `mem_price` decimal(10,2) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  `create_by` int DEFAULT NULL,
-  `update_by` int DEFAULT NULL,
-  `imgs` varchar(500) DEFAULT NULL,
-  `product_date` datetime DEFAULT NULL,
-  `supp_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='商品表';
+  `product_id` int NOT NULL AUTO_INCREMENT COMMENT '产品id',
+  `store_id` int DEFAULT NULL COMMENT '仓库id',
+  `product_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '产品名称',
+  `product_num` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '产品在库数量',
+  `unit` int DEFAULT NULL COMMENT '单位',
+  `sale_price` decimal(10,2) DEFAULT NULL COMMENT '销售单价',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `create_by` int DEFAULT NULL COMMENT '创建者',
+  `update_by` int DEFAULT NULL COMMENT '更新者',
+  PRIMARY KEY (`product_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='商品表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1309,8 +1383,33 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (33,5,NULL,'测试修改材料','test',150,NULL,6,NULL,8,'','0',10.00,10.00,0.00,'2023-10-17 15:50:53','2023-10-17 15:57:37',1,1,'/img/upload/','2023-10-17 08:00:00',NULL);
+INSERT INTO `product` VALUES (33,5,'测试修改材料','test',8,10.00,'2023-10-17 15:50:53','2023-10-17 15:57:37',1,1);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_material`
+--
+
+DROP TABLE IF EXISTS `product_material`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product_material` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `product_id` int DEFAULT NULL COMMENT '产品id',
+  `material_id` int DEFAULT NULL COMMENT '材料id',
+  `ratio` double DEFAULT NULL COMMENT '材料占比',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_material`
+--
+
+LOCK TABLES `product_material` WRITE;
+/*!40000 ALTER TABLE `product_material` DISABLE KEYS */;
+/*!40000 ALTER TABLE `product_material` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1323,11 +1422,11 @@ DROP TABLE IF EXISTS `product_type`;
 CREATE TABLE `product_type` (
   `type_id` int NOT NULL AUTO_INCREMENT,
   `parent_id` int DEFAULT NULL,
-  `type_code` varchar(50) DEFAULT NULL,
-  `type_name` varchar(100) DEFAULT NULL,
-  `type_desc` varchar(300) DEFAULT NULL,
-  PRIMARY KEY (`type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='商品分类表';
+  `type_code` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `type_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `type_desc` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`type_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='商品分类表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1348,16 +1447,16 @@ DROP TABLE IF EXISTS `role`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role` (
   `role_id` int NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(100) DEFAULT NULL,
-  `role_desc` varchar(300) DEFAULT NULL,
-  `role_code` varchar(100) DEFAULT NULL,
-  `role_state` char(1) DEFAULT NULL COMMENT '1 启用 0 禁用',
+  `role_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `role_desc` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `role_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `role_state` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '1 启用 0 禁用',
   `create_by` int DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_by` int DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='角色表';
+  PRIMARY KEY (`role_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1381,8 +1480,8 @@ CREATE TABLE `role_auth` (
   `role_auth_id` int NOT NULL AUTO_INCREMENT,
   `role_id` int DEFAULT NULL,
   `auth_id` int DEFAULT NULL,
-  PRIMARY KEY (`role_auth_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1172 DEFAULT CHARSET=utf8 COMMENT='角色权限表';
+  PRIMARY KEY (`role_auth_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1172 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色权限表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1404,13 +1503,13 @@ DROP TABLE IF EXISTS `store`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `store` (
   `store_id` int NOT NULL AUTO_INCREMENT,
-  `store_name` varchar(100) DEFAULT NULL,
-  `store_num` varchar(20) DEFAULT NULL,
-  `store_address` varchar(100) DEFAULT NULL,
-  `concat` varchar(50) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`store_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='仓库表';
+  `store_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `store_num` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `store_address` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `concat` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`store_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='仓库表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1431,16 +1530,15 @@ DROP TABLE IF EXISTS `supply`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `supply` (
-  `supply_id` int NOT NULL AUTO_INCREMENT,
-  `supply_num` varchar(20) DEFAULT NULL,
-  `supply_name` varchar(100) DEFAULT NULL,
-  `supply_introduce` longtext,
-  `concat` varchar(50) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `address` varchar(100) DEFAULT NULL,
-  `is_delete` char(1) DEFAULT '0' COMMENT '0:可用  1:不可用',
-  PRIMARY KEY (`supply_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='供货商';
+  `supply_id` int NOT NULL AUTO_INCREMENT COMMENT '供应商id',
+  `supply_num` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '供应商编码',
+  `supply_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '供应商名称',
+  `concat` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '联系人',
+  `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '联系电话',
+  `address` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '地址',
+  `is_delete` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '0' COMMENT '是否启用：0:可用  1:不可用',
+  PRIMARY KEY (`supply_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='供货商';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1449,8 +1547,37 @@ CREATE TABLE `supply` (
 
 LOCK TABLES `supply` WRITE;
 /*!40000 ALTER TABLE `supply` DISABLE KEYS */;
-INSERT INTO `supply` VALUES (6,'测试','测试修改供应商','测试','测试','测试','测试','0');
+INSERT INTO `supply` VALUES (6,'测试','测试修改供应商','测试','测试','测试','0');
 /*!40000 ALTER TABLE `supply` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `supply_payable`
+--
+
+DROP TABLE IF EXISTS `supply_payable`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `supply_payable` (
+  `in_store_id` int NOT NULL COMMENT '入库单id',
+  `money` decimal(10,2) DEFAULT NULL COMMENT '金额',
+  `money_paid` decimal(10,2) DEFAULT NULL COMMENT '已付金额',
+  `moeny_payable` decimal(10,2) DEFAULT NULL COMMENT '应付金额',
+  `create_time` datetime DEFAULT NULL COMMENT '开票日期',
+  `invoice
+_type` int DEFAULT NULL COMMENT '发票类型',
+  `remarks` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`in_store_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `supply_payable`
+--
+
+LOCK TABLES `supply_payable` WRITE;
+/*!40000 ALTER TABLE `supply_payable` DISABLE KEYS */;
+/*!40000 ALTER TABLE `supply_payable` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1462,11 +1589,11 @@ DROP TABLE IF EXISTS `sys_config`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sys_config` (
   `id` int unsigned DEFAULT NULL,
-  `param_key` varchar(200) DEFAULT NULL,
-  `param_value` varchar(200) DEFAULT NULL,
+  `param_key` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `param_value` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `status` tinyint unsigned DEFAULT NULL,
-  `remark` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1488,10 +1615,10 @@ DROP TABLE IF EXISTS `unit`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `unit` (
   `unit_id` int NOT NULL AUTO_INCREMENT,
-  `unit_name` varchar(20) DEFAULT NULL,
-  `unit_desc` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`unit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='规格单位表';
+  `unit_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `unit_desc` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`unit_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='规格单位表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1513,18 +1640,18 @@ DROP TABLE IF EXISTS `user_info`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_info` (
   `user_id` int NOT NULL AUTO_INCREMENT,
-  `user_code` varchar(50) DEFAULT NULL,
-  `user_name` varchar(50) DEFAULT NULL,
-  `user_pwd` varchar(100) DEFAULT NULL,
-  `user_type` char(1) DEFAULT NULL COMMENT '1 超级管理员 、 2  管理员 、 3 普通用户',
-  `user_state` char(1) DEFAULT NULL COMMENT '0 未审核 、1 已审核',
-  `is_delete` char(1) DEFAULT NULL COMMENT '0 正常、 1 已删除',
+  `user_code` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `user_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `user_pwd` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `user_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '1 超级管理员 、 2  管理员 、 3 普通用户',
+  `user_state` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '0 未审核 、1 已审核',
+  `is_delete` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '0 正常、 1 已删除',
   `create_by` int DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_by` int DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='用户表';
+  PRIMARY KEY (`user_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1548,8 +1675,8 @@ CREATE TABLE `user_role` (
   `user_role_id` int NOT NULL AUTO_INCREMENT,
   `role_id` int DEFAULT NULL,
   `user_id` int DEFAULT NULL,
-  PRIMARY KEY (`user_role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
+  PRIMARY KEY (`user_role_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户角色表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1572,7 +1699,7 @@ DROP TABLE IF EXISTS `workday`;
 CREATE TABLE `workday` (
   `id` int DEFAULT NULL,
   `date` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1593,4 +1720,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-17 16:45:21
+-- Dump completed on 2023-10-23  8:56:38

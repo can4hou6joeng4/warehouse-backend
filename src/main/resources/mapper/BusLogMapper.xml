@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bobochang.warehouse.mapper.BusLogMapper">
 
-    <resultMap id="BaseResultMap" type="com.bobochang.warehouse.domain.BusLog">
+    <resultMap id="BaseResultMap" type="com.bobochang.warehouse.entity.BusLog">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="busName" column="bus_name" jdbcType="VARCHAR"/>
             <result property="busDescrip" column="bus_descrip" jdbcType="VARCHAR"/>
