@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -14,7 +16,7 @@ import lombok.Data;
  */
 @TableName(value ="buy_list")
 @Data
-public class BuyList implements Serializable {
+public class Purchase implements Serializable {
     /**
      * 采购id
      */
@@ -25,11 +27,13 @@ public class BuyList implements Serializable {
      * 材料id
      */
     private Integer materialId;
+    private String materialName;
 
     /**
      * 仓库id
      */
     private Integer storeId;
+    private String storeName;
 
     /**
      * 实际购买数量
@@ -44,6 +48,7 @@ public class BuyList implements Serializable {
     /**
      * 采购时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date buyTime;
 
     /**
@@ -60,11 +65,15 @@ public class BuyList implements Serializable {
      * 所属合同id
      */
     private Integer contractId;
+    private String contractName;
 
     /**
      * 0 否 1 是
      */
     private String isIn;
+    
+    private String startTime;
+    private String endTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

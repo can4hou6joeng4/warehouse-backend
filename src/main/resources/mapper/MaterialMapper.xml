@@ -9,7 +9,7 @@
             <result property="storeId" column="store_id" jdbcType="INTEGER"/>
             <result property="materialName" column="material_name" jdbcType="VARCHAR"/>
             <result property="materialNum" column="material_num" jdbcType="VARCHAR"/>
-            <result property="unit" column="unit" jdbcType="INTEGER"/>
+            <result property="unitId" column="unit_id" jdbcType="INTEGER"/>
             <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
@@ -28,23 +28,17 @@
       //查询商品总行数的方法
       public int selectProductCount(Product product)
     -->
-    <select id="selectProductCount" resultType="integer">
-        select count(*) from
-        product t1, store t2, supply t5
+    <select id="selectMaterialCount" resultType="integer">
+        select count(*)
+        from
+        material t1, store t2, supply t3, material_supply t4, supply t5, unit t6
         where t1.store_id = t2.store_id
-        and t1.supply_id = t5.supply_id
-        and t1.unit_id = t7.unit_id
+        and t1.unit_id = t6.unit_id
         <if test="storeId != null">
             and t1.store_id = #{storeId}
         </if>
-        <if test="productName != null and productName != ''">
-            and t1.product_name like concat('%',#{productName},'%')
-        </if>
-        <if test="supplyName != null and supplyName != ''">
-            and t5.supply_name like concat('%', #{supplyName}, '%')
-        </if>
-        <if test="upDownState != null and upDownState != ''">
-            and t1.up_down_state = #{upDownState}
+        <if test="materialName != null and materialName != ''">
+            and t1.material_name like concat('%',#{materialName},'%')
         </if>
         <!--
           如果方法参数Product对象的isOverDate属性值为1(查询已过期商品),则查询
@@ -52,12 +46,6 @@
           反之如果方法参数Product对象的isOverDate属性值为0(查询未过期商品),则
           查询当前时间小于product表中supp_date列的时间的商品;
         -->
-        <if test="isOverDate != null and isOverDate != '' and isOverDate==1">
-            and date_format(now(), '%y-%m-%d') &gt; t1.supp_date
-        </if>
-        <if test="isOverDate != null and isOverDate != '' and isOverDate==0">
-            and date_format(now(), '%y-%m-%d') &lt; t1.supp_date
-        </if>
     </select>
 
     <!--
@@ -65,12 +53,13 @@
       public List<Product> selectProductPage(@Param("page") Page page, @Param("product") Product product)
     -->
     <select id="selectMaterialPage" resultType="com.bobochang.warehouse.entity.Material">
-        select t1.*, t2.store_name
+        select t1.*, t2.store_name, t6.unit_name
         from
-        material t1, store t2, supply t3, material_supply t4, supply t5
+        material t1, store t2, supply t3, material_supply t4, supply t5, unit t6
         where t1.store_id = t2.store_id
+          and t1.unit_id = t6.unit_id
         <if test="material.storeId != null">
-            and t1.store_id = #{product.storeId}
+            and t1.store_id = #{material.storeId}
         </if>
         <if test="material.materialName != null and material.materialName != ''">
             and t1.material_name like concat('%',#{material.materialName},'%')
@@ -114,16 +103,13 @@
       //根据商品id修改商品的方法
       public int updateProductById(Product product)
     -->
-    <update id="updateProductById">
+    <update id="updateMaterialById">
         <!--商品上下架状态、创建时间、创建者字段值不用改-->
-        update product set store_id = #{storeId}, brand_id = #{brandId},
-        product_name = #{productName}, product_num = #{productNum},
-        product_invent = #{productInvent}, type_id = #{typeId},
-        supply_id = #{supplyId}, place_id = #{placeId}, unit_id = #{unitId},
-        introduce = #{introduce}, in_price = #{inPrice}, sale_price = #{salePrice},
-        mem_price = #{memPrice}, update_time = now(), update_by = #{updateBy},
-        imgs = #{imgs}, product_date = #{productDate}, supp_date = #{suppDate}
-        where product_id = #{productId}
+        update material set store_id = #{storeId},
+        material_name = #{materialName}, material_num = #{materialNum},
+        introduce = #{introduce}, unit_id = #{unitId},
+        update_time = now(), update_by = #{updateBy}
+        where material_id = #{materialId}
     </update>
 
     <!--

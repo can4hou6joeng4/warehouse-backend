@@ -6,7 +6,7 @@ import com.bobochang.warehouse.entity.Auth;
 import java.util.List;
 
 /**
-* @author magic'book
+* @author HuihuaLi
 * @description 针对表【auth_info(权限表)】的数据库操作Service
 * @createDate 2023-10-19 17:22:39
 */

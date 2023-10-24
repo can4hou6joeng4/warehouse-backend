@@ -42,8 +42,9 @@ public class Material implements Serializable {
     /**
      * 单位
      */
-    private Integer unit;
-
+    private Integer unitId;
+    private String unitName; // 非表中字段，单位名称
+    
     /**
      * 材料介绍
      */

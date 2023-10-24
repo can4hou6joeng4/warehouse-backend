@@ -6,7 +6,7 @@ import com.bobochang.warehouse.entity.User;
 import com.bobochang.warehouse.page.Page;
 
 /**
-* @author magic'book
+* @author HuihuaLi
 * @description 针对表【user_info(用户表)】的数据库操作Service
 * @createDate 2023-10-20 15:37:44
 */

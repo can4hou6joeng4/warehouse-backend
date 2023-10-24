@@ -27,4 +27,63 @@
         remarks,create_by,create_time,
         is_in
     </sql>
+
+    <!--
+ //查询入库单总行数的方法
+ public int selectInStoreCount(InStore inStore)
+-->
+    <select id="selectInStoreCount" resultType="integer">
+        select count(*)
+        from in_store t1, store t2, material t3, user_info t4, supply t5
+        where t1.store_id = t2.store_id and t1.material_id = t3.material_id
+        and t1.create_by = t4.user_id and t1.supply_id = t5.supply_id
+
+        <if test="storeId != null">
+            and t1.store_id = #{storeId}
+        </if>
+        <if test="materialName != null and materialName != ''">
+            and t3.material_name like concat('%', #{materialName}, '%')
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and t1.create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and t1.create_time &lt;= #{endTime}
+        </if>
+        <if test="supplyId != null and supplyId != ''">
+            and t1.supply_id &lt;= #{supplyId}
+        </if>
+    </select>
+
+    <!--
+     //分页查询入库单的方法
+     public List<InStore> selectInStorePage(@Param("page") Page page, @Param("inStore") InStore inStore)
+    -->
+    <select id="selectInStorePage" resultType="com.bobochang.warehouse.entity.InStore">
+        select t1.*, t2.store_name, t3.material_name,
+        t4.user_code, t5.supply_name
+        from in_store t1, store t2, material t3, user_info t4, supply t5
+        where t1.store_id = t2.store_id and t1.material_id = t3.material_id
+        and t1.create_by = t4.user_id and t1.supply_id = t5.supply_id
+
+        <if test="inStore.storeId != null">
+            and t1.store_id = #{inStore.storeId}
+        </if>
+        <if test="inStore.materialName != null and inStore.materialName != ''">
+            and t3.material_name like concat('%', #{inStore.materialName}, '%')
+        </if>
+        <if test="inStore.startTime != null and inStore.startTime != ''">
+            and t1.create_time &gt;= #{inStore.startTime}
+        </if>
+        <if test="inStore.endTime != null and inStore.endTime != ''">
+            and t1.create_time &lt;= #{inStore.endTime}
+        </if>
+        <if test="inStore.supplyId != null and inStore.supplyId != ''">
+            and t1.supply_id &lt;= #{inStore.supplyId}
+        </if>
+
+        order by t1.create_time desc
+        limit #{page.limitIndex}, #{page.pageSize}
+    </select>
+    
 </mapper>

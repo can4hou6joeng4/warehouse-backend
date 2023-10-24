@@ -4,7 +4,7 @@ import com.bobochang.warehouse.entity.Workday;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
-* @author magic'book
+* @author HuihuaLi
 * @description 针对表【workday】的数据库操作Service
 * @createDate 2023-10-20 15:37:44
 */

@@ -1,43 +1,42 @@
-//package com.bobochang.warehouse.controller;
-//
-//
-//import com.bobochang.warehouse.annotation.BusLog;
-//import com.bobochang.warehouse.constants.WarehouseConstants;
-//import com.bobochang.warehouse.entity.*;
-//import com.bobochang.warehouse.page.Page;
-//import com.bobochang.warehouse.service.ActivitiService;
-//import com.bobochang.warehouse.service.OutStoreService;
-//import com.bobochang.warehouse.service.StoreService;
-//import com.bobochang.warehouse.utils.TokenUtils;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.transaction.annotation.Transactional;
-//import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RequestHeader;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import java.util.List;
-//
-//@RequestMapping("/outstore")
-//@RestController
-//@BusLog(name = "出库管理")
-//public class OutStoreController {
-//
-//    //注入OutStoreService
-//    @Autowired
-//    private OutStoreService outStoreService;
-//
-//    //注入TokenUtils
-//    @Autowired
-//    private TokenUtils tokenUtils;
-//
-//    //注入StoreService
-//    @Autowired
-//    private StoreService storeService;
-//
+package com.bobochang.warehouse.controller;
+
+
+import com.bobochang.warehouse.annotation.BusLog;
+import com.bobochang.warehouse.constants.WarehouseConstants;
+import com.bobochang.warehouse.entity.*;
+import com.bobochang.warehouse.page.Page;
+import com.bobochang.warehouse.service.OutStoreService;
+import com.bobochang.warehouse.service.StoreService;
+import com.bobochang.warehouse.utils.TokenUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RequestMapping("/outstore")
+@RestController
+@BusLog(name = "出库管理")
+public class OutStoreController {
+
+    //注入OutStoreService
+    @Autowired
+    private OutStoreService outStoreService;
+
+    //注入TokenUtils
+    @Autowired
+    private TokenUtils tokenUtils;
+
+    //注入StoreService
+    @Autowired
+    private StoreService storeService;
+
 //    @Autowired
 //    private ActivitiService activitiService;
-//
+
 //    /**
 //     * 添加出库单的url接口/outstore/outstore-add
 //     *
@@ -74,24 +73,24 @@
 //        //响应
 //        return Result.ok(storeList);
 //    }
-//
-//    /**
-//     * 分页查询出库单的url接口/outstore/outstore-page-list
-//     * <p>
-//     * 参数Page对象用于接收请求参数页码pageNum、每页行数pageSize;
-//     * 参数OutStore对象用于接收请求参数仓库id storeId、商品名称productName、
-//     * 是否出库isOut、起止时间startTime和endTime;
-//     * <p>
-//     * 返回值Result对象向客户端响应组装了所有分页信息的Page对象;
-//     */
-//    @RequestMapping("/outstore-page-list")
-//    public Result outStorePageList(Page page, OutStore outStore) {
-//        //执行业务
-//        page = outStoreService.outStorePage(page, outStore);
-//        //响应
-//        return Result.ok(page);
-//    }
-//
+
+    /**
+     * 分页查询出库单的url接口/outstore/outstore-page-list
+     * <p>
+     * 参数Page对象用于接收请求参数页码pageNum、每页行数pageSize;
+     * 参数OutStore对象用于接收请求参数仓库id storeId、商品名称productName、
+     * 是否出库isOut、起止时间startTime和endTime;
+     * <p>
+     * 返回值Result对象向客户端响应组装了所有分页信息的Page对象;
+     */
+    @RequestMapping("/outstore-page-list")
+    public Result outStorePageList(Page page, OutStore outStore) {
+        //执行业务
+        page = outStoreService.outStorePage(page, outStore);
+        //响应
+        return Result.ok(page);
+    }
+
 //    /**
 //     * 确定出库的url接口/outstore/outstore-confirm
 //     */
@@ -111,4 +110,4 @@
 //        //响应
 //        return result;
 //    }
-//}
+}
