@@ -6,6 +6,8 @@ import com.bobochang.warehouse.entity.Product;
 import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.page.Page;
 
+import java.util.List;
+
 /**
 * @author HuihuaLi
 * @description 针对表【material(商品表)】的数据库操作Service
@@ -20,4 +22,6 @@ public interface MaterialService extends IService<Material> {
     Result updateMaterial(Material material);
     
     Result deleteMaterial(Integer materialId);
+
+    List<Material> queryAllMaterial();
 }

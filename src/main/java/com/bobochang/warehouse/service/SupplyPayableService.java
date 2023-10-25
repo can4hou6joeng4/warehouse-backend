@@ -1,7 +1,9 @@
 package com.bobochang.warehouse.service;
 
+import com.bobochang.warehouse.entity.Supply;
 import com.bobochang.warehouse.entity.SupplyPayable;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.bobochang.warehouse.page.Page;
 
 /**
 * @author HuihuaLi
@@ -10,4 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface SupplyPayableService extends IService<SupplyPayable> {
 
+    Page querySupplyPage(Page page, Supply supply);
 }

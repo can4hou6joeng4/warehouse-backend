@@ -8,6 +8,7 @@ import com.bobochang.warehouse.entity.Store;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.ContractService;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +40,7 @@ import java.util.List;
 @RestController
 @Transactional
 @BusLog(name = "合同管理")
+@Slf4j
 public class ContractController {
 
     @Autowired

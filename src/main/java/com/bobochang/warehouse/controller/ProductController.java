@@ -6,6 +6,7 @@ import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.*;
 import com.bobochang.warehouse.utils.TokenUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @Transactional
 @BusLog(name = "商品管理")
+@Slf4j
 public class ProductController {
 
     //注入StoreService
@@ -91,41 +93,6 @@ public class ProductController {
         return Result.ok(page);
     }
 
-//    /**
-//     * 将配置文件的file.upload-path属性值注入给控制器的uploadPath属性,
-//     * 其为图片上传到项目的目录路径(类路径classes即resources下的static/img/upload);
-//     */
-//    @Value("${file.upload-path}")
-//    private String uploadPath;
-//
-//    /**
-//     * 上传图片的url接口/product/img-upload
-//     * <p>
-//     * 参数MultipartFile file对象封装了上传的图片;
-//     *
-//     * @CrossOrigin表示该url接口允许跨域请求;
-//     */
-//    @CrossOrigin
-//    @PostMapping("/img-upload")
-//    public Result uploadImg(MultipartFile file) {
-//
-//        try {
-//            //拿到图片上传到的目录(类路径classes下的static/img/upload)的File对象
-//            File uploadDirFile = ResourceUtils.getFile(uploadPath);
-//            //拿到图片上传到的目录的磁盘路径
-//            String uploadDirPath = uploadDirFile.getAbsolutePath();
-//            //拿到图片保存到的磁盘路径
-//            String fileUploadPath = uploadDirPath + "\\" + file.getOriginalFilename();
-//            //保存图片
-//            file.transferTo(new File(fileUploadPath));
-//            //成功响应
-//            return Result.ok("图片上传成功！");
-//        } catch (IOException e) {
-//            //失败响应
-//            return Result.err(Result.CODE_ERR_BUSINESS, "图片上传失败！");
-//        }
-//    }
-
     /**
      * 添加商品的url接口/product/product-add
      *
@@ -133,72 +100,60 @@ public class ProductController {
      * @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token
      * 将请求头Token的值即客户端归还的token赋值给参数变量token;
      */
-//    @RequestMapping("/product-add")
-//    @BusLog(descrip = "添加材料")
-//    public Result addProduct(@RequestBody Product product,
-//                             @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
-//
-//        //获取当前登录的用户
-//        CurrentUser currentUser = tokenUtils.getCurrentUser(token);
-//        //获取当前登录的用户id,即添加商品的用户id
-//        int createBy = currentUser.getUserId();
-//        product.setCreateBy(createBy);
-//
-//        //执行业务
-//        Result result = productService.saveProduct(product);
-//
-//        //响应
-//        return result;
-//    }
+    @RequestMapping("/product-add")
+    @BusLog(descrip = "添加材料")
+    public Result addProduct(@RequestBody Product product,
+                             @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
 
-//    /**
-//     * 修改商品上下架状态的url接口/product/state-change
-//     *
-//     * @RequestBody Product product用于接收并封装请求json数据;
-//     */
-//    @RequestMapping("/state-change")
-//    @BusLog(descrip = "修改商品状态")
-//    public Result changeProductState(@RequestBody Product product) {
-//        //执行业务
-//        Result result = productService.updateProductState(product);
-//        //响应
-//        return result;
-//    }
-//
-//    /**
-//     * 删除商品的url接口/product/product-delete/{productId}
-//     */
-//    @RequestMapping("/product-delete/{productId}")
-//    public Result deleteProduct(@PathVariable Integer productId) {
-//        //执行业务
-//        Result result = productService.deleteProduct(productId);
-//        //响应
-//        return result;
-//    }
-//
-//    /**
-//     * 修改商品的url接口/product/product-update
-//     *
-//     * @RequestBody Product product将请求传递的json数据封装到参数Product对象;
-//     * @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token
-//     * 将请求头Token的值即客户端归还的token赋值给参数变量token;
-//     */
-//    @RequestMapping("/product-update")
-//    public Result updateProduct(@RequestBody Product product,
-//                                @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
-//
-//        //获取当前登录的用户
-//        CurrentUser currentUser = tokenUtils.getCurrentUser(token);
-//        //获取当前登录的用户id,即修改商品的用户id
-//        int updateBy = currentUser.getUserId();
-//        product.setUpdateBy(updateBy);
-//
-//        //执行业务
-//        Result result = productService.updateProduct(product);
-//
-//        //响应
-//        return result;
-//    }
+        //获取当前登录的用户
+        CurrentUser currentUser = tokenUtils.getCurrentUser(token);
+        //获取当前登录的用户id,即添加商品的用户id
+        int createBy = currentUser.getUserId();
+        product.setCreateBy(createBy);
+
+        //执行业务
+        Result result = productService.saveProduct(product);
+
+        //响应
+        return result;
+    }
+    
+    /**
+     * 删除商品的url接口/product/product-delete/{productId}
+     */
+    @RequestMapping("/product-delete/{productId}")
+    public Result deleteProduct(@PathVariable Integer productId) {
+        //执行业务
+        Result result = productService.deleteProduct(productId);
+        //响应
+        return result;
+    }
+
+    /**
+     * 修改商品的url接口/product/product-update
+     *
+     * @RequestBody Product product将请求传递的json数据封装到参数Product对象;
+     * @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token
+     * 将请求头Token的值即客户端归还的token赋值给参数变量token;
+     */
+    @RequestMapping("/product-update")
+    public Result updateProduct(@RequestBody Product product,
+                                @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
+
+        //获取当前登录的用户
+        CurrentUser currentUser = tokenUtils.getCurrentUser(token);
+        //获取当前登录的用户id,即修改商品的用户id
+        int updateBy = currentUser.getUserId();
+        product.setUpdateBy(updateBy);
+
+        //执行业务
+        Result result = productService.updateProduct(product);
+
+        //响应
+        return result;
+    }
+
+
 //
 //    /**
 //     * 导出材料列表信息数据

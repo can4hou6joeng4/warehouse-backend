@@ -26,7 +26,7 @@ public interface ProductMapper extends BaseMapper<Product> {
     public int updateStateById(Product product);
 
     //根据商品id删除商品的方法
-    public int deleteProductById(Integer productId);
+//    public int deleteProductById(Integer productId);
 
     //根据商品id修改商品的方法
     public int updateProductById(Product product);
@@ -36,6 +36,8 @@ public interface ProductMapper extends BaseMapper<Product> {
 
     //根据商品id查询商品的方法
     public Product selectProductById(Integer productId);
+    
+    List<Product> queryAllProduct();
 }
 
 

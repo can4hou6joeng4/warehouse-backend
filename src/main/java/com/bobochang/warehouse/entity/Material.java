@@ -37,7 +37,7 @@ public class Material implements Serializable {
     /**
      * 材料在库数量
      */
-    private String materialNum;
+    private double materialNum;
 
     /**
      * 单位

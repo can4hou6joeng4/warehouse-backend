@@ -32,7 +32,7 @@
         select count(*) from
         product t1, store t2, unit t7
         where t1.store_id = t2.store_id
-        and t1.unit = t7.unit_id
+        and t1.unit_id = t7.unit_id
         <if test="storeId != null">
             and t1.store_id = #{storeId}
         </if>
@@ -51,7 +51,7 @@
         product t1, store t2,
         unit t7
         where t1.store_id = t2.store_id
-        and t1.unit = t7.unit_id
+        and t1.unit_id = t7.unit_id
         <if test="product.storeId != null">
             and t1.store_id = #{product.storeId}
         </if>
@@ -69,10 +69,8 @@
     <insert id="insertProduct">
         insert into product values
             (
-                null, #{storeId}, #{brandId}, #{productName}, #{productNum},
-                #{productInvent}, #{typeId}, #{supplyId}, #{placeId}, #{unitId},
-                #{introduce}, 0, #{inPrice}, #{salePrice}, #{memPrice}, now(),
-                null, #{createBy}, null, #{imgs}, #{productDate}, #{suppDate}
+                null, #{storeId}, #{productName}, #{productNum},#{unitId},
+                #{salePrice},now(),null, #{createBy}, null
             )
     </insert>
 
@@ -99,13 +97,9 @@
     -->
     <update id="updateProductById">
         <!--商品上下架状态、创建时间、创建者字段值不用改-->
-        update product set store_id = #{storeId}, brand_id = #{brandId},
+        update product set store_id = #{storeId},
         product_name = #{productName}, product_num = #{productNum},
-        product_invent = #{productInvent}, type_id = #{typeId},
-        supply_id = #{supplyId}, place_id = #{placeId}, unit_id = #{unitId},
-        introduce = #{introduce}, in_price = #{inPrice}, sale_price = #{salePrice},
-        mem_price = #{memPrice}, update_time = now(), update_by = #{updateBy},
-        imgs = #{imgs}, product_date = #{productDate}, supp_date = #{suppDate}
+        unit_id = #{unitId}, sale_price = #{salePrice}, update_time = now(), update_by = #{updateBy}
         where product_id = #{productId}
     </update>
 
@@ -125,5 +119,8 @@
     -->
     <select id="selectProductById" resultType="com.bobochang.warehouse.entity.Product">
         select * from product where product_id = #{productId}
+    </select>
+    <select id="queryAllProduct" resultType="com.bobochang.warehouse.entity.Product">
+        select product_id,product_name from product
     </select>
 </mapper>

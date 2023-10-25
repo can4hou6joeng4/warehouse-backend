@@ -28,6 +28,7 @@ public class Product implements Serializable {
      * 仓库id
      */
     private Integer storeId;
+    private String storeName;
 
     /**
      * 产品名称
@@ -42,7 +43,8 @@ public class Product implements Serializable {
     /**
      * 单位
      */
-    private Integer unit;
+    private Integer unitId;
+    private String unitName;
 
     /**
      * 销售单价
@@ -70,6 +72,7 @@ public class Product implements Serializable {
      * 更新者
      */
     private Integer updateBy;
+    
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

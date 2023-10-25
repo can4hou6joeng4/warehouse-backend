@@ -72,6 +72,18 @@ public class Contract implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
+    /**
+     * 产品id
+     */
+    private Integer productId;
+
+    /**
+     * 生产数量
+     */
+    private Integer productNum;
+    
+    private String ifPurchase;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

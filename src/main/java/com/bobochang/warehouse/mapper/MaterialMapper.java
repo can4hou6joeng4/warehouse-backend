@@ -20,6 +20,8 @@ public interface MaterialMapper extends BaseMapper<Material> {
 
     public int updateMaterialById(Material material);
 
+    List<Material> queryAllMaterial();
+
 }
 
 

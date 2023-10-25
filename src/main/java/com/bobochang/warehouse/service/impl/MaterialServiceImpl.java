@@ -73,7 +73,10 @@ public class MaterialServiceImpl extends ServiceImpl<MaterialMapper, Material>
         return Result.err(Result.CODE_ERR_BUSINESS, "删除材料失败！");
     }
 
-
+    @Override
+    public List<Material> queryAllMaterial() {
+        return materialMapper.queryAllMaterial();
+    }
 }
 
 

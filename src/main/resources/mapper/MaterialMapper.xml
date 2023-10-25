@@ -129,4 +129,7 @@
     <select id="selectProductById" resultType="com.bobochang.warehouse.entity.Product">
         select * from product where product_id = #{productId}
     </select>
+    <select id="queryAllMaterial" resultType="com.bobochang.warehouse.entity.Material">
+        select material_id,material_name from material
+    </select>
 </mapper>
