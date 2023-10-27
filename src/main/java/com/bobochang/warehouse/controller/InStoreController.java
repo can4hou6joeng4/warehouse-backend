@@ -26,7 +26,7 @@ import java.util.List;
 public class InStoreController {
 
     //注入StoreService
-    @Autowired
+    @Autowired  
     private StoreService storeService;
 
     //注入InStoreService

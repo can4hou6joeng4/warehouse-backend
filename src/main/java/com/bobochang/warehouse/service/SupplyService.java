@@ -30,4 +30,5 @@ public interface SupplyService extends IService<Supply> {
     //校验供应商编码是否存在
     public Result checkSupplyNum(String supplyNum);
 
+    List<Supply> selectSupplyByMaterialId(String materialId);
 }

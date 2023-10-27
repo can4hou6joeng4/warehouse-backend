@@ -20,4 +20,23 @@
         purchase_id,in_store_id,out_store_id,
         state,create_time
     </sql>
+    <!-- 新增 -->
+    <insert id="insertFlow">
+        insert into flow
+        (instance_id, contract_id, purchase_id, in_store_id, out_store_id, state, create_time)
+        values (#{instanceId}, #{contractId}, #{purchaseId}, #{inStoreId}, #{outStoreId},#{state}, now())
+    </insert>
+
+    <update id="updateFlow" >
+        update flow
+        set purchase_id =#{purchaseId},
+            in_store_id = #{inStoreId},
+            out_store_id =#{outStoreId}
+        where instance_id = #{instanceId}
+    </update>
+
+    <select id="selectByInstanceId" parameterType="java.lang.String" resultType="com.bobochang.warehouse.entity.Flow">
+        select * from flow
+        where instance_id = #{instanceId}
+    </select>
 </mapper>

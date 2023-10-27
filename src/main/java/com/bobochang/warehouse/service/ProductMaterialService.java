@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.page.Page;
 
+import java.util.List;
+
 /**
 * @author HuihuaLi
 * @description 针对表【product_material】的数据库操作Service
@@ -25,5 +27,5 @@ public interface ProductMaterialService extends IService<ProductMaterial> {
     Result delete(Integer id);
 
     // 根据产品id查询配料比
-    Result selectRatioById(String productId);
+    List<ProductMaterial> selectRatioById(String productId);
 }

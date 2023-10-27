@@ -24,4 +24,6 @@ public interface MaterialService extends IService<Material> {
     Result deleteMaterial(Integer materialId);
 
     List<Material> queryAllMaterial();
+
+    Page queryMaterialPageByContractId(Page page, Integer contractId);
 }

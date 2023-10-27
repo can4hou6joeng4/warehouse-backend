@@ -132,7 +132,6 @@ public class ProductMaterialController {
      */
     @GetMapping("/ratio/{productId}")
     public Result getRatio(@PathVariable String productId){
-        log.info(productId);
-        return productMaterialService.selectRatioById(productId);
+        return Result.ok(productMaterialService.selectRatioById(productId));
     }
 }

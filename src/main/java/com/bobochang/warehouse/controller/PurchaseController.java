@@ -4,15 +4,16 @@ package com.bobochang.warehouse.controller;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.page.Page;
-import com.bobochang.warehouse.service.InStoreService;
-import com.bobochang.warehouse.service.PurchaseService;
-import com.bobochang.warehouse.service.StoreService;
+import com.bobochang.warehouse.service.*;
 import com.bobochang.warehouse.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/purchase")
 @RestController
@@ -33,6 +34,12 @@ public class PurchaseController {
     //注入InStoreService
     @Resource
     private InStoreService inStoreService;
+    
+    @Autowired
+    private ContractService contractService;
+    
+    @Autowired
+    private ProductMaterialService productMaterialService;
 
 //    @Resource
 //    private ActivitiService activitiService;
@@ -40,13 +47,14 @@ public class PurchaseController {
     /**
      * 添加采购单的url接口/purchase/purchase-add
      */
-//    @RequestMapping("/purchase-add")
-//    public Result addPurchase(@RequestBody Purchase purchase) {
-//        //执行业务
-//        Result result = purchaseService.savePurchase(purchase);
-//        //响应
-//        return result;
-//    }
+    @RequestMapping("/purchase-add")
+    public Result addPurchase(@RequestBody Purchase purchase) {
+        System.out.println(purchase.getSupplyId());
+        //执行业务
+        Result result = purchaseService.savePurchase(purchase);
+        //响应
+        return result;
+    }
 
     /**
      * 查询所有仓库的url接口/purchase/store-list
@@ -87,8 +95,8 @@ public class PurchaseController {
         Result result = purchaseService.updatePurchase(purchase);
 
         // 完成流程任务
-        Flow flow = new Flow();
-        flow.setPurchaseId(purchase.getBuyId());
+//        Flow flow = new Flow();
+//        flow.setPurchaseId(purchase.getBuyId());
 
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
 //        activitiService.completeTask(userCode, flow);
@@ -138,6 +146,17 @@ public class PurchaseController {
         //响应
         return result;
     }
+
+    /**
+     * 根据合同查询采购单
+     * @param contractId
+     * @return
+     */
+    @GetMapping("/purchase-list/{contractId}")
+    public Result selectPurchaseByContractId(@PathVariable String contractId){
+        return Result.ok(purchaseService.getPurchaseDetail(Integer.valueOf(contractId)));
+    }
+    
 
 //    /**
 //     * 导出采购列表信息数据

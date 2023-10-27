@@ -10,7 +10,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity generator.domain.Flow
 */
 public interface FlowMapper extends BaseMapper<Flow> {
+    void insertFlow(Flow flow);
 
+    void updateFlow(Flow flow);
+
+    Flow selectByInstanceId(String instanceId);
 }
 
 

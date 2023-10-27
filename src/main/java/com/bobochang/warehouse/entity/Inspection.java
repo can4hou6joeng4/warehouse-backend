@@ -11,6 +11,7 @@ import lombok.Data;
 /**
  * 
  * @TableName inspection
+ * 产品检测表
  */
 @TableName(value ="inspection")
 @Data
@@ -27,9 +28,14 @@ public class Inspection implements Serializable {
     private Integer materialId;
 
     /**
+     * 送检供应商id
+     */
+    private Integer supplyId;
+    
+    /**
      * 检测结果：0：未通过 1：通过
      */
-    private Integer inspectionResult;
+    private char inspectionResult;
 
     /**
      * 创建时间

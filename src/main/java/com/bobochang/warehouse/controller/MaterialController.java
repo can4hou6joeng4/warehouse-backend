@@ -7,6 +7,7 @@ import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.*;
 import com.bobochang.warehouse.utils.TokenUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ import java.util.List;
 @RestController
 @Transactional
 @BusLog(name = "材料管理")
+@Slf4j
 public class MaterialController {
     @Autowired
     private MaterialService materialService;
@@ -89,6 +91,22 @@ public class MaterialController {
         //响应
         return Result.ok(page);
     }
+
+    /**
+     * 根据合同id查找材料列表，用于从任务中心跳转直接采购需要的材料
+     * @param page
+     * @param contractId
+     * @return
+     */
+    @RequestMapping("/material-page-list-contractId")
+    public Result productPageListByContractId(Page page, Integer contractId) {
+        //执行业务
+        page = materialService.queryMaterialPageByContractId(page, contractId);
+        //响应
+        return Result.ok(page);
+    }
+
+
 
 //    /**
 //     * 将配置文件的file.upload-path属性值注入给控制器的uploadPath属性,
@@ -186,7 +204,7 @@ public class MaterialController {
         //响应
         return result;
     }
-
+    
 //    /**
 //     * 导出材料列表信息数据
 //     * @param page

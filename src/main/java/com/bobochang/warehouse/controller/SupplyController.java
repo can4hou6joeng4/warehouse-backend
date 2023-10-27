@@ -104,4 +104,16 @@ public class SupplyController {
         //响应
         return Result.ok(resultList);
     }
+
+
+    /**
+     * 查询到能够提供该材料的供应商信息，并且是产品检测合格的供应商
+     * @param materialId 材料id
+     * @return
+     */
+    @RequestMapping("/supply-list/{materialId}")
+    public Result selectSupplyByMaterialId(@PathVariable String materialId){
+        List<Supply> list = supplyService.selectSupplyByMaterialId(materialId);
+        return Result.ok(list);
+    }
 }

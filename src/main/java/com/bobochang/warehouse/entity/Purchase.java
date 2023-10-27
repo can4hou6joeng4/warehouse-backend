@@ -35,6 +35,13 @@ public class Purchase implements Serializable {
     private Integer storeId;
     private String storeName;
 
+
+    /**
+     * 供应商id
+     */
+    private Integer supplyId;//采购材料的供应商id
+    private String supplyName;
+    
     /**
      * 实际购买数量
      */

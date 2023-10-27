@@ -29,6 +29,10 @@ public interface PurchaseMapper extends BaseMapper<Purchase> {
 
     //根据id将采购单状态改为已入库的方法
     public int updateIsInById(Integer buyId);
+
+    int insertPurchase(Purchase purchase);
+
+    List<Purchase> selectPurchaseByContractId(Integer contractId);
 }
 
 

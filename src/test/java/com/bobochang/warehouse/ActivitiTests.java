@@ -44,9 +44,9 @@ public class ActivitiTests {
      */
     @Test
     void createDeploy(){
-        InputStream inputStream = getClass().getResourceAsStream("/processes/test2.bpmn20.xml");
+        InputStream inputStream = getClass().getResourceAsStream("/processes/flowv1.bpmn20.xml");
         repositoryService.createDeployment()
-                .addInputStream("/processes/test2.bpmn20.xml", inputStream)
+                .addInputStream("/processes/flowv1.bpmn20.xml", inputStream)
                 .deploy(); //demo2:1:81952be3-6e2b-11ee-a90a-48a47209a1e7
     }
 

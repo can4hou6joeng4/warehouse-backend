@@ -71,9 +71,8 @@ public class ProductMaterialServiceImpl extends ServiceImpl<ProductMaterialMappe
     }
 
     @Override
-    public Result selectRatioById(String productId) {
-        List<ProductMaterial> list = productMaterialMapper.selectRatioById(productId);
-        return Result.ok(list);
+    public List<ProductMaterial> selectRatioById(String productId) {
+        return productMaterialMapper.selectRatioById(productId);
     }
 
 }

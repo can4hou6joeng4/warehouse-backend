@@ -30,8 +30,8 @@
 -->
     <insert id="insertPurchase">
         insert into buy_list
-        values (null, #{productId}, #{storeId}, #{buyNum}, null, now(),
-                #{supplyId}, #{placeId}, #{buyUser}, #{phone}, 0)
+        values (null, #{materialId}, #{storeId}, #{supplyId}, #{buyNum}, null, now(),
+                #{buyUser}, #{phone}, #{contractId}, 0)
     </insert>
 
     <!--
@@ -71,9 +71,11 @@
                                   @Param("purchase") Purchase purchase)
     -->
     <select id="selectPurchasePage" resultType="com.bobochang.warehouse.entity.Purchase">
-        select t1.*, t2.material_name, t3.store_name, t4.contract_name
-        from buy_list t1, material t2, store t3, contract t4
-        where t1.material_id = t2.material_id and t1.store_id = t3.store_id and t1.contract_id = t4.contract_id
+        select t1.*, t2.material_name, t3.store_name, t4.contract_name, t5.supply_name
+        from buy_list t1, material t2, store t3, contract t4, supply t5
+        where t1.material_id = t2.material_id 
+          and t1.store_id = t3.store_id and t1.contract_id = t4.contract_id
+          and t1.supply_id = t5.supply_id
         <if test="purchase.storeId != null">
             and t1.store_id = #{purchase.storeId}
         </if>
@@ -97,6 +99,12 @@
         </if>
         order by t1.buy_time desc
         limit #{page.limitIndex}, #{page.pageSize}
+    </select>
+    <select id="selectPurchaseByContractId" resultType="com.bobochang.warehouse.entity.Purchase">
+        select t1.*, t2.supply_name, t3.material_name from buy_list t1, supply t2, material t3
+        where contract_id = #{contractId}
+        and t1.supply_id = t2.supply_id
+        and t1.material_id = t3.material_id
     </select>
 
     <!--

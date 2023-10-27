@@ -31,7 +31,7 @@
     <select id="selectMaterialCount" resultType="integer">
         select count(*)
         from
-        material t1, store t2, supply t3, material_supply t4, supply t5, unit t6
+        material t1, store t2, unit t6
         where t1.store_id = t2.store_id
         and t1.unit_id = t6.unit_id
         <if test="storeId != null">
@@ -55,7 +55,7 @@
     <select id="selectMaterialPage" resultType="com.bobochang.warehouse.entity.Material">
         select t1.*, t2.store_name, t6.unit_name
         from
-        material t1, store t2, supply t3, material_supply t4, supply t5, unit t6
+        material t1, store t2, unit t6
         where t1.store_id = t2.store_id
           and t1.unit_id = t6.unit_id
         <if test="material.storeId != null">
@@ -67,29 +67,6 @@
         order by t1.create_time
         limit #{page.limitIndex}, #{page.pageSize}
     </select>
-
-    <!--
-      //添加商品的方法
-      public int insertProduct(Product product)
-    -->
-    <insert id="insertProduct">
-        insert into product values
-            (
-                null, #{storeId}, #{brandId}, #{productName}, #{productNum},
-                #{productInvent}, #{typeId}, #{supplyId}, #{placeId}, #{unitId},
-                #{introduce}, 0, #{inPrice}, #{salePrice}, #{memPrice}, now(),
-                null, #{createBy}, null, #{imgs}, #{productDate}, #{suppDate}
-            )
-    </insert>
-
-    <!--
-      //根据商品id修改商品的上下架状态
-      public int updateStateById(Product product)
-    -->
-    <update id="updateStateById">
-        update product set up_down_state = #{upDownState}
-        where product_id = #{productId}
-    </update>
 
     <!--
       //根据商品id删除商品的方法
@@ -131,5 +108,24 @@
     </select>
     <select id="queryAllMaterial" resultType="com.bobochang.warehouse.entity.Material">
         select material_id,material_name from material
+    </select>
+    <select id="selectMaterialCountByContractId" resultType="java.lang.Integer">
+        SELECT count(*) FROM contract t1, product_material t2, material t3, store t4, unit t5
+        where t1.product_id = t2.product_id
+        and t2.material_id = t3.material_id
+        and t3.store_id = t4.store_id
+        and t3.unit_id = t5.unit_id
+        and t1.contract_id = #{contractId}
+    </select>
+    
+    <select id="selectMaterialPageByContractId" resultType="com.bobochang.warehouse.entity.Material">
+        SELECT t3.*, t4.store_name, t5.unit_name FROM contract t1, product_material t2, material t3, store t4, unit t5
+        where t1.product_id = t2.product_id
+        and t2.material_id = t3.material_id
+        and t3.store_id = t4.store_id
+        and t3.unit_id = t5.unit_id
+        and t1.contract_id = #{contractId}
+        order by t3.create_time
+        limit #{page.limitIndex}, #{page.pageSize}
     </select>
 </mapper>

@@ -114,4 +114,10 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply>
         Supply supply = supplyMapper.selectSupplyByNum(supplyNum);
         return Result.ok(supply==null);
     }
+
+    @Override
+    public List<Supply> selectSupplyByMaterialId(String materialId) {
+        
+        return supplyMapper.selectSupplyByMaterialId(Integer.valueOf(materialId));
+    }
 }

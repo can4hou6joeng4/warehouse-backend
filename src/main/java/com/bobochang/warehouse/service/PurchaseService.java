@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.page.Page;
 
+import java.util.List;
+
 /**
 * @author HuihuaLi
 * @description 针对表【buy_list(采购单)】的数据库操作Service
@@ -16,6 +18,10 @@ public interface PurchaseService extends IService<Purchase> {
 
     Result updatePurchase(Purchase purchase);
 
+    public Result savePurchase(Purchase purchase);
 
 
+    List<Purchase> selectPurchaseByContractId(Integer contractId);
+
+    List<Object> getPurchaseDetail(Integer contractId);
 }
