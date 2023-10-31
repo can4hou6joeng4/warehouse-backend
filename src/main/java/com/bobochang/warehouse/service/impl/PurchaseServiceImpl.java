@@ -63,10 +63,10 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase>
 
         // 获取采购员
         List<Purchase> list = selectPurchaseByContractId(contractId);
-        objectMap.put("buyName", list.get(0).getBuyNum());
+        objectMap.put("buyName", list.get(0).getBuyUser());
         
         // 获取配料比和产品名
-        Contract contract = contractService.getBaseMapper().selectById(contractId);
+        Contract contract = contractService.findContractById(contractId);
         List<ProductMaterial> productMaterialList = productMaterialService.selectRatioById(String.valueOf(contract.getProductId()));
 
         objectMap.put("productName", productMaterialList.get(0).getProductName());

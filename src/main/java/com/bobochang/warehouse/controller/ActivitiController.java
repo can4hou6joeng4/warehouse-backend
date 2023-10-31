@@ -1,6 +1,7 @@
 package com.bobochang.warehouse.controller;
 
 import com.bobochang.warehouse.constants.WarehouseConstants;
+import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.Flow;
 import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.service.ActivitiService;
@@ -58,12 +59,12 @@ public class ActivitiController {
 
     /**
      * 开启流程实例
-     * @param map 里面包括 contractId 合同id state 是否需要采购
+     * @param contract 里面包括 contractId 合同id state 是否需要采购
      * @return
      */
     @PostMapping("/start-instance")
-    public Result startInstance(@RequestBody Map<String, String > map){
-        return activitiService.startInstance(map);
+    public Result startInstance(@RequestBody Contract contract){
+        return activitiService.startInstance(contract);
     }
 
     /**
@@ -85,19 +86,21 @@ public class ActivitiController {
     public Result activitiPageList(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
         // 根据token获得用户的角色
         String roleCode = userService.searchRoleCodeById(tokenUtils.getCurrentUser(token).getUserId());
+        log.info(roleCode);
         return Result.ok(activitiService.searchTask(roleCode));
     }
 
     /**
      * 完成任务，主要是超级管理员
-     * @param token
+     * @param token 用户令牌 contract 包含合同id
      * @return
      */
-    @GetMapping("/complete-task")
-    public Result completeTask(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
+    @PostMapping("/complete-task")
+    public Result completeTask(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
+                               @RequestBody Flow flow){
+        System.out.println(flow.getContractId());
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
-        Flow flow = new Flow();
-        activitiService.completeTask(userCode, flow);
-        return Result.ok();
+        
+        return activitiService.completeTask(userCode, flow);
     }
 }

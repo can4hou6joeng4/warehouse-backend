@@ -1,5 +1,6 @@
 package com.bobochang.warehouse.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bobochang.warehouse.entity.Flow;
 import com.bobochang.warehouse.service.FlowService;
@@ -35,6 +36,18 @@ public class FlowServiceImpl extends ServiceImpl<FlowMapper, Flow>
     @Override
     public Flow selectByInstanceId(String instanceId) {
         return flowMapper.selectByInstanceId(instanceId);
+    }
+
+    @Override
+    public Flow selectByContractId(Integer contractId) {
+        QueryWrapper<Flow> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("contract_id", contractId);
+        return flowMapper.selectList(queryWrapper).get(0);
+    }
+
+    @Override
+    public Flow selectById(Integer flowId) {
+        return flowMapper.selectById(flowId);
     }
 }
 

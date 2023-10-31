@@ -7,13 +7,17 @@ import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.mapper.ContractMapper;
 import com.bobochang.warehouse.mapper.FaceModelMapper;
 import com.bobochang.warehouse.page.Page;
+import com.bobochang.warehouse.service.ActivitiService;
 import com.bobochang.warehouse.service.ContractService;
 import com.bobochang.warehouse.service.FaceModelService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author bobochang
@@ -21,6 +25,7 @@ import java.util.List;
  * @Date 2023/9/19 - 10:55
  */
 @Service
+@Slf4j
 public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
         implements ContractService {
 
@@ -29,6 +34,7 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
 
     @Value("${file.upload-path}")
     private String accessPath;
+    
 
     @Override
     public Contract findContractById(Integer contractId) {
@@ -51,6 +57,10 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
 
     @Override
     public Result saveContract(Contract contract) {
+        System.out.println(contract);
+        log.info(String.valueOf(contract));
+        contract.setContractState("0");
+        
         // 根据合同id查询合同
         Contract oldContract = contractMapper.findContractByName(contract.getContractName());
         if (oldContract != null) {
@@ -59,6 +69,7 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
         contract.setFiles(accessPath+contract.getFiles());
         // 合同不存在 添加合同
         contractMapper.insertContract(contract);
+        
         return Result.ok("添加合同成功");
     }
 

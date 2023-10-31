@@ -1,5 +1,6 @@
 package com.bobochang.warehouse.service;
 
+import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.Flow;
 import com.bobochang.warehouse.entity.Result;
 
@@ -17,10 +18,10 @@ public interface ActivitiService {
     public Result haveTask(int userId);
 
     // 开启流程实例
-    Result startInstance(Map<String, String> map);
+    Result startInstance(Contract contract);
 
     // 完成流程实例中的任务
-    public void completeTask(String userCode, Flow flow);
+    public Result completeTask(String userCode, Flow flow);
 
     void completeGroupTask(String userCode, Flow flow);
 

@@ -63,13 +63,17 @@
         public List<Contract> selectContractPage(@Param("page")Page page, @Param("contract")Contract contract);
     -->
     <select id="selectContractPage" resultType="com.bobochang.warehouse.entity.Contract">
-        select * from contract
+        select t1.*, t2.product_name from contract t1 left join product t2
+        on t1.product_id = t2.product_id
         <where>
             <if test="contract.contractName != null and contract.contractName != ''">
-                and contract_name like concat('%', #{contract.contractName}, '%')
+                and t1.contract_name like concat('%', #{contract.contractName}, '%')
             </if>
             <if test="contract.contractState != null and contract.contractState != ''">
-                and contract_state like concat('%', #{contract.contractState}, '%')
+                and t1.contract_state like concat('%', #{contract.contractState}, '%')
+            </if>
+            <if test="contract.contractId != null and contract.contractId != ''">
+                and t1.contract_id = #{contract.contractId}
             </if>
         </where>
         limit #{page.limitIndex}, #{page.pageSize}

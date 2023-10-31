@@ -11,13 +11,13 @@
     <userTask id="sid-06" name="入库确认" activiti:assignee="in_store"/>
     <userTask id="sid-07" name="生产完成" activiti:assignee="supper_manage"/>
     <userTask id="sid-09" name="出库确认" activiti:assignee="out_store"/>
-    <userTask id="sid-10" name="结算确认" activiti:assignee="out_store"/>
+    <userTask id="sid-10" name="结算确认" activiti:assignee="supper_manage"/>
     <endEvent id="sid-2b1cc9f7-cd15-430c-a96e-1df1f5288836"/>
     <sequenceFlow id="sid-4342bd0e-a003-4e90-8023-ea5a9d723203" sourceRef="sid-01" targetRef="sid-02"/>
     <exclusiveGateway id="sid-27f93524-bed4-4c9a-ab02-1d523cb49807"/>
     <sequenceFlow id="sid-ce39953b-3ee3-4173-a75d-82fae8c53903" sourceRef="sid-02" targetRef="sid-27f93524-bed4-4c9a-ab02-1d523cb49807"/>
     <sequenceFlow id="sid-95a13de3-a4c2-4f5f-bd11-b9467a875adc" sourceRef="sid-27f93524-bed4-4c9a-ab02-1d523cb49807" targetRef="sid-03" name="状态为1，需要采购">
-      <conditionExpression xsi:type="tFormalExpression">${status&gt;1}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${status&gt;0}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-cd9e1b8a-b94e-4928-aa00-8285da94d010" sourceRef="sid-27f93524-bed4-4c9a-ab02-1d523cb49807" targetRef="sid-07" name="状态为0，无需采购">
       <conditionExpression xsi:type="tFormalExpression">${status&lt;1}</conditionExpression>

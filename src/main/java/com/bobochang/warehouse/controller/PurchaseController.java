@@ -138,7 +138,12 @@ public class PurchaseController {
         inStore.setStoreId(purchase.getStoreId());
         inStore.setMaterialId(purchase.getMaterialId());
         inStore.setInNum(purchase.getFactBuyNum());
+        inStore.setContractId(purchase.getContractId());
+        inStore.setSupplyId(purchase.getSupplyId());
         inStore.setCreateBy(createBy);
+        inStore.setIsIn("0");
+        
+        
 
         //执行业务
         Result result = inStoreService.saveInStore(inStore, purchase.getBuyId());
@@ -173,4 +178,6 @@ public class PurchaseController {
 //        //响应
 //        return Result.ok(resultList);
 //    }
+
+    
 }

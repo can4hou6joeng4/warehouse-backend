@@ -26,6 +26,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
@@ -137,36 +138,35 @@ public class ActivitiServiceImpl implements ActivitiService {
 
     /**
      * 开启流程实例
-     * @param map 包括合同状态以及工作流的类型
+     * @param contract 包括合同状态以及工作流的类型
      * @return
      */
     @Override
-    public Result startInstance(Map<String, String> map) {
+    @Transactional
+    public Result startInstance(Contract contract) {
         try{
             // 改变合同状态，将合同状态由未审核转为待结算，进而开启流程实例
-            Contract contract = new Contract();
-            contract.setContractId(Integer.valueOf(map.get("contractId")));
-            contract.setContractState("1");
-
-            contractService.updateContractState(contract);
+            contractService.saveContract(contract);
+            
             // 启动流程实例
             Map<String, Object> variables = new HashMap<>();
             variables.put("produce_man", "produce_man");
             variables.put("out_store", "out_store");
             variables.put("supper_manage", "supper_manage");
             variables.put("purchase_man", "purchase_man");
+            variables.put("station_master","station_master");
             variables.put("in_store", "in_store");
-            variables.put("status", Integer.valueOf(map.get("state")));
+            variables.put("status", Integer.valueOf(contract.getIfPurchase()));
             ProcessInstance processInstance = runtimeService.startProcessInstanceById(deploymentId,variables);
 
             // 保存实例记录
             Flow flow = new Flow();
             flow.setInstanceId(processInstance.getId());
             flow.setContractId(contract.getContractId());
-            flow.setState(Integer.valueOf(map.get("state")));
+            flow.setState(Integer.valueOf(contract.getIfPurchase()));
             flowService.insertFlow(flow);
 
-            // 完成第一个合同审核的任务
+            // 完成第一个合同创建的任务
             Task task = taskService.createTaskQuery()
                     .processInstanceId(flow.getInstanceId())
                     .singleResult();
@@ -184,22 +184,30 @@ public class ActivitiServiceImpl implements ActivitiService {
      * @param flow 流程实例
      */
     @Override
-    public void completeTask(String userCode, Flow flow) {
-        // 查询用户角色
+    public Result completeTask(String userCode, Flow flow) {
         User user = userService.findUserByCode(userCode);
         String assignee = userService.searchRoleCodeById(user.getUserId());
 
         // 根据角色查看自身未完成的任务并完成任务
         TaskQuery query = taskService.createTaskQuery().taskAssignee(assignee);
 
-        flow.setInstanceId(query.list().stream()
-                .map(Task::getProcessInstanceId)
-                .collect(Collectors.toList()).get(0));
+        String instanceId = flowService.selectByContractId(flow.getContractId()).getInstanceId();
+        log.info(instanceId);
+        String taskId = "";
+        for (Task task: query.list()){
+            log.info(task.getProcessInstanceId());
+            if(instanceId.equals(task.getProcessInstanceId())){
+                taskId = task.getId();
+                break;
+            }
+        }
 
-        taskService.complete(query.list().get(0).getId());
+        taskService.complete(taskId);
 
         // 更新工作流记录
         flowService.updateFlow(flow);
+        
+        return Result.ok("完成任务");
     }
 
     /**
@@ -255,6 +263,7 @@ public class ActivitiServiceImpl implements ActivitiService {
 
                 // 获得当前流程所属合同名称
                 Contract contract = contractService.findContractById(flow.getContractId());
+                taskMap.put("contractId", flow.getContractId());
                 taskMap.put("contractName", contract.getContractName());
 
                 taskMap.put("flag","进行中");
@@ -289,6 +298,7 @@ public class ActivitiServiceImpl implements ActivitiService {
 
                 // 获得当前流程所属合同名称
                 Contract contract = contractService.findContractById(flow.getContractId());
+                taskMap.put("contractId", flow.getContractId());
                 taskMap.put("contractName", contract.getContractName());
 
                 taskMap.put("flag","已结束");
@@ -332,6 +342,8 @@ public class ActivitiServiceImpl implements ActivitiService {
 
             // 获得当前流程所属合同名称
             Contract contract = contractService.findContractById(flow.getContractId());
+            taskMap.put("contractId", flow.getContractId());
+
             taskMap.put("contractName", contract.getContractName());
 
             taskMap.put("flag","进行中");

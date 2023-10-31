@@ -17,4 +17,8 @@ public interface FlowService extends IService<Flow> {
 
     // 根据流程实例id查询工作流记录
     Flow selectByInstanceId(String instanceId);
+
+    Flow selectByContractId(Integer contractId);
+
+    Flow selectById(Integer flowId);
 }

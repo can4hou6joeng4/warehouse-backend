@@ -63,16 +63,16 @@ public class OutStoreController {
 //        return result;
 //    }
 //
-//    /**
-//     * 查询所有仓库的url接口/outstore/store-list
-//     */
-//    @RequestMapping("/store-list")
-//    public Result storeList() {
-//        //执行业务
-//        List<Store> storeList = storeService.queryAllStore();
-//        //响应
-//        return Result.ok(storeList);
-//    }
+    /**
+     * 查询所有仓库的url接口/outstore/store-list
+     */
+    @RequestMapping("/store-list")
+    public Result storeList() {
+        //执行业务
+        List<Store> storeList = storeService.queryAllStore();
+        //响应
+        return Result.ok(storeList);
+    }
 
     /**
      * 分页查询出库单的url接口/outstore/outstore-page-list

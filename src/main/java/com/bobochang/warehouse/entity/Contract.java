@@ -76,6 +76,7 @@ public class Contract implements Serializable {
      * 产品id
      */
     private Integer productId;
+    private String productName;
 
     /**
      * 生产数量
