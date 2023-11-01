@@ -11,6 +11,9 @@ import com.bobochang.warehouse.service.ContractService;
 import com.bobochang.warehouse.service.FlowService;
 import com.bobochang.warehouse.service.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.FlowNode;
+import org.activiti.bpmn.model.SequenceFlow;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
@@ -19,6 +22,7 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricProcessInstanceQuery;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
@@ -411,5 +415,45 @@ public class ActivitiServiceImpl implements ActivitiService {
 
         // 更新工作流记录
         flowService.updateFlow(flow);
+    }
+
+    @Override
+    public Result skipTask(String userCode, Contract contract) throws Exception {
+        String instanceId = flowService.selectByContractId(contract.getContractId()).getInstanceId();
+        Task task = taskService.createTaskQuery().processInstanceId(instanceId).singleResult(); 
+        if (task == null) {
+            throw new Exception("流程未启动或已执行完成，无法撤回");
+        }
+        String processDefinitionId = task.getProcessDefinitionId();
+        BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId);
+        //获取当前节点
+        Execution execution = runtimeService.createExecutionQuery().executionId(task.getExecutionId()).singleResult();
+        String activityId = execution.getActivityId();
+        FlowNode flowNode = (FlowNode) bpmnModel.getMainProcess().getFlowElement(activityId);
+        //需要跳转的节点
+        FlowNode toFlowNode = (FlowNode) bpmnModel.getMainProcess().getFlowElement("sid-01");
+        if (toFlowNode == null) {
+            throw new Exception("退回失败");
+        }
+        //记录原活动方向
+        List<SequenceFlow> oriSequenceFlows = new ArrayList<SequenceFlow>();
+        oriSequenceFlows.addAll(flowNode.getOutgoingFlows());
+        //清理活动方向
+        flowNode.getOutgoingFlows().clear();
+        //建立新方向
+        List<SequenceFlow> newSequenceFlowList = new ArrayList<SequenceFlow>();
+        SequenceFlow newSequenceFlow = new SequenceFlow();
+        newSequenceFlow.setId("newSequenceFlowId");
+        newSequenceFlow.setSourceFlowElement(flowNode);
+        newSequenceFlow.setTargetFlowElement(toFlowNode);
+        newSequenceFlowList.add(newSequenceFlow);
+        flowNode.setOutgoingFlows(newSequenceFlowList);
+        taskService.addComment(task.getId(), task.getProcessInstanceId(), "跳转指定节点");
+        //完成任务
+        taskService.complete(task.getId());
+        //恢复原方向
+        flowNode.setOutgoingFlows(oriSequenceFlows);
+        log.info("跳转成功，from->{},to->{}", flowNode.getName(), toFlowNode.getName());
+        return Result.ok("退回成功");
     }
 }

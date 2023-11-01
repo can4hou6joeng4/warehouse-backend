@@ -9,6 +9,7 @@ import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.entity.Store;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.InStoreService;
+import com.bobochang.warehouse.service.MaterialSupplyService;
 import com.bobochang.warehouse.service.StoreService;
 import com.bobochang.warehouse.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ public class InStoreController {
 
 //    @Autowired
 //    private ActivitiService activitiService;
+    
 
     /**
      * 查询所有仓库的url接口/instore/store-list
@@ -67,25 +69,23 @@ public class InStoreController {
         //响应
         return Result.ok(page);
     }
+    
+    @RequestMapping("/instore-update")
+    public Result updateInStore(@RequestBody InStore inStore){
+        return inStoreService.updateInstore(inStore);
+    }
 
     /**
      * 确定入库的url接口/instore/instore-confirm
      *
      * @RequestBody InStore inStore将请求传递的json数据封装到参数InStore对象;
      */
-//    @RequestMapping("/instore-confirm")
-//    @Transactional
-//    @BusLog(descrip = "入库确认")
-//    public Result confirmInStore(@RequestBody InStore inStore, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
-//        //执行业务
-//        Result result = inStoreService.confirmInStore(inStore);
-//
-//        // 完成流程任务
-//        Flow flow = new Flow();
-//        flow.setInStoreId(inStore.getInsId());
-//        String userCode = tokenUtils.getCurrentUser(token).getUserCode();
-//        activitiService.completeTask(userCode, flow);
-//        //响应
-//        return result;
-//    }
+    @RequestMapping("/instore-confirm")
+    @Transactional
+    @BusLog(descrip = "入库确认")
+    public Result confirmInStore(@RequestBody InStore inStore, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
+        //执行业务
+        //响应
+        return inStoreService.confirmInStore(inStore);
+    }
 }

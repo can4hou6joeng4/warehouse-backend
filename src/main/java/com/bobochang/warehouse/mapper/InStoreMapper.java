@@ -22,8 +22,10 @@ public interface InStoreMapper extends BaseMapper<InStore> {
     //添加入库单的方法
     public int insertInStore(InStore inStore);
 
-    //根据id将入库单状态改为已入库的方法
-//    public int updateIsInById(Integer insId);
+    int updateInstoreById(InStore inStore);
+
+//    根据id将入库单状态改为已入库的方法
+    public int updateIsInById(Integer insId);
 }
 
 

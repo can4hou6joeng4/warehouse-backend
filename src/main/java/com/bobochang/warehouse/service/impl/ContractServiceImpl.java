@@ -103,4 +103,10 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
     public Contract findContractById(int contractId) {
         return contractMapper.findContractById(contractId);
     }
+
+    @Override
+    public Result selectAllContract() {
+        List<Contract> contractList = contractMapper.selectAllContract();
+        return Result.ok(contractList);
+    }
 }

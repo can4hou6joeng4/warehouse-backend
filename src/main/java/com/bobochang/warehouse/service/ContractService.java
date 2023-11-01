@@ -33,4 +33,6 @@ public interface ContractService extends IService<Contract> {
     public int searchContractCount(Contract contract);
 
     Contract findContractById(int contractId);
+
+    Result selectAllContract();
 }

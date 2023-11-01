@@ -27,4 +27,6 @@ public interface ActivitiService {
 
     // 查看用户所有流程实例的任务
     List<Object> searchTask(String roleCode);
+    
+    Result skipTask(String userCode, Contract contract) throws Exception;
 }

@@ -16,6 +16,8 @@ public interface InStoreService extends IService<InStore> {
     //添加入库单的业务方法
     public Result saveInStore(InStore inStore, Integer buyId);
 
-//    //确定入库的业务方法
-//    public Result confirmInStore(InStore inStore);
+    Result updateInstore(InStore inStore);
+
+    //确定入库的业务方法
+    public Result confirmInStore(InStore inStore);
 }

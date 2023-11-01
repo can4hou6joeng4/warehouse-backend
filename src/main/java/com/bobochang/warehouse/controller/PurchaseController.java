@@ -41,6 +41,9 @@ public class PurchaseController {
     @Autowired
     private ProductMaterialService productMaterialService;
 
+    @Autowired
+    private MaterialSupplyService materialSupplyService;
+
 //    @Resource
 //    private ActivitiService activitiService;
 
@@ -143,13 +146,13 @@ public class PurchaseController {
         inStore.setCreateBy(createBy);
         inStore.setIsIn("0");
         
-        
-
-        //执行业务
-        Result result = inStoreService.saveInStore(inStore, purchase.getBuyId());
+        MaterialSupply materialSupply = new MaterialSupply();
+        materialSupply.setMaterialId(purchase.getMaterialId());
+        materialSupply.setSupplyId(purchase.getSupplyId());
+        inStore.setPrice(materialSupplyService.selectPrice(materialSupply));
 
         //响应
-        return result;
+        return inStoreService.saveInStore(inStore, purchase.getBuyId());
     }
 
     /**

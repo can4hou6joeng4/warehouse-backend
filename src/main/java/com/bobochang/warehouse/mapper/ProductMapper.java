@@ -36,7 +36,7 @@ public interface ProductMapper extends BaseMapper<Product> {
 
     //根据商品id查询商品的方法
     public Product selectProductById(Integer productId);
-    
+
     List<Product> queryAllProduct();
 }
 

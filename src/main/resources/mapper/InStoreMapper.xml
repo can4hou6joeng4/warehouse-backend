@@ -27,6 +27,14 @@
         remarks,create_by,create_time,
         is_in
     </sql>
+    <update id="updateInstoreById">
+        update in_store set 
+            relative_num = #{relativeNum},
+            freight = #{freight},
+            car_number = #{carNumber},
+            remarks = #{remarks}
+        where ins_id = #{insId}
+    </update>
 
     <!--
  //查询入库单总行数的方法
@@ -81,9 +89,29 @@
         <if test="inStore.supplyId != null and inStore.supplyId != ''">
             and t1.supply_id &lt;= #{inStore.supplyId}
         </if>
-
+        <if test="inStore.contractId != null and inStore.contractId != ''">
+            and t1.contract_id &lt;= #{inStore.contractId}
+        </if>
         order by t1.create_time desc
         limit #{page.limitIndex}, #{page.pageSize}
     </select>
-    
+
+    <!--
+      //添加入库单的方法
+      public int insertInStore(InStore)
+    -->
+    <insert id="insertInStore">
+        insert into in_store
+        values (null, #{storeId}, #{materialId}, #{inNum}, null, #{price}, null, null, #{contractId}, #{supplyId}, null, #{createBy}, now(), 0)
+    </insert>
+
+    <!--
+      //根据id将入库单状态改为已入库的方法
+      public int updateIsInById(Integer insId)
+    -->
+    <update id="updateIsInById">
+        update in_store
+        set is_in = 1
+        where ins_id = #{insId}
+    </update>
 </mapper>

@@ -78,6 +78,9 @@
         </where>
         limit #{page.limitIndex}, #{page.pageSize}
     </select>
+    <select id="selectAllContract" resultType="com.bobochang.warehouse.entity.Contract">
+        select * from contract
+    </select>
 
     <!--
         // 添加合同
@@ -85,8 +88,8 @@
     -->
     <insert id="insertContract">
         insert into contract
-        (contract_name, caterial_id, contract_state, if_purchase, product_id, product_num,start_time, end_time, product_material_id, files, create_time, update_time)
-        values (#{contractName}, #{caterialId}, 0, #{ifPurchase}, #{productId}, #{productNum}, #{startTime}, #{endTime}, #{productMaterialId}, #{files}, now(), now())
+        (contract_name, caterial_id, contract_state, if_purchase, product_id, product_num,start_time, end_time, product_material_id, files, create_time, update_time, work_region)
+        values (#{contractName}, #{caterialId}, 0, #{ifPurchase}, #{productId}, #{productNum}, #{startTime}, #{endTime}, #{productMaterialId}, #{files}, now(), now(), #{workRegion})
     </insert>
 
     <!--

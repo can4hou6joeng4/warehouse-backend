@@ -1,5 +1,6 @@
 package com.bobochang.warehouse.service;
 
+import com.bobochang.warehouse.entity.InStore;
 import com.bobochang.warehouse.entity.Material;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.bobochang.warehouse.entity.Product;
@@ -26,4 +27,6 @@ public interface MaterialService extends IService<Material> {
     List<Material> queryAllMaterial();
 
     Page queryMaterialPageByContractId(Page page, Integer contractId);
+    
+    int addInventById(InStore inStore);
 }

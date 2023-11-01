@@ -1,8 +1,8 @@
 package com.bobochang.warehouse.mapper;
 
+import com.bobochang.warehouse.entity.InStore;
 import com.bobochang.warehouse.entity.Material;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.bobochang.warehouse.entity.Product;
 import com.bobochang.warehouse.page.Page;
 
 import java.util.List;
@@ -25,6 +25,8 @@ public interface MaterialMapper extends BaseMapper<Material> {
     int selectMaterialCountByContractId(Integer contractId);
 
     List<Material> selectMaterialPageByContractId(Page page, Integer contractId);
+
+    int addInventById(InStore inStore);
 }
 
 

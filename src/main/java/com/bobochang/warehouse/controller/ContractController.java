@@ -152,4 +152,9 @@ public class ContractController {
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(resource);
     }
+    
+    @GetMapping("/contract-all")
+    public Result selectAllContract(){
+        return contractService.selectAllContract();
+    }
 }

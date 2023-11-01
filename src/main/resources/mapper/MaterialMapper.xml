@@ -93,10 +93,10 @@
       //根据商品id增加商品库存的方法
       public int addInventById(Integer productId, Integer invent)
     -->
-    <update id="addInventById">
-        update product set
-            product_invent = product_invent + #{param2}
-        where product_id = #{param1}
+    <update id="addInventById" parameterType="com.bobochang.warehouse.entity.InStore">
+        update material set
+            material_num = material.material_num + #{inNum}
+        where material_id = #{materialId}
     </update>
 
     <!--

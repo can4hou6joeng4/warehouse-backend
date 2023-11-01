@@ -103,4 +103,11 @@ public class ActivitiController {
         
         return activitiService.completeTask(userCode, flow);
     }
+    
+    @PostMapping("/skip-task")
+    public Result skipTask(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
+                           @RequestBody Contract contract) throws Exception {
+        String userCode = tokenUtils.getCurrentUser(token).getUserCode();
+        return activitiService.skipTask(userCode, contract);
+    }
 }

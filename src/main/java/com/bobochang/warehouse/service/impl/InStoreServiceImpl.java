@@ -7,6 +7,7 @@ import com.bobochang.warehouse.mapper.PurchaseMapper;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.InStoreService;
 import com.bobochang.warehouse.mapper.InStoreMapper;
+import com.bobochang.warehouse.service.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,9 @@ public class InStoreServiceImpl extends ServiceImpl<InStoreMapper, InStore>
     
     @Autowired
     private PurchaseMapper purchaseMapper;
+    
+    @Autowired
+    private MaterialService materialService;
     
     @Override
     public Page queryInStorePage(Page page, InStore inStore) {
@@ -59,6 +63,31 @@ public class InStoreServiceImpl extends ServiceImpl<InStoreMapper, InStore>
         return Result.err(Result.CODE_ERR_BUSINESS, "入库单添加失败！");
     }
 
+    @Override
+    public Result updateInstore(InStore inStore) {
+        int i = inStoreMapper.updateInstoreById(inStore);
+        if (i>0){
+            return Result.ok("修改入库单据成功");
+        }
+        return Result.err(Result.CODE_ERR_BUSINESS, "修改失败");
+    }
+
+    //确定入库的业务方法
+    @Transactional//事务处理
+    @Override
+    public Result confirmInStore(InStore inStore) {
+
+        //根据id将入库单状态改为已入库
+        int i = inStoreMapper.updateIsInById(inStore.getInsId());
+        if(i>0){
+            //根据商品id增加商品库存
+            if(materialService.addInventById(inStore)>0){
+                return Result.ok("入库成功！");
+            }
+            return Result.err(Result.CODE_ERR_BUSINESS, "入库失败！");
+        }
+        return Result.err(Result.CODE_ERR_BUSINESS, "入库失败！");
+    }
 }
 
 

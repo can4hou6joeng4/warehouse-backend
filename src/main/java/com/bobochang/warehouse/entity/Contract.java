@@ -67,6 +67,11 @@ public class Contract implements Serializable {
     private Date createTime;
 
     /**
+     * 工区名称
+     */
+    private String workRegion;
+
+    /**
      * 更新时间
      */
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")

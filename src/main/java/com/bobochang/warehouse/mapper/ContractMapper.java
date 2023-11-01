@@ -30,4 +30,6 @@ public interface ContractMapper extends BaseMapper<Contract> {
 
     // 根据合同 id 修改合同名称
     public int updateNameById(Contract contract);
+
+    List<Contract> selectAllContract();
 }

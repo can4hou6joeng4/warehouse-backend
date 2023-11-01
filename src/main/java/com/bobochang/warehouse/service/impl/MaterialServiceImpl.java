@@ -2,6 +2,7 @@ package com.bobochang.warehouse.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.bobochang.warehouse.entity.InStore;
 import com.bobochang.warehouse.entity.Material;
 import com.bobochang.warehouse.entity.Product;
 import com.bobochang.warehouse.entity.Result;
@@ -91,6 +92,16 @@ public class MaterialServiceImpl extends ServiceImpl<MaterialMapper, Material>
         page.setResultList(materialList);
 
         return page;
+    }
+
+    @Override
+    public int addInventById(InStore inStore) {
+        int result = materialMapper.addInventById(inStore);
+        if (result > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
 

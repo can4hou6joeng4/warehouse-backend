@@ -117,7 +117,7 @@ public class ProductController {
         //响应
         return result;
     }
-    
+
     /**
      * 删除商品的url接口/product/product-delete/{productId}
      */
@@ -153,6 +153,15 @@ public class ProductController {
         return result;
     }
 
+    /**
+     * 查询所有产品
+     * @return
+     */
+    @RequestMapping("/product-list")
+    public Result productList(){
+        List<Product> productList = productService.queryAllProduct();
+        return Result.ok(productList);
+    }
 
 //
 //    /**
