@@ -27,6 +27,8 @@ public interface MaterialMapper extends BaseMapper<Material> {
     List<Material> selectMaterialPageByContractId(Page page, Integer contractId);
 
     int addInventById(InStore inStore);
+
+    int reduceById(Integer materialId, double materialNum);
 }
 
 

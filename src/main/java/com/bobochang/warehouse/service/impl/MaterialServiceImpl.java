@@ -103,6 +103,16 @@ public class MaterialServiceImpl extends ServiceImpl<MaterialMapper, Material>
             return 0;
         }
     }
+
+    @Override
+    public int reduceById(Integer materialId, double materialNum) {
+        int result = materialMapper.reduceById(materialId, materialNum);
+        if (result > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }
 
 

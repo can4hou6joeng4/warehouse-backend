@@ -8,18 +8,17 @@ import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.OutStoreService;
 import com.bobochang.warehouse.service.StoreService;
 import com.bobochang.warehouse.utils.TokenUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequestMapping("/outstore")
 @RestController
 @BusLog(name = "出库管理")
+@Slf4j
 public class OutStoreController {
 
     //注入OutStoreService
@@ -34,35 +33,31 @@ public class OutStoreController {
     @Autowired
     private StoreService storeService;
 
-//    @Autowired
-//    private ActivitiService activitiService;
+    /**
+     * 添加出库单的url接口/outstore/outstore-add
+     *
+     * @RequestBody OutStore outStore将添加的出库单信息的json数据封装到参数OutStore对象;
+     * @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token
+     * 将请求头Token的值即客户端归还的token赋值给参数变量token;
+     */
+    @RequestMapping("/outstore-add")
+    @Transactional
+    @BusLog(descrip = "添加出库单")
+    public Result addOutStore(@RequestBody OutStore outStore,
+                              @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
 
-//    /**
-//     * 添加出库单的url接口/outstore/outstore-add
-//     *
-//     * @RequestBody OutStore outStore将添加的出库单信息的json数据封装到参数OutStore对象;
-//     * @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token
-//     * 将请求头Token的值即客户端归还的token赋值给参数变量token;
-//     */
-//    @RequestMapping("/outstore-add")
-//    @Transactional
-//    @BusLog(descrip = "添加出库单")
-//    public Result addOutStore(@RequestBody OutStore outStore,
-//                              @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
-//
-//        //获取当前登录的用户
-//        CurrentUser currentUser = tokenUtils.getCurrentUser(token);
-//        //获取当前登录的用户id,即添加出库单的用户id
-//        int createBy = currentUser.getUserId();
-//        outStore.setCreateBy(createBy);
-//
-//        //执行业务
-//        Result result = outStoreService.saveOutStore(outStore);
-//
-//        //响应
-//        return result;
-//    }
-//
+        //获取当前登录的用户
+        CurrentUser currentUser = tokenUtils.getCurrentUser(token);
+        //获取当前登录的用户id,即添加出库单的用户id
+        int createBy = currentUser.getUserId();
+        outStore.setCreateBy(createBy);
+
+        //执行业务
+
+        //响应
+        return outStoreService.saveOutStore(outStore);
+    }
+
     /**
      * 查询所有仓库的url接口/outstore/store-list
      */
@@ -91,23 +86,31 @@ public class OutStoreController {
         return Result.ok(page);
     }
 
-//    /**
-//     * 确定出库的url接口/outstore/outstore-confirm
-//     */
-//    @RequestMapping("/outstore-confirm")
-//    @Transactional
-//    @BusLog(descrip = "出库单确认")
-//    public Result confirmOutStore(@RequestBody OutStore outStore, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
-//        //执行业务
-//        Result result = outStoreService.confirmOutStore(outStore);
-//
-//        Flow flow = new Flow();
-//        flow.setOutStoreId(outStore.getOutsId());
-//        String userCode = tokenUtils.getCurrentUser(token).getUserCode();
-//        activitiService.completeTask(userCode, flow);
-//
-////        activitiService.completeTask(outStore.getUserCode(), flow);
-//        //响应
-//        return result;
-//    }
+    /**
+     * 出库单更新
+     * @param outStore
+     * @return
+     */
+    @PostMapping ("/outstore-update")
+    public Result outStorePageList(@RequestBody OutStore outStore) {
+        //执行业务
+        int i = outStoreService.updateOutStoreById(outStore);
+        if(i<1){
+            return Result.err(500,"修改失败");
+        }
+        //响应
+        return Result.ok("修改成功");
+    }
+    
+    /**
+     * 确定出库的url接口/outstore/outstore-confirm
+     */
+    @RequestMapping("/outstore-confirm")
+    @Transactional
+    @BusLog(descrip = "出库单确认")
+    public Result confirmOutStore(@RequestBody OutStore outStore, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
+        //执行业务
+        //响应
+        return outStoreService.confirmOutStore(outStore);
+    }
 }

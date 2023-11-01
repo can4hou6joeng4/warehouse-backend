@@ -98,6 +98,12 @@
             material_num = material.material_num + #{inNum}
         where material_id = #{materialId}
     </update>
+    
+    <update id="reduceById">
+        update material set
+            material_num = material.material_num - #{materialNum}
+        where material_id = #{materialId}
+    </update>
 
     <!--
       //根据商品id查询商品的方法

@@ -31,10 +31,13 @@
   public int insertOutStore(OutStore)
 -->
     <insert id="insertOutStore">
-        insert into out_store values(
-                                        null, #{productId}, #{storeId}, null, null,
-                                        #{outNum}, #{createBy}, now(), 0
-                                    )
+        insert into out_store 
+        values(
+               null, #{productId}, #{storeId},
+               #{outNum},#{salePrice},#{workRegion},#{custom},
+               #{contractId},#{carNumber},#{remarks},
+               #{createBy}, now(), 0
+            )
     </insert>
 
     <!--
@@ -108,4 +111,19 @@
     <update id="updateIsOutById">
         update out_store set is_out = 1 where outs_id = #{outsId}
     </update>
+    
+    <update id="updateOutStoreById">
+        update out_store
+        set product_id=#{productId},
+            store_id=#{storeId},
+            out_num=#{outNum},
+            sale_price=#{salePrice},
+            work_region=#{workRegion},
+            custom=#{custom},
+            contract_id=#{contractId},
+            car_number=#{carNumber},
+            remarks=#{remarks}
+        where outs_id=#{outsId}
+    </update>
+
 </mapper>

@@ -29,4 +29,6 @@ public interface MaterialService extends IService<Material> {
     Page queryMaterialPageByContractId(Page page, Integer contractId);
     
     int addInventById(InStore inStore);
+    
+    int reduceById(Integer materialId,double materialNum);
 }
