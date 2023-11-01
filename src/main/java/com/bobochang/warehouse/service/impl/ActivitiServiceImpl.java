@@ -1,6 +1,7 @@
 package com.bobochang.warehouse.service.impl;
 
 import cn.hutool.system.UserInfo;
+import com.bobochang.warehouse.dto.ContractReasonDto;
 import com.bobochang.warehouse.dto.TaskDTO;
 import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.Flow;
@@ -37,6 +38,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -269,6 +271,7 @@ public class ActivitiServiceImpl implements ActivitiService {
                 Contract contract = contractService.findContractById(flow.getContractId());
                 taskMap.put("contractId", flow.getContractId());
                 taskMap.put("contractName", contract.getContractName());
+                taskMap.put("reason", flow.getReason());
 
                 taskMap.put("flag","进行中");
 
@@ -304,6 +307,7 @@ public class ActivitiServiceImpl implements ActivitiService {
                 Contract contract = contractService.findContractById(flow.getContractId());
                 taskMap.put("contractId", flow.getContractId());
                 taskMap.put("contractName", contract.getContractName());
+                taskMap.put("reason", flow.getReason());
 
                 taskMap.put("flag","已结束");
 
@@ -349,6 +353,7 @@ public class ActivitiServiceImpl implements ActivitiService {
             taskMap.put("contractId", flow.getContractId());
 
             taskMap.put("contractName", contract.getContractName());
+            taskMap.put("reason", flow.getReason());
 
             taskMap.put("flag","进行中");
 
@@ -418,8 +423,10 @@ public class ActivitiServiceImpl implements ActivitiService {
     }
 
     @Override
-    public Result skipTask(String userCode, Contract contract) throws Exception {
-        String instanceId = flowService.selectByContractId(contract.getContractId()).getInstanceId();
+    public Result skipTask(String userCode, ContractReasonDto contractReasonDto) throws Exception {
+        // 获取实例id
+        String instanceId = flowService.selectByContractId(contractReasonDto.getContractId()).getInstanceId();
+        
         Task task = taskService.createTaskQuery().processInstanceId(instanceId).singleResult(); 
         if (task == null) {
             throw new Exception("流程未启动或已执行完成，无法撤回");
@@ -454,6 +461,22 @@ public class ActivitiServiceImpl implements ActivitiService {
         //恢复原方向
         flowNode.setOutgoingFlows(oriSequenceFlows);
         log.info("跳转成功，from->{},to->{}", flowNode.getName(), toFlowNode.getName());
+        
+        // 更新合同的采购状态
+        Contract contract = new Contract();
+        contract.setContractId(contractReasonDto.getContractId());
+        contract.setIfPurchase(contractReasonDto.getIfPurchase());
+        if(contractService.updateContractIfPurchase(contract) < 1){
+            return Result.err(500, "合同状态更新失败");
+        }
+        
+        // 记录退回原因
+        Flow flow = new Flow();
+        flow.setContractId(contractReasonDto.getContractId());
+        flow.setReason(contractReasonDto.getReason());
+        if(flowService.updateReasonByContract(flow) < 1){
+            return Result.err(500, "流程驳回原因更新失败");
+        }
         return Result.ok("退回成功");
     }
 }

@@ -1,6 +1,7 @@
 package com.bobochang.warehouse.controller;
 
 import com.bobochang.warehouse.constants.WarehouseConstants;
+import com.bobochang.warehouse.dto.ContractReasonDto;
 import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.Flow;
 import com.bobochang.warehouse.entity.Result;
@@ -106,8 +107,11 @@ public class ActivitiController {
     
     @PostMapping("/skip-task")
     public Result skipTask(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
-                           @RequestBody Contract contract) throws Exception {
+                           @RequestBody ContractReasonDto contractReasonDto) throws Exception {
+        log.info(contractReasonDto.getReason());
+        log.info(contractReasonDto.getIfPurchase());
+        log.info(String.valueOf(contractReasonDto.getContractId()));
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
-        return activitiService.skipTask(userCode, contract);
+        return activitiService.skipTask(userCode, contractReasonDto);
     }
 }

@@ -29,7 +29,9 @@ public interface ContractMapper extends BaseMapper<Contract> {
     public int updateContractState(Contract contract);
 
     // 根据合同 id 修改合同名称
-    public int updateNameById(Contract contract);
+    public int updateContractById(Contract contract);
 
     List<Contract> selectAllContract();
+
+    int updateContractIfPurchase(Contract contract);
 }

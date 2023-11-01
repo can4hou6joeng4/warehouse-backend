@@ -25,14 +25,16 @@ public interface ContractService extends IService<Contract> {
     public Result saveContract(Contract contract);
 
     // 修改合同状态
-    public Result updateContractState(Contract contract);
+    public int updateContractState(Contract contract);
 
     // 修改合同昵称
-    public Result updateContractName(Contract contract);
+    public Result updateContractById(Contract contract);
 
     public int searchContractCount(Contract contract);
 
     Contract findContractById(int contractId);
 
     Result selectAllContract();
+
+    int updateContractIfPurchase(Contract contract);
 }

@@ -49,6 +49,11 @@ public class FlowServiceImpl extends ServiceImpl<FlowMapper, Flow>
     public Flow selectById(Integer flowId) {
         return flowMapper.selectById(flowId);
     }
+
+    @Override
+    public int updateReasonByContract(Flow flow) {
+        return flowMapper.updateReasonByContract(flow);
+    }
 }
 
 

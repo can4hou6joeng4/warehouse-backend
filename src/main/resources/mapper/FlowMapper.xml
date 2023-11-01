@@ -34,7 +34,12 @@
             out_store_id =#{outStoreId}
         where instance_id = #{instanceId}
     </update>
-    
+    <update id="updateReasonByContract">
+        update flow
+        set reason =#{reason}
+        where contract_id = #{contractId}
+    </update>
+
     <select id="selectByInstanceId" parameterType="java.lang.String" resultType="com.bobochang.warehouse.entity.Flow">
         select * from flow
         where instance_id = #{instanceId}

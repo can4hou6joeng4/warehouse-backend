@@ -74,20 +74,16 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
     }
 
     @Override
-    public Result updateContractState(Contract contract) {
+    public int updateContractState(Contract contract) {
         // 根据合同 id 修改合同状态
-        int i = contractMapper.updateContractState(contract);
-        if (i > 0) {
-            return Result.ok("修改成功");
-        }
-        return Result.err(Result.CODE_ERR_BUSINESS, "修改失败");
+        return contractMapper.updateContractState(contract);
     }
 
     @Override
-    public Result updateContractName(Contract contract) {
+    public Result updateContractById(Contract contract) {
         contract.setFiles(accessPath+contract.getFiles());
         // 根据合同 id 修改合同昵称
-        int i = contractMapper.updateNameById(contract);
+        int i = contractMapper.updateContractById(contract);
         if (i > 0) {
             return Result.ok("修改成功");
         }
@@ -108,5 +104,11 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
     public Result selectAllContract() {
         List<Contract> contractList = contractMapper.selectAllContract();
         return Result.ok(contractList);
+    }
+
+    @Override
+    public int updateContractIfPurchase(Contract contract) {
+        
+        return contractMapper.updateContractIfPurchase(contract);
     }
 }

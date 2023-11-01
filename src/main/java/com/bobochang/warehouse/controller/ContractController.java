@@ -74,14 +74,18 @@ public class ContractController {
     @BusLog(descrip = "更新合同状态")
     public Result updateContractState(@RequestBody Contract contract) {
         contract.setUpdateTime(new Date());
-        return contractService.updateContractState(contract);
+        int i = contractService.updateContractState(contract);
+        if(i>0){
+            return Result.ok("更新成功！");
+        }
+        return Result.err(500,"修改失败");
     }
 
     @PutMapping("/updateContract")
     @BusLog(descrip = "更新合同")
     public Result updateContract(@RequestBody Contract contract) {
         contract.setUpdateTime(new Date());
-        return contractService.updateContractName(contract);
+        return contractService.updateContractById(contract);
     }
 
     /**

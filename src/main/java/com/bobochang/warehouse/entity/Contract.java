@@ -87,7 +87,10 @@ public class Contract implements Serializable {
      * 生产数量
      */
     private Integer productNum;
-    
+
+    /**
+     * 是否需要采购
+     */
     private String ifPurchase;
 
     @TableField(exist = false)

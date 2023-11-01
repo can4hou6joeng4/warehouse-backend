@@ -99,7 +99,7 @@
     <update id="updateContractState">
         update contract
         set contract_state = #{contractState},
-            update_time=#{updateTime}
+            update_time=now()
         where contract_id = #{contractId}
     </update>
 
@@ -107,11 +107,26 @@
         // 根据合同 id 修改合同昵称
         public int updateNameById(Contract contract);
     -->
-    <update id="updateNameById">
+    <update id="updateContractById">
         update contract
         set contract_name=#{contractName},
             files=#{files},
-            update_time=#{updateTime}
+            update_time=now(),
+            product_id=#{productId},
+            product_num=#{productNum},
+            start_time=#{startTime},
+            end_time=#{endTime},
+            if_purchase=#{ifPurchase},
+            work_region=#{workRegion}
+        where contract_id = #{contractId}
+    </update>
+    
+    <!--
+        修改合同的采购状态
+    -->
+    <update id="updateContractIfPurchase">
+        update contract
+        set if_purchase=#{ifPurchase}
         where contract_id = #{contractId}
     </update>
 </mapper>

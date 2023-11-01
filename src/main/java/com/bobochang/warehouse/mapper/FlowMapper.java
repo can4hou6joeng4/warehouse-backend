@@ -15,6 +15,8 @@ public interface FlowMapper extends BaseMapper<Flow> {
     void updateFlow(Flow flow);
 
     Flow selectByInstanceId(String instanceId);
+
+    int updateReasonByContract(Flow flow);
 }
 
 

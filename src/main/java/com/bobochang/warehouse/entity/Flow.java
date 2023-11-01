@@ -56,6 +56,11 @@ public class Flow implements Serializable {
      */
     private Date createTime;
 
+    /**
+     * 驳回原因
+     */
+    private String reason;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }
