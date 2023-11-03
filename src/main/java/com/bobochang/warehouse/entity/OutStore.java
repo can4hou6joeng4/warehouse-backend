@@ -40,7 +40,7 @@ public class OutStore implements Serializable {
     /**
      * 出库数量
      */
-    private Integer outNum;
+    private double outNum;
 
     /**
      * 工区名称

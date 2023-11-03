@@ -150,7 +150,7 @@ public class PurchaseController {
         materialSupply.setMaterialId(purchase.getMaterialId());
         materialSupply.setSupplyId(purchase.getSupplyId());
         inStore.setPrice(materialSupplyService.selectPrice(materialSupply));
-
+        
         //响应
         return inStoreService.saveInStore(inStore, purchase.getBuyId());
     }

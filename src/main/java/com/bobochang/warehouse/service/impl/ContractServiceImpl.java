@@ -66,7 +66,7 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
         if (oldContract != null) {
             return Result.err(Result.CODE_ERR_BUSINESS, "该合同已存在！");
         }
-        contract.setFiles(accessPath+contract.getFiles());
+        contract.setFiles(accessPath+"\\"+contract.getFiles());
         // 合同不存在 添加合同
         contractMapper.insertContract(contract);
         

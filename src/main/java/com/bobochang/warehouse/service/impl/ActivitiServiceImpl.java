@@ -126,7 +126,13 @@ public class ActivitiServiceImpl implements ActivitiService {
             }else{
                 return Result.ok("有还未审核的合同");
             }
-        }else{
+        } else if (roleCode.equals("station_master")) {
+            if(contractCount != 0) {
+                return Result.ok("有审核未通过的合同，请前往修改");
+            }else{
+                return Result.ok("暂无任务");
+            }
+        } else{
             // 其他用户则是查询是否有任务
             TaskQuery query = taskService.createTaskQuery().taskAssignee(roleCode);
             List<Task> taskList = query.list();

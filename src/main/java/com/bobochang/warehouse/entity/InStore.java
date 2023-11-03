@@ -40,7 +40,7 @@ public class InStore implements Serializable {
     /**
      * 入库数量/公司数量
      */
-    private Integer inNum;
+    private double inNum;
 
     /**
      * 对方数量
@@ -66,6 +66,7 @@ public class InStore implements Serializable {
      * 所属合同id
      */
     private Integer contractId;
+    private String contractName;
 
     /**
      * 供应商id

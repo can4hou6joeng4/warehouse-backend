@@ -1,13 +1,13 @@
 package com.bobochang.warehouse.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.bobochang.warehouse.entity.OutStore;
-import com.bobochang.warehouse.entity.Product;
-import com.bobochang.warehouse.entity.Result;
+import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.mapper.OutStoreMapper;
 import com.bobochang.warehouse.mapper.ProductMapper;
 import com.bobochang.warehouse.page.Page;
+import com.bobochang.warehouse.service.MaterialService;
 import com.bobochang.warehouse.service.OutStoreService;
+import com.bobochang.warehouse.service.ProductMaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +30,12 @@ public class OutStoreServiceImpl extends ServiceImpl<OutStoreMapper, OutStore>
     //注入ProductMapper
     @Autowired
     private ProductMapper productMapper;
+    
+    @Autowired
+    private MaterialService materialService;
+    
+    @Autowired
+    private ProductMaterialService productMaterialService;
 
     //添加出库单的业务方法
     @Override
@@ -72,11 +78,15 @@ public class OutStoreServiceImpl extends ServiceImpl<OutStoreMapper, OutStore>
         int i = outStoreMapper.updateIsOutById(outStore.getOutsId());
         if(i>0){
             //根据商品id减商品库存
-            int j = productMapper.addInventById(outStore.getProductId(), -outStore.getOutNum());
-            if(j>0){
-                return Result.ok("出库成功！");
+            List<ProductMaterial> productMaterialList = productMaterialService.selectRatioById(String.valueOf(outStore.getProductId()));
+            for (ProductMaterial productMaterial:productMaterialList){
+                double num = outStore.getOutNum() * productMaterial.getRatio();
+                InStore inStore = new InStore();
+                inStore.setInNum(-num);
+                inStore.setMaterialId(productMaterial.getMaterialId());
+                materialService.addInventById(inStore);
             }
-            return Result.err(Result.CODE_ERR_BUSINESS, "出库失败！");
+            return Result.ok("出库成功");
         }
         return Result.err(Result.CODE_ERR_BUSINESS, "出库失败！");
     }

@@ -99,7 +99,9 @@
         <if test="outStore.endTime != null and outStore.endTime != ''">
             and t1.create_time &lt;= #{outStore.endTime}
         </if>
-
+        <if test="outStore.contractId != null and outStore.contractId != ''">
+            and t1.contract_id = #{outStore.contractId}
+        </if>
         order by t1.create_time desc
         limit #{page.limitIndex}, #{page.pageSize}
     </select>

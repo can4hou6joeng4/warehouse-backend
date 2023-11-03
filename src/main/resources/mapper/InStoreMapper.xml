@@ -69,10 +69,11 @@
     -->
     <select id="selectInStorePage" resultType="com.bobochang.warehouse.entity.InStore">
         select t1.*, t2.store_name, t3.material_name,
-        t4.user_code, t5.supply_name
-        from in_store t1, store t2, material t3, user_info t4, supply t5
+        t4.user_code, t5.supply_name, t6.contract_name
+        from in_store t1, store t2, material t3, user_info t4, supply t5, contract t6
         where t1.store_id = t2.store_id and t1.material_id = t3.material_id
         and t1.create_by = t4.user_id and t1.supply_id = t5.supply_id
+        and t1.contract_id = t6.contract_id
 
         <if test="inStore.storeId != null">
             and t1.store_id = #{inStore.storeId}
