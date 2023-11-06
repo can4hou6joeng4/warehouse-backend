@@ -2,6 +2,8 @@ package com.bobochang.warehouse.controller;
 
 
 import com.bobochang.warehouse.constants.WarehouseConstants;
+import com.bobochang.warehouse.dto.ContractReasonDto;
+import com.bobochang.warehouse.dto.PurchaseReasonDto;
 import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.*;
@@ -43,6 +45,9 @@ public class PurchaseController {
 
     @Autowired
     private MaterialSupplyService materialSupplyService;
+    
+    @Autowired
+    private ActivitiService activitiService;
 
 //    @Resource
 //    private ActivitiService activitiService;
@@ -96,13 +101,6 @@ public class PurchaseController {
     public Result updatePurchase(@RequestBody Purchase purchase,@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         //执行业务
         Result result = purchaseService.updatePurchase(purchase);
-
-        // 完成流程任务
-//        Flow flow = new Flow();
-//        flow.setPurchaseId(purchase.getBuyId());
-
-        String userCode = tokenUtils.getCurrentUser(token).getUserCode();
-//        activitiService.completeTask(userCode, flow);
 
         //响应
         return result;
@@ -182,5 +180,69 @@ public class PurchaseController {
 //        return Result.ok(resultList);
 //    }
 
+    /**
+     * 审核合同，如果同意
+     * @param token
+     * @param purchaseReasonDto 包含合同id,采购单id
+     * @return
+     */
+    @PostMapping("/purchase-agree")
+    public Result contractAgree(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
+                                @RequestBody PurchaseReasonDto purchaseReasonDto){
+        String userCode = tokenUtils.getCurrentUser(token).getUserCode();
+        Purchase purchase = new Purchase();
+        purchase.setBuyId(purchaseReasonDto.getBuyId());
+        purchase.setIsIn("2");
+        int i = purchaseService.updatePurchaseState(purchase);
+        if(i>0){
+            Flow flow = new Flow();
+            flow.setContractId(purchaseReasonDto.getContractId());
+            return activitiService.completeTask(userCode, flow);
+        }else{
+            return Result.err(500,"修改合同状态失败");
+        }
+    }
+
+    /**
+     * 重新递交采购单进行审核
+     * @param token
+     * @param purchaseReasonDto 包括合同id
+     * @return
+     */
+    @PostMapping("/purchase-again")
+    public Result contractAgain(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
+                                @RequestBody PurchaseReasonDto purchaseReasonDto){
+        String userCode = tokenUtils.getCurrentUser(token).getUserCode();
+        Purchase purchase = new Purchase();
+        purchase.setBuyId(purchaseReasonDto.getBuyId());
+        purchase.setIsIn("0");
+        int i = purchaseService.updatePurchaseState(purchase);
+        if(i>0){
+            Flow flow = new Flow();
+            flow.setContractId(purchaseReasonDto.getContractId());
+            return activitiService.completeTask(userCode, flow);
+        }else{
+            return Result.err(500,"修改合同状态失败");
+        }
+    }
+
+    /**
+     * 驳回合同
+     * @param token
+     * @param purchaseReasonDto 包括驳回原因
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/purchase-reject")
+    public Result contractReject(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
+                                 @RequestBody PurchaseReasonDto purchaseReasonDto) throws Exception {
+        String userCode = tokenUtils.getCurrentUser(token).getUserCode();
+        Purchase purchase = new Purchase();
+        purchase.setBuyId(purchaseReasonDto.getBuyId());
+        purchase.setIsIn("1");
+        purchase.setReason(purchaseReasonDto.getReason());
+        purchaseService.updatePurchaseStateByContractId(purchaseReasonDto);
+        return activitiService.skipPurchaseTask(userCode, purchaseReasonDto);
+    }
     
 }

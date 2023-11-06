@@ -105,6 +105,7 @@ public class AuthServiceImpl extends ServiceImpl<AuthMapper, Auth>
         List<Integer> authIds = assignAuthDto.getAuthIds();
 
         //根据角色id删除给角色已分配的所有权限(菜单)
+        redisTemplate.delete(roleId+":authTree");
         authMapper.delAuthByRoleId(roleId);
 
         //循环添加角色权限(菜单)关系

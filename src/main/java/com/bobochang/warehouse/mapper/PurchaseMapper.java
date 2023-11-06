@@ -1,5 +1,6 @@
 package com.bobochang.warehouse.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bobochang.warehouse.entity.Purchase;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bobochang.warehouse.entity.Result;
@@ -28,11 +29,13 @@ public interface PurchaseMapper extends BaseMapper<Purchase> {
 //    public int deletePurchaseById(Integer buyId);
 
     //根据id将采购单状态改为已入库的方法
-    public int updateIsInById(Integer buyId);
+    public int updateIsInById(Purchase purchase);
 
     int insertPurchase(Purchase purchase);
 
     List<Purchase> selectPurchaseByContractId(Integer contractId);
+
+    List<Purchase> selectListByContractId(int ContractId);
 }
 
 

@@ -54,6 +54,13 @@ public class FlowServiceImpl extends ServiceImpl<FlowMapper, Flow>
     public int updateReasonByContract(Flow flow) {
         return flowMapper.updateReasonByContract(flow);
     }
+
+    @Override
+    public void deleteByContractId(Integer contractId) {
+        QueryWrapper<Flow> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("contract_id", contractId);
+        flowMapper.delete(queryWrapper);
+    }
 }
 
 

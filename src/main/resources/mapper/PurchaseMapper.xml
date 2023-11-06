@@ -31,7 +31,7 @@
     <insert id="insertPurchase">
         insert into buy_list
         values (null, #{materialId}, #{storeId}, #{supplyId}, #{buyNum}, null, now(),
-                #{buyUser}, #{phone}, #{contractId}, 0)
+                #{buyUser}, #{phone}, #{contractId}, 0, null)
     </insert>
 
     <!--
@@ -106,6 +106,10 @@
         and t1.supply_id = t2.supply_id
         and t1.material_id = t3.material_id
     </select>
+    <select id="selectListByContractId" resultType="com.bobochang.warehouse.entity.Purchase">
+        select * from buy_list
+        where contract_id = #{contractId}
+    </select>
 
     <!--
       //根据id修改采购单的方法
@@ -114,7 +118,8 @@
     <update id="updatePurchaseById">
         update buy_list
         set buy_num      = #{buyNum},
-            fact_buy_num = #{factBuyNum}
+            fact_buy_num = #{factBuyNum},
+            supply_id = #{supplyId}
         where buy_id = #{buyId}
     </update>
 
@@ -134,7 +139,8 @@
     -->
     <update id="updateIsInById">
         update buy_list
-        set is_in = 1
+        set is_in = #{isIn},
+            reason = #{reason}
         where buy_id = #{buyId}
     </update>
 </mapper>

@@ -2,6 +2,7 @@ package com.bobochang.warehouse.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bobochang.warehouse.entity.InStore;
+import com.bobochang.warehouse.entity.Purchase;
 import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.mapper.PurchaseMapper;
 import com.bobochang.warehouse.page.Page;
@@ -54,7 +55,10 @@ public class InStoreServiceImpl extends ServiceImpl<InStoreMapper, InStore>
         int i = inStoreMapper.insertInStore(inStore);
         if(i>0){
             //根据id将采购单状态改为已入库
-            int j = purchaseMapper.updateIsInById(buyId);
+            Purchase purchase = new Purchase();
+            purchase.setBuyId(buyId);
+            purchase.setIsIn("3");
+            int j = purchaseMapper.updateIsInById(purchase);
             if(j>0){
                 return Result.ok("入库单添加成功！");
             }

@@ -78,6 +78,11 @@ public class Purchase implements Serializable {
      * 0 否 1 是
      */
     private String isIn;
+
+    /**
+     * 驳回理由
+     */
+    private String reason;
     
     private String startTime;
     private String endTime;

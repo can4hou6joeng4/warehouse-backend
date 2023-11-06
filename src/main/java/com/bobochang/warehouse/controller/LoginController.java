@@ -100,6 +100,7 @@ public class LoginController {
     public Result logout(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String clientToken) {
         //从redis移除token
         stringRedisTemplate.delete(clientToken);
+        stringRedisTemplate.delete("all:authTree");
         log.info("用户：" + tokenUtils.getCurrentUser(clientToken).getUserName() + "退出系统");
         return Result.ok();
     }

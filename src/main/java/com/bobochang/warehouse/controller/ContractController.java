@@ -111,7 +111,7 @@ public class ContractController {
 
         try {
             //拿到图片保存到的磁盘路径
-            String fileUploadPath = uploadPath + "\\" + file.getOriginalFilename();
+            String fileUploadPath = uploadPath + "/" + file.getOriginalFilename();
             //保存图片
             file.transferTo(new File(fileUploadPath));
             //成功响应
@@ -222,13 +222,12 @@ public class ContractController {
     @PostMapping("/contract-again")
     public Result contractAgain(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                @RequestBody Contract contract){
-        String userCode = tokenUtils.getCurrentUser(token).getUserCode();
         contract.setContractState("0");
+        log.info(contract.getIfPurchase());
+        log.info(String.valueOf(contract.getContractId()));
         int i = contractService.updateContractState(contract);
         if(i>0){
-            Flow flow = new Flow();
-            flow.setContractId(contract.getContractId());
-            return activitiService.completeTask(userCode, flow);
+            return activitiService.againInstance(contract);
         }else{
             return Result.err(500,"修改合同状态失败");
         }

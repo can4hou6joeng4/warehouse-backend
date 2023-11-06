@@ -1,5 +1,6 @@
 package com.bobochang.warehouse.service;
 
+import com.bobochang.warehouse.dto.PurchaseReasonDto;
 import com.bobochang.warehouse.entity.Purchase;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.bobochang.warehouse.entity.Result;
@@ -24,4 +25,8 @@ public interface PurchaseService extends IService<Purchase> {
     List<Purchase> selectPurchaseByContractId(Integer contractId);
 
     List<Object> getPurchaseDetail(Integer contractId);
+    
+    int updatePurchaseState(Purchase purchase);
+
+    void updatePurchaseStateByContractId(PurchaseReasonDto purchaseReasonDto);
 }

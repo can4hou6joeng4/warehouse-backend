@@ -2,6 +2,7 @@ package com.bobochang.warehouse.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.bobochang.warehouse.dto.PurchaseReasonDto;
 import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.ProductMaterial;
 import com.bobochang.warehouse.entity.Purchase;
@@ -78,6 +79,25 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase>
         List<Object> objectList = new ArrayList<>();
         objectList.add(objectMap);
         return objectList;
+    }
+
+    @Override
+    public int updatePurchaseState(Purchase purchase) {
+        return purchaseMapper.updateIsInById(purchase);
+    }
+
+    @Override
+    public void updatePurchaseStateByContractId(PurchaseReasonDto purchaseReasonDto) {
+        try{
+            List<Purchase> purchaseList = purchaseMapper.selectListByContractId(purchaseReasonDto.getContractId());
+            for(Purchase purchase : purchaseList){
+                purchase.setIsIn("1");
+                purchase.setReason(purchaseReasonDto.getReason());
+                purchaseMapper.updateIsInById(purchase);
+            }
+        }catch (RuntimeException e){
+            throw new RuntimeException(e);
+        }
     }
 
     //分页查询采购单的业务方法

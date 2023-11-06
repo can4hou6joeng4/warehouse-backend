@@ -23,4 +23,6 @@ public interface FlowService extends IService<Flow> {
     Flow selectById(Integer flowId);
 
     int updateReasonByContract(Flow flow);
+
+    void deleteByContractId(Integer contractId);
 }

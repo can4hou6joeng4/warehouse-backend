@@ -1,7 +1,9 @@
 package com.bobochang.warehouse.service.impl;
 
 import cn.hutool.system.UserInfo;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bobochang.warehouse.dto.ContractReasonDto;
+import com.bobochang.warehouse.dto.PurchaseReasonDto;
 import com.bobochang.warehouse.dto.TaskDTO;
 import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.Flow;
@@ -204,7 +206,6 @@ public class ActivitiServiceImpl implements ActivitiService {
         TaskQuery query = taskService.createTaskQuery().taskAssignee(assignee);
 
         String instanceId = flowService.selectByContractId(flow.getContractId()).getInstanceId();
-        log.info(instanceId);
         String taskId = "";
         for (Task task: query.list()){
             log.info(task.getProcessInstanceId());
@@ -404,7 +405,11 @@ public class ActivitiServiceImpl implements ActivitiService {
     private List<Map<String, String>> differentTask(Integer taskState, List<Map<String, String>> taskNodes){
         List<Map<String, String>> allTask = new ArrayList<>(taskNodes);
         if(taskState == 0){
-            allTask.removeIf(map -> map.get("taskName").equals("采购确认") || map.get("taskName").equals("入库确认"));
+            allTask.removeIf(map -> 
+                    map.get("taskName").equals("采购创建") || 
+                    map.get("taskName").equals("入库确认") || 
+                    map.get("taskName").equals("采购审批") || 
+                    map.get("taskName").equals("采购完成"));
         }
         return allTask;
     }
@@ -484,5 +489,96 @@ public class ActivitiServiceImpl implements ActivitiService {
             return Result.err(500, "流程驳回原因更新失败");
         }
         return Result.ok("退回成功");
+    }
+
+    @Override
+    public Result skipPurchaseTask(String userCode, PurchaseReasonDto purchaseReasonDto) throws Exception {
+        // 获取实例id
+        String instanceId = flowService.selectByContractId(purchaseReasonDto.getContractId()).getInstanceId();
+
+        Task task = taskService.createTaskQuery().processInstanceId(instanceId).singleResult();
+        if (task == null) {
+            throw new Exception("流程未启动或已执行完成，无法撤回");
+        }
+        String processDefinitionId = task.getProcessDefinitionId();
+        BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId);
+        //获取当前节点
+        Execution execution = runtimeService.createExecutionQuery().executionId(task.getExecutionId()).singleResult();
+        String activityId = execution.getActivityId();
+        FlowNode flowNode = (FlowNode) bpmnModel.getMainProcess().getFlowElement(activityId);
+        //需要跳转的节点
+        FlowNode toFlowNode = (FlowNode) bpmnModel.getMainProcess().getFlowElement("sid-03");
+        if (toFlowNode == null) {
+            throw new Exception("退回失败");
+        }
+        //记录原活动方向
+        List<SequenceFlow> oriSequenceFlows = new ArrayList<SequenceFlow>();
+        oriSequenceFlows.addAll(flowNode.getOutgoingFlows());
+        //清理活动方向
+        flowNode.getOutgoingFlows().clear();
+        //建立新方向
+        List<SequenceFlow> newSequenceFlowList = new ArrayList<SequenceFlow>();
+        SequenceFlow newSequenceFlow = new SequenceFlow();
+        newSequenceFlow.setId("newSequenceFlowId");
+        newSequenceFlow.setSourceFlowElement(flowNode);
+        newSequenceFlow.setTargetFlowElement(toFlowNode);
+        newSequenceFlowList.add(newSequenceFlow);
+        flowNode.setOutgoingFlows(newSequenceFlowList);
+        taskService.addComment(task.getId(), task.getProcessInstanceId(), "跳转指定节点");
+        //完成任务
+        taskService.complete(task.getId());
+        //恢复原方向
+        flowNode.setOutgoingFlows(oriSequenceFlows);
+        log.info("跳转成功，from->{},to->{}", flowNode.getName(), toFlowNode.getName());
+        
+        return Result.ok("退回成功");
+    }
+
+    /**
+     * 重启流程实例
+     * @param contract 包括合同状态以及工作流的类型
+     * @return
+     */
+    @Override
+    @Transactional
+    public Result againInstance(Contract contract) {
+        try{
+            // 根据合同id删除运行中的工作流
+            String instanceId = flowService.selectByContractId(contract.getContractId()).getInstanceId();
+            runtimeService.deleteProcessInstance(instanceId, "驳回删除");
+            historyService.deleteHistoricProcessInstance(instanceId);
+
+
+            // 根据合同id删除flow中记录
+            flowService.deleteByContractId(contract.getContractId());
+            
+            // 启动流程实例
+            Map<String, Object> variables = new HashMap<>();
+            variables.put("produce_man", "produce_man");
+            variables.put("out_store", "out_store");
+            variables.put("supper_manage", "supper_manage");
+            variables.put("purchase_man", "purchase_man");
+            variables.put("station_master","station_master");
+            variables.put("in_store", "in_store");
+            variables.put("status", Integer.valueOf(contract.getIfPurchase()));
+            ProcessInstance processInstance = runtimeService.startProcessInstanceById(deploymentId,variables);
+
+            // 保存实例记录
+            Flow flow = new Flow();
+            flow.setInstanceId(processInstance.getId());
+            flow.setContractId(contract.getContractId());
+            flow.setState(Integer.valueOf(contract.getIfPurchase()));
+            flowService.insertFlow(flow);
+
+            // 完成第一个合同创建的任务
+            Task task = taskService.createTaskQuery()
+                    .processInstanceId(flow.getInstanceId())
+                    .singleResult();
+            taskService.complete(task.getId());
+
+            return Result.ok("启动流程成功");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
