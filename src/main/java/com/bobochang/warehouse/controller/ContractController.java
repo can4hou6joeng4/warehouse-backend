@@ -111,7 +111,7 @@ public class ContractController {
 
         try {
             //拿到图片保存到的磁盘路径
-            String fileUploadPath = uploadPath + "/" + file.getOriginalFilename();
+            String fileUploadPath = uploadPath + "\\" + file.getOriginalFilename();
             //保存图片
             file.transferTo(new File(fileUploadPath));
             //成功响应

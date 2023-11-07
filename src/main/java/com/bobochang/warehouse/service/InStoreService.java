@@ -20,4 +20,6 @@ public interface InStoreService extends IService<InStore> {
 
     //确定入库的业务方法
     public Result confirmInStore(InStore inStore);
+
+    Page inStoreSummaryPage(Page page, InStore inStore);
 }

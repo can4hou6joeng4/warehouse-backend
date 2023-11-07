@@ -116,4 +116,14 @@ public class SupplyController {
         List<Supply> list = supplyService.selectSupplyByMaterialId(materialId);
         return Result.ok(list);
     }
+
+    /**
+     * 查询到能够提供该材料的供应商信息，并且是产品检测合格的供应商
+     * @return
+     */
+    @RequestMapping("/supply-list")
+    public Result selectAllSupply(){
+        List<Supply> list = supplyService.queryAllSupply();
+        return Result.ok(list);
+    }
 }

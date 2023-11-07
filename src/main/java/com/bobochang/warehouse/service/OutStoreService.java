@@ -21,4 +21,6 @@ public interface OutStoreService extends IService<OutStore> {
 
     //确定出库的业务方法
     public Result confirmOutStore(OutStore outStore);
+
+    Page outStoreSummaryPage(Page page, OutStore outStore);
 }

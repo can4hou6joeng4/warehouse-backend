@@ -202,16 +202,29 @@ public class ActivitiServiceImpl implements ActivitiService {
         User user = userService.findUserByCode(userCode);
         String assignee = userService.searchRoleCodeById(user.getUserId());
 
-        // 根据角色查看自身未完成的任务并完成任务
-        TaskQuery query = taskService.createTaskQuery().taskAssignee(assignee);
-
-        String instanceId = flowService.selectByContractId(flow.getContractId()).getInstanceId();
         String taskId = "";
-        for (Task task: query.list()){
-            log.info(task.getProcessInstanceId());
-            if(instanceId.equals(task.getProcessInstanceId())){
+        String instanceId = flowService.selectByContractId(flow.getContractId()).getInstanceId();
+
+
+        if(assignee.equals("supper_manage")){
+            // 根据角色查看自身未完成的任务并完成任务
+            TaskQuery query = taskService.createTaskQuery().processInstanceId(instanceId);
+
+            for (Task task: query.list()){
+                log.info(task.getProcessInstanceId());
                 taskId = task.getId();
                 break;
+            }
+        }else {
+            // 根据角色查看自身未完成的任务并完成任务
+            TaskQuery query = taskService.createTaskQuery().taskAssignee(assignee);
+
+            for (Task task: query.list()){
+                log.info(task.getProcessInstanceId());
+                if(instanceId.equals(task.getProcessInstanceId())){
+                    taskId = task.getId();
+                    break;
+                }
             }
         }
 

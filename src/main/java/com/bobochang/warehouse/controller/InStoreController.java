@@ -3,10 +3,7 @@ package com.bobochang.warehouse.controller;
 
 import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
-import com.bobochang.warehouse.entity.Flow;
-import com.bobochang.warehouse.entity.InStore;
-import com.bobochang.warehouse.entity.Result;
-import com.bobochang.warehouse.entity.Store;
+import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.InStoreService;
 import com.bobochang.warehouse.service.MaterialSupplyService;
@@ -87,5 +84,13 @@ public class InStoreController {
         //执行业务
         //响应
         return inStoreService.confirmInStore(inStore);
+    }
+
+    @RequestMapping("/instore-summary-page-list")
+    public Result outStoreSummaryPageList(Page page, InStore inStore) {
+        //执行业务
+        page = inStoreService.inStoreSummaryPage(page, inStore);
+        //响应
+        return Result.ok(page);
     }
 }

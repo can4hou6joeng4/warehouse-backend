@@ -113,4 +113,13 @@ public class OutStoreController {
         //响应
         return outStoreService.confirmOutStore(outStore);
     }
+
+    @RequestMapping("/outstore-summary-page-list")
+    public Result outStoreSummaryPageList(Page page, OutStore outStore) {
+        //执行业务
+        page = outStoreService.outStoreSummaryPage(page, outStore);
+        //响应
+        return Result.ok(page);
+    }
+
 }

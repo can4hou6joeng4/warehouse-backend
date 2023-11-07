@@ -1,9 +1,11 @@
 package com.bobochang.warehouse.mapper;
 
+import com.bobochang.warehouse.dto.OutSummaryDto;
 import com.bobochang.warehouse.entity.OutStore;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bobochang.warehouse.page.Page;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -26,6 +28,10 @@ public interface OutStoreMapper extends BaseMapper<OutStore> {
     public int updateIsOutById(Integer outsId);
 
     int updateOutStoreById(OutStore outStore);
+
+    List<OutSummaryDto> selectOutStoreSummaryPage(Page page, OutStore outStore);
+
+    BigDecimal selectOutStoreSummaryMoenyByWorkRegion(String supplyName);
 }
 
 

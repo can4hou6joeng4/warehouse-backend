@@ -1,4 +1,4 @@
-package com.bobochang.warehouse.dto;
+package com.bobochang.warehouse.page;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

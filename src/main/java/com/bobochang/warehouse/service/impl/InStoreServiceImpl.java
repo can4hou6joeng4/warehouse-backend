@@ -1,6 +1,8 @@
 package com.bobochang.warehouse.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.bobochang.warehouse.dto.InSummaryDto;
+import com.bobochang.warehouse.dto.OutSummaryDto;
 import com.bobochang.warehouse.entity.InStore;
 import com.bobochang.warehouse.entity.Purchase;
 import com.bobochang.warehouse.entity.Result;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -91,6 +94,17 @@ public class InStoreServiceImpl extends ServiceImpl<InStoreMapper, InStore>
             return Result.err(Result.CODE_ERR_BUSINESS, "入库失败！");
         }
         return Result.err(Result.CODE_ERR_BUSINESS, "入库失败！");
+    }
+
+    @Override
+    public Page inStoreSummaryPage(Page page, InStore inStore) {
+        List<InSummaryDto> inSummaryDtos = inStoreMapper.selectInStoreSummaryPage(page, inStore);
+        for (InSummaryDto inSummaryDto : inSummaryDtos){
+            BigDecimal sum = inStoreMapper.selectInStoreSummaryMoenyBySupply(inSummaryDto.getSupplyName());
+            inSummaryDto.setTotalAmount(sum);
+        }
+        page.setResultList(inSummaryDtos);
+        return page;
     }
 }
 
