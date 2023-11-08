@@ -28,4 +28,10 @@ public class PurchaseReasonDto {
      * 驳回理由
      */
     private String reason;
+
+    /**
+     * 0 否 1 是
+     */
+    private String isIn;
+
 }

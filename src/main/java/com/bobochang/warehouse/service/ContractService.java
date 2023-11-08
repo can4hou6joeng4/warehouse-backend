@@ -1,6 +1,7 @@
 package com.bobochang.warehouse.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.bobochang.warehouse.dto.MaterialNumDto;
 import com.bobochang.warehouse.entity.Checkin;
 import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.Result;
@@ -37,4 +38,6 @@ public interface ContractService extends IService<Contract> {
     Result selectAllContract();
 
     int updateContractIfPurchase(Contract contract);
+
+    Result getNeedMaterialNum(MaterialNumDto materialNumDto);
 }

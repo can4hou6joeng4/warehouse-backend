@@ -36,4 +36,6 @@ public class InSummaryDto {
     
     private Integer total;
 
+    private String unitName;
+
 }

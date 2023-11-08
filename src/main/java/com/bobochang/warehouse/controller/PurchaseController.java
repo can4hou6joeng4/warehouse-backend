@@ -181,7 +181,7 @@ public class PurchaseController {
 //    }
 
     /**
-     * 审核合同，如果同意
+     * 审核采购单，如果同意
      * @param token
      * @param purchaseReasonDto 包含合同id,采购单id
      * @return
@@ -190,17 +190,11 @@ public class PurchaseController {
     public Result contractAgree(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                 @RequestBody PurchaseReasonDto purchaseReasonDto){
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
-        Purchase purchase = new Purchase();
-        purchase.setBuyId(purchaseReasonDto.getBuyId());
-        purchase.setIsIn("2");
-        int i = purchaseService.updatePurchaseState(purchase);
-        if(i>0){
-            Flow flow = new Flow();
-            flow.setContractId(purchaseReasonDto.getContractId());
-            return activitiService.completeTask(userCode, flow);
-        }else{
-            return Result.err(500,"修改合同状态失败");
-        }
+        purchaseReasonDto.setIsIn("2");
+        purchaseService.updatePurchaseStateByContractId(purchaseReasonDto);
+        Flow flow = new Flow();
+        flow.setContractId(purchaseReasonDto.getContractId());
+        return activitiService.completeTask(userCode, flow);
     }
 
     /**
@@ -211,19 +205,11 @@ public class PurchaseController {
      */
     @PostMapping("/purchase-again")
     public Result contractAgain(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
-                                @RequestBody PurchaseReasonDto purchaseReasonDto){
+                                @RequestBody PurchaseReasonDto purchaseReasonDto) throws Exception {
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
-        Purchase purchase = new Purchase();
-        purchase.setBuyId(purchaseReasonDto.getBuyId());
-        purchase.setIsIn("0");
-        int i = purchaseService.updatePurchaseState(purchase);
-        if(i>0){
-            Flow flow = new Flow();
-            flow.setContractId(purchaseReasonDto.getContractId());
-            return activitiService.completeTask(userCode, flow);
-        }else{
-            return Result.err(500,"修改合同状态失败");
-        }
+        purchaseReasonDto.setIsIn("0");
+        purchaseService.updatePurchaseStateByContractId(purchaseReasonDto);
+        return activitiService.skipPurchaseTask(userCode, purchaseReasonDto, "sid-04");
     }
 
     /**
@@ -237,12 +223,9 @@ public class PurchaseController {
     public Result contractReject(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                  @RequestBody PurchaseReasonDto purchaseReasonDto) throws Exception {
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
-        Purchase purchase = new Purchase();
-        purchase.setBuyId(purchaseReasonDto.getBuyId());
-        purchase.setIsIn("1");
-        purchase.setReason(purchaseReasonDto.getReason());
+        purchaseReasonDto.setIsIn("1");
         purchaseService.updatePurchaseStateByContractId(purchaseReasonDto);
-        return activitiService.skipPurchaseTask(userCode, purchaseReasonDto);
+        return activitiService.skipPurchaseTask(userCode, purchaseReasonDto, "sid-05");
     }
     
 }

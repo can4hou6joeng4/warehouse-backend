@@ -7,6 +7,7 @@ import com.bobochang.warehouse.entity.Supply;
 import com.bobochang.warehouse.entity.SupplyPayable;
 import com.bobochang.warehouse.page.Page;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -29,5 +30,5 @@ public interface SupplyMapper extends BaseMapper<Supply> {
 
     public Supply selectSupplyByNum(String supplyNum);
 
-    List<Supply> selectSupplyByMaterialId(Integer materialId);
+    List<Supply> selectSupplyByMaterialId(@Param("materialId") Integer materialId);
 }

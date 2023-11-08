@@ -32,7 +32,7 @@ public interface ActivitiService {
     
     Result skipTask(String userCode, ContractReasonDto contractReasonDto) throws Exception;
 
-    Result skipPurchaseTask(String userCode, PurchaseReasonDto purchaseReasonDto) throws Exception;
+    Result skipPurchaseTask(String userCode, PurchaseReasonDto purchaseReasonDto, String taskId) throws Exception;
 
     Result againInstance(Contract contract);
 }

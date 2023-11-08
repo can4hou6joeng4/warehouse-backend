@@ -1,6 +1,7 @@
 package com.bobochang.warehouse.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.bobochang.warehouse.dto.MaterialNumDto;
 import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.FaceModel;
 import com.bobochang.warehouse.entity.Result;
@@ -110,5 +111,11 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
     public int updateContractIfPurchase(Contract contract) {
         
         return contractMapper.updateContractIfPurchase(contract);
+    }
+
+    @Override
+    public Result getNeedMaterialNum(MaterialNumDto materialNumDto) {
+        MaterialNumDto numDto = contractMapper.getNeedMaterialNum(materialNumDto);
+        return Result.ok(numDto);
     }
 }

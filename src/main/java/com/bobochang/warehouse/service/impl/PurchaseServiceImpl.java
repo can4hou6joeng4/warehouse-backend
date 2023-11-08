@@ -91,8 +91,10 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase>
         try{
             List<Purchase> purchaseList = purchaseMapper.selectListByContractId(purchaseReasonDto.getContractId());
             for(Purchase purchase : purchaseList){
-                purchase.setIsIn("1");
-                purchase.setReason(purchaseReasonDto.getReason());
+                purchase.setIsIn(purchaseReasonDto.getIsIn());
+                if (purchaseReasonDto.getReason() != null){
+                    purchase.setReason(purchaseReasonDto.getReason());
+                }
                 purchaseMapper.updateIsInById(purchase);
             }
         }catch (RuntimeException e){

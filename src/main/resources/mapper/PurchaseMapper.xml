@@ -57,6 +57,9 @@
         <if test="isIn != null and isIn != ''">
             and t1.is_in = #{isIn}
         </if>
+        <if test="contractId != null and contractId != ''">
+            and t1.contract_id = #{contractId}
+        </if>
         <if test="startTime != null and startTime != ''">
             and t1.buy_time &gt;= #{startTime}
         </if>
@@ -87,6 +90,9 @@
         </if>
         <if test="purchase.contractName != null and purchase.contractName != ''">
             and t4.contract_name like concat('%', #{purchase.contractName} ,'%')
+        </if>
+        <if test="purchase.contractId != null and purchase.contractId != ''">
+            and t1.contract_id = #{purchase.contractId}
         </if>
         <if test="purchase.isIn != null and purchase.isIn != ''">
             and t1.is_in = #{purchase.isIn}

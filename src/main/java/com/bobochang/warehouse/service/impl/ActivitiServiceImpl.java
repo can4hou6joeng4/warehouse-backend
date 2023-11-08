@@ -505,7 +505,7 @@ public class ActivitiServiceImpl implements ActivitiService {
     }
 
     @Override
-    public Result skipPurchaseTask(String userCode, PurchaseReasonDto purchaseReasonDto) throws Exception {
+    public Result skipPurchaseTask(String userCode, PurchaseReasonDto purchaseReasonDto,String taskId) throws Exception {
         // 获取实例id
         String instanceId = flowService.selectByContractId(purchaseReasonDto.getContractId()).getInstanceId();
 
@@ -520,7 +520,7 @@ public class ActivitiServiceImpl implements ActivitiService {
         String activityId = execution.getActivityId();
         FlowNode flowNode = (FlowNode) bpmnModel.getMainProcess().getFlowElement(activityId);
         //需要跳转的节点
-        FlowNode toFlowNode = (FlowNode) bpmnModel.getMainProcess().getFlowElement("sid-03");
+        FlowNode toFlowNode = (FlowNode) bpmnModel.getMainProcess().getFlowElement(taskId);
         if (toFlowNode == null) {
             throw new Exception("退回失败");
         }
@@ -544,7 +544,7 @@ public class ActivitiServiceImpl implements ActivitiService {
         flowNode.setOutgoingFlows(oriSequenceFlows);
         log.info("跳转成功，from->{},to->{}", flowNode.getName(), toFlowNode.getName());
         
-        return Result.ok("退回成功");
+        return Result.ok("执行成功");
     }
 
     /**

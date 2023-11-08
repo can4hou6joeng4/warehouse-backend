@@ -113,6 +113,7 @@ public class SupplyController {
      */
     @RequestMapping("/supply-list/{materialId}")
     public Result selectSupplyByMaterialId(@PathVariable String materialId){
+        System.out.println(materialId);
         List<Supply> list = supplyService.selectSupplyByMaterialId(materialId);
         return Result.ok(list);
     }

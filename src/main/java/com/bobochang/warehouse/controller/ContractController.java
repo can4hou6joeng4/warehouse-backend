@@ -3,6 +3,7 @@ package com.bobochang.warehouse.controller;
 import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.dto.ContractReasonDto;
+import com.bobochang.warehouse.dto.MaterialNumDto;
 import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.Flow;
 import com.bobochang.warehouse.entity.Result;
@@ -255,5 +256,15 @@ public class ContractController {
         } else {
             return Result.err(500, "修改合同状态失败");
         }
+    }
+
+    /**
+     * 查询该合同生产产品所需要的原材料的用量
+     * @param materialNumDto 包含合同id，材料id
+     * @return
+     */
+    @GetMapping("/material-num")
+    public Result getNeedMaterialNum(MaterialNumDto materialNumDto){
+        return contractService.getNeedMaterialNum(materialNumDto);
     }
 }

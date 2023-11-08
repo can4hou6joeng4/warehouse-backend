@@ -86,7 +86,7 @@ public class Contract implements Serializable {
     /**
      * 生产数量
      */
-    private Integer productNum;
+    private double productNum;
 
     /**
      * 是否需要采购

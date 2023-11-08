@@ -81,6 +81,14 @@
     <select id="selectAllContract" resultType="com.bobochang.warehouse.entity.Contract">
         select * from contract
     </select>
+    
+<!--    用于查询合同中某个材料所需要的量-->
+    <select id="getNeedMaterialNum" resultType="com.bobochang.warehouse.dto.MaterialNumDto">
+        SELECT ROUND(t1.product_num*t2.ratio,2) as materialNum FROM contract t1, product_material t2
+        where t1.product_id = t2.product_id
+          and material_id= #{materialId}
+          and contract_id = #{contractId}
+    </select>
 
     <!--
         // 添加合同

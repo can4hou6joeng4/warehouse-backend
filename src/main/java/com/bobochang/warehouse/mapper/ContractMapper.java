@@ -1,6 +1,7 @@
 package com.bobochang.warehouse.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.bobochang.warehouse.dto.MaterialNumDto;
 import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.FaceModel;
 import com.bobochang.warehouse.page.Page;
@@ -34,4 +35,6 @@ public interface ContractMapper extends BaseMapper<Contract> {
     List<Contract> selectAllContract();
 
     int updateContractIfPurchase(Contract contract);
+
+    MaterialNumDto getNeedMaterialNum(MaterialNumDto materialNumDto);
 }

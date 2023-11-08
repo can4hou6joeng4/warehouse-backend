@@ -110,15 +110,26 @@
     <select id="selectSupplyByNum" resultType="com.bobochang.warehouse.entity.Supply">
         select * from supply where supply_num = #{supplyNum}
     </select>
+    
+<!--    查询材料所有的供应商-->
+<!--    <select id="selectSupplyByMaterialId" resultType="com.bobochang.warehouse.entity.Supply">-->
+<!--        SELECT t2.supply_id,t2.supply_name,t3.quotation,t2.concat,t2.phone FROM inspection t1, supply t2, material_supply t3-->
+<!--        where t1.supply_id = t2.supply_id-->
+<!--          and t1.material_id = t3.material_id-->
+<!--          and t1.supply_id = t3.supply_id-->
+<!--        <if test="materialId != null and materialId != ''">-->
+<!--            and t1.material_id = #{materialId}-->
+<!--        </if>-->
+<!--#           and t1.inspection_result = '1'-->
+<!--        ORDER BY t3.quotation-->
+<!--    </select>-->
     <select id="selectSupplyByMaterialId" resultType="com.bobochang.warehouse.entity.Supply">
-        SELECT t2.supply_id,t2.supply_name,t3.quotation,t2.concat,t2.phone FROM inspection t1, supply t2, material_supply t3
-        where t1.supply_id = t2.supply_id
-          and t1.material_id = t3.material_id
-          and t1.supply_id = t3.supply_id
+        SELECT t2.supply_id,t2.supply_name,t3.quotation,t2.concat,t2.phone FROM material_supply t3, supply t2
+        where t3.supply_id = t2.supply_id
         <if test="materialId != null and materialId != ''">
-            and t1.material_id = #{materialId}
+            and t3.material_id = #{materialId}
         </if>
-          and t1.inspection_result = '1'
+        #           and t1.inspection_result = '1'
         ORDER BY t3.quotation
     </select>
 
