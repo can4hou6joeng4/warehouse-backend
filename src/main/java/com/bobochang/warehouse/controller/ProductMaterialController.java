@@ -55,17 +55,7 @@ public class ProductMaterialController {
         List<Product> productList = productService.queryAllProduct();
         return Result.ok(productList);
     }
-
-    /**
-     * 查询所有材料
-     * @return
-     */
-    @RequestMapping("/material-list")
-    public Result materialList(){
-        List<Material> materialList = materialService.queryAllMaterial();
-        return Result.ok(materialList);
-    }
-
+    
     /**
      * 添加   
      * @param productMaterial

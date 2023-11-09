@@ -20,7 +20,7 @@ public interface OutStoreService extends IService<OutStore> {
     int updateOutStoreById(OutStore outStore);
 
     //确定出库的业务方法
-    public Result confirmOutStore(OutStore outStore);
+    Result confirmOutStore(OutStore outStore);
 
     Page outStoreSummaryPage(Page page, OutStore outStore);
 }

@@ -36,13 +36,13 @@ public class Contract implements Serializable {
     /**
      * 工期开始时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date startTime;
 
     /**
      * 工期结束时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date endTime;
 
     /**

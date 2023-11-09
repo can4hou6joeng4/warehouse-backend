@@ -204,7 +204,18 @@ public class MaterialController {
         //响应
         return result;
     }
-    
+
+    /**
+     * 查询所有材料
+     * @return
+     */
+    @RequestMapping("/material-list")
+    public Result materialList(){
+        List<Material> materialList = materialService.queryAllMaterial();
+        return Result.ok(materialList);
+    }
+
+
 //    /**
 //     * 导出材料列表信息数据
 //     * @param page

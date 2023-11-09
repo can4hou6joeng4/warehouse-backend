@@ -82,7 +82,7 @@ public class OutStoreServiceImpl extends ServiceImpl<OutStoreMapper, OutStore>
             //根据商品id减商品库存
             List<ProductMaterial> productMaterialList = productMaterialService.selectRatioById(String.valueOf(outStore.getProductId()));
             for (ProductMaterial productMaterial:productMaterialList){
-                double num = outStore.getOutNum() * productMaterial.getRatio();
+                double num = Math.round((outStore.getOutNum() * productMaterial.getRatio()) * 100.0) / 100.0;
                 InStore inStore = new InStore();
                 inStore.setInNum(-num);
                 inStore.setMaterialId(productMaterial.getMaterialId());

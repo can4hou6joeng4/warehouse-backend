@@ -5,6 +5,8 @@ import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.page.Page;
+import com.bobochang.warehouse.service.ActivitiService;
+import com.bobochang.warehouse.service.ContractService;
 import com.bobochang.warehouse.service.OutStoreService;
 import com.bobochang.warehouse.service.StoreService;
 import com.bobochang.warehouse.utils.TokenUtils;
@@ -32,7 +34,12 @@ public class OutStoreController {
     //注入StoreService
     @Autowired
     private StoreService storeService;
+    
+    @Autowired
+    private ActivitiService activitiService;
 
+    @Autowired
+    private ContractService contractService;
     /**
      * 添加出库单的url接口/outstore/outstore-add
      *
@@ -114,6 +121,12 @@ public class OutStoreController {
         return outStoreService.confirmOutStore(outStore);
     }
 
+    /**
+     * 分页获取出库汇总
+     * @param page
+     * @param outStore
+     * @return
+     */
     @RequestMapping("/outstore-summary-page-list")
     public Result outStoreSummaryPageList(Page page, OutStore outStore) {
         //执行业务
@@ -122,4 +135,25 @@ public class OutStoreController {
         return Result.ok(page);
     }
 
+    /**
+     * 完成出库任务
+     * @param token 用户令牌 contract 包含合同id
+     * @return
+     */
+    @PostMapping("/complete-task")
+    public Result completeTask(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
+                               @RequestBody Flow flow){
+        System.out.println(flow.getContractId());
+        String userCode = tokenUtils.getCurrentUser(token).getUserCode();
+        
+        Contract contract = new Contract();
+        contract.setContractId(flow.getContractId());
+        contract.setContractState("3"); // 将合同状态修改为结算中
+        
+        if(contractService.updateContractState(contract) < 1){
+            return Result.err(500,"修改合同状态失败");
+        }
+        
+        return activitiService.completeTask(userCode, flow);
+    }
 }
