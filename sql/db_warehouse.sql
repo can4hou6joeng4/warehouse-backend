@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 08/11/2023 17:24:23
+ Date: 10/11/2023 15:44:29
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +35,7 @@ CREATE TABLE `act_evt_log`  (
   `LOCK_TIME_` timestamp(3) NULL DEFAULT NULL,
   `IS_PROCESSED_` tinyint NULL DEFAULT 0,
   PRIMARY KEY (`LOG_NR_`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of act_evt_log
@@ -113,19 +113,71 @@ CREATE TABLE `act_hi_actinst`  (
 -- ----------------------------
 -- Records of act_hi_actinst
 -- ----------------------------
+INSERT INTO `act_hi_actinst` VALUES ('0748ed1c-7ea4-11ee-a3ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0ffb2-7ea3-11ee-9b02-48a47209a1e7', 'sid-2b1cc9f7-cd15-430c-a96e-1df1f5288836', NULL, NULL, NULL, 'endEvent', NULL, '2023-11-09 10:02:25.702', '2023-11-09 10:02:25.702', 0, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('0c014763-7f77-11ee-abad-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f7f732-7ed1-11ee-9c08-48a47209a1e7', 'sid-2b1cc9f7-cd15-430c-a96e-1df1f5288836', NULL, NULL, NULL, 'endEvent', NULL, '2023-11-10 11:12:57.431', '2023-11-10 11:12:57.440', 9, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('132e1c98-7ec5-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', 'sid-10', '132e43a9-7ec5-11ee-9a80-48a47209a1e7', NULL, '结算确认', 'userTask', 'supper_manage', '2023-11-09 13:58:59.051', '2023-11-09 13:59:18.551', 19500, NULL, '');
 INSERT INTO `act_hi_actinst` VALUES ('19994bfc-7e0f-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', 'sid-04', '19a002bd-7e0f-11ee-93b6-48a47209a1e7', NULL, '采购审批', 'userTask', 'supper_manage', '2023-11-08 16:16:21.415', '2023-11-08 16:21:04.937', 283522, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('1ecd935a-7ec5-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', 'sid-2b1cc9f7-cd15-430c-a96e-1df1f5288836', NULL, NULL, NULL, 'endEvent', NULL, '2023-11-09 13:59:18.551', '2023-11-09 13:59:18.552', 1, NULL, '');
 INSERT INTO `act_hi_actinst` VALUES ('2f238f32-7e10-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', 'sid-04', '2f23b643-7e10-11ee-93b6-48a47209a1e7', NULL, '采购审批', 'userTask', 'supper_manage', '2023-11-08 16:24:07.050', '2023-11-08 16:24:20.352', 13302, NULL, '');
 INSERT INTO `act_hi_actinst` VALUES ('32c008a4-7e0b-11ee-8f85-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', 'sid-7e183909-366b-46a1-b731-c350ca52847a', NULL, NULL, NULL, 'startEvent', NULL, '2023-11-08 15:48:25.625', '2023-11-08 15:48:25.632', 7, NULL, '');
 INSERT INTO `act_hi_actinst` VALUES ('32c22b85-7e0b-11ee-8f85-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', 'sid-01', '32c89426-7e0b-11ee-8f85-48a47209a1e7', NULL, '创建合同', 'userTask', 'station_master', '2023-11-08 15:48:25.639', '2023-11-08 15:48:25.820', 181, NULL, '');
 INSERT INTO `act_hi_actinst` VALUES ('32ddc9d8-7e0b-11ee-8f85-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', 'sid-02', '32ddc9d9-7e0b-11ee-8f85-48a47209a1e7', NULL, '合同确认', 'userTask', 'supper_manage', '2023-11-08 15:48:25.820', '2023-11-08 15:49:19.033', 53213, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('32f84553-7ed1-11ee-9c08-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f7f732-7ed1-11ee-9c08-48a47209a1e7', 'sid-7e183909-366b-46a1-b731-c350ca52847a', NULL, NULL, NULL, 'startEvent', NULL, '2023-11-09 15:25:46.346', '2023-11-09 15:25:46.349', 3, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('32f92fb4-7ed1-11ee-9c08-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f7f732-7ed1-11ee-9c08-48a47209a1e7', 'sid-01', '32fb0475-7ed1-11ee-9c08-48a47209a1e7', NULL, '创建合同', 'userTask', 'station_master', '2023-11-09 15:25:46.352', '2023-11-09 15:25:46.547', 195, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('3316f0e7-7ed1-11ee-9c08-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f7f732-7ed1-11ee-9c08-48a47209a1e7', 'sid-02', '331717f8-7ed1-11ee-9c08-48a47209a1e7', NULL, '合同确认', 'userTask', 'supper_manage', '2023-11-09 15:25:46.547', '2023-11-09 15:25:55.982', 9435, NULL, '');
 INSERT INTO `act_hi_actinst` VALUES ('37114894-7e10-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', 'sid-05', '37114895-7e10-11ee-93b6-48a47209a1e7', NULL, '采购完成', 'userTask', 'purchase_man', '2023-11-08 16:24:20.352', '2023-11-08 16:26:13.483', 113131, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('38b6c2aa-7ed1-11ee-9c08-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f7f732-7ed1-11ee-9c08-48a47209a1e7', 'sid-27f93524-bed4-4c9a-ab02-1d523cb49807', NULL, NULL, NULL, 'exclusiveGateway', NULL, '2023-11-09 15:25:55.983', '2023-11-09 15:25:55.998', 15, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('38b933ab-7ed1-11ee-9c08-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f7f732-7ed1-11ee-9c08-48a47209a1e7', 'sid-07', '38b933ac-7ed1-11ee-9c08-48a47209a1e7', NULL, '生产完成', 'userTask', 'supper_manage', '2023-11-09 15:25:55.999', '2023-11-09 15:26:05.159', 9160, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('3e2ee82d-7ed1-11ee-9c08-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f7f732-7ed1-11ee-9c08-48a47209a1e7', 'sid-09', '3e2ee82e-7ed1-11ee-9c08-48a47209a1e7', NULL, '出库确认', 'userTask', 'out_store', '2023-11-09 15:26:05.159', '2023-11-09 15:26:40.027', 34868, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('43650ea6-7ec4-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', 'sid-04', '43675897-7ec4-11ee-9a80-48a47209a1e7', NULL, '采购审批', 'userTask', 'supper_manage', '2023-11-09 13:53:10.445', '2023-11-09 13:53:36.093', 25648, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('5216c844-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', 'sid-7e183909-366b-46a1-b731-c350ca52847a', NULL, NULL, NULL, 'startEvent', NULL, '2023-11-09 11:37:34.660', '2023-11-09 11:37:34.660', 0, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('5216c845-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', 'sid-01', '5216c846-7eb1-11ee-83ef-48a47209a1e7', NULL, '创建合同', 'userTask', 'station_master', '2023-11-09 11:37:34.660', '2023-11-09 11:37:34.714', 54, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('521f05a8-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', 'sid-02', '521f05a9-7eb1-11ee-83ef-48a47209a1e7', NULL, '合同确认', 'userTask', 'supper_manage', '2023-11-09 11:37:34.714', '2023-11-09 11:37:40.660', 5946, NULL, '');
 INSERT INTO `act_hi_actinst` VALUES ('529599bb-7e0b-11ee-8f85-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', 'sid-27f93524-bed4-4c9a-ab02-1d523cb49807', NULL, NULL, NULL, 'exclusiveGateway', NULL, '2023-11-08 15:49:19.034', '2023-11-08 15:49:19.058', 24, NULL, '');
 INSERT INTO `act_hi_actinst` VALUES ('52996a4c-7e0b-11ee-8f85-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', 'sid-03', '5299915d-7e0b-11ee-8f85-48a47209a1e7', NULL, '采购创建', 'userTask', 'purchase_man', '2023-11-08 15:49:19.059', '2023-11-08 16:16:21.400', 1622341, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('52aea1a9-7ec4-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', 'sid-05', '52aea1aa-7ec4-11ee-9a80-48a47209a1e7', NULL, '采购完成', 'userTask', 'purchase_man', '2023-11-09 13:53:36.093', '2023-11-09 13:53:56.287', 20194, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('52f75770-7ed1-11ee-9c08-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f7f732-7ed1-11ee-9c08-48a47209a1e7', 'sid-10', '52f75771-7ed1-11ee-9c08-48a47209a1e7', NULL, '结算确认', 'userTask', 'supper_manage', '2023-11-09 15:26:40.027', '2023-11-10 11:12:57.410', 71177383, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('55aa4f4b-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', 'sid-27f93524-bed4-4c9a-ab02-1d523cb49807', NULL, NULL, NULL, 'exclusiveGateway', NULL, '2023-11-09 11:37:40.660', '2023-11-09 11:37:40.679', 19, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('55ad5c8c-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', 'sid-03', '55ad5c8d-7eb1-11ee-83ef-48a47209a1e7', NULL, '采购创建', 'userTask', 'purchase_man', '2023-11-09 11:37:40.680', '2023-11-09 11:38:05.669', 24989, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('5eb7fdcc-7ec4-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', 'sid-04', '5eb7fdcd-7ec4-11ee-9a80-48a47209a1e7', NULL, '采购审批', 'userTask', 'supper_manage', '2023-11-09 13:53:56.287', '2023-11-09 13:54:14.211', 17924, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('6492886f-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', 'sid-04', '64928870-7eb1-11ee-83ef-48a47209a1e7', NULL, '采购审批', 'userTask', 'supper_manage', '2023-11-09 11:38:05.670', '2023-11-09 11:38:21.271', 15601, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('6967211e-7ec4-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', 'sid-05', '6967211f-7ec4-11ee-9a80-48a47209a1e7', NULL, '采购完成', 'userTask', 'purchase_man', '2023-11-09 13:54:14.212', '2023-11-09 13:55:38.227', 84015, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('6ddf0e82-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', 'sid-05', '6ddf0e83-7eb1-11ee-83ef-48a47209a1e7', NULL, '采购完成', 'userTask', 'purchase_man', '2023-11-09 11:38:21.271', '2023-11-09 11:38:35.046', 13775, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('7614f475-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', 'sid-04', '7614f476-7eb1-11ee-83ef-48a47209a1e7', NULL, '采购审批', 'userTask', 'supper_manage', '2023-11-09 11:38:35.046', '2023-11-09 11:38:44.005', 8959, NULL, '');
 INSERT INTO `act_hi_actinst` VALUES ('7a7fb446-7e10-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', 'sid-06', '7a7fdb57-7e10-11ee-93b6-48a47209a1e7', NULL, '入库确认', 'userTask', 'in_store', '2023-11-08 16:26:13.483', '2023-11-08 16:27:38.859', 85376, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('7b6bfd67-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', 'sid-05', '7b6bfd68-7eb1-11ee-83ef-48a47209a1e7', NULL, '采购完成', 'userTask', 'purchase_man', '2023-11-09 11:38:44.005', '2023-11-09 11:38:49.913', 5908, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('7ef17aa9-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', 'sid-06', '7ef17aaa-7eb1-11ee-83ef-48a47209a1e7', NULL, '入库确认', 'userTask', 'in_store', '2023-11-09 11:38:49.913', '2023-11-09 11:39:14.157', 24244, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('8d64d1ec-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', 'sid-07', '8d64f8fd-7eb1-11ee-83ef-48a47209a1e7', NULL, '生产完成', 'userTask', 'supper_manage', '2023-11-09 11:39:14.157', '2023-11-09 11:39:18.718', 4561, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('901cc5fe-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', 'sid-09', '901ced0f-7eb1-11ee-83ef-48a47209a1e7', NULL, '出库确认', 'userTask', 'out_store', '2023-11-09 11:39:18.718', '2023-11-09 11:39:41.033', 22315, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('9b7acd10-7ec4-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', 'sid-06', '9b7acd11-7ec4-11ee-9a80-48a47209a1e7', NULL, '入库确认', 'userTask', 'in_store', '2023-11-09 13:55:38.227', '2023-11-09 13:57:05.308', 87081, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('9d69c5b1-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', 'sid-10', '9d69ecc2-7eb1-11ee-83ef-48a47209a1e7', NULL, '结算确认', 'userTask', 'supper_manage', '2023-11-09 11:39:41.033', '2023-11-09 11:39:54.789', 13756, NULL, '');
 INSERT INTO `act_hi_actinst` VALUES ('9e9463be-7e12-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', 'sid-10', '9e948acf-7e12-11ee-93b6-48a47209a1e7', NULL, '结算确认', 'userTask', 'supper_manage', '2023-11-08 16:41:33.010', '2023-11-08 16:44:04.271', 151261, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('9fb0ffb3-7ea3-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0ffb2-7ea3-11ee-9b02-48a47209a1e7', 'sid-7e183909-366b-46a1-b731-c350ca52847a', NULL, NULL, NULL, 'startEvent', NULL, '2023-11-09 09:59:31.902', '2023-11-09 09:59:31.902', 0, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('9fb126c4-7ea3-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0ffb2-7ea3-11ee-9b02-48a47209a1e7', 'sid-01', '9fb126c5-7ea3-11ee-9b02-48a47209a1e7', NULL, '创建合同', 'userTask', 'station_master', '2023-11-09 09:59:31.902', '2023-11-09 09:59:32.005', 103, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('9fc0de37-7ea3-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0ffb2-7ea3-11ee-9b02-48a47209a1e7', 'sid-02', '9fc0de38-7ea3-11ee-9b02-48a47209a1e7', NULL, '合同确认', 'userTask', 'supper_manage', '2023-11-09 09:59:32.005', '2023-11-09 10:01:26.481', 114476, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('a59cec83-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', 'sid-2b1cc9f7-cd15-430c-a96e-1df1f5288836', NULL, NULL, NULL, 'endEvent', NULL, '2023-11-09 11:39:54.790', '2023-11-09 11:39:54.790', 0, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('aa674443-7ea2-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa674442-7ea2-11ee-9b02-48a47209a1e7', 'sid-7e183909-366b-46a1-b731-c350ca52847a', NULL, NULL, NULL, 'startEvent', NULL, '2023-11-09 09:52:40.376', '2023-11-09 09:52:40.376', 0, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('aa674444-7ea2-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa674442-7ea2-11ee-9b02-48a47209a1e7', 'sid-01', 'aa674445-7ea2-11ee-9b02-48a47209a1e7', NULL, '创建合同', 'userTask', 'station_master', '2023-11-09 09:52:40.376', '2023-11-09 09:52:40.480', 104, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('aa7722c7-7ea2-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa674442-7ea2-11ee-9b02-48a47209a1e7', 'sid-02', 'aa7722c8-7ea2-11ee-9b02-48a47209a1e7', NULL, '合同确认', 'userTask', 'supper_manage', '2023-11-09 09:52:40.480', '2023-11-09 09:53:24.538', 44058, NULL, '');
 INSERT INTO `act_hi_actinst` VALUES ('ad633359-7e10-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', 'sid-07', 'ad63335a-7e10-11ee-93b6-48a47209a1e7', NULL, '生产完成', 'userTask', 'supper_manage', '2023-11-08 16:27:38.860', '2023-11-08 16:27:44.566', 5706, NULL, '');
 INSERT INTO `act_hi_actinst` VALUES ('b0c9ddfb-7e10-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', 'sid-09', 'b0ca050c-7e10-11ee-93b6-48a47209a1e7', NULL, '出库确认', 'userTask', 'out_store', '2023-11-08 16:27:44.566', '2023-11-08 16:41:33.009', 828443, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('b9de232e-7eb4-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', 'sid-7e183909-366b-46a1-b731-c350ca52847a', NULL, NULL, NULL, 'startEvent', NULL, '2023-11-09 12:01:57.262', '2023-11-09 12:01:57.262', 0, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('b9de232f-7eb4-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', 'sid-01', 'b9de2330-7eb4-11ee-83ef-48a47209a1e7', NULL, '创建合同', 'userTask', 'station_master', '2023-11-09 12:01:57.262', '2023-11-09 12:01:57.309', 47, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('b9e54f22-7eb4-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', 'sid-02', 'b9e54f23-7eb4-11ee-83ef-48a47209a1e7', NULL, '合同确认', 'userTask', 'supper_manage', '2023-11-09 12:01:57.309', '2023-11-09 12:01:59.039', 1730, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('baed4945-7eb4-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', 'sid-27f93524-bed4-4c9a-ab02-1d523cb49807', NULL, NULL, NULL, 'exclusiveGateway', NULL, '2023-11-09 12:01:59.039', '2023-11-09 12:01:59.043', 4, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('baee0c96-7eb4-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', 'sid-03', 'baee0c97-7eb4-11ee-83ef-48a47209a1e7', NULL, '采购创建', 'userTask', 'purchase_man', '2023-11-09 12:01:59.044', '2023-11-09 13:53:10.438', 6671394, NULL, '');
 INSERT INTO `act_hi_actinst` VALUES ('c297521f-7e0f-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', 'sid-05', 'c2977930-7e0f-11ee-93b6-48a47209a1e7', NULL, '采购完成', 'userTask', 'purchase_man', '2023-11-08 16:21:04.937', '2023-11-08 16:24:07.050', 182113, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('c4ba017a-7ea2-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa674442-7ea2-11ee-9b02-48a47209a1e7', 'sid-27f93524-bed4-4c9a-ab02-1d523cb49807', NULL, NULL, NULL, 'exclusiveGateway', NULL, '2023-11-09 09:53:24.539', '2023-11-09 09:53:24.568', 29, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('c4bebc6b-7ea2-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa674442-7ea2-11ee-9b02-48a47209a1e7', 'sid-07', 'c4bee37c-7ea2-11ee-9b02-48a47209a1e7', NULL, '生产完成', 'userTask', 'supper_manage', '2023-11-09 09:53:24.571', '2023-11-09 09:53:54.289', 29718, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('cf624ea3-7ec4-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', 'sid-07', 'cf624ea4-7ec4-11ee-9a80-48a47209a1e7', NULL, '生产完成', 'userTask', 'supper_manage', '2023-11-09 13:57:05.308', '2023-11-09 13:57:12.281', 6973, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('d38a4d75-7ec4-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', 'sid-09', 'd38a7486-7ec4-11ee-9a80-48a47209a1e7', NULL, '出库确认', 'userTask', 'out_store', '2023-11-09 13:57:12.281', '2023-11-09 13:58:59.051', 106770, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('d6757edd-7ea2-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa674442-7ea2-11ee-9b02-48a47209a1e7', 'sid-09', 'd675a5ee-7ea2-11ee-9b02-48a47209a1e7', NULL, '出库确认', 'userTask', 'out_store', '2023-11-09 09:53:54.289', '2023-11-09 09:54:30.196', 35907, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('e3fde454-7ea3-11ee-a3ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0ffb2-7ea3-11ee-9b02-48a47209a1e7', 'sid-27f93524-bed4-4c9a-ab02-1d523cb49807', NULL, NULL, NULL, 'exclusiveGateway', NULL, '2023-11-09 10:01:26.490', '2023-11-09 10:01:26.539', 49, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('e405d395-7ea3-11ee-a3ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0ffb2-7ea3-11ee-9b02-48a47209a1e7', 'sid-07', 'e405faa6-7ea3-11ee-a3ef-48a47209a1e7', NULL, '生产完成', 'userTask', 'supper_manage', '2023-11-09 10:01:26.542', '2023-11-09 10:01:33.698', 7156, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('e849bed7-7ea3-11ee-a3ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0ffb2-7ea3-11ee-9b02-48a47209a1e7', 'sid-09', 'e849e5e8-7ea3-11ee-a3ef-48a47209a1e7', NULL, '出库确认', 'userTask', 'out_store', '2023-11-09 10:01:33.698', '2023-11-09 10:01:57.106', 23408, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('ebdc7810-7ea2-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa674442-7ea2-11ee-9b02-48a47209a1e7', 'sid-10', 'ebdc7811-7ea2-11ee-9b02-48a47209a1e7', NULL, '结算确认', 'userTask', 'supper_manage', '2023-11-09 09:54:30.196', '2023-11-09 09:54:47.875', 17679, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('f63d85da-7ea3-11ee-a3ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0ffb2-7ea3-11ee-9b02-48a47209a1e7', 'sid-10', 'f63d85db-7ea3-11ee-a3ef-48a47209a1e7', NULL, '结算确认', 'userTask', 'supper_manage', '2023-11-09 10:01:57.106', '2023-11-09 10:02:25.702', 28596, NULL, '');
+INSERT INTO `act_hi_actinst` VALUES ('f6663912-7ea2-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa674442-7ea2-11ee-9b02-48a47209a1e7', 'sid-2b1cc9f7-cd15-430c-a96e-1df1f5288836', NULL, NULL, NULL, 'endEvent', NULL, '2023-11-09 09:54:47.876', '2023-11-09 09:54:47.876', 0, NULL, '');
 INSERT INTO `act_hi_actinst` VALUES ('f8bd23a0-7e12-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', 'sid-2b1cc9f7-cd15-430c-a96e-1df1f5288836', NULL, NULL, NULL, 'endEvent', NULL, '2023-11-08 16:44:04.272', '2023-11-08 16:44:04.274', 2, NULL, '');
 
 -- ----------------------------
@@ -172,6 +224,10 @@ CREATE TABLE `act_hi_comment`  (
 -- Records of act_hi_comment
 -- ----------------------------
 INSERT INTO `act_hi_comment` VALUES ('2f1bc701-7e10-11ee-93b6-48a47209a1e7', 'comment', '2023-11-08 16:24:06.998', NULL, 'c2977930-7e0f-11ee-93b6-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', 'AddComment', '跳转指定节点', 0xE8B7B3E8BDACE68C87E5AE9AE88A82E782B9);
+INSERT INTO `act_hi_comment` VALUES ('52a8fc58-7ec4-11ee-9a80-48a47209a1e7', 'comment', '2023-11-09 13:53:36.056', NULL, '43675897-7ec4-11ee-9a80-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'AddComment', '跳转指定节点', 0xE8B7B3E8BDACE68C87E5AE9AE88A82E782B9);
+INSERT INTO `act_hi_comment` VALUES ('5eb53eab-7ec4-11ee-9a80-48a47209a1e7', 'comment', '2023-11-09 13:53:56.269', NULL, '52aea1aa-7ec4-11ee-9a80-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'AddComment', '跳转指定节点', 0xE8B7B3E8BDACE68C87E5AE9AE88A82E782B9);
+INSERT INTO `act_hi_comment` VALUES ('6ddd39c1-7eb1-11ee-83ef-48a47209a1e7', 'comment', '2023-11-09 11:38:21.259', NULL, '64928870-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', 'AddComment', '跳转指定节点', 0xE8B7B3E8BDACE68C87E5AE9AE88A82E782B9);
+INSERT INTO `act_hi_comment` VALUES ('7612f8a4-7eb1-11ee-83ef-48a47209a1e7', 'comment', '2023-11-09 11:38:35.033', NULL, '6ddf0e83-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', 'AddComment', '跳转指定节点', 0xE8B7B3E8BDACE68C87E5AE9AE88A82E782B9);
 INSERT INTO `act_hi_comment` VALUES ('c2909b5e-7e0f-11ee-93b6-48a47209a1e7', 'comment', '2023-11-08 16:21:04.893', NULL, '19a002bd-7e0f-11ee-93b6-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', 'AddComment', '跳转指定节点', 0xE8B7B3E8BDACE68C87E5AE9AE88A82E782B9);
 
 -- ----------------------------
@@ -212,6 +268,41 @@ INSERT INTO `act_hi_detail` VALUES ('32be5aec-7e0b-11ee-8f85-48a47209a1e7', 'Var
 INSERT INTO `act_hi_detail` VALUES ('32be5aee-7e0b-11ee-8f85-48a47209a1e7', 'VariableUpdate', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', NULL, NULL, 'supper_manage', 'string', 0, '2023-11-08 15:48:25.614', NULL, NULL, NULL, 'supper_manage', NULL);
 INSERT INTO `act_hi_detail` VALUES ('32be5af0-7e0b-11ee-8f85-48a47209a1e7', 'VariableUpdate', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', NULL, NULL, 'out_store', 'string', 0, '2023-11-08 15:48:25.614', NULL, NULL, NULL, 'out_store', NULL);
 INSERT INTO `act_hi_detail` VALUES ('32be5af2-7e0b-11ee-8f85-48a47209a1e7', 'VariableUpdate', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', NULL, NULL, 'status', 'integer', 0, '2023-11-08 15:48:25.614', NULL, NULL, 1, '1', NULL);
+INSERT INTO `act_hi_detail` VALUES ('32f781f5-7ed1-11ee-9c08-48a47209a1e7', 'VariableUpdate', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, NULL, 'produce_man', 'string', 0, '2023-11-09 15:25:46.341', NULL, NULL, NULL, 'produce_man', NULL);
+INSERT INTO `act_hi_detail` VALUES ('32f7d017-7ed1-11ee-9c08-48a47209a1e7', 'VariableUpdate', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, NULL, 'purchase_man', 'string', 0, '2023-11-09 15:25:46.343', NULL, NULL, NULL, 'purchase_man', NULL);
+INSERT INTO `act_hi_detail` VALUES ('32f7d019-7ed1-11ee-9c08-48a47209a1e7', 'VariableUpdate', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, NULL, 'station_master', 'string', 0, '2023-11-09 15:25:46.343', NULL, NULL, NULL, 'station_master', NULL);
+INSERT INTO `act_hi_detail` VALUES ('32f7d01b-7ed1-11ee-9c08-48a47209a1e7', 'VariableUpdate', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, NULL, 'in_store', 'string', 0, '2023-11-09 15:25:46.343', NULL, NULL, NULL, 'in_store', NULL);
+INSERT INTO `act_hi_detail` VALUES ('32f7d01d-7ed1-11ee-9c08-48a47209a1e7', 'VariableUpdate', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, NULL, 'supper_manage', 'string', 0, '2023-11-09 15:25:46.343', NULL, NULL, NULL, 'supper_manage', NULL);
+INSERT INTO `act_hi_detail` VALUES ('32f7d01f-7ed1-11ee-9c08-48a47209a1e7', 'VariableUpdate', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, NULL, 'out_store', 'string', 0, '2023-11-09 15:25:46.343', NULL, NULL, NULL, 'out_store', NULL);
+INSERT INTO `act_hi_detail` VALUES ('32f7d021-7ed1-11ee-9c08-48a47209a1e7', 'VariableUpdate', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, NULL, 'status', 'integer', 0, '2023-11-09 15:25:46.343', NULL, NULL, 0, '0', NULL);
+INSERT INTO `act_hi_detail` VALUES ('52167b16-7eb1-11ee-83ef-48a47209a1e7', 'VariableUpdate', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, NULL, 'produce_man', 'string', 0, '2023-11-09 11:37:34.658', NULL, NULL, NULL, 'produce_man', NULL);
+INSERT INTO `act_hi_detail` VALUES ('5216a228-7eb1-11ee-83ef-48a47209a1e7', 'VariableUpdate', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, NULL, 'purchase_man', 'string', 0, '2023-11-09 11:37:34.659', NULL, NULL, NULL, 'purchase_man', NULL);
+INSERT INTO `act_hi_detail` VALUES ('5216a22a-7eb1-11ee-83ef-48a47209a1e7', 'VariableUpdate', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, NULL, 'station_master', 'string', 0, '2023-11-09 11:37:34.659', NULL, NULL, NULL, 'station_master', NULL);
+INSERT INTO `act_hi_detail` VALUES ('5216a22c-7eb1-11ee-83ef-48a47209a1e7', 'VariableUpdate', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, NULL, 'in_store', 'string', 0, '2023-11-09 11:37:34.659', NULL, NULL, NULL, 'in_store', NULL);
+INSERT INTO `act_hi_detail` VALUES ('5216a22e-7eb1-11ee-83ef-48a47209a1e7', 'VariableUpdate', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, NULL, 'supper_manage', 'string', 0, '2023-11-09 11:37:34.659', NULL, NULL, NULL, 'supper_manage', NULL);
+INSERT INTO `act_hi_detail` VALUES ('5216a230-7eb1-11ee-83ef-48a47209a1e7', 'VariableUpdate', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, NULL, 'out_store', 'string', 0, '2023-11-09 11:37:34.659', NULL, NULL, NULL, 'out_store', NULL);
+INSERT INTO `act_hi_detail` VALUES ('5216a232-7eb1-11ee-83ef-48a47209a1e7', 'VariableUpdate', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, NULL, 'status', 'integer', 0, '2023-11-09 11:37:34.659', NULL, NULL, 1, '1', NULL);
+INSERT INTO `act_hi_detail` VALUES ('9fb0d895-7ea3-11ee-9b02-48a47209a1e7', 'VariableUpdate', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, NULL, 'produce_man', 'string', 0, '2023-11-09 09:59:31.900', NULL, NULL, NULL, 'produce_man', NULL);
+INSERT INTO `act_hi_detail` VALUES ('9fb0d897-7ea3-11ee-9b02-48a47209a1e7', 'VariableUpdate', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, NULL, 'purchase_man', 'string', 0, '2023-11-09 09:59:31.900', NULL, NULL, NULL, 'purchase_man', NULL);
+INSERT INTO `act_hi_detail` VALUES ('9fb0d899-7ea3-11ee-9b02-48a47209a1e7', 'VariableUpdate', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, NULL, 'station_master', 'string', 0, '2023-11-09 09:59:31.900', NULL, NULL, NULL, 'station_master', NULL);
+INSERT INTO `act_hi_detail` VALUES ('9fb0ffab-7ea3-11ee-9b02-48a47209a1e7', 'VariableUpdate', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, NULL, 'in_store', 'string', 0, '2023-11-09 09:59:31.901', NULL, NULL, NULL, 'in_store', NULL);
+INSERT INTO `act_hi_detail` VALUES ('9fb0ffad-7ea3-11ee-9b02-48a47209a1e7', 'VariableUpdate', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, NULL, 'supper_manage', 'string', 0, '2023-11-09 09:59:31.901', NULL, NULL, NULL, 'supper_manage', NULL);
+INSERT INTO `act_hi_detail` VALUES ('9fb0ffaf-7ea3-11ee-9b02-48a47209a1e7', 'VariableUpdate', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, NULL, 'out_store', 'string', 0, '2023-11-09 09:59:31.901', NULL, NULL, NULL, 'out_store', NULL);
+INSERT INTO `act_hi_detail` VALUES ('9fb0ffb1-7ea3-11ee-9b02-48a47209a1e7', 'VariableUpdate', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, NULL, 'status', 'integer', 0, '2023-11-09 09:59:31.901', NULL, NULL, 0, '0', NULL);
+INSERT INTO `act_hi_detail` VALUES ('aa671d25-7ea2-11ee-9b02-48a47209a1e7', 'VariableUpdate', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, NULL, 'produce_man', 'string', 0, '2023-11-09 09:52:40.375', NULL, NULL, NULL, 'produce_man', NULL);
+INSERT INTO `act_hi_detail` VALUES ('aa671d27-7ea2-11ee-9b02-48a47209a1e7', 'VariableUpdate', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, NULL, 'purchase_man', 'string', 0, '2023-11-09 09:52:40.375', NULL, NULL, NULL, 'purchase_man', NULL);
+INSERT INTO `act_hi_detail` VALUES ('aa671d29-7ea2-11ee-9b02-48a47209a1e7', 'VariableUpdate', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, NULL, 'station_master', 'string', 0, '2023-11-09 09:52:40.375', NULL, NULL, NULL, 'station_master', NULL);
+INSERT INTO `act_hi_detail` VALUES ('aa671d2b-7ea2-11ee-9b02-48a47209a1e7', 'VariableUpdate', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, NULL, 'in_store', 'string', 0, '2023-11-09 09:52:40.375', NULL, NULL, NULL, 'in_store', NULL);
+INSERT INTO `act_hi_detail` VALUES ('aa671d2d-7ea2-11ee-9b02-48a47209a1e7', 'VariableUpdate', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, NULL, 'supper_manage', 'string', 0, '2023-11-09 09:52:40.375', NULL, NULL, NULL, 'supper_manage', NULL);
+INSERT INTO `act_hi_detail` VALUES ('aa671d2f-7ea2-11ee-9b02-48a47209a1e7', 'VariableUpdate', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, NULL, 'out_store', 'string', 0, '2023-11-09 09:52:40.375', NULL, NULL, NULL, 'out_store', NULL);
+INSERT INTO `act_hi_detail` VALUES ('aa674441-7ea2-11ee-9b02-48a47209a1e7', 'VariableUpdate', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, NULL, 'status', 'integer', 0, '2023-11-09 09:52:40.376', NULL, NULL, 0, '0', NULL);
+INSERT INTO `act_hi_detail` VALUES ('b9ddfc10-7eb4-11ee-83ef-48a47209a1e7', 'VariableUpdate', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, NULL, 'produce_man', 'string', 0, '2023-11-09 12:01:57.261', NULL, NULL, NULL, 'produce_man', NULL);
+INSERT INTO `act_hi_detail` VALUES ('b9ddfc12-7eb4-11ee-83ef-48a47209a1e7', 'VariableUpdate', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, NULL, 'purchase_man', 'string', 0, '2023-11-09 12:01:57.261', NULL, NULL, NULL, 'purchase_man', NULL);
+INSERT INTO `act_hi_detail` VALUES ('b9ddfc14-7eb4-11ee-83ef-48a47209a1e7', 'VariableUpdate', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, NULL, 'station_master', 'string', 0, '2023-11-09 12:01:57.261', NULL, NULL, NULL, 'station_master', NULL);
+INSERT INTO `act_hi_detail` VALUES ('b9ddfc16-7eb4-11ee-83ef-48a47209a1e7', 'VariableUpdate', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, NULL, 'in_store', 'string', 0, '2023-11-09 12:01:57.261', NULL, NULL, NULL, 'in_store', NULL);
+INSERT INTO `act_hi_detail` VALUES ('b9ddfc18-7eb4-11ee-83ef-48a47209a1e7', 'VariableUpdate', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, NULL, 'supper_manage', 'string', 0, '2023-11-09 12:01:57.261', NULL, NULL, NULL, 'supper_manage', NULL);
+INSERT INTO `act_hi_detail` VALUES ('b9de232a-7eb4-11ee-83ef-48a47209a1e7', 'VariableUpdate', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, NULL, 'out_store', 'string', 0, '2023-11-09 12:01:57.262', NULL, NULL, NULL, 'out_store', NULL);
+INSERT INTO `act_hi_detail` VALUES ('b9de232c-7eb4-11ee-83ef-48a47209a1e7', 'VariableUpdate', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, NULL, 'status', 'integer', 0, '2023-11-09 12:01:57.262', NULL, NULL, 1, '1', NULL);
 
 -- ----------------------------
 -- Table structure for act_hi_identitylink
@@ -235,9 +326,28 @@ CREATE TABLE `act_hi_identitylink`  (
 -- ----------------------------
 INSERT INTO `act_hi_identitylink` VALUES ('32c8e247-7e0b-11ee-8f85-48a47209a1e7', NULL, 'participant', 'station_master', NULL, '32b8b594-7e0b-11ee-8f85-48a47209a1e7');
 INSERT INTO `act_hi_identitylink` VALUES ('32de661a-7e0b-11ee-8f85-48a47209a1e7', NULL, 'participant', 'supper_manage', NULL, '32b8b594-7e0b-11ee-8f85-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('32fb2b86-7ed1-11ee-9c08-48a47209a1e7', NULL, 'participant', 'station_master', NULL, '32f70cc3-7ed1-11ee-9c08-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('33178d29-7ed1-11ee-9c08-48a47209a1e7', NULL, 'participant', 'supper_manage', NULL, '32f70cc3-7ed1-11ee-9c08-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('3e2f846f-7ed1-11ee-9c08-48a47209a1e7', NULL, 'participant', 'out_store', NULL, '32f70cc3-7ed1-11ee-9c08-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('5216c847-7eb1-11ee-83ef-48a47209a1e7', NULL, 'participant', 'station_master', NULL, '52167b14-7eb1-11ee-83ef-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('521fa1ea-7eb1-11ee-83ef-48a47209a1e7', NULL, 'participant', 'supper_manage', NULL, '52167b14-7eb1-11ee-83ef-48a47209a1e7');
 INSERT INTO `act_hi_identitylink` VALUES ('5299b86e-7e0b-11ee-8f85-48a47209a1e7', NULL, 'participant', 'purchase_man', NULL, '32b8b594-7e0b-11ee-8f85-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('55ad839e-7eb1-11ee-83ef-48a47209a1e7', NULL, 'participant', 'purchase_man', NULL, '52167b14-7eb1-11ee-83ef-48a47209a1e7');
 INSERT INTO `act_hi_identitylink` VALUES ('7a80c5b8-7e10-11ee-93b6-48a47209a1e7', NULL, 'participant', 'in_store', NULL, '32b8b594-7e0b-11ee-8f85-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('7ef1efdb-7eb1-11ee-83ef-48a47209a1e7', NULL, 'participant', 'in_store', NULL, '52167b14-7eb1-11ee-83ef-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('901d3b30-7eb1-11ee-83ef-48a47209a1e7', NULL, 'participant', 'out_store', NULL, '52167b14-7eb1-11ee-83ef-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('9b7b6952-7ec4-11ee-9a80-48a47209a1e7', NULL, 'participant', 'in_store', NULL, 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('9fb126c6-7ea3-11ee-9b02-48a47209a1e7', NULL, 'participant', 'station_master', NULL, '9fb0d893-7ea3-11ee-9b02-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('9fc1a189-7ea3-11ee-9b02-48a47209a1e7', NULL, 'participant', 'supper_manage', NULL, '9fb0d893-7ea3-11ee-9b02-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('aa676b56-7ea2-11ee-9b02-48a47209a1e7', NULL, 'participant', 'station_master', NULL, 'aa66f613-7ea2-11ee-9b02-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('aa780d29-7ea2-11ee-9b02-48a47209a1e7', NULL, 'participant', 'supper_manage', NULL, 'aa66f613-7ea2-11ee-9b02-48a47209a1e7');
 INSERT INTO `act_hi_identitylink` VALUES ('b0ca7a3d-7e10-11ee-93b6-48a47209a1e7', NULL, 'participant', 'out_store', NULL, '32b8b594-7e0b-11ee-8f85-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('b9de2331-7eb4-11ee-83ef-48a47209a1e7', NULL, 'participant', 'station_master', NULL, 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('b9e5c454-7eb4-11ee-83ef-48a47209a1e7', NULL, 'participant', 'supper_manage', NULL, 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('baee33a8-7eb4-11ee-83ef-48a47209a1e7', NULL, 'participant', 'purchase_man', NULL, 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('d38ac2a7-7ec4-11ee-9a80-48a47209a1e7', NULL, 'participant', 'out_store', NULL, 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('d676693f-7ea2-11ee-9b02-48a47209a1e7', NULL, 'participant', 'out_store', NULL, 'aa66f613-7ea2-11ee-9b02-48a47209a1e7');
+INSERT INTO `act_hi_identitylink` VALUES ('e84aa939-7ea3-11ee-a3ef-48a47209a1e7', NULL, 'participant', 'out_store', NULL, '9fb0d893-7ea3-11ee-9b02-48a47209a1e7');
 
 -- ----------------------------
 -- Table structure for act_hi_procinst
@@ -268,6 +378,11 @@ CREATE TABLE `act_hi_procinst`  (
 -- Records of act_hi_procinst
 -- ----------------------------
 INSERT INTO `act_hi_procinst` VALUES ('32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', NULL, 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '2023-11-08 15:48:25.576', '2023-11-08 16:44:04.396', 3338820, NULL, 'sid-7e183909-366b-46a1-b731-c350ca52847a', 'sid-2b1cc9f7-cd15-430c-a96e-1df1f5288836', NULL, NULL, '', NULL);
+INSERT INTO `act_hi_procinst` VALUES ('32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '2023-11-09 15:25:46.338', '2023-11-10 11:12:57.532', 71231194, NULL, 'sid-7e183909-366b-46a1-b731-c350ca52847a', 'sid-2b1cc9f7-cd15-430c-a96e-1df1f5288836', NULL, NULL, '', NULL);
+INSERT INTO `act_hi_procinst` VALUES ('52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '2023-11-09 11:37:34.658', '2023-11-09 11:39:54.816', 140158, NULL, 'sid-7e183909-366b-46a1-b731-c350ca52847a', 'sid-2b1cc9f7-cd15-430c-a96e-1df1f5288836', NULL, NULL, '', NULL);
+INSERT INTO `act_hi_procinst` VALUES ('9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '2023-11-09 09:59:31.900', '2023-11-09 10:02:25.775', 173875, NULL, 'sid-7e183909-366b-46a1-b731-c350ca52847a', 'sid-2b1cc9f7-cd15-430c-a96e-1df1f5288836', NULL, NULL, '', NULL);
+INSERT INTO `act_hi_procinst` VALUES ('aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '2023-11-09 09:52:40.374', '2023-11-09 09:54:47.931', 127557, NULL, 'sid-7e183909-366b-46a1-b731-c350ca52847a', 'sid-2b1cc9f7-cd15-430c-a96e-1df1f5288836', NULL, NULL, '', NULL);
+INSERT INTO `act_hi_procinst` VALUES ('b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', '2023-11-09 12:01:57.261', '2023-11-09 13:59:18.607', 7041346, NULL, 'sid-7e183909-366b-46a1-b731-c350ca52847a', 'sid-2b1cc9f7-cd15-430c-a96e-1df1f5288836', NULL, NULL, '', NULL);
 
 -- ----------------------------
 -- Table structure for act_hi_taskinst
@@ -301,17 +416,54 @@ CREATE TABLE `act_hi_taskinst`  (
 -- ----------------------------
 -- Records of act_hi_taskinst
 -- ----------------------------
+INSERT INTO `act_hi_taskinst` VALUES ('132e43a9-7ec5-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-10', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', '结算确认', NULL, NULL, NULL, 'supper_manage', '2023-11-09 13:58:59.052', NULL, '2023-11-09 13:59:18.547', 19495, NULL, 50, NULL, NULL, NULL, '');
 INSERT INTO `act_hi_taskinst` VALUES ('19a002bd-7e0f-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-04', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', '采购审批', NULL, NULL, NULL, 'supper_manage', '2023-11-08 16:16:21.459', NULL, '2023-11-08 16:21:04.928', 283469, NULL, 50, NULL, NULL, NULL, '');
 INSERT INTO `act_hi_taskinst` VALUES ('2f23b643-7e10-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-04', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', '采购审批', NULL, NULL, NULL, 'supper_manage', '2023-11-08 16:24:07.051', NULL, '2023-11-08 16:24:20.346', 13295, NULL, 50, NULL, NULL, NULL, '');
 INSERT INTO `act_hi_taskinst` VALUES ('32c89426-7e0b-11ee-8f85-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-01', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', '创建合同', NULL, NULL, NULL, 'station_master', '2023-11-08 15:48:25.682', NULL, '2023-11-08 15:48:25.809', 127, NULL, 50, NULL, NULL, NULL, '');
 INSERT INTO `act_hi_taskinst` VALUES ('32ddc9d9-7e0b-11ee-8f85-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-02', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', '合同确认', NULL, NULL, NULL, 'supper_manage', '2023-11-08 15:48:25.820', NULL, '2023-11-08 15:49:19.021', 53201, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('32fb0475-7ed1-11ee-9c08-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-01', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f7f732-7ed1-11ee-9c08-48a47209a1e7', '创建合同', NULL, NULL, NULL, 'station_master', '2023-11-09 15:25:46.364', NULL, '2023-11-09 15:25:46.537', 173, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('331717f8-7ed1-11ee-9c08-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-02', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f7f732-7ed1-11ee-9c08-48a47209a1e7', '合同确认', NULL, NULL, NULL, 'supper_manage', '2023-11-09 15:25:46.548', NULL, '2023-11-09 15:25:55.977', 9429, NULL, 50, NULL, NULL, NULL, '');
 INSERT INTO `act_hi_taskinst` VALUES ('37114895-7e10-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-05', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', '采购完成', NULL, NULL, NULL, 'purchase_man', '2023-11-08 16:24:20.353', NULL, '2023-11-08 16:26:13.471', 113118, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('38b933ac-7ed1-11ee-9c08-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-07', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f7f732-7ed1-11ee-9c08-48a47209a1e7', '生产完成', NULL, NULL, NULL, 'supper_manage', '2023-11-09 15:25:55.999', NULL, '2023-11-09 15:26:05.148', 9149, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('3e2ee82e-7ed1-11ee-9c08-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-09', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f7f732-7ed1-11ee-9c08-48a47209a1e7', '出库确认', NULL, NULL, NULL, 'out_store', '2023-11-09 15:26:05.159', NULL, '2023-11-09 15:26:40.022', 34863, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('43675897-7ec4-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-04', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', '采购审批', NULL, NULL, NULL, 'supper_manage', '2023-11-09 13:53:10.460', NULL, '2023-11-09 13:53:36.086', 25626, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('5216c846-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-01', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', '创建合同', NULL, NULL, NULL, 'station_master', '2023-11-09 11:37:34.660', NULL, '2023-11-09 11:37:34.709', 49, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('521f05a9-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-02', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', '合同确认', NULL, NULL, NULL, 'supper_manage', '2023-11-09 11:37:34.714', NULL, '2023-11-09 11:37:40.654', 5940, NULL, 50, NULL, NULL, NULL, '');
 INSERT INTO `act_hi_taskinst` VALUES ('5299915d-7e0b-11ee-8f85-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-03', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', '采购创建', NULL, NULL, NULL, 'purchase_man', '2023-11-08 15:49:19.060', NULL, '2023-11-08 16:16:21.371', 1622311, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('52aea1aa-7ec4-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-05', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', '采购完成', NULL, NULL, NULL, 'purchase_man', '2023-11-09 13:53:36.093', NULL, '2023-11-09 13:53:56.281', 20188, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('52f75771-7ed1-11ee-9c08-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-10', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f7f732-7ed1-11ee-9c08-48a47209a1e7', '结算确认', NULL, NULL, NULL, 'supper_manage', '2023-11-09 15:26:40.027', NULL, '2023-11-10 11:12:57.380', 71177353, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('55ad5c8d-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-03', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', '采购创建', NULL, NULL, NULL, 'purchase_man', '2023-11-09 11:37:40.680', NULL, '2023-11-09 11:38:05.664', 24984, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('5eb7fdcd-7ec4-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-04', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', '采购审批', NULL, NULL, NULL, 'supper_manage', '2023-11-09 13:53:56.287', NULL, '2023-11-09 13:54:14.208', 17921, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('64928870-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-04', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', '采购审批', NULL, NULL, NULL, 'supper_manage', '2023-11-09 11:38:05.670', NULL, '2023-11-09 11:38:21.267', 15597, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('6967211f-7ec4-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-05', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', '采购完成', NULL, NULL, NULL, 'purchase_man', '2023-11-09 13:54:14.212', NULL, '2023-11-09 13:55:38.219', 84007, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('6ddf0e83-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-05', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', '采购完成', NULL, NULL, NULL, 'purchase_man', '2023-11-09 11:38:21.271', NULL, '2023-11-09 11:38:35.042', 13771, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('7614f476-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-04', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', '采购审批', NULL, NULL, NULL, 'supper_manage', '2023-11-09 11:38:35.046', NULL, '2023-11-09 11:38:44.001', 8955, NULL, 50, NULL, NULL, NULL, '');
 INSERT INTO `act_hi_taskinst` VALUES ('7a7fdb57-7e10-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-06', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', '入库确认', NULL, NULL, NULL, 'in_store', '2023-11-08 16:26:13.484', NULL, '2023-11-08 16:27:38.852', 85368, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('7b6bfd68-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-05', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', '采购完成', NULL, NULL, NULL, 'purchase_man', '2023-11-09 11:38:44.005', NULL, '2023-11-09 11:38:49.909', 5904, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('7ef17aaa-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-06', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', '入库确认', NULL, NULL, NULL, 'in_store', '2023-11-09 11:38:49.913', NULL, '2023-11-09 11:39:14.152', 24239, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('8d64f8fd-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-07', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', '生产完成', NULL, NULL, NULL, 'supper_manage', '2023-11-09 11:39:14.158', NULL, '2023-11-09 11:39:18.715', 4557, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('901ced0f-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-09', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', '出库确认', NULL, NULL, NULL, 'out_store', '2023-11-09 11:39:18.719', NULL, '2023-11-09 11:39:41.028', 22309, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('9b7acd11-7ec4-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-06', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', '入库确认', NULL, NULL, NULL, 'in_store', '2023-11-09 13:55:38.227', NULL, '2023-11-09 13:57:05.304', 87077, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('9d69ecc2-7eb1-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-10', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '5216c843-7eb1-11ee-83ef-48a47209a1e7', '结算确认', NULL, NULL, NULL, 'supper_manage', '2023-11-09 11:39:41.034', NULL, '2023-11-09 11:39:54.786', 13752, NULL, 50, NULL, NULL, NULL, '');
 INSERT INTO `act_hi_taskinst` VALUES ('9e948acf-7e12-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-10', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', '结算确认', NULL, NULL, NULL, 'supper_manage', '2023-11-08 16:41:33.011', NULL, '2023-11-08 16:44:04.257', 151246, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('9fb126c5-7ea3-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-01', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0ffb2-7ea3-11ee-9b02-48a47209a1e7', '创建合同', NULL, NULL, NULL, 'station_master', '2023-11-09 09:59:31.902', NULL, '2023-11-09 09:59:31.996', 94, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('9fc0de38-7ea3-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-02', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0ffb2-7ea3-11ee-9b02-48a47209a1e7', '合同确认', NULL, NULL, NULL, 'supper_manage', '2023-11-09 09:59:32.005', NULL, '2023-11-09 10:01:26.456', 114451, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('aa674445-7ea2-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-01', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa674442-7ea2-11ee-9b02-48a47209a1e7', '创建合同', NULL, NULL, NULL, 'station_master', '2023-11-09 09:52:40.376', NULL, '2023-11-09 09:52:40.472', 96, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('aa7722c8-7ea2-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-02', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa674442-7ea2-11ee-9b02-48a47209a1e7', '合同确认', NULL, NULL, NULL, 'supper_manage', '2023-11-09 09:52:40.480', NULL, '2023-11-09 09:53:24.532', 44052, NULL, 50, NULL, NULL, NULL, '');
 INSERT INTO `act_hi_taskinst` VALUES ('ad63335a-7e10-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-07', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', '生产完成', NULL, NULL, NULL, 'supper_manage', '2023-11-08 16:27:38.860', NULL, '2023-11-08 16:27:44.561', 5701, NULL, 50, NULL, NULL, NULL, '');
 INSERT INTO `act_hi_taskinst` VALUES ('b0ca050c-7e10-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-09', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', '出库确认', NULL, NULL, NULL, 'out_store', '2023-11-08 16:27:44.567', NULL, '2023-11-08 16:41:32.994', 828427, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('b9de2330-7eb4-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-01', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', '创建合同', NULL, NULL, NULL, 'station_master', '2023-11-09 12:01:57.262', NULL, '2023-11-09 12:01:57.304', 42, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('b9e54f23-7eb4-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-02', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', '合同确认', NULL, NULL, NULL, 'supper_manage', '2023-11-09 12:01:57.309', NULL, '2023-11-09 12:01:59.035', 1726, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('baee0c97-7eb4-11ee-83ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-03', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', '采购创建', NULL, NULL, NULL, 'purchase_man', '2023-11-09 12:01:59.044', NULL, '2023-11-09 13:53:10.427', 6671383, NULL, 50, NULL, NULL, NULL, '');
 INSERT INTO `act_hi_taskinst` VALUES ('c2977930-7e0f-11ee-93b6-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-05', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32bed023-7e0b-11ee-8f85-48a47209a1e7', '采购完成', NULL, NULL, NULL, 'purchase_man', '2023-11-08 16:21:04.938', NULL, '2023-11-08 16:24:07.041', 182103, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('c4bee37c-7ea2-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-07', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa674442-7ea2-11ee-9b02-48a47209a1e7', '生产完成', NULL, NULL, NULL, 'supper_manage', '2023-11-09 09:53:24.571', NULL, '2023-11-09 09:53:54.272', 29701, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('cf624ea4-7ec4-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-07', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', '生产完成', NULL, NULL, NULL, 'supper_manage', '2023-11-09 13:57:05.308', NULL, '2023-11-09 13:57:12.276', 6968, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('d38a7486-7ec4-11ee-9a80-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-09', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9de232d-7eb4-11ee-83ef-48a47209a1e7', '出库确认', NULL, NULL, NULL, 'out_store', '2023-11-09 13:57:12.282', NULL, '2023-11-09 13:58:59.046', 106764, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('d675a5ee-7ea2-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-09', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa674442-7ea2-11ee-9b02-48a47209a1e7', '出库确认', NULL, NULL, NULL, 'out_store', '2023-11-09 09:53:54.290', NULL, '2023-11-09 09:54:30.188', 35898, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('e405faa6-7ea3-11ee-a3ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-07', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0ffb2-7ea3-11ee-9b02-48a47209a1e7', '生产完成', NULL, NULL, NULL, 'supper_manage', '2023-11-09 10:01:26.544', NULL, '2023-11-09 10:01:33.690', 7146, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('e849e5e8-7ea3-11ee-a3ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-09', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0ffb2-7ea3-11ee-9b02-48a47209a1e7', '出库确认', NULL, NULL, NULL, 'out_store', '2023-11-09 10:01:33.699', NULL, '2023-11-09 10:01:57.097', 23398, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('ebdc7811-7ea2-11ee-9b02-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-10', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa674442-7ea2-11ee-9b02-48a47209a1e7', '结算确认', NULL, NULL, NULL, 'supper_manage', '2023-11-09 09:54:30.196', NULL, '2023-11-09 09:54:47.866', 17670, NULL, 50, NULL, NULL, NULL, '');
+INSERT INTO `act_hi_taskinst` VALUES ('f63d85db-7ea3-11ee-a3ef-48a47209a1e7', 'flowv1:1:9db0ecba-7b97-11ee-918e-48a47209a1e7', 'sid-10', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0ffb2-7ea3-11ee-9b02-48a47209a1e7', '结算确认', NULL, NULL, NULL, 'supper_manage', '2023-11-09 10:01:57.106', NULL, '2023-11-09 10:02:25.693', 28587, NULL, 50, NULL, NULL, NULL, '');
 
 -- ----------------------------
 -- Table structure for act_hi_varinst
@@ -348,6 +500,41 @@ INSERT INTO `act_hi_varinst` VALUES ('32be5aeb-7e0b-11ee-8f85-48a47209a1e7', '32
 INSERT INTO `act_hi_varinst` VALUES ('32be5aed-7e0b-11ee-8f85-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', NULL, 'supper_manage', 'string', 0, NULL, NULL, NULL, 'supper_manage', NULL, '2023-11-08 15:48:25.614', '2023-11-08 15:48:25.614');
 INSERT INTO `act_hi_varinst` VALUES ('32be5aef-7e0b-11ee-8f85-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', NULL, 'out_store', 'string', 0, NULL, NULL, NULL, 'out_store', NULL, '2023-11-08 15:48:25.614', '2023-11-08 15:48:25.614');
 INSERT INTO `act_hi_varinst` VALUES ('32be5af1-7e0b-11ee-8f85-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', '32b8b594-7e0b-11ee-8f85-48a47209a1e7', NULL, 'status', 'integer', 0, NULL, NULL, 1, '1', NULL, '2023-11-08 15:48:25.614', '2023-11-08 15:48:25.614');
+INSERT INTO `act_hi_varinst` VALUES ('32f781f4-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, 'produce_man', 'string', 0, NULL, NULL, NULL, 'produce_man', NULL, '2023-11-09 15:25:46.341', '2023-11-09 15:25:46.341');
+INSERT INTO `act_hi_varinst` VALUES ('32f7d016-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, 'purchase_man', 'string', 0, NULL, NULL, NULL, 'purchase_man', NULL, '2023-11-09 15:25:46.343', '2023-11-09 15:25:46.343');
+INSERT INTO `act_hi_varinst` VALUES ('32f7d018-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, 'station_master', 'string', 0, NULL, NULL, NULL, 'station_master', NULL, '2023-11-09 15:25:46.343', '2023-11-09 15:25:46.343');
+INSERT INTO `act_hi_varinst` VALUES ('32f7d01a-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, 'in_store', 'string', 0, NULL, NULL, NULL, 'in_store', NULL, '2023-11-09 15:25:46.343', '2023-11-09 15:25:46.343');
+INSERT INTO `act_hi_varinst` VALUES ('32f7d01c-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, 'supper_manage', 'string', 0, NULL, NULL, NULL, 'supper_manage', NULL, '2023-11-09 15:25:46.343', '2023-11-09 15:25:46.343');
+INSERT INTO `act_hi_varinst` VALUES ('32f7d01e-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, 'out_store', 'string', 0, NULL, NULL, NULL, 'out_store', NULL, '2023-11-09 15:25:46.343', '2023-11-09 15:25:46.343');
+INSERT INTO `act_hi_varinst` VALUES ('32f7d020-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', NULL, 'status', 'integer', 0, NULL, NULL, 0, '0', NULL, '2023-11-09 15:25:46.343', '2023-11-09 15:25:46.343');
+INSERT INTO `act_hi_varinst` VALUES ('52167b15-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, 'produce_man', 'string', 0, NULL, NULL, NULL, 'produce_man', NULL, '2023-11-09 11:37:34.658', '2023-11-09 11:37:34.658');
+INSERT INTO `act_hi_varinst` VALUES ('5216a227-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, 'purchase_man', 'string', 0, NULL, NULL, NULL, 'purchase_man', NULL, '2023-11-09 11:37:34.659', '2023-11-09 11:37:34.659');
+INSERT INTO `act_hi_varinst` VALUES ('5216a229-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, 'station_master', 'string', 0, NULL, NULL, NULL, 'station_master', NULL, '2023-11-09 11:37:34.659', '2023-11-09 11:37:34.659');
+INSERT INTO `act_hi_varinst` VALUES ('5216a22b-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, 'in_store', 'string', 0, NULL, NULL, NULL, 'in_store', NULL, '2023-11-09 11:37:34.659', '2023-11-09 11:37:34.659');
+INSERT INTO `act_hi_varinst` VALUES ('5216a22d-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, 'supper_manage', 'string', 0, NULL, NULL, NULL, 'supper_manage', NULL, '2023-11-09 11:37:34.659', '2023-11-09 11:37:34.659');
+INSERT INTO `act_hi_varinst` VALUES ('5216a22f-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, 'out_store', 'string', 0, NULL, NULL, NULL, 'out_store', NULL, '2023-11-09 11:37:34.659', '2023-11-09 11:37:34.659');
+INSERT INTO `act_hi_varinst` VALUES ('5216a231-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', '52167b14-7eb1-11ee-83ef-48a47209a1e7', NULL, 'status', 'integer', 0, NULL, NULL, 1, '1', NULL, '2023-11-09 11:37:34.659', '2023-11-09 11:37:34.659');
+INSERT INTO `act_hi_varinst` VALUES ('9fb0d894-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, 'produce_man', 'string', 0, NULL, NULL, NULL, 'produce_man', NULL, '2023-11-09 09:59:31.900', '2023-11-09 09:59:31.900');
+INSERT INTO `act_hi_varinst` VALUES ('9fb0d896-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, 'purchase_man', 'string', 0, NULL, NULL, NULL, 'purchase_man', NULL, '2023-11-09 09:59:31.900', '2023-11-09 09:59:31.900');
+INSERT INTO `act_hi_varinst` VALUES ('9fb0d898-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, 'station_master', 'string', 0, NULL, NULL, NULL, 'station_master', NULL, '2023-11-09 09:59:31.900', '2023-11-09 09:59:31.900');
+INSERT INTO `act_hi_varinst` VALUES ('9fb0ffaa-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, 'in_store', 'string', 0, NULL, NULL, NULL, 'in_store', NULL, '2023-11-09 09:59:31.901', '2023-11-09 09:59:31.901');
+INSERT INTO `act_hi_varinst` VALUES ('9fb0ffac-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, 'supper_manage', 'string', 0, NULL, NULL, NULL, 'supper_manage', NULL, '2023-11-09 09:59:31.901', '2023-11-09 09:59:31.901');
+INSERT INTO `act_hi_varinst` VALUES ('9fb0ffae-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, 'out_store', 'string', 0, NULL, NULL, NULL, 'out_store', NULL, '2023-11-09 09:59:31.901', '2023-11-09 09:59:31.901');
+INSERT INTO `act_hi_varinst` VALUES ('9fb0ffb0-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', NULL, 'status', 'integer', 0, NULL, NULL, 0, '0', NULL, '2023-11-09 09:59:31.901', '2023-11-09 09:59:31.901');
+INSERT INTO `act_hi_varinst` VALUES ('aa66f614-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, 'produce_man', 'string', 0, NULL, NULL, NULL, 'produce_man', NULL, '2023-11-09 09:52:40.374', '2023-11-09 09:52:40.374');
+INSERT INTO `act_hi_varinst` VALUES ('aa671d26-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, 'purchase_man', 'string', 0, NULL, NULL, NULL, 'purchase_man', NULL, '2023-11-09 09:52:40.375', '2023-11-09 09:52:40.375');
+INSERT INTO `act_hi_varinst` VALUES ('aa671d28-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, 'station_master', 'string', 0, NULL, NULL, NULL, 'station_master', NULL, '2023-11-09 09:52:40.375', '2023-11-09 09:52:40.375');
+INSERT INTO `act_hi_varinst` VALUES ('aa671d2a-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, 'in_store', 'string', 0, NULL, NULL, NULL, 'in_store', NULL, '2023-11-09 09:52:40.375', '2023-11-09 09:52:40.375');
+INSERT INTO `act_hi_varinst` VALUES ('aa671d2c-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, 'supper_manage', 'string', 0, NULL, NULL, NULL, 'supper_manage', NULL, '2023-11-09 09:52:40.375', '2023-11-09 09:52:40.375');
+INSERT INTO `act_hi_varinst` VALUES ('aa671d2e-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, 'out_store', 'string', 0, NULL, NULL, NULL, 'out_store', NULL, '2023-11-09 09:52:40.375', '2023-11-09 09:52:40.375');
+INSERT INTO `act_hi_varinst` VALUES ('aa674440-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', NULL, 'status', 'integer', 0, NULL, NULL, 0, '0', NULL, '2023-11-09 09:52:40.376', '2023-11-09 09:52:40.376');
+INSERT INTO `act_hi_varinst` VALUES ('b9ddfc0f-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, 'produce_man', 'string', 0, NULL, NULL, NULL, 'produce_man', NULL, '2023-11-09 12:01:57.261', '2023-11-09 12:01:57.261');
+INSERT INTO `act_hi_varinst` VALUES ('b9ddfc11-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, 'purchase_man', 'string', 0, NULL, NULL, NULL, 'purchase_man', NULL, '2023-11-09 12:01:57.261', '2023-11-09 12:01:57.261');
+INSERT INTO `act_hi_varinst` VALUES ('b9ddfc13-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, 'station_master', 'string', 0, NULL, NULL, NULL, 'station_master', NULL, '2023-11-09 12:01:57.261', '2023-11-09 12:01:57.261');
+INSERT INTO `act_hi_varinst` VALUES ('b9ddfc15-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, 'in_store', 'string', 0, NULL, NULL, NULL, 'in_store', NULL, '2023-11-09 12:01:57.261', '2023-11-09 12:01:57.261');
+INSERT INTO `act_hi_varinst` VALUES ('b9ddfc17-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, 'supper_manage', 'string', 0, NULL, NULL, NULL, 'supper_manage', NULL, '2023-11-09 12:01:57.261', '2023-11-09 12:01:57.261');
+INSERT INTO `act_hi_varinst` VALUES ('b9de2329-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, 'out_store', 'string', 0, NULL, NULL, NULL, 'out_store', NULL, '2023-11-09 12:01:57.262', '2023-11-09 12:01:57.262');
+INSERT INTO `act_hi_varinst` VALUES ('b9de232b-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', NULL, 'status', 'integer', 0, NULL, NULL, 1, '1', NULL, '2023-11-09 12:01:57.262', '2023-11-09 12:01:57.262');
 
 -- ----------------------------
 -- Table structure for act_procdef_info
@@ -815,7 +1002,7 @@ CREATE TABLE `auth_info`  (
   `update_by` int NULL DEFAULT NULL,
   `update_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`auth_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 105 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 113 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of auth_info
@@ -883,6 +1070,9 @@ INSERT INTO `auth_info` VALUES (107, 105, '供应商结算应付汇总表', '供
 INSERT INTO `auth_info` VALUES (108, 0, '产品管理', '产品管理', 1, '1', NULL, NULL, 0, '1', 1, '2023-11-08 17:04:06', NULL, NULL);
 INSERT INTO `auth_info` VALUES (109, 108, '产品列表', '产品列表', 2, '2', '/product/index', NULL, 1, '1', 1, '2023-11-08 17:04:39', NULL, NULL);
 INSERT INTO `auth_info` VALUES (110, 108, '产品配料比', '产品配料比', 3, '3', '/ratio/index', NULL, 1, '1', 1, '2023-11-08 17:05:22', NULL, NULL);
+INSERT INTO `auth_info` VALUES (111, 0, '工作台', '工作台', 0, '0', NULL, NULL, 1, '1', NULL, '2023-11-09 11:49:09', NULL, NULL);
+INSERT INTO `auth_info` VALUES (112, 111, '工作面板', '工作面板', 1, '1', '/controller/index', NULL, 1, '1', NULL, '2023-11-09 11:49:40', NULL, NULL);
+INSERT INTO `auth_info` VALUES (113, 105, '合同结算汇总表', '合同结算汇总表', 4, '4', '/settlement/index', NULL, 1, '1', NULL, '2023-11-10 11:39:06', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for bus_log
@@ -1005,13 +1195,15 @@ CREATE TABLE `buy_list`  (
   `is_in` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '0 未审核、 1 审核驳回、 2 审核通过、 3已完成',
   `reason` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '驳回原因',
   PRIMARY KEY (`buy_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 63 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '采购单' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 71 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '采购单' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of buy_list
 -- ----------------------------
 INSERT INTO `buy_list` VALUES (67, 42, 5, 10, 20, 20, '2023-11-08 16:05:20', '测试', '12312312312', 130, '3', NULL);
 INSERT INTO `buy_list` VALUES (68, 36, 5, 8, 20, 20, '2023-11-08 16:12:06', '测试', '18822193131', 130, '3', NULL);
+INSERT INTO `buy_list` VALUES (69, 36, 5, 8, 10, 10, '2023-11-09 11:38:01', '测试', '084957', 133, '3', NULL);
+INSERT INTO `buy_list` VALUES (70, 38, 5, 7, 100, 100, '2023-11-09 13:53:00', '测试', '12312312312', 134, '3', NULL);
 
 -- ----------------------------
 -- Table structure for checkin
@@ -1056,12 +1248,17 @@ CREATE TABLE `contract`  (
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`contract_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 126 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '合同表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 136 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '合同表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of contract
 -- ----------------------------
-INSERT INTO `contract` VALUES (130, '测试采购AC-20', NULL, 36, 100, '2023-11-01', '2023-11-30', '阳光城愉景湾施工工区', NULL, '2', '1', 'D:/project/warehouse/image/contracthttp://localhost:9999/warehouse/contract/download-image/OIP.jpg', '2023-11-08 15:48:25', '2023-11-08 15:49:18');
+INSERT INTO `contract` VALUES (130, '测试采购AC-20', NULL, 36, 100, '2023-11-01', '2023-11-30', '阳光城愉景湾施工工区', NULL, '4', '1', 'D:/project/warehouse/image/contracthttp://localhost:9999/warehouse/contract/download-image/OIP.jpg', '2023-11-08 15:48:25', '2023-11-08 15:49:18');
+INSERT INTO `contract` VALUES (131, '测试销售AC20合同', NULL, 36, 100, '2023-11-02', '2023-11-16', '阳光城愉景湾施工工区', NULL, '4', '0', 'D:/project/warehouse/image/contract\\OIP.jpg', '2023-11-09 09:45:35', '2023-11-09 09:54:30');
+INSERT INTO `contract` VALUES (132, '测试销售AC20合同2', NULL, 36, 10, '2023-11-01', '2023-11-16', '阳光城愉景湾施工工区', NULL, '4', '0', 'D:/project/warehouse/image/contract\\OIP.jpg', '2023-11-09 09:59:31', '2023-11-09 10:02:25');
+INSERT INTO `contract` VALUES (133, '添加采购AC-10', NULL, 37, 100, '2023-11-09', '2023-11-17', '阳光城愉景湾施工工区', NULL, '4', '1', 'D:/project/warehouse/image/contract\\OIP.jpg', '2023-11-09 11:36:55', '2023-11-09 11:39:54');
+INSERT INTO `contract` VALUES (134, '采购AC10', NULL, 37, 100, '2023-11-08', '2023-11-23', '深汕天威视讯施工工区', NULL, '4', '1', 'D:/project/warehouse/image/contract\\OIP.jpg', '2023-11-09 12:01:50', '2023-11-09 13:59:18');
+INSERT INTO `contract` VALUES (135, '测试销售', NULL, 36, 52, '2023-11-01', '2023-11-30', '红海湾东洲7号路施工工区', NULL, '4', '0', 'D:/project/warehouse/image/contract\\OIP.jpg', '2023-11-09 15:25:46', '2023-11-10 11:12:57');
 
 -- ----------------------------
 -- Table structure for face_model
@@ -1093,12 +1290,17 @@ CREATE TABLE `flow`  (
   `reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '审核不通过原因',
   `create_time` datetime NULL DEFAULT NULL COMMENT '部署时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 57 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 72 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of flow
 -- ----------------------------
 INSERT INTO `flow` VALUES (62, '32b8b594-7e0b-11ee-8f85-48a47209a1e7', 130, NULL, NULL, NULL, 1, NULL, '2023-11-08 15:48:25');
+INSERT INTO `flow` VALUES (65, 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 131, NULL, NULL, NULL, 0, NULL, '2023-11-09 09:52:40');
+INSERT INTO `flow` VALUES (66, '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', 132, NULL, NULL, NULL, 0, NULL, '2023-11-09 09:59:31');
+INSERT INTO `flow` VALUES (68, '52167b14-7eb1-11ee-83ef-48a47209a1e7', 133, NULL, NULL, NULL, 1, NULL, '2023-11-09 11:37:34');
+INSERT INTO `flow` VALUES (70, 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 134, NULL, NULL, NULL, 1, NULL, '2023-11-09 12:01:57');
+INSERT INTO `flow` VALUES (71, '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', 135, NULL, NULL, NULL, 0, NULL, '2023-11-09 15:25:46');
 
 -- ----------------------------
 -- Table structure for holidays
@@ -1133,13 +1335,15 @@ CREATE TABLE `in_store`  (
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `is_in` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '0 否 1 是',
   PRIMARY KEY (`ins_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 60 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '入库单' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 65 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '入库单' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of in_store
 -- ----------------------------
 INSERT INTO `in_store` VALUES (61, 5, 36, 20, 20, 16.70, NULL, '123123', 130, 8, NULL, 1, '2023-11-08 16:26:07', '1');
 INSERT INTO `in_store` VALUES (62, 5, 42, 20, 20, 27.90, NULL, '1123123', 130, 10, NULL, 1, '2023-11-08 16:26:08', '1');
+INSERT INTO `in_store` VALUES (63, 5, 36, 10, 10, 16.70, NULL, '123123', 133, 8, NULL, 1, '2023-11-09 11:38:48', '1');
+INSERT INTO `in_store` VALUES (64, 5, 38, 100, 100, 12.80, NULL, '1123123', 134, 7, NULL, 1, '2023-11-09 13:55:34', '1');
 
 -- ----------------------------
 -- Table structure for inspection
@@ -1155,7 +1359,7 @@ CREATE TABLE `inspection`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `update_by` int NULL DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of inspection
@@ -1187,19 +1391,19 @@ CREATE TABLE `material`  (
   `create_by` int NULL DEFAULT NULL COMMENT '创建人',
   `update_by` int NULL DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`material_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of material
 -- ----------------------------
 INSERT INTO `material` VALUES (35, 5, '测试添加材料', 100, 8, '测试修改材料', '2023-10-23 10:19:26', '2023-10-23 10:37:32', 1, 1);
-INSERT INTO `material` VALUES (36, 5, '7-10', 359, 8, '', '2023-10-25 08:54:58', NULL, 1, NULL);
-INSERT INTO `material` VALUES (37, 5, '4-7', 88, 8, '', '2023-10-25 08:55:09', '2023-11-08 15:26:28', 1, 1);
-INSERT INTO `material` VALUES (38, 5, '0-4', 72, 8, '', '2023-10-25 08:56:50', '2023-11-08 15:26:23', 1, 1);
-INSERT INTO `material` VALUES (39, 5, '矿粉', 84, 8, '', '2023-10-25 08:57:12', NULL, 1, NULL);
-INSERT INTO `material` VALUES (40, 5, '沥青', 92.19999999999999, 8, '', '2023-10-25 08:57:23', NULL, 1, NULL);
-INSERT INTO `material` VALUES (42, 5, '16-22', 82, 8, '', '2023-11-08 09:34:22', NULL, 1, NULL);
-INSERT INTO `material` VALUES (43, 5, '10-16', 55.99999999999999, 8, '', '2023-11-08 09:34:33', NULL, 1, NULL);
+INSERT INTO `material` VALUES (36, 5, '7-10', 261.16, 8, '', '2023-10-25 08:54:58', NULL, 1, NULL);
+INSERT INTO `material` VALUES (37, 5, '4-7', 6.66, 8, '', '2023-10-25 08:55:09', '2023-11-08 15:26:28', 1, 1);
+INSERT INTO `material` VALUES (38, 5, '0-4', 56.64, 8, '', '2023-10-25 08:56:50', '2023-11-08 15:26:23', 1, 1);
+INSERT INTO `material` VALUES (39, 5, '矿粉', 72.75999999999999, 8, '', '2023-10-25 08:57:12', NULL, 1, NULL);
+INSERT INTO `material` VALUES (40, 5, '沥青', 84.14, 8, '', '2023-10-25 08:57:23', NULL, 1, NULL);
+INSERT INTO `material` VALUES (42, 5, '16-22', 51.22, 8, '', '2023-11-08 09:34:22', NULL, 1, NULL);
+INSERT INTO `material` VALUES (43, 5, '10-16', 88.56, 8, '', '2023-11-08 09:34:33', NULL, 1, NULL);
 
 -- ----------------------------
 -- Table structure for material_supply
@@ -1211,7 +1415,7 @@ CREATE TABLE `material_supply`  (
   `supply_id` int NULL DEFAULT NULL COMMENT '供应商id',
   `quotation` decimal(10, 2) NULL DEFAULT NULL COMMENT '报价',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 141 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of material_supply
@@ -1273,7 +1477,7 @@ CREATE TABLE `out_store`  (
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `is_out` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '0 否 1 是',
   PRIMARY KEY (`outs_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '出库单' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '出库单' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of out_store
@@ -1281,6 +1485,11 @@ CREATE TABLE `out_store`  (
 INSERT INTO `out_store` VALUES (33, 36, 5, 20, 10.00, '阳光城愉景湾施工工区', '阳光城愉景湾', 130, '123123', NULL, 1, '2023-11-08 16:33:58', '1');
 INSERT INTO `out_store` VALUES (34, 36, 5, 30, 10.00, '阳光城愉景湾施工工区', '阳光城愉景湾', 130, '123123', NULL, 1, '2023-11-08 16:36:37', '1');
 INSERT INTO `out_store` VALUES (35, 36, 5, 50, 10.00, '阳光城愉景湾施工工区', '红海湾田乾6号路', 130, '123123', NULL, 1, '2023-11-08 16:41:27', '1');
+INSERT INTO `out_store` VALUES (36, 36, 5, 100, 10.00, '阳光城愉景湾施工工区', '测试用户', 131, '123123', NULL, 1, '2023-11-09 09:54:25', '1');
+INSERT INTO `out_store` VALUES (37, 36, 5, 10, 10.00, '阳光城愉景湾施工工区', '测试', 132, '123123', NULL, 1, '2023-11-09 10:01:54', '1');
+INSERT INTO `out_store` VALUES (38, 37, 5, 100, 20.00, '阳光城愉景湾施工工区', '测试', 133, '123123', NULL, 1, '2023-11-09 11:39:38', '1');
+INSERT INTO `out_store` VALUES (39, 37, 5, 100, 20.00, '深汕天威视讯施工工区', '惠璟建材', 134, '12313', NULL, 1, '2023-11-09 13:58:55', '1');
+INSERT INTO `out_store` VALUES (40, 36, 5, 52, 10.00, '红海湾东洲7号路施工工区', '红海湾东洲7号路施工工区', 135, '123123', NULL, 1, '2023-11-09 15:26:37', '1');
 
 -- ----------------------------
 -- Table structure for product
@@ -1323,7 +1532,7 @@ CREATE TABLE `product_material`  (
   `create_by` int NULL DEFAULT NULL COMMENT '创建人',
   `update_by` int NULL DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product_material
@@ -1337,9 +1546,10 @@ INSERT INTO `product_material` VALUES (7, 36, 36, 0.17, '2023-11-08 09:33:26', N
 INSERT INTO `product_material` VALUES (8, 36, 37, 0.12, '2023-11-08 09:37:26', NULL, 1, NULL);
 INSERT INTO `product_material` VALUES (9, 36, 38, 0.28, '2023-11-08 09:37:37', NULL, 1, NULL);
 INSERT INTO `product_material` VALUES (10, 36, 39, 0.02, '2023-11-08 09:37:49', NULL, 1, NULL);
-INSERT INTO `product_material` VALUES (11, 36, 40, 0.039, '2023-11-08 09:38:03', NULL, 1, NULL);
 INSERT INTO `product_material` VALUES (12, 36, 42, 0.19, '2023-11-08 09:38:17', NULL, 1, NULL);
 INSERT INTO `product_material` VALUES (13, 36, 43, 0.22, '2023-11-08 09:38:56', NULL, 1, NULL);
+INSERT INTO `product_material` VALUES (14, 37, 40, 0.039, '2023-11-09 14:39:29', NULL, 1, NULL);
+INSERT INTO `product_material` VALUES (15, 36, 40, 0.055, '2023-11-09 14:39:41', NULL, 1, NULL);
 
 -- ----------------------------
 -- Table structure for product_type
@@ -1397,7 +1607,7 @@ CREATE TABLE `role_auth`  (
   `role_id` int NULL DEFAULT NULL,
   `auth_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`role_auth_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1214 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1401 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role_auth
@@ -1443,53 +1653,56 @@ INSERT INTO `role_auth` VALUES (1210, 18, 98);
 INSERT INTO `role_auth` VALUES (1211, 18, 99);
 INSERT INTO `role_auth` VALUES (1212, 18, 102);
 INSERT INTO `role_auth` VALUES (1213, 18, 104);
-INSERT INTO `role_auth` VALUES (1258, 1, 1);
-INSERT INTO `role_auth` VALUES (1259, 1, 2);
-INSERT INTO `role_auth` VALUES (1260, 1, 3);
-INSERT INTO `role_auth` VALUES (1261, 1, 10);
-INSERT INTO `role_auth` VALUES (1262, 1, 23);
-INSERT INTO `role_auth` VALUES (1263, 1, 24);
-INSERT INTO `role_auth` VALUES (1264, 1, 25);
-INSERT INTO `role_auth` VALUES (1265, 1, 26);
-INSERT INTO `role_auth` VALUES (1266, 1, 35);
-INSERT INTO `role_auth` VALUES (1267, 1, 36);
-INSERT INTO `role_auth` VALUES (1268, 1, 4);
-INSERT INTO `role_auth` VALUES (1269, 1, 5);
-INSERT INTO `role_auth` VALUES (1270, 1, 6);
-INSERT INTO `role_auth` VALUES (1271, 1, 27);
-INSERT INTO `role_auth` VALUES (1272, 1, 28);
-INSERT INTO `role_auth` VALUES (1273, 1, 30);
-INSERT INTO `role_auth` VALUES (1274, 1, 31);
-INSERT INTO `role_auth` VALUES (1275, 1, 37);
-INSERT INTO `role_auth` VALUES (1276, 1, 42);
-INSERT INTO `role_auth` VALUES (1277, 1, 50);
-INSERT INTO `role_auth` VALUES (1278, 1, 93);
-INSERT INTO `role_auth` VALUES (1279, 1, 94);
-INSERT INTO `role_auth` VALUES (1280, 1, 97);
-INSERT INTO `role_auth` VALUES (1281, 1, 76);
-INSERT INTO `role_auth` VALUES (1282, 1, 53);
-INSERT INTO `role_auth` VALUES (1283, 1, 56);
-INSERT INTO `role_auth` VALUES (1284, 1, 54);
-INSERT INTO `role_auth` VALUES (1285, 1, 57);
-INSERT INTO `role_auth` VALUES (1286, 1, 95);
-INSERT INTO `role_auth` VALUES (1287, 1, 55);
-INSERT INTO `role_auth` VALUES (1288, 1, 58);
-INSERT INTO `role_auth` VALUES (1289, 1, 69);
-INSERT INTO `role_auth` VALUES (1290, 1, 70);
-INSERT INTO `role_auth` VALUES (1291, 1, 72);
-INSERT INTO `role_auth` VALUES (1292, 1, 74);
-INSERT INTO `role_auth` VALUES (1293, 1, 98);
-INSERT INTO `role_auth` VALUES (1294, 1, 99);
-INSERT INTO `role_auth` VALUES (1295, 1, 100);
-INSERT INTO `role_auth` VALUES (1296, 1, 101);
-INSERT INTO `role_auth` VALUES (1297, 1, 102);
-INSERT INTO `role_auth` VALUES (1298, 1, 104);
-INSERT INTO `role_auth` VALUES (1299, 1, 105);
-INSERT INTO `role_auth` VALUES (1300, 1, 106);
-INSERT INTO `role_auth` VALUES (1301, 1, 107);
-INSERT INTO `role_auth` VALUES (1302, 1, 108);
-INSERT INTO `role_auth` VALUES (1303, 1, 109);
-INSERT INTO `role_auth` VALUES (1304, 1, 110);
+INSERT INTO `role_auth` VALUES (1401, 1, 1);
+INSERT INTO `role_auth` VALUES (1402, 1, 2);
+INSERT INTO `role_auth` VALUES (1403, 1, 3);
+INSERT INTO `role_auth` VALUES (1404, 1, 10);
+INSERT INTO `role_auth` VALUES (1405, 1, 23);
+INSERT INTO `role_auth` VALUES (1406, 1, 24);
+INSERT INTO `role_auth` VALUES (1407, 1, 25);
+INSERT INTO `role_auth` VALUES (1408, 1, 26);
+INSERT INTO `role_auth` VALUES (1409, 1, 35);
+INSERT INTO `role_auth` VALUES (1410, 1, 36);
+INSERT INTO `role_auth` VALUES (1411, 1, 4);
+INSERT INTO `role_auth` VALUES (1412, 1, 5);
+INSERT INTO `role_auth` VALUES (1413, 1, 6);
+INSERT INTO `role_auth` VALUES (1414, 1, 27);
+INSERT INTO `role_auth` VALUES (1415, 1, 28);
+INSERT INTO `role_auth` VALUES (1416, 1, 30);
+INSERT INTO `role_auth` VALUES (1417, 1, 31);
+INSERT INTO `role_auth` VALUES (1418, 1, 37);
+INSERT INTO `role_auth` VALUES (1419, 1, 42);
+INSERT INTO `role_auth` VALUES (1420, 1, 50);
+INSERT INTO `role_auth` VALUES (1421, 1, 93);
+INSERT INTO `role_auth` VALUES (1422, 1, 94);
+INSERT INTO `role_auth` VALUES (1423, 1, 97);
+INSERT INTO `role_auth` VALUES (1424, 1, 76);
+INSERT INTO `role_auth` VALUES (1425, 1, 53);
+INSERT INTO `role_auth` VALUES (1426, 1, 56);
+INSERT INTO `role_auth` VALUES (1427, 1, 54);
+INSERT INTO `role_auth` VALUES (1428, 1, 57);
+INSERT INTO `role_auth` VALUES (1429, 1, 95);
+INSERT INTO `role_auth` VALUES (1430, 1, 55);
+INSERT INTO `role_auth` VALUES (1431, 1, 58);
+INSERT INTO `role_auth` VALUES (1432, 1, 69);
+INSERT INTO `role_auth` VALUES (1433, 1, 70);
+INSERT INTO `role_auth` VALUES (1434, 1, 72);
+INSERT INTO `role_auth` VALUES (1435, 1, 74);
+INSERT INTO `role_auth` VALUES (1436, 1, 98);
+INSERT INTO `role_auth` VALUES (1437, 1, 99);
+INSERT INTO `role_auth` VALUES (1438, 1, 100);
+INSERT INTO `role_auth` VALUES (1439, 1, 101);
+INSERT INTO `role_auth` VALUES (1440, 1, 102);
+INSERT INTO `role_auth` VALUES (1441, 1, 104);
+INSERT INTO `role_auth` VALUES (1442, 1, 105);
+INSERT INTO `role_auth` VALUES (1443, 1, 106);
+INSERT INTO `role_auth` VALUES (1444, 1, 107);
+INSERT INTO `role_auth` VALUES (1445, 1, 113);
+INSERT INTO `role_auth` VALUES (1446, 1, 108);
+INSERT INTO `role_auth` VALUES (1447, 1, 109);
+INSERT INTO `role_auth` VALUES (1448, 1, 110);
+INSERT INTO `role_auth` VALUES (1449, 1, 111);
+INSERT INTO `role_auth` VALUES (1450, 1, 112);
 
 -- ----------------------------
 -- Table structure for store
@@ -1523,7 +1736,7 @@ CREATE TABLE `supply`  (
   `address` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地址',
   `is_delete` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '是否启用：0:可用  1:不可用',
   PRIMARY KEY (`supply_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '供货商' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '供货商' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of supply
