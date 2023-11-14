@@ -416,7 +416,7 @@ public class ActivitiServiceImpl implements ActivitiService {
                     map.get("taskName").equals("采购创建") || 
                     map.get("taskName").equals("入库确认") || 
                     map.get("taskName").equals("采购审批") || 
-                    map.get("taskName").equals("采购完成"));
+                    map.get("taskName").equals("采购检查"));
         }
         return allTask;
     }
