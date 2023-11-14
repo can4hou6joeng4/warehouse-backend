@@ -141,4 +141,14 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role>
     public List<String> findAllUserIdByRoleId(Integer roleId) {
         return roleMapper.findAllUserIdByRoleId(roleId);
     }
+
+    /**
+     * 根据用户id查询对应的用户权限
+     * @param userId 用户id
+     * @return
+     */
+    @Override
+    public String findRolesByUserId(Integer userId) {
+        return roleMapper.findRolesByUserId(userId).get(0).getRoleCode();
+    }
 }

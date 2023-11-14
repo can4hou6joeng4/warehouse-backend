@@ -39,4 +39,6 @@ public interface RoleService extends IService<Role> {
     public Result updateRoleDesc(Role role);
 
     List<String> findAllUserIdByRoleId(Integer roleId);
+
+    String findRolesByUserId(Integer userId);
 }

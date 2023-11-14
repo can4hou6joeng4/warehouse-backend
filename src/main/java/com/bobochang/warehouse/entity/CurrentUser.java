@@ -19,4 +19,6 @@ public class CurrentUser {
     private String userCode;//用户名
 
     private String userName;//真实姓名
+    
+    private String userRole; //用户权限
 }

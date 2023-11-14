@@ -6,6 +6,7 @@ import com.bobochang.warehouse.entity.User;
 import com.bobochang.warehouse.entity.CurrentUser;
 import com.bobochang.warehouse.entity.LoginUser;
 import com.bobochang.warehouse.entity.Result;
+import com.bobochang.warehouse.service.RoleService;
 import com.bobochang.warehouse.service.UserInfoService;
 import com.bobochang.warehouse.utils.DigestUtil;
 import com.bobochang.warehouse.utils.GlobalVariable;
@@ -35,6 +36,9 @@ public class LoginController {
 
     @Autowired
     private GlobalVariable globalVariable;
+    
+    @Autowired
+    private RoleService roleService;
 
     /**
      * 登录的url接口/login
@@ -59,8 +63,10 @@ public class LoginController {
                 //将用户录入的密码进行加密
                 String password = DigestUtil.hmacSign(loginUser.getUserPwd());
                 if (password.equals(user.getUserPwd())) {//查到的用户的密码和用户录入的密码相同
+                    //根据用户id查询用户的权限
+                    String roleCode = roleService.findRolesByUserId(user.getUserId());
                     //生成token并响应给前端
-                    CurrentUser currentUser = new CurrentUser(user.getUserId(), user.getUserCode(), user.getUserName());
+                    CurrentUser currentUser = new CurrentUser(user.getUserId(), user.getUserCode(), user.getUserName(), roleCode);
                     String token = tokenUtils.loginSign(currentUser, user.getUserPwd());
                     globalVariable.setValue(currentUser.getUserName());
                     log.info("用户：" + currentUser.getUserName() + "登录成功");
