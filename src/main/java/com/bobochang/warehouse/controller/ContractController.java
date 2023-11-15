@@ -28,13 +28,19 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import org.springframework.core.io.ByteArrayResource;
 
 /**
  * @author bobochang
@@ -111,12 +117,26 @@ public class ContractController {
     public Result uploadImg(MultipartFile file) {
 
         try {
+            System.out.println(file.getSize());
             //拿到图片保存到的磁盘路径
-            String fileUploadPath = uploadPath + "/" + file.getOriginalFilename();
-            //保存图片
-            file.transferTo(new File(fileUploadPath));
+            long timestamp = Instant.now().toEpochMilli(); // 拿到当前时间戳作为图片保存的名称
+            String flag = UUID.randomUUID().toString().substring(0,5); // 唯一标识符，防止毫秒间调用产生的相同时间戳
+            String fileUploadPath = uploadPath + "/" + timestamp + "-" + flag + ".jpg";
+            
+
+            log.info(fileUploadPath);
+            File targetFile = new File(fileUploadPath);
+
+            // 如果文件已存在，先删除旧文件
+            if (targetFile.exists()) {
+                targetFile.delete();
+            }
+
+            //保存图片（如果文件不存在或者已删除，则进行保存）
+            file.transferTo(targetFile);
+
             //成功响应
-            return Result.ok("图片上传成功！");
+            return Result.ok(timestamp + "-" + flag + ".jpg");
         } catch (IOException e) {
             //失败响应
             return Result.err(Result.CODE_ERR_BUSINESS, "图片上传失败！");
@@ -143,44 +163,78 @@ public class ContractController {
     }
 
     /**
-     * 下载合同图片 /contract/download-image/{imgName}
+     * 下载合同图片 /contract/download-image?contractId
      *
-     * @param imgName 图片名称
+     * @param contractId 合同id
      * @return 图片资源文件
      * @throws IOException
      */
+    @GetMapping("/download-images/{contractId}")
+    @CrossOrigin(origins = "http://localhost:3000") // 设置允许跨域请求的源
     @SneakyThrows
-    @GetMapping("/download-image/{imgName}")
-    @BusLog(descrip = "下载合同图片")
-    public ResponseEntity<Resource> downloadImage(@PathVariable String imgName) throws IOException {
-        //拿到图片保存到的磁盘路径
-        String fileUploadPath = uploadPath + "\\" + imgName;
-        log.info(imgName);
-        // 读取图片文件
-        Resource resource = new FileSystemResource(fileUploadPath);
+    public ResponseEntity<Resource> downloadImages(@PathVariable String contractId) throws IOException {
+        log.info(contractId);
+        // 图片文件路径列表
+        Contract contract = contractService.findContractById(Integer.valueOf(contractId));
+        String[] fileNames = contract.getFiles().split(",");
 
-        // 设置响应头部信息，用于告诉浏览器以附件形式下载文件
+        // 创建一个字节数组输出流，用于存储生成的 zip 文件
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ZipOutputStream zipOut = new ZipOutputStream(byteArrayOutputStream);
+
+        try {
+            for (String fileName : fileNames) {
+                String imagePath = uploadPath + "/" + fileName;
+                File file = new File(imagePath);
+                if (file.exists()) {
+                    // 读取图片文件内容并添加到 zip 文件中
+                    // 读取要添加到ZIP包中的文件
+                    FileInputStream fileIn = new FileInputStream(imagePath);
+                    // 创建一个ZipEntry对象，表示要添加到ZIP包中的文件
+                    ZipEntry zipEntry = new ZipEntry(fileName);
+                    // 将ZipEntry对象添加到ZIP包中
+                    zipOut.putNextEntry(zipEntry);
+
+                    // 将文件内容写入ZIP包
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = fileIn.read(buffer)) != -1) {
+                        zipOut.write(buffer, 0, bytesRead);
+                    }
+                    fileIn.close();
+                }
+            }
+            // 关闭流
+            zipOut.close();
+        }catch (RuntimeException exception){
+            throw new RuntimeException(exception);
+        }
+
+        // 设置响应头部信息，告诉浏览器以附件形式下载文件
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=image.jpg");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=images.zip");
+
+        // 将生成的 zip 文件作为字节数组返回给前端
+        ByteArrayResource resource = new ByteArrayResource(byteArrayOutputStream.toByteArray());
 
         return ResponseEntity.ok()
                 .headers(headers)
-                .contentType(MediaType.IMAGE_JPEG)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource);
     }
 
     @SneakyThrows
     @GetMapping("/inline-image/{imgName}")
     public ResponseEntity<Resource> inlineImage(@PathVariable String imgName) throws IOException {
+        System.out.println(imgName);
         //拿到图片保存到的磁盘路径
-        String fileUploadPath = uploadPath + "\\" + imgName;
-        log.info(imgName);
+        String fileUploadPath = uploadPath + "/" + imgName;
         // 读取图片文件
         Resource resource = new FileSystemResource(fileUploadPath);
 
         // 设置响应头部信息，用于告诉浏览器以附件形式下载文件
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=image.jpg");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=image.jpg");
 
         return ResponseEntity.ok()
                 .headers(headers)

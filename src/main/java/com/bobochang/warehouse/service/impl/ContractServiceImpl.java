@@ -59,15 +59,15 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
     @Override
     public Result saveContract(Contract contract) {
         System.out.println(contract);
-        log.info(String.valueOf(contract));
+        log.info(String.valueOf(contract.getFiles()));
         contract.setContractState("0");
-        
+
         // 根据合同id查询合同
         Contract oldContract = contractMapper.findContractByName(contract.getContractName());
         if (oldContract != null) {
             return Result.err(Result.CODE_ERR_BUSINESS, "该合同已存在！");
         }
-        contract.setFiles(accessPath+"\\"+contract.getFiles());
+        contract.setFiles(contract.getFiles());
         // 合同不存在 添加合同
         contractMapper.insertContract(contract);
         
