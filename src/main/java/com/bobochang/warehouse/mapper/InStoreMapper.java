@@ -31,7 +31,7 @@ public interface InStoreMapper extends BaseMapper<InStore> {
 
     List<InSummaryDto> selectInStoreSummaryPage(Page page, InStore inStore);
 
-    BigDecimal selectInStoreSummaryMoenyBySupply(String supplyName);
+    BigDecimal selectInStoreSummaryMoneyBySupply(String supplyName);
 }
 
 

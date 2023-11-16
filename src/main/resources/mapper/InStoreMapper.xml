@@ -99,7 +99,7 @@
     
 <!--    查询入库汇总-->
     <select id="selectInStoreSummaryPage" resultType="com.bobochang.warehouse.dto.InSummaryDto">
-        SELECT t2.supply_name, t3.material_name, t4.unit_name, sum(t1.in_num) as in_num, t1.price, sum(t1.in_num*t1.price) as money,
+        SELECT t2.supply_name, t3.material_name, t4.unit_name, sum(t1.in_num) as in_num, t1.price, sum(t1.in_num * t1.price) as money,
                MIN(t1.create_time) AS earliest_create_time,
                MAX(t1.create_time) AS latest_create_time,
                COUNT(t1.supply_id) as total
@@ -117,10 +117,10 @@
         ORDER BY supply_name
         limit #{page.limitIndex}, #{page.pageSize}
     </select>
-    <select id="selectInStoreSummaryMoenyBySupply" resultType="java.math.BigDecimal">
-        select SUM(moeny) as total_amount
+    <select id="selectInStoreSummaryMoneyBySupply" resultType="java.math.BigDecimal">
+        select SUM(money) as total_amount
         from
-            (SELECT t2.supply_name, t1.price, sum(t1.in_num*t1.price) as moeny
+            (SELECT t2.supply_name, t1.price, SUM(t1.in_num * t1.price) as money
              FROM in_store t1
                       JOIN supply t2 ON t1.supply_id = t2.supply_id
                       JOIN material t3 ON t1.material_id = t3.material_id
