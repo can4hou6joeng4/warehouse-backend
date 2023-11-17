@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -45,12 +46,12 @@ public class Purchase implements Serializable {
     /**
      * 实际购买数量
      */
-    private Integer buyNum;
+    private BigDecimal buyNum;
 
     /**
      * 计划购买数量
      */
-    private Integer factBuyNum;
+    private BigDecimal factBuyNum;
 
     /**
      * 采购时间

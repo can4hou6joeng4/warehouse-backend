@@ -40,12 +40,12 @@ public class InStore implements Serializable {
     /**
      * 入库数量/公司数量
      */
-    private double inNum;
+    private BigDecimal inNum;
 
     /**
      * 对方数量
      */
-    private Integer relativeNum;
+    private BigDecimal relativeNum;
 
     /**
      * 单价
@@ -98,6 +98,8 @@ public class InStore implements Serializable {
     
     private String startTime;
     private String endTime;
+    
+    private BigDecimal priceSum;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

@@ -82,11 +82,10 @@ public class OutStoreServiceImpl extends ServiceImpl<OutStoreMapper, OutStore>
             //根据商品id减商品库存
             List<ProductMaterial> productMaterialList = productMaterialService.selectRatioById(String.valueOf(outStore.getProductId()));
             for (ProductMaterial productMaterial:productMaterialList){
-                double num = Math.round((outStore.getOutNum() * productMaterial.getRatio()) * 100.0) / 100.0;
-                InStore inStore = new InStore();
-                inStore.setInNum(-num);
-                inStore.setMaterialId(productMaterial.getMaterialId());
-                materialService.addInventById(inStore);
+//                double num = Math.round((outStore.getOutNum() * productMaterial.getRatio()) * 100.0) / 100.0;
+                BigDecimal num =  outStore.getOutNum().multiply(BigDecimal.valueOf(productMaterial.getRatio()));
+                System.out.println(num);
+                materialService.reduceById(productMaterial.getMaterialId(), num.doubleValue());
             }
             return Result.ok("出库成功");
         }

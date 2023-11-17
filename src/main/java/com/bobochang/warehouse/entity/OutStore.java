@@ -40,7 +40,7 @@ public class OutStore implements Serializable {
     /**
      * 出库数量
      */
-    private double outNum;
+    private BigDecimal outNum;
 
     /**
      * 工区名称
@@ -88,6 +88,9 @@ public class OutStore implements Serializable {
     private String startTime;
     private String endTime;
 
+    // 金额
+    private BigDecimal salePriceSum;
+    
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }
