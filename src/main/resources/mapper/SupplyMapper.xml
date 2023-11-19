@@ -99,7 +99,7 @@
     <insert id="insertSupply">
         insert into supply values(
                                      null,#{supplyNum}, #{supplyName},
-                                     #{concat}, #{phone}, #{address}, 0
+                                     #{concat}, #{phone}, #{address}, 0, #{userId}
                                  )
     </insert>
 
@@ -129,8 +129,12 @@
         <if test="materialId != null and materialId != ''">
             and t3.material_id = #{materialId}
         </if>
-        #           and t1.inspection_result = '1'
+        and t3.inspection_result = '2'
         ORDER BY t3.quotation
+    </select>
+    <select id="selectOneByUserId" resultType="com.bobochang.warehouse.entity.Supply">
+        select * from supply
+        where user_id = #{userId}
     </select>
 
 </mapper>

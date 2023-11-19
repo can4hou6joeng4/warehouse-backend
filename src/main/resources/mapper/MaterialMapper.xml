@@ -134,4 +134,7 @@
         order by t3.create_time
         limit #{page.limitIndex}, #{page.pageSize}
     </select>
+    <select id="selectMaterialByName" resultType="com.bobochang.warehouse.entity.Material">
+        select * from material where material_name = #{materialName}
+    </select>
 </mapper>

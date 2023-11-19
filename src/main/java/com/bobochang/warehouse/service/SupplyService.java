@@ -31,4 +31,6 @@ public interface SupplyService extends IService<Supply> {
     public Result checkSupplyNum(String supplyNum);
 
     List<Supply> selectSupplyByMaterialId(String materialId);
+
+    Supply selectOneByUserId(int userId);
 }

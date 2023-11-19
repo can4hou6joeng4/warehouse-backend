@@ -29,6 +29,8 @@ public interface MaterialMapper extends BaseMapper<Material> {
     int addInventById(InStore inStore);
 
     int reduceById(Integer materialId, double materialNum);
+
+    Material selectMaterialByName(String materialName);
 }
 
 

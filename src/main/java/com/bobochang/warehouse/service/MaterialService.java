@@ -31,4 +31,6 @@ public interface MaterialService extends IService<Material> {
     int addInventById(InStore inStore);
     
     int reduceById(Integer materialId,double materialNum);
+
+    Material selectMaterialByName(String materialName);
 }

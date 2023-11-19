@@ -203,4 +203,13 @@ public class UserController {
         int userId = currentUser.getUserId();
         return userService.searchById(userId);
     }
+
+    @GetMapping("/user-all")
+    public Result userAll() {
+        //执行业务
+        List<User> userList = userMapper.selectList(null);
+        //响应
+        return Result.ok(userList);
+    }
+
 }

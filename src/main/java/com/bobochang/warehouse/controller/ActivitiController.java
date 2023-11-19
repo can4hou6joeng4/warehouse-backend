@@ -99,7 +99,6 @@ public class ActivitiController {
     @PostMapping("/complete-task")
     public Result completeTask(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                @RequestBody Flow flow){
-        System.out.println(flow.getContractId());
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
         
         return activitiService.completeTask(userCode, flow);

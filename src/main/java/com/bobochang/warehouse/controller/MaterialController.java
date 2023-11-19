@@ -85,7 +85,7 @@ public class MaterialController {
      * 返回值Result对象向客户端响应组装了所有分页信息的Page对象;
      */
     @RequestMapping("/material-page-list")
-    public Result productPageList(Page page, Material material) {
+    public Result materialPageList(Page page, Material material) {
         //执行业务
         page = materialService.queryMaterialPage(page, material);
         //响应
@@ -99,7 +99,7 @@ public class MaterialController {
      * @return
      */
     @RequestMapping("/material-page-list-contractId")
-    public Result productPageListByContractId(Page page, Integer contractId) {
+    public Result materialPageListByContractId(Page page, Integer contractId) {
         //执行业务
         page = materialService.queryMaterialPageByContractId(page, contractId);
         //响应

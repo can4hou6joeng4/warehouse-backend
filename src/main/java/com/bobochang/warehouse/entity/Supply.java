@@ -52,6 +52,8 @@ public class Supply implements Serializable {
      */
     private String isDelete;
 
+    private Integer userId;    
+    
     /**
      * 报价
      */

@@ -31,4 +31,6 @@ public interface SupplyMapper extends BaseMapper<Supply> {
     public Supply selectSupplyByNum(String supplyNum);
 
     List<Supply> selectSupplyByMaterialId(@Param("materialId") Integer materialId);
+
+    Supply selectOneByUserId(int userId);
 }

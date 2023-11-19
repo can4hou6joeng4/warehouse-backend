@@ -120,4 +120,9 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply>
         
         return supplyMapper.selectSupplyByMaterialId(Integer.valueOf(materialId));
     }
+
+    @Override
+    public Supply selectOneByUserId(int userId) {
+        return supplyMapper.selectOneByUserId(userId);
+    }
 }

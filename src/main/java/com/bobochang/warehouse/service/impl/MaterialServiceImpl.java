@@ -113,6 +113,11 @@ public class MaterialServiceImpl extends ServiceImpl<MaterialMapper, Material>
             return 0;
         }
     }
+
+    @Override
+    public Material selectMaterialByName(String materialName) {
+        return materialMapper.selectMaterialByName(materialName);
+    }
 }
 
 
