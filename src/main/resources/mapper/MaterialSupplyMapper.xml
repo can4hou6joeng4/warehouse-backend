@@ -45,7 +45,7 @@
         material_supply t1, supply t3
         where t1.supply_id = t3.supply_id
         <if test="materialSupply.supplyId != null and materialSupply.supplyId != ''">
-            and t1.supply_id = #{materialSupply.supply_id}
+            and t1.supply_id = #{materialSupply.supplyId}
         </if>
         <if test="materialSupply.materialName != null and materialSupply.materialName != ''">
             and t1.material_name like concat('%',#{materialSupply.materialName},'%')
@@ -62,7 +62,7 @@
         material_supply t1, supply t3
         where t1.supply_id = t3.supply_id
         <if test="supplyId != null and supplyId != ''">
-            and t1.supply_id = #{materialSupply.supply_id}
+            and t1.supply_id = #{supplyId}
         </if>
         <if test="materialName != null and materialName != ''">
             and t1.material_name like concat('%',#{materialName},'%')

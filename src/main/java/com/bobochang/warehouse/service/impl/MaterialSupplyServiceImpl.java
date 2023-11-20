@@ -53,7 +53,7 @@ public class MaterialSupplyServiceImpl extends ServiceImpl<MaterialSupplyMapper,
         String assignee = userInfoService.searchRoleCodeById(user.getUserId());
 
         // 如果是管理员可以看到所有的，如果不是只能看到自己的
-        if(!assignee.equals("supper_manage")){
+        if(!assignee.equals("supper_manage") && !assignee.equals("inspect_man")){
             Supply supply = supplyService.selectOneByUserId(user.getUserId());
             materialSupply.setSupplyId(supply.getSupplyId());
         }
