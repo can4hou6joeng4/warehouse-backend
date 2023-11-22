@@ -58,14 +58,16 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
 
     @Override
     public Result saveContract(Contract contract) {
-        System.out.println(contract);
-        log.info(String.valueOf(contract.getFiles()));
         contract.setContractState("0");
+        
 
         // 根据合同id查询合同
         Contract oldContract = contractMapper.findContractByName(contract.getContractName());
         if (oldContract != null) {
             return Result.err(Result.CODE_ERR_BUSINESS, "该合同已存在！");
+        }
+        if(contract.getCustomerId() == -1){
+            contract.setCustomerId(null);
         }
         contract.setFiles(contract.getFiles());
         // 合同不存在 添加合同
@@ -82,6 +84,13 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
 
     @Override
     public Result updateContractById(Contract contract) {
+        if (contract.getCustomerId() == null) {
+            log.info(String.valueOf(contract.getOtherCustomer()));
+            contract.setCustomerId(null);
+        }else{
+            log.info(String.valueOf(contract.getCustomerId()));
+            contract.setOtherCustomer(null);
+        }
         contract.setFiles(accessPath+contract.getFiles());
         // 根据合同 id 修改合同昵称
         int i = contractMapper.updateContractById(contract);

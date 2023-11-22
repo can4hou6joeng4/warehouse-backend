@@ -44,12 +44,7 @@ public class Contract implements Serializable {
      */
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date endTime;
-
-    /**
-     * 选择比例
-     */
-    private Integer productMaterialId;
-
+    
     /**
      * 0未审核、1 待结算 、2 结算中、 3 已结算
      */
@@ -70,6 +65,21 @@ public class Contract implements Serializable {
      * 工区名称
      */
     private String workRegion;
+
+    /**
+     * 客户id
+     */
+    private Integer customerId;
+
+    /**
+     * 客户名称
+     */
+    private String customerName;
+
+    /**
+     * 其他客户 
+     */
+    private String otherCustomer;
 
     /**
      * 更新时间

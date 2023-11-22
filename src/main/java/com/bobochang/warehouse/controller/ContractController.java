@@ -121,7 +121,7 @@ public class ContractController {
             //拿到图片保存到的磁盘路径
             long timestamp = Instant.now().toEpochMilli(); // 拿到当前时间戳作为图片保存的名称
             String flag = UUID.randomUUID().toString().substring(0,5); // 唯一标识符，防止毫秒间调用产生的相同时间戳
-            String fileUploadPath = uploadPath + "/" + timestamp + "-" + flag + ".jpg";
+            String fileUploadPath = uploadPath + "/" + timestamp + "-" + flag + ".pdf";
             
 
             log.info(fileUploadPath);
@@ -136,7 +136,7 @@ public class ContractController {
             file.transferTo(targetFile);
 
             //成功响应
-            return Result.ok(timestamp + "-" + flag + ".jpg");
+            return Result.ok(timestamp + "-" + flag + ".pdf");
         } catch (IOException e) {
             //失败响应
             return Result.err(Result.CODE_ERR_BUSINESS, "图片上传失败！");
@@ -173,7 +173,6 @@ public class ContractController {
     @CrossOrigin(origins = "http://localhost:3000") // 设置允许跨域请求的源
     @SneakyThrows
     public ResponseEntity<Resource> downloadImages(@PathVariable String contractId) throws IOException {
-        log.info(contractId);
         // 图片文件路径列表
         Contract contract = contractService.findContractById(Integer.valueOf(contractId));
         String[] fileNames = contract.getFiles().split(",");
@@ -212,7 +211,7 @@ public class ContractController {
 
         // 设置响应头部信息，告诉浏览器以附件形式下载文件
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=images.zip");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=附件.zip");
 
         // 将生成的 zip 文件作为字节数组返回给前端
         ByteArrayResource resource = new ByteArrayResource(byteArrayOutputStream.toByteArray());
@@ -257,6 +256,7 @@ public class ContractController {
     public Result contractAgree(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                @RequestBody Contract contract){
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
+        System.out.println();
         contract.setContractState("2");
         int i = contractService.updateContractState(contract);
         if(i>0){
