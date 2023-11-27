@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @RequestMapping("/material")
 @RestController
@@ -39,10 +40,9 @@ public class MaterialController {
     //注入UnitService
     @Autowired
     private UnitService unitService;
-
-//    //注入ProductService
-//    @Autowired
-//    private ProductService productService;
+    
+    @Autowired
+    private ContractService contractService;
 
     //注入TokenUtils
     @Autowired
@@ -93,15 +93,21 @@ public class MaterialController {
     }
 
     /**
-     * 根据合同id查找材料列表，用于从任务中心跳转直接采购需要的材料
+     * 根据合同id查找产品，然后根据产品查找配料比后查找材料列表，用于从任务中心跳转直接采购需要的材料
      * @param page
      * @param contractId
      * @return
      */
     @RequestMapping("/material-page-list-contractId")
-    public Result materialPageListByContractId(Page page, Integer contractId) {
+    public Result materialPageListByContract(Page page, Integer contractId) {
+        Contract contract = contractService.findContractById(contractId);
+        log.info(contract.getMaterials());
+        if (Objects.equals(contract.getMaterials(), "[]")){
+            page = materialService.materialPageListByContract(page, contractId);
+        }else{
+            page = materialService.materialPageListByContractMaterial(page, contractId);
+        }
         //执行业务
-        page = materialService.queryMaterialPageByContractId(page, contractId);
         //响应
         return Result.ok(page);
     }

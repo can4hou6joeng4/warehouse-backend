@@ -94,12 +94,15 @@ public class OutStoreServiceImpl extends ServiceImpl<OutStoreMapper, OutStore>
 
     @Override
     public Page outStoreSummaryPage(Page page, OutStore outStore) {
+        int outStoreCount = outStoreMapper.selectOutStoreSummaryCount(outStore);
         List<OutSummaryDto> outSummaryDtoList = outStoreMapper.selectOutStoreSummaryPage(page, outStore);
+        
         for (OutSummaryDto outSummaryDto : outSummaryDtoList){
-            BigDecimal sum = outStoreMapper.selectOutStoreSummaryMoenyByWorkRegion(outSummaryDto.getWorkRegion());
+            BigDecimal sum = outStoreMapper.selectOutStoreSummaryMoenyByWorkRegion(page,outSummaryDto);
             outSummaryDto.setTotalAmount(sum);
         }
         page.setResultList(outSummaryDtoList);
+        page.setTotalNum(outStoreCount);
         return page;
     }
 }

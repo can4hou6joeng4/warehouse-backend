@@ -256,7 +256,6 @@ public class ContractController {
     public Result contractAgree(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                @RequestBody Contract contract){
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
-        System.out.println();
         contract.setContractState("2");
         int i = contractService.updateContractState(contract);
         if(i>0){
@@ -277,12 +276,13 @@ public class ContractController {
     @PostMapping("/contract-again")
     public Result contractAgain(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                @RequestBody Contract contract){
+        String userCode = tokenUtils.getCurrentUser(token).getUserCode();
         contract.setContractState("0");
-        log.info(contract.getIfPurchase());
-        log.info(String.valueOf(contract.getContractId()));
         int i = contractService.updateContractState(contract);
         if(i>0){
-            return activitiService.againInstance(contract);
+            Flow flow = new Flow();
+            flow.setContractId(contract.getContractId());
+            return activitiService.completeTask(userCode, flow);
         }else{
             return Result.err(500,"修改合同状态失败");
         }

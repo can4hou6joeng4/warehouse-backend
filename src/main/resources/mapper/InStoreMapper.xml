@@ -59,7 +59,7 @@
             and t1.create_time &lt;= #{endTime}
         </if>
         <if test="supplyId != null and supplyId != ''">
-            and t1.supply_id &lt;= #{supplyId}
+            and t1.supply_id = #{supplyId}
         </if>
     </select>
 
@@ -68,12 +68,12 @@
      public List<InStore> selectInStorePage(@Param("page") Page page, @Param("inStore") InStore inStore)
     -->
     <select id="selectInStorePage" resultType="com.bobochang.warehouse.entity.InStore">
-        select t1.*, t2.store_name, t3.material_name,
+        select t1.*, t2.store_name, t3.material_name, t7.unit_name,
         t4.user_code, t5.supply_name, t6.contract_name, t1.price * t1.in_num as priceSum
-        from in_store t1, store t2, material t3, user_info t4, supply t5, contract t6
+        from in_store t1, store t2, material t3, user_info t4, supply t5, contract t6, unit t7
         where t1.store_id = t2.store_id and t1.material_id = t3.material_id
         and t1.create_by = t4.user_id and t1.supply_id = t5.supply_id
-        and t1.contract_id = t6.contract_id
+        and t1.contract_id = t6.contract_id and t3.unit_id = t7.unit_id
 
         <if test="inStore.storeId != null">
             and t1.store_id = #{inStore.storeId}
@@ -124,9 +124,38 @@
              FROM in_store t1
                       JOIN supply t2 ON t1.supply_id = t2.supply_id
                       JOIN material t3 ON t1.material_id = t3.material_id
-             GROUP BY supply_name, material_name) as demo
-        where supply_name = #{supplyName}
+             GROUP BY supply_name, material_name
+             ORDER BY supply_name
+             limit #{page.limitIndex}, #{page.pageSize}) as demo
+        where supply_name = #{inSummaryDto.supplyName}
         GROUP BY supply_name
+    </select>
+    <select id="selectInStoreSummaryCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) AS total_rows
+        FROM (
+        SELECT t1.ins_id
+        FROM in_store t1
+        JOIN supply t2 ON t1.supply_id = t2.supply_id
+        JOIN material t3 ON t1.material_id = t3.material_id
+        WHERE 1=1
+        <if test="storeId != null">
+            AND t1.store_id = #{storeId}
+        </if>
+        <if test="materialName != null and materialName != ''">
+            AND t3.material_name LIKE CONCAT('%', #{materialName}, '%')
+        </if>
+        <if test="startTime != null and startTime != ''">
+            AND t1.create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            AND t1.create_time &lt;= #{endTime}
+        </if>
+        <if test="supplyId != null and supplyId != ''">
+            AND t1.supply_id = #{supplyId}
+        </if>
+        GROUP BY supply_name, material_name
+        ORDER BY supply_name
+        ) AS subquery;
     </select>
 
     <!--

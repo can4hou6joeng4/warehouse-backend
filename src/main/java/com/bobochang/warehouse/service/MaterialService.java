@@ -25,12 +25,14 @@ public interface MaterialService extends IService<Material> {
     Result deleteMaterial(Integer materialId);
 
     List<Material> queryAllMaterial();
-
-    Page queryMaterialPageByContractId(Page page, Integer contractId);
     
     int addInventById(InStore inStore);
     
     int reduceById(Integer materialId,double materialNum);
 
     Material selectMaterialByName(String materialName);
+
+    Page materialPageListByContract(Page page, Integer contractId);
+
+    Page materialPageListByContractMaterial(Page page, Integer contractId);
 }

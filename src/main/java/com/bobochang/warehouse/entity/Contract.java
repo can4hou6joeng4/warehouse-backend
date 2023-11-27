@@ -29,10 +29,10 @@ public class Contract implements Serializable {
     private String contractName;
 
     /**
-     * 材料id
+     * 所选的材料
      */
-    private Integer caterialId;
-
+    private String materials;
+    
     /**
      * 工期开始时间
      */

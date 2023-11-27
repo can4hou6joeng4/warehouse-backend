@@ -113,9 +113,9 @@
         select * from product where product_id = #{productId}
     </select>
     <select id="queryAllMaterial" resultType="com.bobochang.warehouse.entity.Material">
-        select * from material
+        select t1.*, t2.unit_name from material t1, unit t2 where t1.unit_id = t2.unit_id
     </select>
-    <select id="selectMaterialCountByContractId" resultType="java.lang.Integer">
+    <select id="selectMaterialCountByProduct" resultType="java.lang.Integer">
         SELECT count(*) FROM contract t1, product_material t2, material t3, store t4, unit t5
         where t1.product_id = t2.product_id
         and t2.material_id = t3.material_id
@@ -123,8 +123,7 @@
         and t3.unit_id = t5.unit_id
         and t1.contract_id = #{contractId}
     </select>
-    
-    <select id="selectMaterialPageByContractId" resultType="com.bobochang.warehouse.entity.Material">
+    <select id="selectMaterialPageByProduct" resultType="com.bobochang.warehouse.entity.Material">
         SELECT t3.*, t4.store_name, t5.unit_name FROM contract t1, product_material t2, material t3, store t4, unit t5
         where t1.product_id = t2.product_id
         and t2.material_id = t3.material_id
@@ -136,5 +135,31 @@
     </select>
     <select id="selectMaterialByName" resultType="com.bobochang.warehouse.entity.Material">
         select * from material where material_name = #{materialName}
+    </select>
+    <select id="selectMaterialCountByContract" resultType="java.lang.Integer">
+        
+    </select>
+    <select id="selectMaterialPageByContract" resultType="com.bobochang.warehouse.entity.Material">
+        SELECT
+            m.*,
+            u.unit_name,
+            s.store_name,
+            jt.num as need_num
+        FROM
+            contract c
+                CROSS JOIN
+            JSON_TABLE(c.materials, '$[*]' COLUMNS (
+                id INT PATH '$.id',
+                num double PATH '$.num'
+                )) AS jt
+                left join
+            material as m on jt.id = m.material_id
+                left join
+            unit as u on m.unit_id = u.unit_id
+                left join
+            store as s on m.store_id = s.store_id
+        WHERE
+            c.contract_id = #{contractId}
+        limit #{page.limitIndex}, #{page.pageSize}
     </select>
 </mapper>

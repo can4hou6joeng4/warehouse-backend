@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author bobochang
@@ -70,6 +71,9 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
             contract.setCustomerId(null);
         }
         contract.setFiles(contract.getFiles());
+        if(Objects.equals(contract.getIfPurchase(), "0") || Objects.equals(contract.getIfPurchase(), "1")){
+            contract.setMaterials("[]");
+        }
         // 合同不存在 添加合同
         contractMapper.insertContract(contract);
         

@@ -35,5 +35,6 @@ public class OutSummaryDto {
     private Integer total;
     
     private BigDecimal totalAmount;
-
+    
+    private String unitName;
 }

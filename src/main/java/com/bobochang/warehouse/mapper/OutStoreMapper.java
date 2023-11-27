@@ -31,7 +31,9 @@ public interface OutStoreMapper extends BaseMapper<OutStore> {
 
     List<OutSummaryDto> selectOutStoreSummaryPage(Page page, OutStore outStore);
 
-    BigDecimal selectOutStoreSummaryMoenyByWorkRegion(String supplyName);
+    BigDecimal selectOutStoreSummaryMoenyByWorkRegion(Page page, OutSummaryDto outSummaryDto);
+    
+    int selectOutStoreSummaryCount(OutStore outStore);
 }
 
 

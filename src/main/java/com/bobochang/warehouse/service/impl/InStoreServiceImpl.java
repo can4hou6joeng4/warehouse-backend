@@ -98,12 +98,15 @@ public class InStoreServiceImpl extends ServiceImpl<InStoreMapper, InStore>
 
     @Override
     public Page inStoreSummaryPage(Page page, InStore inStore) {
+        int inStoreCount = inStoreMapper.selectInStoreSummaryCount(inStore);
+
         List<InSummaryDto> inSummaryDtos = inStoreMapper.selectInStoreSummaryPage(page, inStore);
         for (InSummaryDto inSummaryDto : inSummaryDtos){
-            BigDecimal sum = inStoreMapper.selectInStoreSummaryMoneyBySupply(inSummaryDto.getSupplyName());
+            BigDecimal sum = inStoreMapper.selectInStoreSummaryMoneyBySupply(page, inSummaryDto);
             inSummaryDto.setTotalAmount(sum);
         }
         page.setResultList(inSummaryDtos);
+        page.setTotalNum(inStoreCount);
         return page;
     }
 }

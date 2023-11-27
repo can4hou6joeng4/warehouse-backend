@@ -12,10 +12,19 @@ import com.bobochang.warehouse.service.ContractService;
 import com.bobochang.warehouse.service.InStoreService;
 import com.bobochang.warehouse.service.OutStoreService;
 import com.bobochang.warehouse.utils.TokenUtils;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -77,5 +86,27 @@ public class SummaryController {
         List<?> resultList = page.getResultList();
         //响应
         return Result.ok(resultList);
+    }
+    
+    @GetMapping("/download")
+    @CrossOrigin(origins = "http://localhost:3000") // 设置允许跨域请求的源
+    @SneakyThrows
+    public ResponseEntity<byte[]> generateAndDownloadExcel(HttpServletResponse response) throws IOException {
+        // Read the generated file into a byte array
+        String fileName = "D:\\project\\easyexcel-master\\easyexcel-test\\src\\test\\resources\\demo\\fill\\outdemo1700554191177.xlsx";
+        byte[] excelBytes = Files.readAllBytes(Paths.get(fileName));
+
+        // Set up headers for the file download
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        String generatedFileName = "generated_excel.xlsx"; // Change this to a meaningful file name
+        headers.setContentDispositionFormData(generatedFileName, generatedFileName);
+        headers.setContentLength(excelBytes.length);
+
+        // Delete the file after reading its content into a byte array
+//        Files.deleteIfExists(Paths.get(fileName));
+
+        // Return the byte array along with headers for download
+        return new ResponseEntity<>(excelBytes, headers, HttpStatus.OK);
     }
 }

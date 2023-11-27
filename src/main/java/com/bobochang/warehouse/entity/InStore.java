@@ -101,6 +101,8 @@ public class InStore implements Serializable {
     
     private BigDecimal priceSum;
 
+    private String unitName;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

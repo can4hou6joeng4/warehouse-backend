@@ -153,6 +153,7 @@ public class ActivitiServiceImpl implements ActivitiService {
     @Transactional
     public Result startInstance(Contract contract) {
         try{
+            System.out.println(Integer.valueOf(contract.getIfPurchase()));
             // 改变合同状态，将合同状态由未审核转为待结算，进而开启流程实例
             contractService.saveContract(contract);
             
@@ -165,6 +166,12 @@ public class ActivitiServiceImpl implements ActivitiService {
             variables.put("station_master","station_master");
             variables.put("in_store", "in_store");
             variables.put("status", Integer.valueOf(contract.getIfPurchase()));
+            System.out.println(contract.getIfPurchase());
+            if (Integer.valueOf(contract.getIfPurchase()) == 2){
+                variables.put("only", 1);
+            }else{
+                variables.put("only", 0);
+            }
             ProcessInstance processInstance = runtimeService.startProcessInstanceById(deploymentId,variables);
 
             // 保存实例记录
@@ -418,6 +425,11 @@ public class ActivitiServiceImpl implements ActivitiService {
                     map.get("taskName").equals("采购审批") || 
                     map.get("taskName").equals("采购检查"));
         }
+        if(taskState == 2){
+            allTask.removeIf(map ->
+                    map.get("taskName").equals("生产完成") ||
+                    map.get("taskName").equals("出库确认"));
+        }
         return allTask;
     }
 
@@ -481,12 +493,12 @@ public class ActivitiServiceImpl implements ActivitiService {
         log.info("跳转成功，from->{},to->{}", flowNode.getName(), toFlowNode.getName());
         
         // 更新合同的采购状态
-        Contract contract = new Contract();
-        contract.setContractId(contractReasonDto.getContractId());
-        contract.setIfPurchase(contractReasonDto.getIfPurchase());
-        if(contractService.updateContractIfPurchase(contract) < 1){
-            return Result.err(500, "合同状态更新失败");
-        }
+//        Contract contract = new Contract();
+//        contract.setContractId(contractReasonDto.getContractId());
+//        contract.setIfPurchase(contractReasonDto.getIfPurchase());
+//        if(contractService.updateContractIfPurchase(contract) < 1){
+//            return Result.err(500, "合同状态更新失败");
+//        }
         
         // 记录退回原因
         Flow flow = new Flow();

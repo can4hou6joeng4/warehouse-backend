@@ -1,6 +1,7 @@
 package com.bobochang.warehouse.mapper;
 
 import com.bobochang.warehouse.dto.InSummaryDto;
+import com.bobochang.warehouse.dto.OutSummaryDto;
 import com.bobochang.warehouse.entity.InStore;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bobochang.warehouse.page.Page;
@@ -31,7 +32,10 @@ public interface InStoreMapper extends BaseMapper<InStore> {
 
     List<InSummaryDto> selectInStoreSummaryPage(Page page, InStore inStore);
 
-    BigDecimal selectInStoreSummaryMoneyBySupply(String supplyName);
+    BigDecimal selectInStoreSummaryMoneyBySupply(Page page, InSummaryDto inSummaryDto);
+
+    int selectInStoreSummaryCount(InStore inStore);
+
 }
 
 

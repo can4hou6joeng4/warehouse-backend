@@ -72,7 +72,9 @@ public class Material implements Serializable {
      * 更新人
      */
     private Integer updateBy;
-
+    
+    private String needNum;
+    
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

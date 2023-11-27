@@ -22,15 +22,19 @@ public interface MaterialMapper extends BaseMapper<Material> {
 
     List<Material> queryAllMaterial();
 
-    int selectMaterialCountByContractId(Integer contractId);
+    int selectMaterialCountByProduct(Integer contractId);
 
-    List<Material> selectMaterialPageByContractId(Page page, Integer contractId);
+    List<Material> selectMaterialPageByProduct(Page page, Integer contractId);
 
     int addInventById(InStore inStore);
 
     int reduceById(Integer materialId, double materialNum);
 
     Material selectMaterialByName(String materialName);
+
+    int selectMaterialCountByContract(Integer contractId);
+
+    List<Material> selectMaterialPageByContract(Page page, Integer contractId);
 }
 
 

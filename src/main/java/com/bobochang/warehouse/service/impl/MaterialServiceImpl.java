@@ -78,22 +78,7 @@ public class MaterialServiceImpl extends ServiceImpl<MaterialMapper, Material>
     public List<Material> queryAllMaterial() {
         return materialMapper.queryAllMaterial();
     }
-
-    @Override
-    public Page queryMaterialPageByContractId(Page page, Integer contractId) {
-        //查询商品总行数
-        int materialCount = materialMapper.selectMaterialCountByContractId(contractId);
-
-        //分页查询商品
-        List<Material> materialList = materialMapper.selectMaterialPageByContractId(page, contractId);
-
-        //将查询到的总行数和当前页数据组装到Page对象
-        page.setTotalNum(materialCount);
-        page.setResultList(materialList);
-
-        return page;
-    }
-
+    
     @Override
     public int addInventById(InStore inStore) {
         int result = materialMapper.addInventById(inStore);
@@ -117,6 +102,36 @@ public class MaterialServiceImpl extends ServiceImpl<MaterialMapper, Material>
     @Override
     public Material selectMaterialByName(String materialName) {
         return materialMapper.selectMaterialByName(materialName);
+    }
+
+    @Override
+    public Page materialPageListByContract(Page page, Integer contractId) {
+        //查询商品总行数
+        int materialCount = materialMapper.selectMaterialCountByProduct(contractId);
+
+        //分页查询商品
+        List<Material> materialList = materialMapper.selectMaterialPageByProduct(page, contractId);
+
+        //将查询到的总行数和当前页数据组装到Page对象
+        page.setTotalNum(materialCount);
+        page.setResultList(materialList);
+
+        return page;
+    }
+
+    @Override
+    public Page materialPageListByContractMaterial(Page page, Integer contractId) {
+        //查询商品总行数
+//        int materialCount = materialMapper.selectMaterialCountByContract(contractId);
+
+        //分页查询商品
+        List<Material> materialList = materialMapper.selectMaterialPageByContract(page, contractId);
+
+        //将查询到的总行数和当前页数据组装到Page对象
+//        page.setTotalNum(materialCount);
+        page.setResultList(materialList);
+
+        return page;    
     }
 }
 

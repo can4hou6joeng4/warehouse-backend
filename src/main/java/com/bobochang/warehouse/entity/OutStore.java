@@ -91,6 +91,8 @@ public class OutStore implements Serializable {
     // 金额
     private BigDecimal salePriceSum;
     
+    private String unitName;
+    
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

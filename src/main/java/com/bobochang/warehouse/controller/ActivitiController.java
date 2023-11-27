@@ -87,7 +87,6 @@ public class ActivitiController {
     public Result activitiPageList(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
         // 根据token获得用户的角色
         String roleCode = userService.searchRoleCodeById(tokenUtils.getCurrentUser(token).getUserId());
-        log.info(roleCode);
         return Result.ok(activitiService.searchTask(roleCode));
     }
 
@@ -107,9 +106,6 @@ public class ActivitiController {
     @PostMapping("/skip-task")
     public Result skipTask(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                            @RequestBody ContractReasonDto contractReasonDto) throws Exception {
-        log.info(contractReasonDto.getReason());
-        log.info(contractReasonDto.getIfPurchase());
-        log.info(String.valueOf(contractReasonDto.getContractId()));
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
         return activitiService.skipTask(userCode, contractReasonDto);
     }
