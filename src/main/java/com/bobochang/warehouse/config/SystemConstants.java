@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 public class SystemConstants {
-    public String attendanceStartTime;
-    public String attendanceTime;
-    public String attendanceEndTime;
-    public String closingStartTime;
-    public String closingTime;
-    public String closingEndTime;
+    public String attendanceStartTime; // 上班考勤开始时间
+    public String attendanceTime; // 上班时间
+    public String attendanceEndTime; // 上班考勤结束时间
+    public String closingStartTime; // 下班考勤开始时间
+    public String closingTime; // 下班时间
+    public String closingEndTime; // 下班考勤结束时间
 }

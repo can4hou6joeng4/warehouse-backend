@@ -2,6 +2,9 @@ package com.bobochang.warehouse.service;
 
 import com.bobochang.warehouse.entity.Customer;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.bobochang.warehouse.entity.Result;
+import com.bobochang.warehouse.entity.Supply;
+import com.bobochang.warehouse.page.Page;
 
 import java.util.List;
 
@@ -13,4 +16,10 @@ import java.util.List;
 public interface CustomerService extends IService<Customer> {
 
     List<Customer> getAll();
+
+    Page queryCustomerPage(Page page, Customer customer);
+
+    Result updateCustomer(Customer customer);
+
+    Result addCustomer(Customer customer);
 }

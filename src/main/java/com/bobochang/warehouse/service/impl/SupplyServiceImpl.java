@@ -47,10 +47,10 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply>
      */
     @Override
     public Page querySupplyPage(Page page, Supply supply) {
-        //查询仓库总行数
+        //查询供应商总行数
         int storeCount = supplyMapper.selectSupplyCount(supply);
 
-        //分页查询仓库
+        //分页查询供应商
         List<Supply> storeList = supplyMapper.selectSupplyPage(page, supply);
 
         //将查到的总行数和当前页数据封装到Page对象
@@ -82,7 +82,7 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply>
      */
     @Override
     public Result updateSupply(Supply supply) {
-        //根据仓库id修改仓库
+        //根据供应商id修改供应商
         int i = supplyMapper.updateSupplyById(supply);
         if(i>0){
             return Result.ok("供应商修改成功！");
@@ -91,13 +91,13 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply>
     }
 
     /**
-     * 增加
+     * 增加供应商
      * @param supply
      * @return
      */
     @Override
     public Result saveSupply(Supply supply) {
-        //添加仓库
+        //添加供应商
         int i = supplyMapper.insertSupply(supply);
         if(i>0){
             return Result.ok("供应商添加成功！");

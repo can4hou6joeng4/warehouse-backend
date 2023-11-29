@@ -12,4 +12,15 @@
     <sql id="Base_Column_List">
         id,date
     </sql>
+
+    <!--  判断今天是否是特殊节假日-->
+    <select id="searchTodayIsHolidays" resultType="Integer">
+        SELECT id FROM holidays WHERE date = CURRENT_DATE LIMIT 1;
+    </select>
+
+    <select id="searchHolidaysInRange" parameterType="HashMap" resultType="String">
+        SELECT date
+        FROM holidays
+        WHERE date BETWEEN #{startDate} AND #{endDate}
+    </select>
 </mapper>

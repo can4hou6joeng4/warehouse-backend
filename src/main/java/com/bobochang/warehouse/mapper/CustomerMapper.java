@@ -2,6 +2,7 @@ package com.bobochang.warehouse.mapper;
 
 import com.bobochang.warehouse.entity.Customer;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.bobochang.warehouse.page.Page;
 
 import java.util.List;
 
@@ -14,6 +15,14 @@ import java.util.List;
 public interface CustomerMapper extends BaseMapper<Customer> {
 
     List<Customer> getAll();
+
+    int selectCustomerCount(Customer customer);
+
+    List<Customer> selectCustomerPage(Page page, Customer customer);
+
+    int updateCustomerById(Customer customer);
+
+    int insertCustomer(Customer customer);
 }
 
 

@@ -13,4 +13,30 @@
     <sql id="Base_Column_List">
         id,user_id,face_model
     </sql>
+
+    <!--    按照用户id查找用户的人脸模型-->
+    <select id="searchFaceModel" parameterType="int" resultType="String">
+        SELECT face_model FROM face_model
+        WHERE user_id=#{userId}
+    </select>
+
+    <!--    判断是否有人脸模型-->
+    <select id="haveFace" parameterType="int" resultType="Integer">
+        SELECT id FROM face_model
+        WHERE user_id=#{userId}
+        LIMIT 1
+    </select>
+
+    <!--    添加用户的人脸模型-->
+    <insert id="insert" parameterType="com.bobochang.warehouse.entity.FaceModel">
+        INSERT INTO face_model
+        SET user_id=#{userId},
+            face_model=#{faceModel}
+    </insert>
+
+    <!--    删除用户的人脸模型-->
+    <delete id="deleteFaceModel" parameterType="int">
+        DELETE FROM face_model
+        WHERE user_id=#{userId}
+    </delete>
 </mapper>
