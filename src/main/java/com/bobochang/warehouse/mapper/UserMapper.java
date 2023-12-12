@@ -44,4 +44,6 @@ public interface UserMapper extends BaseMapper<User> {
     public User searchById(int UserId);
 
     public String searchRoleCodeById(int userId);
+
+    List<User> searchUserBySalary();
 }

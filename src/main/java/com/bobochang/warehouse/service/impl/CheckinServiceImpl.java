@@ -147,6 +147,7 @@ public class CheckinServiceImpl extends ServiceImpl<CheckinMapper, Checkin>
             String path=(String)param.get("path"); // 上传的人脸图片地址
 
             if(check(path, userId)){
+//            if(1==1){
                 String city= "测试地址";
                 String district= "测试地址";
                 String address= "测试地址";
@@ -221,7 +222,7 @@ public class CheckinServiceImpl extends ServiceImpl<CheckinMapper, Checkin>
     }
 
     @Override
-    public Result checkin(HashMap param) {
+    public Result checkin(Checkin checkin) {
         Date d1=DateUtil.date();
         Date d2=DateUtil.parse(DateUtil.today()+" "+constants.attendanceTime); // 上班考勤的开始时间
         Date d3=DateUtil.parse(DateUtil.today()+" "+constants.attendanceEndTime);// 上班考勤的结束时间
@@ -238,22 +239,14 @@ public class CheckinServiceImpl extends ServiceImpl<CheckinMapper, Checkin>
         else{
             return Result.err(500,"超出考勤时间段，无法考勤");
         }
-        String city= "测试地址";
-        String district= "测试地址";
-        String address= "测试地址";
-        String country= "测试地址";
-        String province= "测试地址";
+        
         // 此处获得到微信小程序给的真实地址
         int risk=1;
         //保存签到记录
-        int userId= (Integer) param.get("userId");
+        int userId= checkin.getUserId();
         Checkin entity=new Checkin();
         entity.setUserId(userId);
-        entity.setAddress(address);
-        entity.setCountry(country);
-        entity.setProvince(province);
-        entity.setCity(city);
-        entity.setDistrict(district);
+        entity.setAddress(checkin.getAddress());
         entity.setStatus((int) status);
         entity.setRisk(risk);
         entity.setDate(DateUtil.parse(DateUtil.today()));

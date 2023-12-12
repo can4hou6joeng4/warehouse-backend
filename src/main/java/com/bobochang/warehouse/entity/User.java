@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -37,6 +38,16 @@ public class User implements Serializable {
      * 
      */
     private String userPwd;
+
+    private String realName;
+
+    private String bank;
+
+    private String bankCard;
+
+    private BigDecimal salary;
+
+    private String workType;
 
     /**
      * 1 超级管理员 、 2  管理员 、 3 普通用户
@@ -77,4 +88,6 @@ public class User implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+    
+    private int checkinSum;
 }

@@ -73,11 +73,16 @@
     <!--  查询用户一段时间内的考勤情况-->
     <select id="searchWeekCheckin" parameterType="HashMap" resultType="HashMap">
         SELECT
+            user_id,
             CAST(date AS CHAR) AS date,
             IF(status=1,"正常","迟到") AS status
         FROM checkin
-        WHERE user_id=#{userId}
-          AND date BETWEEN #{startDate} AND #{endDate}
+        <where>
+            <if test="userId!=null">
+              and user_id=#{userId}
+            </if>
+            AND date BETWEEN #{startDate} AND #{endDate}
+        </where>
     </select>
 
     <!--  添加签到数据-->

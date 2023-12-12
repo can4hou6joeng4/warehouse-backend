@@ -139,4 +139,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserMapper, User>
     public String searchRoleCodeById(int userId) {
         return userMapper.searchRoleCodeById(userId);
     }
+
+    @Override
+    public List<User> searchUserBySalary() {
+        return userMapper.searchUserBySalary();
+    }
 }

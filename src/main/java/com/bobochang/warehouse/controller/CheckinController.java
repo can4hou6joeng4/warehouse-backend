@@ -65,47 +65,46 @@ public class CheckinController {
      * @param file
      * @return
      */
-//    @PostMapping("/checkin")
-//    public Result checkin(@RequestParam("photo") MultipartFile file,@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
-//        if(file==null){
-//            return Result.err(500,"没有上传文件");
-//        }
-//        int userId= getUserIdByToken(token);
-//        String fileName=file.getOriginalFilename().toLowerCase();
-//        if(!fileName.endsWith(".jpg")){
-//            return Result.err(500,"必须提交jpg图片");
-//        }
-//        else{
-//            String path=imageFolder+"/"+fileName;
-//            try{
-//                // 将上传的文件复制到对应的文件夹里面
-//                file.transferTo(Paths.get(path));
-//                HashMap param=new HashMap();
-//                param.put("userId",userId);
-//                param.put("path",path);
-//                return checkinService.checkin(param);
-//            }catch (IOException e){
-//                log.error(e.getMessage(),e);
-//                return Result.err(500,e.getMessage());
-//            }
-//            finally {
-//                FileUtil.del(path);
-//            }
-//        }
-//    }
+    @PostMapping("/checkin")
+    public Result checkin(@RequestParam("photo") MultipartFile file,@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
+        if(file==null){
+            return Result.err(500,"没有上传文件");
+        }
+        int userId= getUserIdByToken(token);
+        String fileName=file.getOriginalFilename().toLowerCase();
+        if(!fileName.endsWith(".jpg")){
+            return Result.err(500,"必须提交jpg图片");
+        }
+        else{
+            String path=imageFolder+"/"+fileName;
+            try{
+                // 将上传的文件复制到对应的文件夹里面
+                file.transferTo(Paths.get(path));
+                HashMap param=new HashMap();
+                param.put("userId",userId);
+                param.put("path",path);
+                return checkinService.checkinByFace(param);
+            }catch (IOException e){
+                log.error(e.getMessage(),e);
+                return Result.err(500,e.getMessage());
+            }
+            finally {
+                FileUtil.del(path);
+            }
+        }
+    }
 
     /**
      *
      * @param token
      * @return
      */
-    @PostMapping("/checkin")
-    public Result checkin(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
+    @PostMapping("/checkin-noface")
+    public Result checkinNoFace(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,@RequestBody Checkin checkin){
         int userId= getUserIdByToken(token);
-
-        HashMap param=new HashMap();
-        param.put("userId",userId);
-        return checkinService.checkin(param);
+        
+        checkin.setUserId(userId);
+        return checkinService.checkin(checkin);
 
     }
     
@@ -275,8 +274,6 @@ public class CheckinController {
         LocalDate currentDate = LocalDate.now();
         LocalDate monthStartDate = currentDate.with(TemporalAdjusters.firstDayOfMonth());
         LocalDate monthEndDate = currentDate.with(TemporalAdjusters.lastDayOfMonth());
-        System.out.println(monthEndDate);
-        System.out.println(monthStartDate);
 
         // 查询用户的入职日期，如果是开始时间早于入职日期之间则返回错误的数据
         // 并且把开始时间调整到入职日期
@@ -288,7 +285,6 @@ public class CheckinController {
         param.put("startDate",monthStartDate.toString());
         param.put("endDate",monthEndDate.toString());
         ArrayList<HashMap> list=checkinService.searchMonthCheckin(param);
-        System.out.println(list);
         return Result.ok(list);
     }
 

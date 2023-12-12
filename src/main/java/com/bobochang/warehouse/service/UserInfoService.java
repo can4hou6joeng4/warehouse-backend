@@ -5,6 +5,8 @@ import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.entity.User;
 import com.bobochang.warehouse.page.Page;
 
+import java.util.List;
+
 /**
 * @author HuihuaLi
 * @description 针对表【user_info(用户表)】的数据库操作Service
@@ -37,4 +39,6 @@ public interface UserInfoService extends IService<User> {
     Result searchById(int userId);
 
     String searchRoleCodeById(int userId);
+
+    List<User> searchUserBySalary();
 }

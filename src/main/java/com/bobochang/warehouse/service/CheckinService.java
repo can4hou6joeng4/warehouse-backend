@@ -43,5 +43,5 @@ public interface CheckinService extends IService<Checkin> {
 
     PageCheckinDto queryChekinPage(PageCheckinDto page, Checkin checkin);
 
-    Result checkin(HashMap param);
+    Result checkin(Checkin checkin);
 }
