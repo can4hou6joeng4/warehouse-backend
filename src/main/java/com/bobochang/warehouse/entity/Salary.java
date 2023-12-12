@@ -79,6 +79,7 @@ public class Salary implements Serializable {
 
     private String workType;
 
+    private Integer workRegion;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

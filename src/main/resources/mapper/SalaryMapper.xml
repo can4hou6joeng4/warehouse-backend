@@ -41,13 +41,17 @@
     
     <select id="querySalaryPage" resultType="com.bobochang.warehouse.entity.Salary">
         SELECT u.real_name,u.bank_card,u.bank,u.work_type,u.salary, s.*
-        FROM `salary`s, user_info u
+        FROM `salary`s, user_info u, work_region w
         WHERE s.user_id = u.user_id
+          and u.work_region = w.id
         <if test="salary.realName != null and salary.realName != ''">
             and u.real_name like concat('%', #{salary.realName}, '%')
         </if>
         <if test="page.startDate != null and page.startDate != ''">
             and s.create_time = #{page.startDate}
+        </if>
+        <if test="salary.workRegion != null and salary.workRegion != ''">
+            and u.work_region = #{salary.workRegion}
         </if>
         order by s.create_time
         limit #{page.limitIndex}, #{page.pageSize}
