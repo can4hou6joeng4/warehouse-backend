@@ -162,6 +162,11 @@ public class PurchaseController {
     public Result selectPurchaseByContractId(@PathVariable String contractId){
         return Result.ok(purchaseService.getPurchaseDetail(Integer.valueOf(contractId)));
     }
+
+    @GetMapping("/purchase-in-list/{contractId}")
+    public Result selectInPurchaseByContractId(@PathVariable String contractId){
+        return Result.ok(purchaseService.getInPurchaseDetail(Integer.valueOf(contractId)));
+    }
     
 
 //    /**

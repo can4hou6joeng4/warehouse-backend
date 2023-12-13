@@ -136,7 +136,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
-    public String searchRoleCodeById(int userId) {
+    public List<String> searchRoleCodeById(int userId) {
         return userMapper.searchRoleCodeById(userId);
     }
 

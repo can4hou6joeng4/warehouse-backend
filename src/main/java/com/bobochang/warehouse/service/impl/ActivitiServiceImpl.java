@@ -41,10 +41,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -114,34 +111,36 @@ public class ActivitiServiceImpl implements ActivitiService {
      */
     @Override
     public Result haveTask(int userId) {
-        String roleCode = userService.searchRoleCodeById(userId);
+       List<String> roleCodes = userService.searchRoleCodeById(userId);
+        // 将查询到的任务用系统实例类封装返回，否则会有延迟加载的错误
+        List<TaskDTO> taskDTOList = new ArrayList<>();
 
         // 查询未审核的合同列表，如果有为审核的合同
         Contract contract = new Contract();
         contract.setContractState("0");
         int contractCount = contractService.searchContractCount(contract);
-
-        // 如果是超级管理员则看合同有没有审核
-        if (roleCode.equals("supper_manage")){
-            if(contractCount == 0){
-                return Result.ok("暂无要处理的合同");
-            }else{
-                return Result.ok("有还未审核的合同");
+        
+        for (String roleCode: roleCodes){
+            // 如果是超级管理员则看合同有没有审核
+            if (roleCode.equals("supper_manage")){
+                if(contractCount == 0){
+                    return Result.ok("暂无要处理的合同");
+                }else{
+                    return Result.ok("有还未审核的合同");
+                }
+            } else{
+                // 其他用户则是查询是否有任务
+                TaskQuery query = taskService.createTaskQuery().taskAssignee(roleCode);
+                List<Task> taskList = query.list();
+                
+                for (Task task : taskList) {
+                    TaskDTO taskDTO = new TaskDTO();
+                    BeanUtils.copyProperties(task, taskDTO);
+                    taskDTOList.add(taskDTO);
+                }
             }
-        } else{
-            // 其他用户则是查询是否有任务
-            TaskQuery query = taskService.createTaskQuery().taskAssignee(roleCode);
-            List<Task> taskList = query.list();
-
-            // 将查询到的任务用系统实例类封装返回，否则会有延迟加载的错误
-            List<TaskDTO> taskDTOList = new ArrayList<>();
-            for (Task task : taskList) {
-                TaskDTO taskDTO = new TaskDTO();
-                BeanUtils.copyProperties(task, taskDTO);
-                taskDTOList.add(taskDTO);
-            }
-            return Result.ok(taskDTOList);
         }
+        return Result.ok(taskDTOList);
     }
 
     /**
@@ -201,56 +200,63 @@ public class ActivitiServiceImpl implements ActivitiService {
     @Override
     public Result completeTask(String userCode, Flow flow) {
         User user = userService.findUserByCode(userCode);
-        String assignee = userService.searchRoleCodeById(user.getUserId());
+        List<String> assignees = userService.searchRoleCodeById(user.getUserId());
+        
+        for(String assignee : assignees){
+            System.out.println(assignee);
+            String taskId = "";
+            String instanceId = flowService.selectByContractId(flow.getContractId()).getInstanceId();
 
-        String taskId = "";
-        String instanceId = flowService.selectByContractId(flow.getContractId()).getInstanceId();
 
+            if(assignee.equals("supper_manage")){
+                // 根据角色查看自身未完成的任务并完成任务
+                TaskQuery query = taskService.createTaskQuery().processInstanceId(instanceId);
 
-        if(assignee.equals("supper_manage")){
-            // 根据角色查看自身未完成的任务并完成任务
-            TaskQuery query = taskService.createTaskQuery().processInstanceId(instanceId);
-
-            for (Task task: query.list()){
-                log.info(task.getProcessInstanceId());
-                taskId = task.getId();
-                break;
-            }
-        }else {
-            // 根据角色查看自身未完成的任务并完成任务
-            TaskQuery query = taskService.createTaskQuery().taskAssignee(assignee);
-
-            for (Task task: query.list()){
-                log.info(task.getProcessInstanceId());
-                if(instanceId.equals(task.getProcessInstanceId())){
+                for (Task task: query.list()){
+                    log.info(task.getProcessInstanceId());
                     taskId = task.getId();
                     break;
                 }
+            }else {
+                // 根据角色查看自身未完成的任务并完成任务
+                TaskQuery query = taskService.createTaskQuery().taskAssignee(assignee);
+
+                for (Task task: query.list()){
+                    if(instanceId.equals(task.getProcessInstanceId())){
+                        taskId = task.getId();
+                        break;
+                    }
+                }
+            }
+            
+            if (!Objects.equals(taskId, "")){
+                taskService.complete(taskId);
+
+                // 更新工作流记录
+                flowService.updateFlow(flow);
+                break;
             }
         }
-
-        taskService.complete(taskId);
-
-        // 更新工作流记录
-        flowService.updateFlow(flow);
         
         return Result.ok("完成任务");
     }
 
     /**
      * 查看用户所有的流程任务
-     * @param roleCode 用户代码
+     * @param roleCodes 用户权限
      * @return
      */
     @Override
-    public List<Object> searchTask(String roleCode) {
+    public List<Object> searchTask(List<String> roleCodes) {
         List<Object> result = new ArrayList<>();
 
-        List<Map<String, String>> taskNodes = searchAllTaskByDefinitionId();
-        result.addAll(runningTask(roleCode,taskNodes));
-        result.addAll(historyTask(roleCode,taskNodes));
-        if(roleCode.equals("supper_manage")){
-            result.addAll(allTask(roleCode,taskNodes));
+        for (String roleCode:roleCodes){
+            List<Map<String, String>> taskNodes = searchAllTaskByDefinitionId();
+            result.addAll(runningTask(roleCode,taskNodes));
+            result.addAll(historyTask(roleCode,taskNodes));
+            if(roleCode.equals("supper_manage")){
+                result.addAll(allTask(roleCode,taskNodes));
+            }
         }
         return result.stream()
                 .distinct()
@@ -432,25 +438,7 @@ public class ActivitiServiceImpl implements ActivitiService {
         }
         return allTask;
     }
-
-    @Override
-    public void completeGroupTask(String userCode, Flow flow) {
-        // 查询用户角色
-        User user = userService.findUserByCode(userCode);
-        String assignee = userService.searchRoleCodeById(user.getUserId());
-
-        // 根据角色查看自身未完成的任务并完成任务
-        TaskQuery query = taskService.createTaskQuery().taskAssignee(assignee);
-
-        flow.setInstanceId(query.list().stream()
-                .map(Task::getProcessInstanceId)
-                .collect(Collectors.toList()).get(0));
-
-        taskService.complete(query.list().get(0).getId());
-
-        // 更新工作流记录
-        flowService.updateFlow(flow);
-    }
+    
 
     @Override
     public Result skipTask(String userCode, ContractReasonDto contractReasonDto) throws Exception {

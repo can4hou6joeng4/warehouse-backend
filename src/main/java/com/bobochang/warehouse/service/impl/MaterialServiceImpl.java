@@ -122,16 +122,20 @@ public class MaterialServiceImpl extends ServiceImpl<MaterialMapper, Material>
     @Override
     public Page materialPageListByContractMaterial(Page page, Integer contractId) {
         //查询商品总行数
-//        int materialCount = materialMapper.selectMaterialCountByContract(contractId);
 
         //分页查询商品
         List<Material> materialList = materialMapper.selectMaterialPageByContract(page, contractId);
 
         //将查询到的总行数和当前页数据组装到Page对象
-//        page.setTotalNum(materialCount);
         page.setResultList(materialList);
 
         return page;    
+    }
+
+    @Override
+    public List<Material> materialListByContractMaterial(Integer contractId) {
+        List<Material> materialList = materialMapper.selectMaterialByContract(contractId);
+        return materialList;
     }
 }
 

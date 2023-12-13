@@ -321,4 +321,10 @@ public class ContractController {
     public Result getNeedMaterialNum(MaterialNumDto materialNumDto){
         return contractService.getNeedMaterialNum(materialNumDto);
     }
+    
+    @GetMapping("/contract-id")
+    public Result getContractById(Contract contract){
+        contract = contractService.findContractById(contract.getContractId());
+        return Result.ok(contract);
+    }
 }

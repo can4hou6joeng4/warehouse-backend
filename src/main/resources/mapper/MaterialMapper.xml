@@ -162,4 +162,26 @@
             c.contract_id = #{contractId}
         limit #{page.limitIndex}, #{page.pageSize}
     </select>
+    <select id="selectMaterialByContract" resultType="com.bobochang.warehouse.entity.Material">
+        SELECT
+            m.*,
+            u.unit_name,
+            s.store_name,
+            jt.num as need_num
+        FROM
+            contract c
+                CROSS JOIN
+            JSON_TABLE(c.materials, '$[*]' COLUMNS (
+                id INT PATH '$.id',
+                num double PATH '$.num'
+                )) AS jt
+                left join
+            material as m on jt.id = m.material_id
+                left join
+            unit as u on m.unit_id = u.unit_id
+                left join
+            store as s on m.store_id = s.store_id
+        WHERE
+            c.contract_id = #{contractId}
+    </select>
 </mapper>

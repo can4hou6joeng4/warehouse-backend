@@ -29,4 +29,6 @@ public interface PurchaseService extends IService<Purchase> {
     int updatePurchaseState(Purchase purchase);
 
     void updatePurchaseStateByContractId(PurchaseReasonDto purchaseReasonDto);
+
+    List<Object> getInPurchaseDetail(Integer contractId);
 }

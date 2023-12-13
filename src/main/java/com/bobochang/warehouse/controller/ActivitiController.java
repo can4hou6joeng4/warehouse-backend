@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -86,8 +87,8 @@ public class ActivitiController {
     @GetMapping("/activiti-page-list")
     public Result activitiPageList(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
         // 根据token获得用户的角色
-        String roleCode = userService.searchRoleCodeById(tokenUtils.getCurrentUser(token).getUserId());
-        return Result.ok(activitiService.searchTask(roleCode));
+        List<String> roleCodes = userService.searchRoleCodeById(tokenUtils.getCurrentUser(token).getUserId());
+        return Result.ok(activitiService.searchTask(roleCodes));
     }
 
     /**

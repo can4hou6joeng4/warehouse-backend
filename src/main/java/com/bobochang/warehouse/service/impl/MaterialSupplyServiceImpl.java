@@ -37,11 +37,11 @@ public class MaterialSupplyServiceImpl extends ServiceImpl<MaterialSupplyMapper,
     private SupplyService supplyService;
     @Override
     public BigDecimal selectPrice(MaterialSupply materialSupply){
-        QueryWrapper<MaterialSupply> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("material_id", materialSupply.getMaterialId());
-        queryWrapper.eq("supply_id", materialSupply.getSupplyId());
+//        QueryWrapper<MaterialSupply> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("material_id", materialSupply.getMaterialId());
+//        queryWrapper.eq("supply_id", materialSupply.getSupplyId());
         
-        MaterialSupply targetMaterialSupply = materialSupplyMapper.selectOne(queryWrapper);
+        MaterialSupply targetMaterialSupply = materialSupplyMapper.selectByMaterialIdAndSupply(materialSupply);
         return targetMaterialSupply.getQuotation();
     }
 
@@ -50,10 +50,10 @@ public class MaterialSupplyServiceImpl extends ServiceImpl<MaterialSupplyMapper,
         log.info(String.valueOf(materialSupply.getInspectionResult()));
         
         User user = userInfoService.findUserByCode(userCode);
-        String assignee = userInfoService.searchRoleCodeById(user.getUserId());
+        List<String> assignee = userInfoService.searchRoleCodeById(user.getUserId());
 
         // 如果是管理员可以看到所有的，如果不是只能看到自己的
-        if(!assignee.equals("supper_manage") && !assignee.equals("inspect_man")){
+        if(!assignee.get(0).equals("supper_manage") && !assignee.get(0).equals("inspect_man")){
             Supply supply = supplyService.selectOneByUserId(user.getUserId());
             materialSupply.setSupplyId(supply.getSupplyId());
         }

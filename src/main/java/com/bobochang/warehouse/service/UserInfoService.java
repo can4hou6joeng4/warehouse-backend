@@ -38,7 +38,7 @@ public interface UserInfoService extends IService<User> {
 
     Result searchById(int userId);
 
-    String searchRoleCodeById(int userId);
+    List<String> searchRoleCodeById(int userId);
 
     List<User> searchUserBySalary();
 }

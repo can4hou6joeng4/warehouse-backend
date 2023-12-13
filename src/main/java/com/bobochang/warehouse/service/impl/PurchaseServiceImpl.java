@@ -3,12 +3,10 @@ package com.bobochang.warehouse.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bobochang.warehouse.dto.PurchaseReasonDto;
-import com.bobochang.warehouse.entity.Contract;
-import com.bobochang.warehouse.entity.ProductMaterial;
-import com.bobochang.warehouse.entity.Purchase;
-import com.bobochang.warehouse.entity.Result;
+import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.ContractService;
+import com.bobochang.warehouse.service.MaterialService;
 import com.bobochang.warehouse.service.ProductMaterialService;
 import com.bobochang.warehouse.service.PurchaseService;
 import com.bobochang.warehouse.mapper.PurchaseMapper;
@@ -17,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
 * @author HuihuaLi
@@ -37,6 +32,9 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase>
     
     @Resource
     private ContractService contractService;
+    
+    @Autowired
+    private MaterialService materialService;
     
     @Autowired
     private ProductMaterialService productMaterialService;
@@ -100,6 +98,27 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase>
         }catch (RuntimeException e){
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<Object> getInPurchaseDetail(Integer contractId) {
+        Map<String, Object> objectMap = new HashMap<>();
+
+        // 获取采购员
+        List<Purchase> list = selectPurchaseByContractId(contractId);
+        objectMap.put("buyName", list.get(0).getBuyUser());
+
+        // 获取配料比和产品名
+//        List<Material> materialList = materialService.materialListByContractMaterial(contractId);
+        List<Purchase> purchaseList = selectPurchaseByContractId(contractId);
+
+
+        // 获取原料名以及选择的对应的供应商
+        objectMap.put("purchaseList",purchaseList);
+
+        List<Object> objectList = new ArrayList<>();
+        objectList.add(objectMap);
+        return objectList;    
     }
 
     //分页查询采购单的业务方法

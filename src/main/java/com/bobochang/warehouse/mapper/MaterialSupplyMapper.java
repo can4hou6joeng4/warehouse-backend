@@ -25,6 +25,8 @@ public interface MaterialSupplyMapper extends BaseMapper<MaterialSupply> {
     MaterialSupply selectMaterialSupplyById(Integer id);
 
     int updateMaterialIdById(MaterialSupply materialSupply);
+
+    MaterialSupply selectByMaterialIdAndSupply(MaterialSupply materialSupply);
 }
 
 

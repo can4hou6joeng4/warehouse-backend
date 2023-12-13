@@ -35,6 +35,8 @@ public interface MaterialMapper extends BaseMapper<Material> {
     int selectMaterialCountByContract(Integer contractId);
 
     List<Material> selectMaterialPageByContract(Page page, Integer contractId);
+
+    List<Material> selectMaterialByContract(Integer contractId);
 }
 
 

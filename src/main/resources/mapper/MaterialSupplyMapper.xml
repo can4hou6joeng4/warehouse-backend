@@ -74,4 +74,7 @@
     <select id="selectMaterialSupplyById" resultType="com.bobochang.warehouse.entity.MaterialSupply">
         select * from material_supply where id = #{id}
     </select>
-</mapper>
+    <select id="selectByMaterialIdAndSupply" resultType="com.bobochang.warehouse.entity.MaterialSupply">
+        select * from material_supply where material_id=#{materialId} and supply_id=#{supplyId}
+    </select>
+</mapper>             

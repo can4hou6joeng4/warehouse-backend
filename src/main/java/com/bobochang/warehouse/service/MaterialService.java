@@ -35,4 +35,6 @@ public interface MaterialService extends IService<Material> {
     Page materialPageListByContract(Page page, Integer contractId);
 
     Page materialPageListByContractMaterial(Page page, Integer contractId);
+
+    List<Material> materialListByContractMaterial(Integer contractId);
 }
