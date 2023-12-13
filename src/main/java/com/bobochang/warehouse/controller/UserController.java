@@ -207,7 +207,7 @@ public class UserController {
     @GetMapping("/user-all")
     public Result userAll() {
         //执行业务
-        List<User> userList = userMapper.selectList(null);
+        List<User> userList = userMapper.selectAll();
         //响应
         return Result.ok(userList);
     }
