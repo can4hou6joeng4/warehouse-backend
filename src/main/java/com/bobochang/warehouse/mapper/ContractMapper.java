@@ -1,6 +1,7 @@
 package com.bobochang.warehouse.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.bobochang.warehouse.dto.EginnerContractDto;
 import com.bobochang.warehouse.dto.MaterialNumDto;
 import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.FaceModel;
@@ -24,7 +25,7 @@ public interface ContractMapper extends BaseMapper<Contract> {
     public List<Contract> selectContractPage(Page page, Contract contract);
 
     // 添加合同
-    public int insertContract(Contract contract);
+    public int insertContract(EginnerContractDto contract);
 
     // 根据合同 id 修改合同状态
     public int updateContractState(Contract contract);

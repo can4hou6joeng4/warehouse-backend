@@ -56,9 +56,11 @@ public class SecurityFilter implements Filter {
         //对上传图片的url接口/product/img-upload的请求直接放行
         urlList.add("/inspect/img-upload");
         urlList.add("/contract/img-upload");
+        urlList.add("/file/upload-contract-annex");
         urlList.add("/summary/download");
+        urlList.add("/file/recognize");
         //对static下的/img/upload中的静态资源图片的访问直接放行
-        if (urlList.contains(path) || path.contains("/img/upload") 
+        if (urlList.contains(path) || path.contains("/img/upload")
                 || Pattern.compile("/contract/download-images/.*").matcher(path).matches() 
                 || Pattern.compile("/contract/inline-image/.*").matcher(path).matches() 
                 || Pattern.compile("/inspect/inline-image/.*").matcher(path).matches()

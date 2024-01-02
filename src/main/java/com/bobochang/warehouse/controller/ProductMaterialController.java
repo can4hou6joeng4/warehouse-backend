@@ -3,6 +3,7 @@ package com.bobochang.warehouse.controller;
 import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.entity.*;
+import com.bobochang.warehouse.mapper.ProductMapper;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.MaterialService;
 import com.bobochang.warehouse.service.ProductMaterialService;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +36,9 @@ public class ProductMaterialController {
     
     @Autowired
     private MaterialService materialService;
+    
+    @Autowired
+    private ProductMapper productMapper;
     
     @Autowired
     private TokenUtils tokenUtils;
@@ -123,5 +128,26 @@ public class ProductMaterialController {
     @GetMapping("/ratio/{productId}")
     public Result getRatio(@PathVariable String productId){
         return Result.ok(productMaterialService.selectRatioById(productId));
+    }
+
+
+    @GetMapping("/ratio-name/{productName}")
+    public Result getRatioByProductName(@PathVariable String productName){
+        System.out.println(productName);
+        List<Product> list = productMapper.selectAllProductName();
+        System.out.println(list);
+
+        List<ProductMaterial> productMaterialList = new ArrayList<>();
+        for (Product substring : list) {
+            if (productName.contains(substring.getProductName())) {
+                System.out.println("字符串中包含子字符串 '" + substring.getProductName() + "'");
+                System.out.println(substring.getProductName());
+                productMaterialList = productMaterialService.selectRatioById(substring.getProductId().toString());
+                break;
+            }
+        }
+        
+        return Result.ok(productMaterialList);
+//        return Result.ok(productMaterialService.selectRatioById(productId));
     }
 }

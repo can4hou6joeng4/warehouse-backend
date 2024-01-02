@@ -1,6 +1,7 @@
 package com.bobochang.warehouse.service;
 
 import com.bobochang.warehouse.dto.ContractReasonDto;
+import com.bobochang.warehouse.dto.EginnerContractDto;
 import com.bobochang.warehouse.dto.PurchaseReasonDto;
 import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.Flow;
@@ -20,7 +21,7 @@ public interface ActivitiService {
     public Result haveTask(int userId);
 
     // 开启流程实例
-    Result startInstance(Contract contract);
+    Result startInstance(EginnerContractDto contract);
 
     // 完成流程实例中的任务
     public Result completeTask(String userCode, Flow flow);

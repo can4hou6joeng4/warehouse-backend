@@ -7,10 +7,8 @@
     <resultMap id="BaseResultMap" type="com.bobochang.warehouse.entity.Contract">
             <id property="contractId" column="contract_id" jdbcType="INTEGER"/>
             <result property="contractName" column="contract_name" jdbcType="VARCHAR"/>
-            <result property="caterialId" column="caterial_id" jdbcType="INTEGER"/>
             <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
             <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
-            <result property="productMaterialId" column="product_material_id" jdbcType="INTEGER"/>
             <result property="contractState" column="contract_state" jdbcType="CHAR"/>
             <result property="files" column="files" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
@@ -100,8 +98,8 @@
     -->
     <insert id="insertContract" useGeneratedKeys="true" keyProperty="contractId">
         insert into contract
-        (contract_name, materials, contract_state, if_purchase, product_id, product_num,start_time, end_time, files, create_time, update_time, work_region, customer_id, other_customer)
-        values (#{contractName}, #{materials}, 0, #{ifPurchase}, #{productId}, #{productNum}, #{startTime}, #{endTime}, #{files}, now(), now(), #{workRegion}, #{customerId}, #{otherCustomer})
+        (contract_name, materials, contract_state, if_purchase, product_id, product_num,start_time, end_time, files, create_time, update_time, work_region, customer_id, other_customer, project_name, company, signing_address, signing_date)
+        values (#{contractName}, #{materials}, 0, #{ifPurchase}, #{productId}, #{productNum}, #{startTime}, #{endTime}, #{files}, now(), now(), #{workRegion}, #{customerId}, #{otherCustomer},#{productName},#{company},#{signingAddress},#{signingDate})
     </insert>
 
     <!--

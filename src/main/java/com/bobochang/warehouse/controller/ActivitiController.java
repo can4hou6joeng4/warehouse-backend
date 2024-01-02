@@ -2,6 +2,7 @@ package com.bobochang.warehouse.controller;
 
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.dto.ContractReasonDto;
+import com.bobochang.warehouse.dto.EginnerContractDto;
 import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.Flow;
 import com.bobochang.warehouse.entity.Result;
@@ -65,7 +66,7 @@ public class ActivitiController {
      * @return
      */
     @PostMapping("/start-instance")
-    public Result startInstance(@RequestBody Contract contract){
+    public Result startInstance(@RequestBody EginnerContractDto contract){
         return activitiService.startInstance(contract);
     }
 

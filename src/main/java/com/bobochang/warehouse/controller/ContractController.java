@@ -3,6 +3,7 @@ package com.bobochang.warehouse.controller;
 import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.dto.ContractReasonDto;
+import com.bobochang.warehouse.dto.EginnerContractDto;
 import com.bobochang.warehouse.dto.MaterialNumDto;
 import com.bobochang.warehouse.entity.Contract;
 import com.bobochang.warehouse.entity.Flow;
@@ -29,11 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -63,6 +60,8 @@ public class ContractController {
     @Autowired
     private TokenUtils tokenUtils;
     
+    private String abc;
+    
     @Autowired
     private ActivitiService activitiService;
 
@@ -83,7 +82,7 @@ public class ContractController {
 
     @PostMapping("/addContract")
     @BusLog(descrip = "添加合同")
-    public Result addContract(@RequestBody Contract contract) {
+    public Result addContract(@RequestBody EginnerContractDto contract) {
         return contractService.saveContract(contract);
     }
 
@@ -327,4 +326,13 @@ public class ContractController {
         contract = contractService.findContractById(contract.getContractId());
         return Result.ok(contract);
     }
+
+    @PostMapping("/contract-eginner-add")
+    public Result addContractEginner(@RequestBody EginnerContractDto contractDto){
+        System.out.println(contractDto);
+        System.out.println(contractDto.getContractEginnerList());
+        contractService.saveContractEginner(contractDto);
+        return Result.ok();
+    }
+    
 }

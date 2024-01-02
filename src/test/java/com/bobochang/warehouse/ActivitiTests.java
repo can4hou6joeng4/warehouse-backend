@@ -48,7 +48,7 @@ public class ActivitiTests {
 
     @Autowired
     private ManagementService managementService;
-    
+
     @Value("${warehouse.deploymentId}")
     private String deploymentId;
     /**
@@ -56,10 +56,10 @@ public class ActivitiTests {
      */
     @Test
     void createDeploy(){
-        InputStream inputStream = getClass().getResourceAsStream("/processes/flowv1.bpmn20.xml");
+        InputStream inputStream = getClass().getResourceAsStream("/processes/flowv2.bpmn20.xml");
         repositoryService.createDeployment()
-                .addInputStream("/processes/flowv1.bpmn20.xml", inputStream)
-                .deploy(); //demo2:1:81952be3-6e2b-11ee-a90a-48a47209a1e7
+                .addInputStream("/processes/flowv2.bpmn20.xml", inputStream)
+                .deploy(); 
     }
 
     /**
@@ -82,7 +82,9 @@ public class ActivitiTests {
     }
 
     // 跳转到指定任务节点
-    void skip(String instanceId) throws Exception {
+    @Test
+    void skip() throws Exception {
+        String instanceId = "195700f7-84ea-11ee-bfdb-48a47209a1e7";
         Task task = taskService.createTaskQuery().processInstanceId(instanceId).singleResult();
         if (task == null) {
             throw new Exception("流程未启动或已执行完成，无法撤回");
@@ -94,9 +96,9 @@ public class ActivitiTests {
         String activityId = execution.getActivityId();
         FlowNode flowNode = (FlowNode) bpmnModel.getMainProcess().getFlowElement(activityId);
         //需要跳转的节点
-        FlowNode toFlowNode = (FlowNode) bpmnModel.getMainProcess().getFlowElement("sid-01");
+        FlowNode toFlowNode = (FlowNode) bpmnModel.getMainProcess().getFlowElement("sid-06");
         if (toFlowNode == null) {
-            throw new Exception("跳转的下一节点为空");
+            throw new Exception("退回失败");
         }
         //记录原活动方向
         List<SequenceFlow> oriSequenceFlows = new ArrayList<SequenceFlow>();
@@ -142,7 +144,7 @@ public class ActivitiTests {
      */
     @Test
     void completeTaskByAssignee(){
-        TaskQuery query = taskService.createTaskQuery().taskAssignee("supper_manage");
+        TaskQuery query = taskService.createTaskQuery().taskAssignee("station_master");
         System.out.println(query.list());
         taskService.complete(query.list().get(0).getId());
     }
@@ -173,66 +175,50 @@ public class ActivitiTests {
         System.out.println(task.getName());
     }
 
+    /**
+     * 查询运行中的流程实例
+     */
     @Test
     void clearActivitiData() {
         List<ProcessInstance> list = runtimeService.createProcessInstanceQuery()
                 .processDefinitionId(deploymentId)
                 .list();
         System.out.println(list);
-//        // 删除每个流程实例
-//        for(ProcessInstance processInstance:list) {
-//            runtimeService.deleteProcessInstance(processInstance.getId(), "Reason for deletion");
-//        }
+//         删除每个流程实例
+        for(ProcessInstance processInstance:list) {
+            runtimeService.deleteProcessInstance(processInstance.getId(), "Reason for deletion");
+        }
     }
-    
+
     @Autowired
     private HistoryService historyService;
-    
+
     @Test
     void selectHis(){
         HistoricProcessInstanceQuery historicQuery = historyService.createHistoricProcessInstanceQuery()
-                .involvedUser("supper_manage")
+                .processDefinitionId(deploymentId)
                 .finished();
         List<HistoricProcessInstance> historicProcessInstances = historicQuery.list();
-        System.out.println(historicProcessInstances);
+        System.out.println(historicProcessInstances.get(0).getId());
 
-        // 删除每个流程实例
-//        for(HistoricProcessInstance processInstance:historicProcessInstances) {
-//            historyService.deleteHistoricProcessInstance(processInstance.getId());
-//        }
+//         删除每个流程实例
+        for(HistoricProcessInstance processInstance:historicProcessInstances) {
+            historyService.deleteHistoricProcessInstance(processInstance.getId());
+        }
     }
-    
+
     @Autowired
     private UserInfoService userInfoService;
-    
-    @Autowired
-    private FlowService flowService;
-    @Test
-    void completeTask(){
-        User user = userInfoService.findUserByCode("admin");
-        String assignee = userInfoService.searchRoleCodeById(user.getUserId());
+//    @Test
+//    void completeTask(){
+//        User user = userInfoService.findUserByCode("admin");
+//        String assignee = userInfoService.searchRoleCodeById(user.getUserId());
+//
+//        // 根据角色查看自身未完成的任务并完成任务
+//        TaskQuery query = taskService.createTaskQuery().processInstanceId("77eba966-7c43-11ee-b5af-48a47209a1e7");
+//        for (Task task: query.list()){
+//            log.info(String.valueOf(task.getId()));
+//        }
+//    }
 
-        // 根据角色查看自身未完成的任务并完成任务
-        TaskQuery query = taskService.createTaskQuery().taskAssignee(assignee);
-        
-        Integer contractId = 111;
-        Flow flow = flowService.selectByContractId(contractId);
-        
-        String instanceId = "";
-        for (Task task: query.list()){
-            log.info(task.getProcessInstanceId());
-            if(flow.getInstanceId().equals(task.getProcessInstanceId())){
-                instanceId = task.getProcessInstanceId();
-                break;
-            }
-        }
-//        flow.setInstanceId(query.list().stream()
-//                .map(Task::getProcessInstanceId)
-//                .collect(Collectors.toList()).get(0));
-//
-//        taskService.complete(query.list().get(0).getId());
-//
-//        // 更新工作流记录
-//        flowService.updateFlow(flow);
-    }
 }

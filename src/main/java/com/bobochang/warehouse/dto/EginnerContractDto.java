@@ -1,26 +1,27 @@
-package com.bobochang.warehouse.entity;
+package com.bobochang.warehouse.dto;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.Date;
-
+import com.bobochang.warehouse.entity.ContractEginner;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.Date;
+import java.util.List;
 
 /**
- * 合同表
- * @TableName contract
+ * @author LI
+ * @date 2023/12/28
  */
-@TableName(value ="contract")
 @Data
-public class Contract implements Serializable {
-    /**
-     * 合同id
-     */
-    @TableId(type = IdType.AUTO)
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class EginnerContractDto {
     private Integer contractId;
 
     /**
@@ -32,7 +33,7 @@ public class Contract implements Serializable {
      * 所选的材料
      */
     private String materials;
-    
+
     /**
      * 工期开始时间
      */
@@ -44,7 +45,7 @@ public class Contract implements Serializable {
      */
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date endTime;
-    
+
     /**
      * 0未审核、1 待结算 、2 结算中、 3 已结算
      */
@@ -58,7 +59,6 @@ public class Contract implements Serializable {
     /**
      * 创建时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
@@ -100,11 +100,10 @@ public class Contract implements Serializable {
      * 签订日期 
      */
     private String signingDate;
-    
+
     /**
      * 更新时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     /**
@@ -122,7 +121,7 @@ public class Contract implements Serializable {
      * 是否需要采购
      */
     private String ifPurchase;
-
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+    
+    private List<ContractEginner> contractEginnerList;
+    
 }

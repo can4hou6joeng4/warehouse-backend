@@ -38,6 +38,8 @@ public interface ProductMapper extends BaseMapper<Product> {
     public Product selectProductById(Integer productId);
 
     List<Product> queryAllProduct();
+
+    List<Product> selectAllProductName();
 }
 
 

@@ -123,4 +123,8 @@
     <select id="queryAllProduct" resultType="com.bobochang.warehouse.entity.Product">
         select product_id,product_name from product
     </select>
+    <select id="selectAllProductName" resultType="com.bobochang.warehouse.entity.Product">
+        select * from product
+    </select>
+
 </mapper>

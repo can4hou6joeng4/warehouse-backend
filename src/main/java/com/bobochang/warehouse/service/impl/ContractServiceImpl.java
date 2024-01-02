@@ -1,14 +1,17 @@
 package com.bobochang.warehouse.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.bobochang.warehouse.dto.EginnerContractDto;
 import com.bobochang.warehouse.dto.MaterialNumDto;
 import com.bobochang.warehouse.entity.Contract;
+import com.bobochang.warehouse.entity.ContractEginner;
 import com.bobochang.warehouse.entity.FaceModel;
 import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.mapper.ContractMapper;
 import com.bobochang.warehouse.mapper.FaceModelMapper;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.ActivitiService;
+import com.bobochang.warehouse.service.ContractEginnerService;
 import com.bobochang.warehouse.service.ContractService;
 import com.bobochang.warehouse.service.FaceModelService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,10 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 /**
  * @author bobochang
@@ -36,6 +40,9 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
 
     @Value("${file.upload-path}")
     private String accessPath;
+    
+    @Autowired
+    private ContractEginnerService contractEginnerService;
     
 
     @Override
@@ -58,7 +65,7 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
     }
 
     @Override
-    public Result saveContract(Contract contract) {
+    public Result saveContract(EginnerContractDto contract) {
         contract.setContractState("0");
         
 
@@ -70,8 +77,8 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
         if(contract.getCustomerId() == -1){
             contract.setCustomerId(null);
         }
-        contract.setFiles(contract.getFiles());
-        if(Objects.equals(contract.getIfPurchase(), "0") || Objects.equals(contract.getIfPurchase(), "1")){
+//        contract.setFiles(contract.getFiles());
+        if(Objects.equals(contract.getIfPurchase(), "0") || Objects.equals(contract.getIfPurchase(), "1") || Objects.equals(contract.getIfPurchase(), "3")){
             contract.setMaterials("[]");
         }
         // 合同不存在 添加合同
@@ -130,5 +137,27 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
     public Result getNeedMaterialNum(MaterialNumDto materialNumDto) {
         MaterialNumDto numDto = contractMapper.getNeedMaterialNum(materialNumDto);
         return Result.ok(numDto);
+    }
+
+    @Override
+    public void saveContractEginner(EginnerContractDto contractDto) {
+        contractDto.setIfPurchase("3");
+        contractDto.setCustomerId(-1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
+        LocalDate localDate = LocalDate.parse(contractDto.getSigningDate(), formatter);
+
+        String formattedDate = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        contractDto.setSigningDate(formattedDate);
+        
+        try {
+            saveContract(contractDto);
+            for (ContractEginner contractEginner : contractDto.getContractEginnerList()){
+                contractEginner.setContractId(contractDto.getContractId());
+                contractEginnerService.saveContractEginner(contractEginner);
+            }
+        }catch (Exception e){
+            log.info(String.valueOf(e));
+        }
+
     }
 }

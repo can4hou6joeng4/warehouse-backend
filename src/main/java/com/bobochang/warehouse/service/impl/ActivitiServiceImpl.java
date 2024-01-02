@@ -3,6 +3,7 @@ package com.bobochang.warehouse.service.impl;
 import cn.hutool.system.UserInfo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bobochang.warehouse.dto.ContractReasonDto;
+import com.bobochang.warehouse.dto.EginnerContractDto;
 import com.bobochang.warehouse.dto.PurchaseReasonDto;
 import com.bobochang.warehouse.dto.TaskDTO;
 import com.bobochang.warehouse.entity.Contract;
@@ -150,11 +151,15 @@ public class ActivitiServiceImpl implements ActivitiService {
      */
     @Override
     @Transactional
-    public Result startInstance(Contract contract) {
+    public Result startInstance(EginnerContractDto contract) {
         try{
             System.out.println(Integer.valueOf(contract.getIfPurchase()));
             // 改变合同状态，将合同状态由未审核转为待结算，进而开启流程实例
-            contractService.saveContract(contract);
+            if (Integer.valueOf(contract.getIfPurchase()) == 3){
+                contractService.saveContractEginner(contract);
+            }else{
+                contractService.saveContract(contract);
+            }
             
             // 启动流程实例
             Map<String, Object> variables = new HashMap<>();
@@ -164,9 +169,13 @@ public class ActivitiServiceImpl implements ActivitiService {
             variables.put("purchase_man", "purchase_man");
             variables.put("station_master","station_master");
             variables.put("in_store", "in_store");
-            variables.put("status", Integer.valueOf(contract.getIfPurchase()));
-            System.out.println(contract.getIfPurchase());
-            if (Integer.valueOf(contract.getIfPurchase()) == 2){
+            if (Integer.parseInt(contract.getIfPurchase()) == 3){
+                variables.put("status", 0);
+            }else {
+                variables.put("status", Integer.valueOf(contract.getIfPurchase()));
+            }
+            
+            if (Integer.parseInt(contract.getIfPurchase()) == 2){
                 variables.put("only", 1);
             }else{
                 variables.put("only", 0);
@@ -177,7 +186,11 @@ public class ActivitiServiceImpl implements ActivitiService {
             Flow flow = new Flow();
             flow.setInstanceId(processInstance.getId());
             flow.setContractId(contract.getContractId());
-            flow.setState(Integer.valueOf(contract.getIfPurchase()));
+            if (Integer.parseInt(contract.getIfPurchase()) == 3){
+                flow.setState(0);
+            }else {
+                flow.setState(Integer.valueOf(contract.getIfPurchase()));
+            }
             flowService.insertFlow(flow);
 
             // 完成第一个合同创建的任务
