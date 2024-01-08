@@ -6,9 +6,7 @@ import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.mapper.OutStoreMapper;
 import com.bobochang.warehouse.mapper.ProductMapper;
 import com.bobochang.warehouse.page.Page;
-import com.bobochang.warehouse.service.MaterialService;
-import com.bobochang.warehouse.service.OutStoreService;
-import com.bobochang.warehouse.service.ProductMaterialService;
+import com.bobochang.warehouse.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 /**
 * @author HuihuaLi
@@ -34,10 +33,16 @@ public class OutStoreServiceImpl extends ServiceImpl<OutStoreMapper, OutStore>
     private ProductMapper productMapper;
     
     @Autowired
+    private ContractEginnerService contractEginnerService;
+    
+    @Autowired
     private MaterialService materialService;
     
     @Autowired
     private ProductMaterialService productMaterialService;
+    
+    @Autowired
+    private ContractRatioService contractRatioService;
 
     //添加出库单的业务方法
     @Override
@@ -78,16 +83,24 @@ public class OutStoreServiceImpl extends ServiceImpl<OutStoreMapper, OutStore>
     public Result confirmOutStore(OutStore outStore) {
         //根据id将出库单状态改为已出库
         int i = outStoreMapper.updateIsOutById(outStore.getOutsId());
+        ContractEginner contractEginner = contractEginnerService.selectByProductAndContract(outStore.getProductId(), outStore.getContractId());
         if(i>0){
-            //根据商品id减商品库存
-            List<ProductMaterial> productMaterialList = productMaterialService.selectRatioById(String.valueOf(outStore.getProductId()));
-            for (ProductMaterial productMaterial:productMaterialList){
+            if (Objects.equals(contractEginner.getIfRatio(), "1")){
+                List<ContractRatio> contractRatios = contractRatioService.selectRatioByOutStore(outStore);
+                for (ContractRatio contractRatio : contractRatios){
+                    BigDecimal num =  outStore.getOutNum().multiply(BigDecimal.valueOf(contractRatio.getNewRatio()));
+                    materialService.reduceById(contractRatio.getMaterialId(), num.doubleValue());
+                }
+            }else{
+                //根据商品id减商品库存
+                List<ProductMaterial> productMaterialList = productMaterialService.selectRatioById(String.valueOf(outStore.getProductId()));
+                for (ProductMaterial productMaterial:productMaterialList){
 //                double num = Math.round((outStore.getOutNum() * productMaterial.getRatio()) * 100.0) / 100.0;
-                BigDecimal num =  outStore.getOutNum().multiply(BigDecimal.valueOf(productMaterial.getRatio()));
-                System.out.println(num);
-                materialService.reduceById(productMaterial.getMaterialId(), num.doubleValue());
+                    BigDecimal num =  outStore.getOutNum().multiply(BigDecimal.valueOf(productMaterial.getRatio()));
+                    materialService.reduceById(productMaterial.getMaterialId(), num.doubleValue());
+                }
+                return Result.ok("出库成功");
             }
-            return Result.ok("出库成功");
         }
         return Result.err(Result.CODE_ERR_BUSINESS, "出库失败！");
     }

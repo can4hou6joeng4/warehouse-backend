@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/product")
@@ -48,6 +49,9 @@ public class ProductController {
     //注入TokenUtils
     @Autowired
     private TokenUtils tokenUtils;
+    
+    @Autowired
+    private ContractEginnerService contractEginnerService;
 
     /**
      * 查询所有仓库的url接口/product/store-list
@@ -163,20 +167,21 @@ public class ProductController {
         return Result.ok(productList);
     }
 
-//
-//    /**
-//     * 导出材料列表信息数据
-//     * @param page
-//     * @param product
-//     * @return
-//     */
-//    @RequestMapping("/exportTable")
-//    public Result exportTable(Page page, Product product) {
-//        //分页查询仓库
-//        page = productService.queryProductPage(page, product);
-//        //拿到当前页数据
-//        List<?> resultList = page.getResultList();
-//        //响应
-//        return Result.ok(resultList);
-//    }
+    
+    @RequestMapping("/product-list-id")
+    public Result getProductListByContractId(Contract contract) {
+        log.info(String.valueOf(contract.getContractId()));
+        List<String> contractEginnerList = contractEginnerService.selectProductById(contract.getContractId());
+        List<Product> productList = productService.queryAllProduct();
+        List<Product> resultList = new ArrayList<>();
+        for (Product product : productList){
+            for (String contractProduct : contractEginnerList){
+                if (contractProduct.contains(product.getProductName())){
+                    resultList.add(product);   
+                }
+            }
+        }
+        //响应
+        return Result.ok(resultList);  
+    }
 }

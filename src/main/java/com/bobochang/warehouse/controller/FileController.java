@@ -64,7 +64,6 @@ public class FileController {
             long timestamp = Instant.now().toEpochMilli(); // 拿到当前时间戳作为图片保存的名称
             String flag = UUID.randomUUID().toString().substring(0,5); // 唯一标识符，防止毫秒间调用产生的相同时间戳
             String fileName = file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.'));
-
             // pdf文件保存
             String targetPdf = uploadPath + "/" + fileName + "-" + flag + ".pdf";
             File targetFile = new File(targetPdf);

@@ -61,6 +61,10 @@ public class ContractEginner implements Serializable {
      */
     private String remarks;
 
+    private String ifRatio;
+
+    private Integer productId;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

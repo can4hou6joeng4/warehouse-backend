@@ -23,7 +23,22 @@
     </sql>
     <insert id="insertContract">
         insert into contract_eginner
-        (contract_id, product_name, specs, unit, quantity, price, total, remarks)
-        values (#{contractId},#{productName},#{specs},#{unit},#{quantity},#{price},#{total},#{remarks})
+        (contract_id, product_name, specs, unit, quantity, price, total, remarks, product_id)
+        values (#{contractId},#{productName},#{specs},#{unit},#{quantity},#{price},#{total},#{remarks}, #{productId})
     </insert>
+    <update id="updateIfRatioById">
+        update contract_eginner
+        set if_ratio = #{ifRatio}
+        where id = #{id}
+    </update>
+    <select id="selectProductById" resultType="java.lang.String">
+        select product_name from contract_eginner where contract_id = #{contractId}
+    </select>
+    <select id="selectByProductAndContract" resultType="com.bobochang.warehouse.entity.ContractEginner">
+        select * from contract_eginner where contract_id = #{contractId} and product_id = #{productId}
+    
+    </select>
+    <!--    <select id="selectProductById" resultType="com.bobochang.warehouse.entity.ContractEginner">-->
+<!--        select * from contract_eginner where contract_id = #{contractId}-->
+<!--    </select>-->
 </mapper>

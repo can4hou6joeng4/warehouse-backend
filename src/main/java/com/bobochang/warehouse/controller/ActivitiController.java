@@ -67,6 +67,8 @@ public class ActivitiController {
      */
     @PostMapping("/start-instance")
     public Result startInstance(@RequestBody EginnerContractDto contract){
+        System.out.println(contract.getRatioLists());
+//        return null;
         return activitiService.startInstance(contract);
     }
 

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.bobochang.warehouse.entity.ContractEginner;
+import com.bobochang.warehouse.entity.ContractRatio;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,7 @@ import lombok.ToString;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author LI
@@ -46,7 +48,7 @@ public class EginnerContractDto {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date endTime;
 
-    /**
+    /** 
      * 0未审核、1 待结算 、2 结算中、 3 已结算
      */
     private String contractState;
@@ -124,4 +126,6 @@ public class EginnerContractDto {
     
     private List<ContractEginner> contractEginnerList;
     
+    // 自定义的比例
+    private List<List<ContractRatio>> ratioLists;
 }

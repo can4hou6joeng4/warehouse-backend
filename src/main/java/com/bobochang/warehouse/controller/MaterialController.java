@@ -60,7 +60,7 @@ public class MaterialController {
         //响应
         return Result.ok(storeList);
     }
-    
+        
     /**
      * 查询所有单位的url接口/product/unit-list
      * <p>

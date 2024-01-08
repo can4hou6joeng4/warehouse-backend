@@ -77,6 +77,9 @@
              <if test="contract.contractId != null and contract.contractId != ''">
                  and t1.contract_id = #{contract.contractId}
              </if>
+             <if test="contract.ifPurchase != null and contract.ifPurchase != ''">
+                 and t1.if_purchase = #{contract.ifPurchase}
+             </if>
          </where>
         limit #{page.limitIndex}, #{page.pageSize}
     </select>
@@ -93,7 +96,7 @@
     </select>
 
     <!--
-        // 添加合同
+        // 添加合同 
         public int insertContract(Contract contract);
     -->
     <insert id="insertContract" useGeneratedKeys="true" keyProperty="contractId">

@@ -154,7 +154,7 @@ public class ActivitiServiceImpl implements ActivitiService {
     public Result startInstance(EginnerContractDto contract) {
         try{
             System.out.println(Integer.valueOf(contract.getIfPurchase()));
-            // 改变合同状态，将合同状态由未审核转为待结算，进而开启流程实例
+            // 判断合同类型
             if (Integer.valueOf(contract.getIfPurchase()) == 3){
                 contractService.saveContractEginner(contract);
             }else{

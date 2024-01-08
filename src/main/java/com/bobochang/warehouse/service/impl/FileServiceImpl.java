@@ -161,7 +161,8 @@ public class FileServiceImpl implements FileService {
             return res;
         } else {
             return "";
-        }        }
+        }        
+    }
 
     private String getContent(String path, String requestName) throws IOException {
         String i = getFileContentAsBase64(path, true);
