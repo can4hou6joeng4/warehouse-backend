@@ -17,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/product")
 @RestController
@@ -170,14 +172,18 @@ public class ProductController {
     
     @RequestMapping("/product-list-id")
     public Result getProductListByContractId(Contract contract) {
-        log.info(String.valueOf(contract.getContractId()));
-        List<String> contractEginnerList = contractEginnerService.selectProductById(contract.getContractId());
+        List<ContractEginner> contractEginnerList = contractEginnerService.selectProductById(contract.getContractId());
         List<Product> productList = productService.queryAllProduct();
-        List<Product> resultList = new ArrayList<>();
+        List<Map<String, Object>> resultList = new ArrayList<>();
         for (Product product : productList){
-            for (String contractProduct : contractEginnerList){
-                if (contractProduct.contains(product.getProductName())){
-                    resultList.add(product);   
+            for (ContractEginner contractProduct : contractEginnerList){
+                if (contractProduct.getProductName().contains(product.getProductName())){
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("productId", product.getProductId());
+                    map.put("productName", product.getProductName());
+                    map.put("id",contractProduct.getId());
+                    System.out.println(map);
+                    resultList.add(map);   
                 }
             }
         }

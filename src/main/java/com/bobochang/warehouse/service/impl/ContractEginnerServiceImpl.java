@@ -2,6 +2,7 @@ package com.bobochang.warehouse.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bobochang.warehouse.entity.ContractEginner;
+import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.service.ContractEginnerService;
 import com.bobochang.warehouse.mapper.ContractEginnerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class ContractEginnerServiceImpl extends ServiceImpl<ContractEginnerMappe
     }
 
     @Override
-    public List<String> selectProductById(Integer contractId) {
+    public List<ContractEginner> selectProductById(Integer contractId) {
         return contractEginnerMapper.selectProductById(contractId);
     }
 
@@ -38,6 +39,11 @@ public class ContractEginnerServiceImpl extends ServiceImpl<ContractEginnerMappe
     @Override
     public void updateIfRatioById(ContractEginner contractEginner) {
         contractEginnerMapper.updateIfRatioById(contractEginner);
+    }
+
+    @Override
+    public List<ContractEginner> selectContractEginnerProductNum(ContractEginner contractEginner) {
+        return contractEginnerMapper.selectContractEginnerProductNum(contractEginner);
     }
 
 }

@@ -2,6 +2,7 @@ package com.bobochang.warehouse.service;
 
 import com.bobochang.warehouse.entity.ContractEginner;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.bobochang.warehouse.entity.Result;
 
 import java.util.List;
 
@@ -14,9 +15,11 @@ public interface ContractEginnerService extends IService<ContractEginner> {
 
     void saveContractEginner(ContractEginner contractEginner);
 
-    List<String> selectProductById(Integer contractId);
+    List<ContractEginner> selectProductById(Integer contractId);
 
     ContractEginner selectByProductAndContract(Integer productId,Integer contractId);
 
     void updateIfRatioById(ContractEginner contractEginner);
+
+    List<ContractEginner> selectContractEginnerProductNum(ContractEginner contractEginner);
 }

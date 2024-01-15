@@ -5,6 +5,7 @@ import com.bobochang.warehouse.dto.EginnerContractDto;
 import com.bobochang.warehouse.dto.MaterialNumDto;
 import com.bobochang.warehouse.entity.Checkin;
 import com.bobochang.warehouse.entity.Contract;
+import com.bobochang.warehouse.entity.ContractEginner;
 import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.mapper.ContractMapper;
 import com.bobochang.warehouse.page.Page;

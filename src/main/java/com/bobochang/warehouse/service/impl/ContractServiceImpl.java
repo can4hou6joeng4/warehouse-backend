@@ -174,7 +174,6 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
 
             List<Integer> productIdList = contractRatioService.selectProductByContractId(contractDto.getContractId());
             for (Integer productId : productIdList){
-                System.out.println(productId);
                 ContractEginner contractEginner = contractEginnerService.selectByProductAndContract(productId, contractDto.getContractId());
                 contractEginner.setIfRatio("1");
                 contractEginnerService.updateIfRatioById(contractEginner);

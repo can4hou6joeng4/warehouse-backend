@@ -31,12 +31,15 @@
         set if_ratio = #{ifRatio}
         where id = #{id}
     </update>
-    <select id="selectProductById" resultType="java.lang.String">
-        select product_name from contract_eginner where contract_id = #{contractId}
+    <select id="selectProductById" resultType="com.bobochang.warehouse.entity.ContractEginner">
+        select * from contract_eginner where contract_id = #{contractId}
     </select>
     <select id="selectByProductAndContract" resultType="com.bobochang.warehouse.entity.ContractEginner">
         select * from contract_eginner where contract_id = #{contractId} and product_id = #{productId}
     
+    </select>
+    <select id="selectContractEginnerProductNum" resultType="com.bobochang.warehouse.entity.ContractEginner">
+        select * from contract_eginner where id = #{id}
     </select>
     <!--    <select id="selectProductById" resultType="com.bobochang.warehouse.entity.ContractEginner">-->
 <!--        select * from contract_eginner where contract_id = #{contractId}-->

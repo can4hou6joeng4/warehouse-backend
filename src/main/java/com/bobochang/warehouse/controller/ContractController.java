@@ -5,12 +5,10 @@ import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.dto.ContractReasonDto;
 import com.bobochang.warehouse.dto.EginnerContractDto;
 import com.bobochang.warehouse.dto.MaterialNumDto;
-import com.bobochang.warehouse.entity.Contract;
-import com.bobochang.warehouse.entity.Flow;
-import com.bobochang.warehouse.entity.Result;
-import com.bobochang.warehouse.entity.Store;
+import com.bobochang.warehouse.entity.*;
 import com.bobochang.warehouse.page.Page;
 import com.bobochang.warehouse.service.ActivitiService;
+import com.bobochang.warehouse.service.ContractEginnerService;
 import com.bobochang.warehouse.service.ContractService;
 import com.bobochang.warehouse.utils.TokenUtils;
 import lombok.SneakyThrows;
@@ -53,6 +51,9 @@ public class ContractController {
 
     @Autowired
     private ContractService contractService;
+    
+    @Autowired
+    private ContractEginnerService contractEginnerService;
 
     @Value("${file.upload-path}")
     private String uploadPath;
@@ -326,7 +327,7 @@ public class ContractController {
         contract = contractService.findContractById(contract.getContractId());
         return Result.ok(contract);
     }
-
+    
     @PostMapping("/contract-eginner-add")
     public Result addContractEginner(@RequestBody EginnerContractDto contractDto){
         System.out.println(contractDto);
@@ -334,5 +335,11 @@ public class ContractController {
         contractService.saveContractEginner(contractDto);
         return Result.ok();
     }
-    
+
+    @GetMapping("/contract-eginner-productNum")
+    public Result contractEginnerProductNum(ContractEginner contractEginner){
+        List<ContractEginner> contractEginnerList = contractEginnerService.selectContractEginnerProductNum(contractEginner);
+        return Result.ok(contractEginnerList);
+    }
 }
+    

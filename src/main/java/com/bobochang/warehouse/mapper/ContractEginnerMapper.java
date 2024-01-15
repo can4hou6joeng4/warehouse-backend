@@ -2,6 +2,7 @@ package com.bobochang.warehouse.mapper;
 
 import com.bobochang.warehouse.entity.ContractEginner;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.bobochang.warehouse.entity.Result;
 
 import java.util.List;
 
@@ -15,11 +16,13 @@ public interface ContractEginnerMapper extends BaseMapper<ContractEginner> {
 
     void insertContract(ContractEginner contractEginner);
 
-    List<String> selectProductById(Integer contractId);
+    List<ContractEginner> selectProductById(Integer contractId);
 
     ContractEginner selectByProductAndContract(Integer productId, Integer contractId);
 
     void updateIfRatioById(ContractEginner contractEginner);
+
+    List<ContractEginner> selectContractEginnerProductNum(ContractEginner contractEginner);
 }
 
 

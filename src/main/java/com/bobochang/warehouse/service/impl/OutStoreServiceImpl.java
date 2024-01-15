@@ -91,6 +91,7 @@ public class OutStoreServiceImpl extends ServiceImpl<OutStoreMapper, OutStore>
                     BigDecimal num =  outStore.getOutNum().multiply(BigDecimal.valueOf(contractRatio.getNewRatio()));
                     materialService.reduceById(contractRatio.getMaterialId(), num.doubleValue());
                 }
+                return Result.ok("出库成功");
             }else{
                 //根据商品id减商品库存
                 List<ProductMaterial> productMaterialList = productMaterialService.selectRatioById(String.valueOf(outStore.getProductId()));
@@ -121,5 +122,5 @@ public class OutStoreServiceImpl extends ServiceImpl<OutStoreMapper, OutStore>
 }
 
 
-
+    
 
