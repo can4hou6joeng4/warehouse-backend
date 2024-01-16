@@ -39,7 +39,7 @@ public class FileServiceImpl implements FileService {
     public String SECRET_KEY;
 
     static final OkHttpClient HTTP_CLIENT = new OkHttpClient().newBuilder().build();
-    
+
     @Override
     public void pdf2Image(String targetPdf, String targetImage) {
         /* dpi越大转换后越清晰，相对转换速度越慢 */
@@ -140,7 +140,7 @@ public class FileServiceImpl implements FileService {
             return res;
         } else {
             return "";
-        }    
+        }
     }
 
     @Override
@@ -150,18 +150,25 @@ public class FileServiceImpl implements FileService {
         if (targetImageFolder.exists() && targetImageFolder.isDirectory()) {
             File[] files = targetImageFolder.listFiles();
             if (files != null) {
-                for (File file : files) {
-                    String list = getContent(file.getAbsolutePath(),requestName);
+                if (Objects.equals(requestName, "general_basic")){
+                    String list = getContent(files[0].getAbsolutePath(),requestName);
                     if (!Objects.equals(list, "")){
                         res = list;
-                        break;
+                    }
+                }else{
+                    for (File file : files) {
+                        String list = getContent(file.getAbsolutePath(),requestName);
+                        if (!Objects.equals(list, "")){
+                            res = list;
+                            break;
+                        }
                     }
                 }
             }
             return res;
         } else {
             return "";
-        }        
+        }
     }
 
     private String getContent(String path, String requestName) throws IOException {
@@ -176,16 +183,16 @@ public class FileServiceImpl implements FileService {
             }
             JSONObject jsonObject = new JSONObject(response.toString());
             System.out.println(jsonObject);
-            
+
             connection.disconnect();
-            
+
             if (jsonObject.has("tables_result")){
                 return jsonObject.get("tables_result").toString();
             } else if (jsonObject.has("words_result")) {
                 return jsonObject.get("words_result").toString();
             } else{
                 return "";
-            }   
+            }
         }
     }
 
