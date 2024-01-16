@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 16/01/2024 08:33:53
+ Date: 12/12/2023 11:07:24
 */
 
 SET NAMES utf8mb4;
@@ -37,7 +37,7 @@ CREATE TABLE `auth_info`  (
   `update_by` int NULL DEFAULT NULL,
   `update_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`auth_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 118 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 115 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of auth_info
@@ -234,7 +234,7 @@ CREATE TABLE `buy_list`  (
   `is_in` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '0 未审核、 1 审核驳回、 2 审核通过、 3已完成',
   `reason` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '驳回原因',
   PRIMARY KEY (`buy_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 80 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '采购单' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 78 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '采购单' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of buy_list
@@ -251,8 +251,6 @@ INSERT INTO `buy_list` VALUES (75, 37, 5, 10, 38.13, 38.13, '2023-11-17 10:07:33
 INSERT INTO `buy_list` VALUES (76, 38, 5, 7, 43.05, 43.05, '2023-11-17 10:07:43', '测试', '123', 146, '3', NULL);
 INSERT INTO `buy_list` VALUES (77, 39, 5, 12, 4.92, 4.92, '2023-11-17 10:07:52', '测试', '123', 146, '3', NULL);
 INSERT INTO `buy_list` VALUES (78, 40, 5, 10, 4.80, 4.80, '2023-11-17 10:08:04', '测试', '123456', 146, '3', NULL);
-INSERT INTO `buy_list` VALUES (79, 36, 5, 8, 20.00, 20.00, '2023-12-12 15:01:15', '123', '123', 165, '3', NULL);
-INSERT INTO `buy_list` VALUES (80, 36, 5, 13, 123.00, 123.00, '2023-12-12 22:21:30', '123', '123', 166, '3', NULL);
 
 -- ----------------------------
 -- Table structure for checkin
@@ -278,7 +276,6 @@ CREATE TABLE `checkin`  (
 -- ----------------------------
 INSERT INTO `checkin` VALUES (10, 43, '测试地址', '测试地址', '测试地址', '测试地址', '测试地址', 2, 1, '2023-11-28', '2023-11-28 14:57:39');
 INSERT INTO `checkin` VALUES (12, 1, '广东省广州市天河区天府路1号', NULL, NULL, NULL, NULL, 2, 1, '2023-11-08', '2023-11-08 00:00:00');
-INSERT INTO `checkin` VALUES (13, 53, '广东省广州市天河区天府路1号', NULL, NULL, NULL, NULL, 2, 1, '2023-12-13', '2023-12-13 23:05:19');
 
 -- ----------------------------
 -- Table structure for contract
@@ -296,151 +293,46 @@ CREATE TABLE `contract`  (
   `customer_id` int NULL DEFAULT NULL COMMENT '客户id',
   `other_customer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '其他客户',
   `contract_state` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '0未审核、1 被驳回 、2 待结算、 3 结算中、 4已结算',
-  `if_purchase` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '0无需采购、1需要采购、 2仅采购、3工程',
+  `if_purchase` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '0无需采购、1需要采购、 2仅采购',
   `files` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '相关附件',
-  `project_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '工程名称',
-  `company` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '负责公司',
-  `signing_address` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '签订地址',
-  `signing_date` datetime NULL DEFAULT NULL COMMENT '签订日期',
-  `if_ratio` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否自定义比例 0否、1是',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`contract_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 179 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '合同表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 163 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '合同表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of contract
 -- ----------------------------
-INSERT INTO `contract` VALUES (164, '测试销售合同', '[]', 37, 123, '2023-12-01', '2023-12-21', '测试', 1, '', '4', '0', '1702361038312-db888.pdf', NULL, NULL, NULL, NULL, NULL, '2023-12-12 14:04:01', '2023-12-13 09:14:03');
-INSERT INTO `contract` VALUES (165, '测试采购合同', '[{\"id\": 36, \"num\": 20, \"name\": \"7-10\"}]', NULL, 0, '2023-12-05', '2023-12-27', '测试', 1, '', '4', '2', '1702364423450-33418.pdf', NULL, NULL, NULL, NULL, NULL, '2023-12-12 15:00:31', '2023-12-12 22:37:14');
-INSERT INTO `contract` VALUES (166, '测试销售并采购', '[]', 37, 123, '2023-12-06', '2023-12-27', '112', 1, '', '4', '1', '1702390804784-72f56.pdf', NULL, NULL, NULL, NULL, NULL, '2023-12-12 22:20:07', '2023-12-13 09:16:53');
-INSERT INTO `contract` VALUES (168, '沥青路面工程合同1', '[]', NULL, 123, NULL, NULL, '海丰县海城镇', NULL, '海丰县祥兴建筑工程有限公司', '0', '3', NULL, NULL, '广州市佑安土木工程有限公司', '汕尾市城区', '2022-12-30 00:00:00', NULL, '2023-12-29 11:31:52', '2023-12-29 11:31:52');
-INSERT INTO `contract` VALUES (170, '沥青路面工程合2', '[]', NULL, 123, NULL, NULL, '海丰县海城镇', NULL, '海丰县祥兴建筑工程有限公司', '0', '3', NULL, NULL, '广州市佑安土木工程有限公司', '汕尾市城区', '2022-12-30 00:00:00', NULL, '2023-12-29 14:49:48', '2023-12-29 14:49:48');
-INSERT INTO `contract` VALUES (171, '沥青路面工程合同2', '[]', NULL, 123, NULL, NULL, '海丰县海城镇', NULL, '海丰县祥兴建筑工程有限公司', '2', '3', NULL, NULL, '广州市佑安土木工程有限公司', '汕尾市城区', '2022-12-30 00:00:00', NULL, '2023-12-29 14:58:46', '2023-12-29 15:03:00');
-INSERT INTO `contract` VALUES (172, '沥青路面工程合同3', '[]', NULL, 123, NULL, NULL, '海丰县海城镇', NULL, '海丰县祥兴建筑工程有限公司', '3', '3', NULL, NULL, '广州市佑安土木工程有限公司', '汕尾市城区', '2022-12-30 00:00:00', NULL, '2023-12-29 14:59:48', '2024-01-02 17:22:24');
-INSERT INTO `contract` VALUES (173, '沥青路面工程合同5', '[]', NULL, 123, NULL, NULL, '海丰县海城镇', NULL, '海丰县祥兴建筑工程有限公司', '0', '3', NULL, NULL, '广州市佑安土木工程有限公司', '汕尾市城区', '2022-12-30 00:00:00', NULL, '2024-01-03 14:43:25', '2024-01-03 14:43:25');
-INSERT INTO `contract` VALUES (175, '123', '[]', NULL, 123, NULL, NULL, '123', NULL, '123', '0', '3', NULL, NULL, '123', '123', '2024-01-05 00:00:00', NULL, '2024-01-05 10:23:14', '2024-01-05 10:23:14');
-INSERT INTO `contract` VALUES (176, '1234', '[]', NULL, 123, NULL, NULL, '123', NULL, '123', '0', '3', NULL, NULL, '123', '123', '2024-01-05 00:00:00', NULL, '2024-01-05 10:26:16', '2024-01-05 10:26:16');
-INSERT INTO `contract` VALUES (177, '12345', '[]', NULL, 123, NULL, NULL, '123', NULL, '13', '0', '3', NULL, NULL, '123', '123', '2024-01-05 00:00:00', NULL, '2024-01-05 11:10:00', '2024-01-05 11:10:00');
-INSERT INTO `contract` VALUES (178, '123456', '[]', NULL, 123, NULL, NULL, '123', NULL, '13', '0', '3', NULL, NULL, '123', '123', '2024-01-05 00:00:00', NULL, '2024-01-05 11:51:28', '2024-01-05 11:51:28');
-INSERT INTO `contract` VALUES (179, '沥青路面工程合同', '[]', NULL, 0, NULL, NULL, '海丰县海城镇', NULL, '海丰县祥兴建筑工程有限公司', '3', '3', NULL, NULL, '广州市佑安土木工程有限公司', '汕尾市城区', '2022-12-30 00:00:00', NULL, '2024-01-15 16:17:37', '2024-01-15 16:52:46');
-
--- ----------------------------
--- Table structure for contract_eginner
--- ----------------------------
-DROP TABLE IF EXISTS `contract_eginner`;
-CREATE TABLE `contract_eginner`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `contract_id` int NULL DEFAULT NULL COMMENT '合同id',
-  `product_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '项目名称',
-  `specs` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '规格',
-  `unit` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '单位',
-  `quantity` double NULL DEFAULT NULL COMMENT '暂定数量',
-  `price` decimal(10, 2) NULL DEFAULT NULL COMMENT '单价',
-  `total` decimal(10, 2) NULL DEFAULT NULL COMMENT '总价',
-  `if_ratio` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否使用系统默认比例 0不使用、1使用',
-  `product_id` int NULL DEFAULT NULL COMMENT '如果是产品，则是对应的产品id',
-  `remarks` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of contract_eginner
--- ----------------------------
-INSERT INTO `contract_eginner` VALUES (1, 167, '厚4cm细粒式改性沥青\nAC-13', '', 'm2', NULL, 55.00, NULL, NULL, NULL, '采用SBS改性沥青,石料采\n用反击破碎石(高标石)');
-INSERT INTO `contract_eginner` VALUES (2, 167, '沥青粘层油', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '采用PC-3沥青');
-INSERT INTO `contract_eginner` VALUES (3, 167, '旧路面铣刨', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (4, 168, '厚4cm细粒式改性沥青\nAC-13', '', 'm2', NULL, 55.00, NULL, NULL, NULL, '采用SBS改性沥青,石料采\n用反击破碎石(高标石)');
-INSERT INTO `contract_eginner` VALUES (5, 168, '沥青粘层油', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '采用PC-3沥青');
-INSERT INTO `contract_eginner` VALUES (6, 168, '旧路面铣刨', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (10, 170, '厚4cm细粒式改性沥青\nAC-13', '', 'm2', NULL, 55.00, NULL, NULL, NULL, '采用SBS改性沥青,石料采\n用反击破碎石(高标石)');
-INSERT INTO `contract_eginner` VALUES (11, 170, '沥青粘层油', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '采用PC-3沥青');
-INSERT INTO `contract_eginner` VALUES (12, 170, '旧路面铣刨', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (13, 171, '厚4cm细粒式改性沥青\nAC-13', '', 'm2', NULL, 55.00, NULL, NULL, NULL, '采用SBS改性沥青,石料采\n用反击破碎石(高标石)');
-INSERT INTO `contract_eginner` VALUES (14, 171, '沥青粘层油', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '采用PC-3沥青');
-INSERT INTO `contract_eginner` VALUES (15, 171, '旧路面铣刨', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (16, 172, '厚4cm细粒式改性沥青\nAC-13', '', 'm2', NULL, 55.00, NULL, NULL, NULL, '采用SBS改性沥青,石料采\n用反击破碎石(高标石)');
-INSERT INTO `contract_eginner` VALUES (17, 172, '沥青粘层油', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '采用PC-3沥青');
-INSERT INTO `contract_eginner` VALUES (18, 172, '旧路面铣刨', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (19, NULL, '厚4cm细粒式改性沥青\nAC-13', '', 'm2', NULL, 55.00, NULL, NULL, NULL, '采用SBS改性沥青,石料采\n用反击破碎石(高标石)');
-INSERT INTO `contract_eginner` VALUES (20, NULL, '沥青粘层油', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '采用PC-3沥青');
-INSERT INTO `contract_eginner` VALUES (21, NULL, '旧路面铣刨', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (22, 173, '厚4cm细粒式改性沥青\nAC-13', '', 'm2', NULL, 55.00, NULL, NULL, NULL, '采用SBS改性沥青,石料采\n用反击破碎石(高标石)');
-INSERT INTO `contract_eginner` VALUES (23, 173, '沥青粘层油', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '采用PC-3沥青');
-INSERT INTO `contract_eginner` VALUES (24, 173, '旧路面铣刨', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (25, 174, '厚4cm细粒式改性沥青\nAC-13', '', 'm2', NULL, 55.00, NULL, NULL, NULL, '采用SBS改性沥青，石料采\n用反击破碎石（高标石）');
-INSERT INTO `contract_eginner` VALUES (26, 174, '沥青粘层油', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '采用PC-3沥青');
-INSERT INTO `contract_eginner` VALUES (27, 174, '旧路面铣刨', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (28, 174, '合计（元）', '', 'm2', NULL, 60.00, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (45, 175, '厚4cm细粒式改性沥青\nAC-13', '', 'm2', NULL, 55.00, NULL, NULL, NULL, '采用SBS改性沥青，石料采\n用反击破碎石（高标石）');
-INSERT INTO `contract_eginner` VALUES (46, 175, '沥青粘层油', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '采用PC-3沥青');
-INSERT INTO `contract_eginner` VALUES (47, 175, '旧路面铣刨', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (48, 175, '合计（元）', '', 'm2', NULL, 60.00, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (49, 176, '厚4cm细粒式改性沥青\nAC-13', '', 'm2', NULL, 55.00, NULL, NULL, 38, '采用SBS改性沥青，石料采\n用反击破碎石（高标石）');
-INSERT INTO `contract_eginner` VALUES (50, 176, '沥青粘层油', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '采用PC-3沥青');
-INSERT INTO `contract_eginner` VALUES (51, 176, '旧路面铣刨', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (52, 176, '合计（元）', '', 'm2', NULL, 60.00, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (53, NULL, '厚4cm细粒式改性沥青\nAC-13', '', 'm2', NULL, 55.00, NULL, NULL, 38, '采用SBS改性沥青，石料采\n用反击破碎石（高标石）');
-INSERT INTO `contract_eginner` VALUES (54, NULL, '沥青粘层油', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '采用PC-3沥青');
-INSERT INTO `contract_eginner` VALUES (55, NULL, '旧路面铣刨', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (56, NULL, '合计（元）', '', 'm2', NULL, 60.00, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (57, 177, '厚4cm细粒式改性沥青\nAC-13', '', 'm2', NULL, 55.00, NULL, NULL, 38, '采用SBS改性沥青，石料采\n用反击破碎石（高标石）');
-INSERT INTO `contract_eginner` VALUES (58, 177, '沥青粘层油', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '采用PC-3沥青');
-INSERT INTO `contract_eginner` VALUES (59, 177, '旧路面铣刨', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (60, 177, '合计（元）', '', 'm2', NULL, 60.00, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (61, 178, '厚4cm细粒式改性沥青\nAC-13', '', 'm2', NULL, 55.00, NULL, '1', 38, '采用SBS改性沥青，石料采\n用反击破碎石（高标石）');
-INSERT INTO `contract_eginner` VALUES (62, 178, '沥青粘层油', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '采用PC-3沥青');
-INSERT INTO `contract_eginner` VALUES (63, 178, '旧路面铣刨', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (64, 178, '合计（元）', '', 'm2', NULL, 60.00, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (65, 179, '厚4cm细粒式改性沥青\nAC-13', '', 'm2', 100, 55.00, NULL, '1', 38, '采用SBS改性沥青，石料采\n用反击破碎石（高标石）');
-INSERT INTO `contract_eginner` VALUES (66, 179, '沥青粘层油', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '采用PC-3沥青');
-INSERT INTO `contract_eginner` VALUES (67, 179, '旧路面铣刨', '', 'm2', NULL, 2.50, NULL, NULL, NULL, '');
-INSERT INTO `contract_eginner` VALUES (68, 179, '合计（元）', '', 'm2', NULL, 60.00, NULL, NULL, NULL, '');
-
--- ----------------------------
--- Table structure for contract_ratio
--- ----------------------------
-DROP TABLE IF EXISTS `contract_ratio`;
-CREATE TABLE `contract_ratio`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `contract_id` int NULL DEFAULT NULL COMMENT '合同id',
-  `product_id` int NULL DEFAULT NULL COMMENT '产品id',
-  `material_id` int NULL DEFAULT NULL COMMENT '原材料id',
-  `new_ratio` double NULL DEFAULT NULL COMMENT '材料占比',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of contract_ratio
--- ----------------------------
-INSERT INTO `contract_ratio` VALUES (1, NULL, 38, 43, 123);
-INSERT INTO `contract_ratio` VALUES (2, NULL, 38, 36, 0.23);
-INSERT INTO `contract_ratio` VALUES (3, NULL, 38, 37, 0.08);
-INSERT INTO `contract_ratio` VALUES (4, NULL, 38, 38, 0.33);
-INSERT INTO `contract_ratio` VALUES (5, NULL, 38, 38, 0.2);
-INSERT INTO `contract_ratio` VALUES (6, NULL, 38, 39, 0.02);
-INSERT INTO `contract_ratio` VALUES (7, NULL, 38, 40, 0.035);
-INSERT INTO `contract_ratio` VALUES (8, 177, 38, 43, 123);
-INSERT INTO `contract_ratio` VALUES (9, 177, 38, 36, 0.23);
-INSERT INTO `contract_ratio` VALUES (10, 177, 38, 37, 0.08);
-INSERT INTO `contract_ratio` VALUES (11, 177, 38, 38, 0.33);
-INSERT INTO `contract_ratio` VALUES (12, 177, 38, 38, 0.2);
-INSERT INTO `contract_ratio` VALUES (13, 177, 38, 39, 0.02);
-INSERT INTO `contract_ratio` VALUES (14, 177, 38, 40, 0.035);
-INSERT INTO `contract_ratio` VALUES (15, 178, 38, 43, 123);
-INSERT INTO `contract_ratio` VALUES (16, 178, 38, 36, 0.23);
-INSERT INTO `contract_ratio` VALUES (17, 178, 38, 37, 0.08);
-INSERT INTO `contract_ratio` VALUES (18, 178, 38, 38, 0.33);
-INSERT INTO `contract_ratio` VALUES (19, 178, 38, 38, 0.2);
-INSERT INTO `contract_ratio` VALUES (20, 178, 38, 39, 0.02);
-INSERT INTO `contract_ratio` VALUES (21, 178, 38, 40, 0.035);
-INSERT INTO `contract_ratio` VALUES (22, 179, 38, 43, 0.19);
-INSERT INTO `contract_ratio` VALUES (23, 179, 38, 36, 0.11);
-INSERT INTO `contract_ratio` VALUES (24, 179, 38, 37, 0.08);
-INSERT INTO `contract_ratio` VALUES (25, 179, 38, 38, 0.33);
-INSERT INTO `contract_ratio` VALUES (26, 179, 38, 38, 0.2);
-INSERT INTO `contract_ratio` VALUES (27, 179, 38, 39, 0.02);
-INSERT INTO `contract_ratio` VALUES (28, 179, 38, 40, 0.035);
+INSERT INTO `contract` VALUES (130, '测试采购AC-20', '[36, 37]', 36, 100, '2023-10-30', '2023-11-28', '阳光城愉景湾施工工区', NULL, '123', '4', '1', 'D:/project/warehouse/image/contractD:/project/warehouse/image/contractD:/project/warehouse/image/contracthttp://localhost:9999/warehouse/contract/download-image/OIP.jpg', '2023-11-08 15:48:25', '2023-11-21 11:35:45');
+INSERT INTO `contract` VALUES (131, '测试销售AC20合同', '[36, 37]', 36, 100, '2023-11-02', '2023-11-16', '阳光城愉景湾施工工区', NULL, '其他客户', '4', '0', 'D:/project/warehouse/image/contract\\OIP.jpg', '2023-11-09 09:45:35', '2023-11-09 09:54:30');
+INSERT INTO `contract` VALUES (132, '测试销售AC20合同2', '[36, 37]', 36, 10, '2023-11-01', '2023-11-16', '阳光城愉景湾施工工区', NULL, NULL, '4', '0', 'D:/project/warehouse/image/contract\\OIP.jpg', '2023-11-09 09:59:31', '2023-11-09 10:02:25');
+INSERT INTO `contract` VALUES (133, '添加采购AC-10', '[36, 37]', 37, 100, '2023-11-09', '2023-11-17', '阳光城愉景湾施工工区', NULL, NULL, '4', '1', 'D:/project/warehouse/image/contract\\OIP.jpg', '2023-11-09 11:36:55', '2023-11-09 11:39:54');
+INSERT INTO `contract` VALUES (134, '采购AC10', '[36, 37]', 37, 100, '2023-11-08', '2023-11-23', '深汕天威视讯施工工区', NULL, NULL, '4', '1', 'D:/project/warehouse/image/contract\\OIP.jpg', '2023-11-09 12:01:50', '2023-11-09 13:59:18');
+INSERT INTO `contract` VALUES (135, '测试销售', '[36, 37]', 36, 52, '2023-11-01', '2023-11-30', '红海湾东洲7号路施工工区', NULL, NULL, '4', '0', 'D:/project/warehouse/image/contract\\OIP.jpg', '2023-11-09 15:25:46', '2023-11-10 11:12:57');
+INSERT INTO `contract` VALUES (136, '需要采购AC-10合同', '[36, 37]', 37, 123, '2023-11-01', '2023-11-13', '红海湾东洲7号路施工工区', NULL, NULL, '4', '1', 'D:/project/warehouse/image/contract\\OIP.jpg', '2023-11-13 09:52:57', '2023-11-13 11:19:15');
+INSERT INTO `contract` VALUES (137, '测试销售AC-10-11', '[36, 37]', 37, 123, '2023-11-01', '2023-11-15', '红海湾田乾6号路施工工区', NULL, NULL, '4', '0', 'D:/project/warehouse/image/contract\\yazio.jpg', '2023-11-13 11:21:54', '2023-11-13 11:56:47');
+INSERT INTO `contract` VALUES (138, '测试销售AC-10-12', '[36, 37]', 37, 123, '2023-11-01', '2023-11-13', '深汕天威视讯施工工区', NULL, NULL, '3', '0', 'D:/project/warehouse/image/contract\\OIP.jpg', '2023-11-13 11:42:12', '2023-11-13 11:46:37');
+INSERT INTO `contract` VALUES (139, '测试采购AC-20-11', '[36, 37]', 36, 123, '2023-11-01', '2023-11-15', '红海湾东洲7号路施工工区', NULL, NULL, '3', '1', '1699973150679-9e294.jpg,1699973150679-7abb0.jpg', '2023-11-14 09:47:13', '2023-11-17 09:27:45');
+INSERT INTO `contract` VALUES (141, '131', '[36, 37]', 36, 123, '2023-11-01', '2023-11-30', '123', NULL, 'qi', '2', '0', '', '2023-11-15 10:52:06', '2023-11-17 09:39:12');
+INSERT INTO `contract` VALUES (142, '123', '[36, 37]', 36, 123, '2023-11-01', '2023-11-15', '123', NULL, NULL, '3', '0', '1700016871216-6d788.jpg,1700016871216-e01ca.jpg', '2023-11-15 10:54:36', '2023-11-15 15:39:14');
+INSERT INTO `contract` VALUES (144, '测试合同', '[36, 37]', 37, 123, '2023-11-01', '2023-11-24', '123', NULL, NULL, '4', '1', '1700033790667-dbf2b.jpg,1700033790667-c49ee.jpg', '2023-11-15 15:38:23', '2023-11-17 09:50:46');
+INSERT INTO `contract` VALUES (145, '测试采购AC-10合同', '[36, 37]', 37, 123, '2023-11-01', '2023-11-23', '测试', NULL, NULL, '3', '0', '1700183762830-3d4af.jpg,1700183762830-da0fa.jpg', '2023-11-17 09:22:43', '2023-11-17 09:26:51');
+INSERT INTO `contract` VALUES (146, '测试采购AC-102023年11月17日', '[36, 37]', 37, 123, '2023-11-01', '2023-11-23', '测试工区', NULL, NULL, '4', '1', '1700186171559-c46b5.jpg,1700186171560-bf555.jpg', '2023-11-17 10:02:57', '2023-11-17 10:17:00');
+INSERT INTO `contract` VALUES (147, '2023年11月19日', '[36, 37]', 37, 123, '2023-11-01', '2023-11-22', '123', NULL, NULL, '2', '1', '1700396866299-47212.jpg,1700396866299-39fe9.jpg', '2023-11-19 20:27:53', '2023-11-19 20:27:57');
+INSERT INTO `contract` VALUES (148, '123123123', '[36, 37]', 37, 123, '2023-11-23', '2023-12-12', '123123', NULL, NULL, '2', '0', '1700463711573-f7646.pdf,1700463876692-5879e.pdf', '2023-11-20 15:04:44', '2023-11-23 21:18:38');
+INSERT INTO `contract` VALUES (149, '2023年11月21日', '[]', 36, 123, '2023-11-01', '2023-11-30', '', 2, '', '0', '0', '1700537771426-cd45a.pdf', '2023-11-21 11:36:15', '2023-11-21 11:36:15');
+INSERT INTO `contract` VALUES (150, '1232023年11月21日', '[36, 37]', 36, 123, '2023-11-15', '2023-11-30', '123', NULL, '23213', '0', '1', '1700537973669-73e5d.pdf', '2023-11-21 11:39:38', '2023-11-21 11:39:38');
+INSERT INTO `contract` VALUES (151, 'q2023年11月21日', '[36, 37]', 37, 123, '2023-11-21', '2023-11-29', '123', 1, '', '0', '0', '', '2023-11-21 11:42:40', '2023-11-21 11:42:40');
+INSERT INTO `contract` VALUES (152, '2023年11月21日无需采购', '[36, 37]', 36, 123, '2023-11-02', '2023-11-23', '123', NULL, '123123', '0', '0', '', '2023-11-21 11:43:14', '2023-11-21 11:43:14');
+INSERT INTO `contract` VALUES (153, '1232023年11月22日测试', '[36, 37]', 36, 123, '2023-11-01', '2023-11-30', '123', 1, '', '0', '2', '', '2023-11-22 22:19:16', '2023-11-22 22:19:16');
+INSERT INTO `contract` VALUES (154, '1232023年11月23日123', '[36, 37]', 36, 123, '2023-11-02', '2023-11-30', '123', 1, '', '0', '0', '', '2023-11-23 11:44:28', '2023-11-23 11:44:28');
+INSERT INTO `contract` VALUES (155, '14点32分123', '[36, 37]', 36, 123, '2023-11-14', '2023-12-07', '123', 1, '', '0', '0', '', '2023-11-23 14:33:09', '2023-11-23 14:33:09');
+INSERT INTO `contract` VALUES (157, '16点32分采购', '[{\"id\": 36, \"num\": 123}, {\"id\": 37, \"num\": 10}]', NULL, 0, '2023-11-16', '2023-11-30', '123', 1, '', '2', '2', '1700728353581-61d83.pdf', '2023-11-23 16:32:34', '2023-11-23 16:33:01');
+INSERT INTO `contract` VALUES (158, '20点29分', '[{\"id\": 36, \"num\": 32.5, \"name\": \"7-10\"}, {\"id\": 38, \"num\": 100, \"name\": \"0-4\"}]', NULL, 0, '2023-11-01', '2023-11-30', '123', 1, '', '0', '2', '', '2023-11-23 20:31:28', '2023-11-23 20:31:28');
+INSERT INTO `contract` VALUES (160, '21点39分', '[]', 36, 123, '2023-11-24', '2023-11-30', '123', 1, '', '0', '1', '', '2023-11-23 21:39:11', '2023-11-23 21:39:11');
+INSERT INTO `contract` VALUES (161, '21点41分', '[]', 36, 123, '2023-11-09', '2023-11-30', '123', 2, '', '0', '1', '', '2023-11-23 21:41:52', '2023-11-23 21:41:52');
+INSERT INTO `contract` VALUES (162, '2023年11月26日21点59分', '[]', 36, 123, '2023-11-22', '2023-11-30', '123', 1, '', '2', '0', '', '2023-11-26 21:59:47', '2023-11-26 22:00:24');
+INSERT INTO `contract` VALUES (163, '2023年11月26日22点00分', '[]', 36, 123, '2023-11-18', '2023-11-30', '123', 2, '', '2', '0', '', '2023-11-26 22:00:55', '2023-11-26 22:01:27');
 
 -- ----------------------------
 -- Table structure for customer
@@ -458,7 +350,7 @@ CREATE TABLE `customer`  (
   `update_by` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新人',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`customer_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of customer
@@ -497,32 +389,42 @@ CREATE TABLE `flow`  (
   `reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '审核不通过原因',
   `create_time` datetime NULL DEFAULT NULL COMMENT '部署时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 123 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 103 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of flow
 -- ----------------------------
-INSERT INTO `flow` VALUES (104, '3f333657-98b4-11ee-b7a1-48a47209a1e7', 164, NULL, NULL, NULL, 0, NULL, '2023-12-12 14:04:01');
-INSERT INTO `flow` VALUES (105, '23fa16a8-98bc-11ee-8cb7-48a47209a1e7', 165, NULL, NULL, NULL, 2, NULL, '2023-12-12 15:00:32');
-INSERT INTO `flow` VALUES (106, '8cd51f48-98f9-11ee-9eb7-48a47209a1e7', 166, NULL, NULL, NULL, 1, NULL, '2023-12-12 22:20:07');
-INSERT INTO `flow` VALUES (107, '757d484b-a616-11ee-a611-48a47209a1e7', 170, NULL, NULL, NULL, 3, NULL, '2023-12-29 14:49:48');
-INSERT INTO `flow` VALUES (108, 'b6427066-a617-11ee-9dec-48a47209a1e7', 171, NULL, NULL, NULL, 3, NULL, '2023-12-29 14:58:46');
-INSERT INTO `flow` VALUES (109, 'db05c15f-a617-11ee-9dec-48a47209a1e7', 172, NULL, NULL, NULL, 0, NULL, '2023-12-29 14:59:48');
-INSERT INTO `flow` VALUES (110, 'a78b8841-aa02-11ee-8160-48a47209a1e7', NULL, NULL, NULL, NULL, 0, NULL, '2024-01-03 14:38:07');
-INSERT INTO `flow` VALUES (111, '6570a94a-aa03-11ee-8160-48a47209a1e7', 173, NULL, NULL, NULL, 0, NULL, '2024-01-03 14:43:25');
-INSERT INTO `flow` VALUES (112, '8040bda4-ab6f-11ee-953c-48a47209a1e7', 174, NULL, NULL, NULL, 0, NULL, '2024-01-05 10:09:47');
-INSERT INTO `flow` VALUES (113, '1eb96fb1-ab70-11ee-8115-48a47209a1e7', NULL, NULL, NULL, NULL, 0, NULL, '2024-01-05 10:14:13');
-INSERT INTO `flow` VALUES (114, '6c3a70b2-ab70-11ee-9e62-48a47209a1e7', NULL, NULL, NULL, NULL, 0, NULL, '2024-01-05 10:16:24');
-INSERT INTO `flow` VALUES (115, 'c2534d86-ab70-11ee-9b4d-48a47209a1e7', NULL, NULL, NULL, NULL, 0, NULL, '2024-01-05 10:18:49');
-INSERT INTO `flow` VALUES (116, '36873aad-ab71-11ee-8ad1-48a47209a1e7', NULL, NULL, NULL, NULL, 0, NULL, '2024-01-05 10:22:04');
-INSERT INTO `flow` VALUES (117, '61289e84-ab71-11ee-a0bb-48a47209a1e7', 175, NULL, NULL, NULL, 0, NULL, '2024-01-05 10:23:14');
-INSERT INTO `flow` VALUES (118, 'cd9c4a8b-ab71-11ee-a5cf-48a47209a1e7', 176, NULL, NULL, NULL, 0, NULL, '2024-01-05 10:26:16');
-INSERT INTO `flow` VALUES (119, '4c6ca3be-ab77-11ee-8ea7-48a47209a1e7', NULL, NULL, NULL, NULL, 0, NULL, '2024-01-05 11:05:36');
-INSERT INTO `flow` VALUES (120, 'e9ddd080-ab77-11ee-94d6-48a47209a1e7', 177, NULL, NULL, NULL, 0, NULL, '2024-01-05 11:10:00');
-INSERT INTO `flow` VALUES (121, 'aaedb248-ab7d-11ee-8da7-48a47209a1e7', NULL, NULL, NULL, NULL, 0, NULL, '2024-01-05 11:51:12');
-INSERT INTO `flow` VALUES (122, 'b4b1d971-ab7d-11ee-8da7-48a47209a1e7', 178, NULL, NULL, NULL, 0, NULL, '2024-01-05 11:51:28');
-INSERT INTO `flow` VALUES (123, '74217e63-b37d-11ee-80c5-48a47209a1e7', NULL, NULL, NULL, NULL, 0, NULL, '2024-01-15 16:09:49');
-INSERT INTO `flow` VALUES (124, '8b624b4c-b37e-11ee-80c5-48a47209a1e7', 179, NULL, NULL, NULL, 0, NULL, '2024-01-15 16:17:38');
+INSERT INTO `flow` VALUES (62, '32b8b594-7e0b-11ee-8f85-48a47209a1e7', 130, NULL, NULL, NULL, 1, NULL, '2023-11-08 15:48:25');
+INSERT INTO `flow` VALUES (65, 'aa66f613-7ea2-11ee-9b02-48a47209a1e7', 131, NULL, NULL, NULL, 0, NULL, '2023-11-09 09:52:40');
+INSERT INTO `flow` VALUES (66, '9fb0d893-7ea3-11ee-9b02-48a47209a1e7', 132, NULL, NULL, NULL, 0, NULL, '2023-11-09 09:59:31');
+INSERT INTO `flow` VALUES (68, '52167b14-7eb1-11ee-83ef-48a47209a1e7', 133, NULL, NULL, NULL, 1, NULL, '2023-11-09 11:37:34');
+INSERT INTO `flow` VALUES (70, 'b9ddfc0e-7eb4-11ee-83ef-48a47209a1e7', 134, NULL, NULL, NULL, 1, NULL, '2023-11-09 12:01:57');
+INSERT INTO `flow` VALUES (71, '32f70cc3-7ed1-11ee-9c08-48a47209a1e7', 135, NULL, NULL, NULL, 0, NULL, '2023-11-09 15:25:46');
+INSERT INTO `flow` VALUES (73, '4afb5c69-81cd-11ee-8386-48a47209a1e7', 136, NULL, NULL, NULL, 1, NULL, '2023-11-13 10:35:22');
+INSERT INTO `flow` VALUES (74, 'cb1d6dd7-81d3-11ee-90b5-48a47209a1e7', 137, NULL, NULL, NULL, 0, NULL, '2023-11-13 11:21:54');
+INSERT INTO `flow` VALUES (76, 'a12784cd-81d6-11ee-90b5-48a47209a1e7', 138, NULL, NULL, NULL, 0, NULL, '2023-11-13 11:42:12');
+INSERT INTO `flow` VALUES (77, 'bbae71a3-828f-11ee-ae8d-48a47209a1e7', 139, NULL, NULL, NULL, 1, NULL, '2023-11-14 09:47:13');
+INSERT INTO `flow` VALUES (78, 'f64e0a96-8361-11ee-a62e-48a47209a1e7', 141, NULL, NULL, NULL, 0, NULL, '2023-11-15 10:52:06');
+INSERT INTO `flow` VALUES (79, '4fc7eced-8362-11ee-a62e-48a47209a1e7', 142, NULL, NULL, NULL, 0, NULL, '2023-11-15 10:54:36');
+INSERT INTO `flow` VALUES (81, 'ced3c25f-84e7-11ee-bfdb-48a47209a1e7', 145, NULL, NULL, NULL, 0, NULL, '2023-11-17 09:22:44');
+INSERT INTO `flow` VALUES (83, '195700f7-84ea-11ee-bfdb-48a47209a1e7', 144, NULL, NULL, NULL, 1, NULL, '2023-11-17 09:39:07');
+INSERT INTO `flow` VALUES (85, 'ebd27d9b-84ed-11ee-bfdb-48a47209a1e7', 146, NULL, NULL, NULL, 1, NULL, '2023-11-17 10:06:29');
+INSERT INTO `flow` VALUES (86, '0fdbfda9-86d7-11ee-8d45-48a47209a1e7', 147, NULL, NULL, NULL, 1, NULL, '2023-11-19 20:27:53');
+INSERT INTO `flow` VALUES (87, '15703d9f-8773-11ee-8444-48a47209a1e7', 148, NULL, NULL, NULL, 0, NULL, '2023-11-20 15:04:44');
+INSERT INTO `flow` VALUES (88, '2019f5e9-881f-11ee-b7bb-48a47209a1e7', 149, NULL, NULL, NULL, 0, NULL, '2023-11-21 11:36:16');
+INSERT INTO `flow` VALUES (89, '98e54530-881f-11ee-b7bb-48a47209a1e7', 150, NULL, NULL, NULL, 1, NULL, '2023-11-21 11:39:38');
+INSERT INTO `flow` VALUES (90, '054bf93c-8820-11ee-b87a-48a47209a1e7', 151, NULL, NULL, NULL, 0, NULL, '2023-11-21 11:42:40');
+INSERT INTO `flow` VALUES (91, '19690d63-8820-11ee-b87a-48a47209a1e7', 152, NULL, NULL, NULL, 0, NULL, '2023-11-21 11:43:14');
+INSERT INTO `flow` VALUES (92, '1e577937-8942-11ee-81d2-48a47209a1e7', 153, NULL, NULL, NULL, 2, NULL, '2023-11-22 22:19:16');
+INSERT INTO `flow` VALUES (93, '9a969e4e-89b2-11ee-8425-48a47209a1e7', 154, NULL, NULL, NULL, 0, NULL, '2023-11-23 11:44:28');
+INSERT INTO `flow` VALUES (94, '2b50ab60-89ca-11ee-81ce-48a47209a1e7', 155, NULL, NULL, NULL, 0, NULL, '2023-11-23 14:33:10');
+INSERT INTO `flow` VALUES (95, 'da257de7-89da-11ee-8c84-48a47209a1e7', 157, NULL, NULL, NULL, 2, NULL, '2023-11-23 16:32:35');
+INSERT INTO `flow` VALUES (96, '3990f853-89fc-11ee-a1a4-48a47209a1e7', 158, NULL, NULL, NULL, 2, NULL, '2023-11-23 20:31:28');
+INSERT INTO `flow` VALUES (99, '7d9b3fae-8a05-11ee-b8fa-48a47209a1e7', NULL, NULL, NULL, NULL, 1, NULL, '2023-11-23 21:37:48');
+INSERT INTO `flow` VALUES (100, 'af753e17-8a05-11ee-b8fa-48a47209a1e7', 160, NULL, NULL, NULL, 1, NULL, '2023-11-23 21:39:11');
+INSERT INTO `flow` VALUES (101, '0f4522d0-8a06-11ee-b8fa-48a47209a1e7', 161, NULL, NULL, NULL, 1, NULL, '2023-11-23 21:41:52');
+INSERT INTO `flow` VALUES (102, '0f4481a2-8c64-11ee-a910-48a47209a1e7', 162, NULL, NULL, NULL, 0, '测试', '2023-11-26 21:59:47');
+INSERT INTO `flow` VALUES (103, '37e92b83-8c64-11ee-a910-48a47209a1e7', 163, NULL, NULL, NULL, 0, '123', '2023-11-26 22:00:55');
 
 -- ----------------------------
 -- Table structure for holidays
@@ -557,7 +459,7 @@ CREATE TABLE `in_store`  (
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `is_in` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '0 否 1 是',
   PRIMARY KEY (`ins_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 77 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '入库单' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 75 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '入库单' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of in_store
@@ -577,8 +479,6 @@ INSERT INTO `in_store` VALUES (72, 5, 37, 38.13, 38.13, 11.10, NULL, NULL, 146, 
 INSERT INTO `in_store` VALUES (73, 5, 38, 43.05, 43.05, 12.80, NULL, NULL, 146, 7, NULL, 1, '2023-11-17 10:12:50', '1');
 INSERT INTO `in_store` VALUES (74, 5, 39, 4.92, 4.92, 10.30, NULL, NULL, 146, 12, NULL, 1, '2023-11-17 10:12:51', '1');
 INSERT INTO `in_store` VALUES (75, 5, 40, 4.80, 4.80, 200.00, NULL, NULL, 146, 10, NULL, 1, '2023-11-17 10:12:53', '1');
-INSERT INTO `in_store` VALUES (76, 5, 36, 20.00, 20.00, 16.70, 10.00, '123', 165, 8, '123', 1, '2023-12-12 22:32:10', '1');
-INSERT INTO `in_store` VALUES (77, 5, 36, 123.00, 123.00, 18.90, 10.00, '123', 166, 13, '123', 1, '2023-12-13 09:15:01', '1');
 
 -- ----------------------------
 -- Table structure for inspection
@@ -626,19 +526,19 @@ CREATE TABLE `material`  (
   `create_by` int NULL DEFAULT NULL COMMENT '创建人',
   `update_by` int NULL DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`material_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of material
 -- ----------------------------
 INSERT INTO `material` VALUES (35, 5, '测试添加材料', 100.00, 8, '测试修改材料', '2023-10-23 10:19:26', '2023-10-23 10:37:32', 1, 1);
-INSERT INTO `material` VALUES (36, 5, '7-10', 123.91, 8, '', '2023-10-25 08:54:58', NULL, 1, NULL);
-INSERT INTO `material` VALUES (37, 5, '4-7', 82.16, 8, '', '2023-10-25 08:55:09', '2023-11-08 15:26:28', 1, 1);
-INSERT INTO `material` VALUES (38, 5, '0-4', 100.00, 8, '', '2023-10-25 08:56:50', '2023-11-08 15:26:23', 1, 1);
-INSERT INTO `material` VALUES (39, 5, '矿粉', 84.90, 8, '', '2023-10-25 08:57:12', NULL, 1, NULL);
-INSERT INTO `material` VALUES (40, 5, '沥青', 81.82, 8, '', '2023-10-25 08:57:23', NULL, 1, NULL);
+INSERT INTO `material` VALUES (36, 5, '7-10', 63.10, 8, '', '2023-10-25 08:54:58', NULL, 1, NULL);
+INSERT INTO `material` VALUES (37, 5, '4-7', 61.87, 8, '', '2023-10-25 08:55:09', '2023-11-08 15:26:28', 1, 1);
+INSERT INTO `material` VALUES (38, 5, '0-4', 56.95, 8, '', '2023-10-25 08:56:50', '2023-11-08 15:26:23', 1, 1);
+INSERT INTO `material` VALUES (39, 5, '矿粉', 95.08, 8, '', '2023-10-25 08:57:12', NULL, 1, NULL);
+INSERT INTO `material` VALUES (40, 5, '沥青', 95.20, 8, '', '2023-10-25 08:57:23', NULL, 1, NULL);
 INSERT INTO `material` VALUES (42, 5, '16-22', 100.00, 8, '', '2023-11-08 09:34:22', NULL, 1, NULL);
-INSERT INTO `material` VALUES (43, 5, '10-16', 53.94, 8, '', '2023-11-08 09:34:33', NULL, 1, NULL);
+INSERT INTO `material` VALUES (43, 5, '10-16', 100.00, 8, '', '2023-11-08 09:34:33', NULL, 1, NULL);
 INSERT INTO `material` VALUES (48, 5, '123124', 0.00, 8, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `material` VALUES (49, 5, '测试123', 0.00, 8, NULL, NULL, NULL, NULL, NULL);
 
@@ -727,7 +627,7 @@ CREATE TABLE `out_store`  (
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `is_out` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '0 否 1 是',
   PRIMARY KEY (`outs_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 59 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '出库单' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '出库单' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of out_store
@@ -752,12 +652,6 @@ INSERT INTO `out_store` VALUES (49, 36, 5, 123.00, 20.11, '红海湾东洲7号�
 INSERT INTO `out_store` VALUES (50, 37, 5, 123.00, 10.00, '测试', '测试', 145, '123123', NULL, 1, '2023-11-17 09:24:18', '1');
 INSERT INTO `out_store` VALUES (51, 37, 5, 123.00, 10.00, '测试工区', '测试', 146, '123', NULL, 1, '2023-11-17 10:15:56', '1');
 INSERT INTO `out_store` VALUES (52, 36, 5, 12.00, 12.00, '123', 'qi', 141, '121313', NULL, 1, '2023-11-21 12:00:51', '0');
-INSERT INTO `out_store` VALUES (53, 37, NULL, 20.00, 10.00, '测试', '红海湾水厂', 164, '123', NULL, 52, '2023-12-13 09:13:20', '0');
-INSERT INTO `out_store` VALUES (54, 37, 5, 20.00, 12.00, '测试', '红海湾水厂', 164, '123', NULL, 52, '2023-12-13 09:13:38', '1');
-INSERT INTO `out_store` VALUES (55, 37, NULL, 112.00, 10.00, '112', '红海湾水厂', 166, '123', NULL, 52, '2023-12-13 09:16:18', '0');
-INSERT INTO `out_store` VALUES (56, 37, 5, 123.00, 10.00, '112', '红海湾水厂', 166, '123', NULL, 52, '2023-12-13 09:16:32', '1');
-INSERT INTO `out_store` VALUES (59, 38, 5, 123.00, 10.00, '海丰县海城镇', NULL, 173, '123', NULL, 1, '2024-01-04 09:51:15', '1');
-INSERT INTO `out_store` VALUES (60, 38, 5, 100.00, 10.00, '海丰县海城镇', NULL, 179, '123', NULL, 1, '2024-01-15 16:49:42', '1');
 
 -- ----------------------------
 -- Table structure for product
@@ -775,7 +669,7 @@ CREATE TABLE `product`  (
   `create_by` int NULL DEFAULT NULL COMMENT '创建者',
   `update_by` int NULL DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`product_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product
@@ -800,7 +694,7 @@ CREATE TABLE `product_material`  (
   `create_by` int NULL DEFAULT NULL COMMENT '创建人',
   `update_by` int NULL DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product_material
@@ -818,13 +712,6 @@ INSERT INTO `product_material` VALUES (12, 36, 42, 0.19, '2023-11-08 09:38:17', 
 INSERT INTO `product_material` VALUES (13, 36, 43, 0.22, '2023-11-08 09:38:56', NULL, 1, NULL);
 INSERT INTO `product_material` VALUES (14, 37, 40, 0.039, '2023-11-09 14:39:29', NULL, 1, NULL);
 INSERT INTO `product_material` VALUES (15, 36, 40, 0.055, '2023-11-09 14:39:41', NULL, 1, NULL);
-INSERT INTO `product_material` VALUES (16, 38, 43, 0.22, '2023-12-28 20:48:44', NULL, 1, NULL);
-INSERT INTO `product_material` VALUES (17, 38, 36, 0.23, '2023-12-28 20:48:56', NULL, 1, NULL);
-INSERT INTO `product_material` VALUES (18, 38, 37, 0.08, '2023-12-28 20:49:05', '2023-12-28 20:51:35', 1, 1);
-INSERT INTO `product_material` VALUES (19, 38, 38, 0.33, '2023-12-28 20:49:26', NULL, 1, NULL);
-INSERT INTO `product_material` VALUES (20, 38, 38, 0.2, '2023-12-28 20:51:49', NULL, 1, NULL);
-INSERT INTO `product_material` VALUES (21, 38, 39, 0.02, '2023-12-28 20:52:05', NULL, 1, NULL);
-INSERT INTO `product_material` VALUES (22, 38, 40, 0.035, '2023-12-28 20:52:18', NULL, 1, NULL);
 
 -- ----------------------------
 -- Table structure for product_type
@@ -858,7 +745,7 @@ CREATE TABLE `role`  (
   `update_by` int NULL DEFAULT NULL,
   `update_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role
@@ -874,7 +761,6 @@ INSERT INTO `role` VALUES (17, '生产员', '生产员', 'produce_man', '1', 1, 
 INSERT INTO `role` VALUES (18, '站长', '站长', 'station_master', '1', 1, '2023-11-01 11:21:40', 1, '2023-11-01 11:21:44');
 INSERT INTO `role` VALUES (19, '供应商', '供应商', 'supply', '1', 1, '2023-11-19 20:33:49', 1, '2023-11-19 20:33:52');
 INSERT INTO `role` VALUES (20, '检验员', '检验员', 'inspect_man', '1', 1, '2023-11-19 20:38:20', 1, '2023-11-19 20:38:27');
-INSERT INTO `role` VALUES (21, '普通用户', 'putong', 'putong', '1', 1, '2023-12-13 23:01:54', 1, '2023-12-13 23:02:11');
 
 -- ----------------------------
 -- Table structure for role_auth
@@ -885,11 +771,21 @@ CREATE TABLE `role_auth`  (
   `role_id` int NULL DEFAULT NULL,
   `auth_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`role_auth_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1634 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1459 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role_auth
 -- ----------------------------
+INSERT INTO `role_auth` VALUES (1140, 14, 42);
+INSERT INTO `role_auth` VALUES (1141, 14, 50);
+INSERT INTO `role_auth` VALUES (1142, 14, 93);
+INSERT INTO `role_auth` VALUES (1143, 14, 94);
+INSERT INTO `role_auth` VALUES (1144, 14, 97);
+INSERT INTO `role_auth` VALUES (1145, 14, 76);
+INSERT INTO `role_auth` VALUES (1146, 14, 55);
+INSERT INTO `role_auth` VALUES (1147, 14, 58);
+INSERT INTO `role_auth` VALUES (1148, 14, 102);
+INSERT INTO `role_auth` VALUES (1149, 14, 104);
 INSERT INTO `role_auth` VALUES (1150, 11, 42);
 INSERT INTO `role_auth` VALUES (1151, 11, 50);
 INSERT INTO `role_auth` VALUES (1152, 11, 93);
@@ -900,6 +796,13 @@ INSERT INTO `role_auth` VALUES (1156, 11, 53);
 INSERT INTO `role_auth` VALUES (1157, 11, 56);
 INSERT INTO `role_auth` VALUES (1158, 11, 102);
 INSERT INTO `role_auth` VALUES (1159, 11, 104);
+INSERT INTO `role_auth` VALUES (1165, 12, 53);
+INSERT INTO `role_auth` VALUES (1166, 12, 56);
+INSERT INTO `role_auth` VALUES (1167, 12, 54);
+INSERT INTO `role_auth` VALUES (1168, 12, 57);
+INSERT INTO `role_auth` VALUES (1169, 12, 95);
+INSERT INTO `role_auth` VALUES (1170, 12, 102);
+INSERT INTO `role_auth` VALUES (1171, 12, 104);
 INSERT INTO `role_auth` VALUES (1200, 18, 1);
 INSERT INTO `role_auth` VALUES (1201, 18, 2);
 INSERT INTO `role_auth` VALUES (1202, 18, 3);
@@ -975,19 +878,6 @@ INSERT INTO `role_auth` VALUES (1612, 1, 109);
 INSERT INTO `role_auth` VALUES (1613, 1, 110);
 INSERT INTO `role_auth` VALUES (1614, 1, 111);
 INSERT INTO `role_auth` VALUES (1615, 1, 112);
-INSERT INTO `role_auth` VALUES (1622, 14, 55);
-INSERT INTO `role_auth` VALUES (1623, 14, 58);
-INSERT INTO `role_auth` VALUES (1624, 14, 102);
-INSERT INTO `role_auth` VALUES (1625, 14, 104);
-INSERT INTO `role_auth` VALUES (1626, 14, 111);
-INSERT INTO `role_auth` VALUES (1627, 14, 112);
-INSERT INTO `role_auth` VALUES (1628, 12, 54);
-INSERT INTO `role_auth` VALUES (1629, 12, 57);
-INSERT INTO `role_auth` VALUES (1630, 12, 95);
-INSERT INTO `role_auth` VALUES (1631, 12, 102);
-INSERT INTO `role_auth` VALUES (1632, 12, 104);
-INSERT INTO `role_auth` VALUES (1633, 12, 111);
-INSERT INTO `role_auth` VALUES (1634, 12, 112);
 
 -- ----------------------------
 -- Table structure for salary
@@ -1008,7 +898,7 @@ CREATE TABLE `salary`  (
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `create_time` date NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of salary
@@ -1127,7 +1017,7 @@ CREATE TABLE `unit`  (
   `unit_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `unit_desc` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`unit_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '规格单位表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '规格单位表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of unit
@@ -1157,7 +1047,7 @@ CREATE TABLE `user_info`  (
   `update_by` int NULL DEFAULT NULL,
   `update_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_info
@@ -1169,19 +1059,19 @@ INSERT INTO `user_info` VALUES (39, 'inadmin', 'inadmin', 'c431d451c81e75ffac75a
 INSERT INTO `user_info` VALUES (40, 'staadmin', 'staadmin', 'c431d451c81e75ffac75a640590ed0a1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', '0', 1, '2023-11-01 11:23:03', 1, '2023-11-01 11:23:05');
 INSERT INTO `user_info` VALUES (41, 'insadmin', 'insadmin', 'c431d451c81e75ffac75a640590ed0a1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', '0', 1, '2023-11-20 09:43:10', 1, '2023-11-20 09:43:16');
 INSERT INTO `user_info` VALUES (42, 'supadmin', 'supadmin', 'c431d451c81e75ffac75a640590ed0a1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', '0', 1, '2023-11-20 09:44:40', 1, '2023-11-20 09:44:44');
-INSERT INTO `user_info` VALUES (43, 'zengfanming', 'zengfanming', 'c431d451c81e75ffac75a640590ed0a1', '中国邮政', '6217995800048539989', 12000.00, '机长', '曾凡明', 1, '3', '1', '0', 1, '2019-12-13 23:04:43', NULL, NULL);
-INSERT INTO `user_info` VALUES (44, 'xieweisong', 'xieweisong', 'c431d451c81e75ffac75a640590ed0a1', '中国银行汕尾支行', '6217567000118049534', 4000.00, '统计', '谢伟松', 1, '3', '1', '0', 1, '2019-12-13 23:04:43', NULL, NULL);
-INSERT INTO `user_info` VALUES (45, 'yinguisheng', 'yinguisheng', 'c431d451c81e75ffac75a640590ed0a1', '浦发银行', '6217931034106932', 6500.00, '维修', '尹癸生', 1, '3', '1', '0', 1, '2019-12-13 23:04:43', NULL, NULL);
-INSERT INTO `user_info` VALUES (46, 'wusongjian', 'wusongjian', 'c431d451c81e75ffac75a640590ed0a1', '建设银行', '6217003120027191169', 6000.00, '电工', '邬松建', 1, '3', '1', '0', 1, '2019-12-13 23:04:43', NULL, NULL);
-INSERT INTO `user_info` VALUES (47, 'fengcheng', 'fengcheng', 'c431d451c81e75ffac75a640590ed0a1', '中国农业银行', '6228481455078408411', 7500.00, '锅炉工', '冯成', 1, '3', '1', '0', 1, '2019-12-13 23:04:43', NULL, NULL);
-INSERT INTO `user_info` VALUES (48, 'liul', 'liuli', 'c431d451c81e75ffac75a640590ed0a1', '中国工商银行', '6217212315011794112', 5000.00, '普工', '刘立', 1, '3', '1', '0', 1, '2019-12-13 23:04:43', NULL, NULL);
-INSERT INTO `user_info` VALUES (49, 'huangyitian', 'huangyitian', 'c431d451c81e75ffac75a640590ed0a1', '中国工商银行', '6222032008009858720', 3000.00, '皮卡车租机', '黄贻填', 1, '3', '1', '0', 1, '2019-12-13 23:04:43', NULL, NULL);
-INSERT INTO `user_info` VALUES (50, 'zhengweiping', 'zhengweiping', 'c431d451c81e75ffac75a640590ed0a1', '广州农村商业银行', '622439880018435385', 5000.00, '普工', '郑伟平', 1, '3', '1', '0', 1, '2019-12-13 23:04:43', NULL, NULL);
-INSERT INTO `user_info` VALUES (51, 'liweifeng', 'liweifeng', 'c431d451c81e75ffac75a640590ed0a1', '中国工商银行', '6212252410001271510', 3000.00, '会计助理', '李维凤', 1, '3', '1', '0', 1, '2019-12-13 23:04:43', NULL, NULL);
-INSERT INTO `user_info` VALUES (52, 'fudie', 'fudie', 'c431d451c81e75ffac75a640590ed0a1', '中国建设银行', '76217007100054235614', 3000.00, '会计助理', '付蝶', 1, '3', '1', '0', 1, '2019-12-13 23:04:43', NULL, NULL);
-INSERT INTO `user_info` VALUES (53, 'liuyuxing', 'liuyuxing', 'c431d451c81e75ffac75a640590ed0a1', '中国工商银行', '6222022009004041751', 5000.00, '出纳', '刘宇星', 1, '3', '1', '0', 1, '2019-12-13 23:04:43', NULL, NULL);
-INSERT INTO `user_info` VALUES (54, 'liuzhanfei', 'liuzhanfei', 'c431d451c81e75ffac75a640590ed0a1', NULL, NULL, 0.00, NULL, '刘展飞', NULL, NULL, NULL, NULL, NULL, '2019-12-13 23:04:43', NULL, NULL);
-INSERT INTO `user_info` VALUES (55, 'lihei', 'lihei', 'c431d451c81e75ffac75a640590ed0a1', NULL, NULL, 0.00, NULL, '李黑', NULL, NULL, NULL, NULL, NULL, '2019-12-13 23:04:43', NULL, NULL);
+INSERT INTO `user_info` VALUES (43, 'zengfanming', 'zengfanming', 'c431d451c81e75ffac75a640590ed0a1', '中国邮政', '6217995800048539989', 12000.00, '机长', '曾凡明', 1, '3', '1', '0', 1, '2023-12-12 10:08:28', NULL, NULL);
+INSERT INTO `user_info` VALUES (44, 'xieweisong', 'xieweisong', 'c431d451c81e75ffac75a640590ed0a1', '中国银行汕尾支行', '6217567000118049534', 4000.00, '统计', '谢伟松', 1, '3', '1', '0', 1, '2023-12-12 10:10:06', NULL, NULL);
+INSERT INTO `user_info` VALUES (45, 'yinguisheng', 'yinguisheng', 'c431d451c81e75ffac75a640590ed0a1', '浦发银行', '6217931034106932', 6500.00, '维修', '尹癸生', 1, '3', '1', '0', 1, '2023-12-12 10:12:17', NULL, NULL);
+INSERT INTO `user_info` VALUES (46, 'wusongjian', 'wusongjian', 'c431d451c81e75ffac75a640590ed0a1', '建设银行', '6217003120027191169', 6000.00, '电工', '邬松建', 1, '3', '1', '0', 1, '2023-12-12 10:13:47', NULL, NULL);
+INSERT INTO `user_info` VALUES (47, 'fengcheng', 'fengcheng', 'c431d451c81e75ffac75a640590ed0a1', '中国农业银行', '6228481455078408411', 7500.00, '锅炉工', '冯成', 1, '3', '1', '0', 1, '2023-12-12 10:15:18', NULL, NULL);
+INSERT INTO `user_info` VALUES (48, 'liul', 'liuli', 'c431d451c81e75ffac75a640590ed0a1', '中国工商银行', '6217212315011794112', 5000.00, '普工', '刘立', 1, '3', '1', '0', 1, NULL, NULL, NULL);
+INSERT INTO `user_info` VALUES (49, 'huangyitian', 'huangyitian', 'c431d451c81e75ffac75a640590ed0a1', '中国工商银行', '6222032008009858720', 3000.00, '皮卡车租机', '黄贻填', 1, '3', '1', '0', 1, NULL, NULL, NULL);
+INSERT INTO `user_info` VALUES (50, 'zhengweiping', 'zhengweiping', 'c431d451c81e75ffac75a640590ed0a1', '广州农村商业银行', '622439880018435385', 5000.00, '普工', '郑伟平', 1, '3', '1', '0', 1, NULL, NULL, NULL);
+INSERT INTO `user_info` VALUES (51, 'liweifeng', 'liweifeng', 'c431d451c81e75ffac75a640590ed0a1', '中国工商银行', '6212252410001271510', 3000.00, '会计助理', '李维凤', 1, '3', '1', '0', 1, NULL, NULL, NULL);
+INSERT INTO `user_info` VALUES (52, 'fudie', 'fudie', 'c431d451c81e75ffac75a640590ed0a1', '中国建设银行', '76217007100054235614', 3000.00, '会计助理', '付蝶', 1, '3', '1', '0', 1, NULL, NULL, NULL);
+INSERT INTO `user_info` VALUES (53, 'liuyuxing', 'liuyuxing', 'c431d451c81e75ffac75a640590ed0a1', '中国工商银行', '6222022009004041751', 5000.00, '出纳', '刘宇星', 1, '3', '1', '0', 1, NULL, NULL, NULL);
+INSERT INTO `user_info` VALUES (54, 'liuzhanfei', 'liuzhanfei', 'c431d451c81e75ffac75a640590ed0a1', NULL, NULL, 0.00, NULL, '刘展飞', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user_info` VALUES (55, 'lihei', 'lihei', 'c431d451c81e75ffac75a640590ed0a1', NULL, NULL, 0.00, NULL, '李黑', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for user_role
@@ -1192,7 +1082,7 @@ CREATE TABLE `user_role`  (
   `role_id` int NULL DEFAULT NULL,
   `user_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`user_role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 79 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户角色表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 66 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_role
@@ -1204,9 +1094,6 @@ INSERT INTO `user_role` VALUES (63, 12, 39);
 INSERT INTO `user_role` VALUES (64, 18, 40);
 INSERT INTO `user_role` VALUES (65, 20, 41);
 INSERT INTO `user_role` VALUES (66, 19, 42);
-INSERT INTO `user_role` VALUES (76, 14, 52);
-INSERT INTO `user_role` VALUES (77, 12, 52);
-INSERT INTO `user_role` VALUES (78, 21, 53);
 
 -- ----------------------------
 -- Table structure for work_region
@@ -1216,7 +1103,7 @@ CREATE TABLE `work_region`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `region_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '工区名称',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of work_region
