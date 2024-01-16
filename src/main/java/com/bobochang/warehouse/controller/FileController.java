@@ -3,35 +3,17 @@ package com.bobochang.warehouse.controller;
 import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.service.FileService;
-import com.bobochang.warehouse.service.OcrService;
-import com.lowagie.text.pdf.PdfReader;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.sourceforge.tess4j.TesseractException;
-import okhttp3.RequestBody;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.rendering.PDFRenderer;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.time.Instant;
 import java.util.*;
-
-import okhttp3.*;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.net.URLEncoder;
-
 
 
 /**
@@ -50,10 +32,6 @@ public class FileController {
     
     @Autowired
     private FileService fileService;
-
-    @Autowired
-    private OcrService ocrService;
-
 
     @CrossOrigin
     @PostMapping("/upload-contract-annex")
