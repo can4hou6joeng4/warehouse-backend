@@ -57,6 +57,8 @@ public class SecurityFilter implements Filter {
         urlList.add("/inspect/img-upload");
         urlList.add("/contract/img-upload");
         urlList.add("/file/upload-contract-annex");
+        urlList.add("/file/upload-contract-pdf");
+        urlList.add("/file/upload-contract-doc");
         urlList.add("/summary/download");
         urlList.add("/file/recognize");
         //对static下的/img/upload中的静态资源图片的访问直接放行

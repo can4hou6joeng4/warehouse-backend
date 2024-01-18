@@ -140,9 +140,10 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract>
 
     @Override
     public void saveContractEginner(EginnerContractDto contractDto) {
+        System.out.println(contractDto.getSigningDate());
         contractDto.setIfPurchase("3");
         contractDto.setCustomerId(-1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日");
         LocalDate localDate = LocalDate.parse(contractDto.getSigningDate(), formatter);
 
         String formattedDate = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));

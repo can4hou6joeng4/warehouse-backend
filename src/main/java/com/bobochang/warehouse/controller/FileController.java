@@ -54,14 +54,12 @@ public class FileController {
     @Autowired
     private OcrService ocrService;
 
-
     @CrossOrigin
-    @PostMapping("/upload-contract-annex")
-    @BusLog(descrip = "上传合同文件")
-    public Result uploadImg(MultipartFile file) {
-        try {
+    @PostMapping("/upload-contract-pdf")
+    public Result uploadPdf(MultipartFile file){
+        try{
             //拿到图片保存到的磁盘路径
-            long timestamp = Instant.now().toEpochMilli(); // 拿到当前时间戳作为图片保存的名称
+//            long timestamp = Instant.now().toEpochMilli(); // 拿到当前时间戳作为图片保存的名称
             String flag = UUID.randomUUID().toString().substring(0,5); // 唯一标识符，防止毫秒间调用产生的相同时间戳
             String fileName = file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.'));
             // pdf文件保存
@@ -75,34 +73,91 @@ public class FileController {
             // 保存合同附件（如果文件不存在或者已删除，则进行保存）
             file.transferTo(targetFile);
 
-            // 创建图片合同切成图片后存放的文件夹以及保存路径
-            String targetImage = uploadPath + "/"+ fileName  + "-" + flag + "/";
-            File targetImageFolder = new File(uploadPath + "/"+ fileName + "-" + flag);
-            if (!targetImageFolder.exists()) {
-                targetImageFolder.mkdirs();
-            }
-            
-            // 合同pdf附件转为图片文件
-            fileService.pdf2Image(targetPdf,targetImage);
-
-            Map<String,Object> map = new HashMap<>();
-            
-            // 根据文件图片识别出表格数据
-            String tableList = fileService.getFileContent(targetImageFolder,"table");
-            map.put("tableList",tableList);
-            System.out.println(tableList);
-            
-            // 根据文件图片识别出合同数据
-            String baseList = fileService.getFileContent(targetImageFolder,"general_basic");
-            map.put("textList", baseList);
-            System.out.println(baseList);
-            
-            //成功响应
-            map.put("path",timestamp + "-" + flag + ".pdf");
+            Map<String, Object> map = fileService.getContractContentByPdf(targetPdf);
             return Result.ok(map);
-        } catch (IOException e) {
-            //失败响应
-            return Result.err(Result.CODE_ERR_BUSINESS, "图片上传失败！");
+        }catch (Exception e){
+            throw new RuntimeException(e);
         }
     }
+
+    @CrossOrigin
+    @PostMapping("/upload-contract-doc")
+    public Result uploadDoc(MultipartFile file){
+        try{
+            //拿到图片保存到的磁盘路径
+//            long timestamp = Instant.now().toEpochMilli(); // 拿到当前时间戳作为图片保存的名称
+            String flag = UUID.randomUUID().toString().substring(0,5); // 唯一标识符，防止毫秒间调用产生的相同时间戳
+            String fileName = file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.'));
+            // pdf文件保存
+            String targetDoc = uploadPath + "/" + fileName + "-" + flag + ".doc";
+            File targetFile = new File(targetDoc);
+
+            // 如果文件已存在，先删除旧文件
+            if (targetFile.exists()) {
+                targetFile.delete();
+            }
+            // 保存合同附件（如果文件不存在或者已删除，则进行保存）
+            file.transferTo(targetFile);
+            Map<String, Object> map = fileService.getContractContentByDoc(targetDoc);
+            return Result.ok(map);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+//    /**
+//     * 这里是用ocr
+//     * @param file
+//     * @return
+//     */
+//    @CrossOrigin
+//    @PostMapping("/upload-contract-annex")
+//    @BusLog(descrip = "上传合同文件")
+//    public Result uploadImg(MultipartFile file) {
+//        try {
+//            //拿到图片保存到的磁盘路径
+//            long timestamp = Instant.now().toEpochMilli(); // 拿到当前时间戳作为图片保存的名称
+//            String flag = UUID.randomUUID().toString().substring(0,5); // 唯一标识符，防止毫秒间调用产生的相同时间戳
+//            String fileName = file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.'));
+//            // pdf文件保存
+//            String targetPdf = uploadPath + "/" + fileName + "-" + flag + ".pdf";
+//            File targetFile = new File(targetPdf);
+//
+//            // 如果文件已存在，先删除旧文件
+//            if (targetFile.exists()) {
+//                targetFile.delete();
+//            }
+//            // 保存合同附件（如果文件不存在或者已删除，则进行保存）
+//            file.transferTo(targetFile);
+//
+//            // 创建图片合同切成图片后存放的文件夹以及保存路径
+//            String targetImage = uploadPath + "/"+ fileName  + "-" + flag + "/";
+//            File targetImageFolder = new File(uploadPath + "/"+ fileName + "-" + flag);
+//            if (!targetImageFolder.exists()) {
+//                targetImageFolder.mkdirs();
+//            }
+//            
+//            // 合同pdf附件转为图片文件
+//            fileService.pdf2Image(targetPdf,targetImage);
+//
+//            Map<String,Object> map = new HashMap<>();
+//            
+//            // 根据文件图片识别出表格数据
+//            String tableList = fileService.getFileContent(targetImageFolder,"table");
+//            map.put("tableList",tableList);
+//            System.out.println(tableList);
+//            
+//            // 根据文件图片识别出合同数据
+//            String baseList = fileService.getFileContent(targetImageFolder,"general_basic");
+//            map.put("textList", baseList);
+//            System.out.println(baseList);
+//            
+//            //成功响应
+//            map.put("path",timestamp + "-" + flag + ".pdf");
+//            return Result.ok(map);
+//        } catch (IOException e) {
+//            //失败响应
+//            return Result.err(Result.CODE_ERR_BUSINESS, "图片上传失败！");
+//        }
+//    }
 }

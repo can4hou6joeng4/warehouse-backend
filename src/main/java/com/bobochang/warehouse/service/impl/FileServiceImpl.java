@@ -7,12 +7,23 @@ import lombok.NoArgsConstructor;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 import okhttp3.*;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.ParseException;
+import org.apache.pdfbox.io.RandomAccessFile;
+import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.extractor.WordExtractor;
+import org.apache.poi.hwpf.usermodel.*;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import technology.tabula.CommandLineApp;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -22,8 +33,9 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Base64;
-import java.util.Objects;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author LI
@@ -169,6 +181,161 @@ public class FileServiceImpl implements FileService {
         } else {
             return "";
         }
+    }
+
+    @Override
+    public Map<String, Object> getContractContentByPdf(String targetPdf) throws ParseException {
+        String result = readPDF(targetPdf);
+        List<String> textLsit = getTextListByPdf(result);
+        String tableList = getTableListByPdf(targetPdf);
+        Map<String, Object> map = new HashMap<>();
+        map.put("textList", textLsit);
+        map.put("tableList", tableList);
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> getContractContentByDoc(String targetDoc) throws IOException {
+        Map<String, Object> map = new HashMap<>();
+        List<String> tableList = getTableListByDoc(targetDoc);
+        map.put("tableList", tableList);
+        map.put("textList",getTextListByDoc(targetDoc));
+        return map;
+    }
+    
+    private List<String> getTableListByDoc(String targetDoc){
+        List<String> list = new ArrayList<String>();
+        try {
+            FileInputStream is = new FileInputStream(targetDoc);
+            //获取文件流
+            //获取文件对象
+            HWPFDocument doc = new HWPFDocument(is);
+            //获取文件内容对象
+            Range r = doc.getRange();
+            //获取文件中所有的表格
+            TableIterator it = new TableIterator(r);
+            for (int i = 0; i < r.numParagraphs(); i++) {
+                //获取当前段落
+                Paragraph p = r.getParagraph(i);
+                //判断当前段落是否为表格
+                if (p.isInTable()) {
+                    //迭代文档中的表格
+                    while (it.hasNext()) {
+                        Table tb = (Table) it.next();
+                        //迭代行，默认从0开始
+                        for (int j = 0; j < tb.numRows(); j++) {
+                            //当前行
+                            TableRow tr = tb.getRow(j);
+                            //用于存放一行数据，不需要可以不用
+                            String rowText = "";
+                            //迭代列，默认从0开始
+                            for (int x = 0; x < tr.numCells(); x++) {
+                                //取得单元格
+                                TableCell td = tr.getCell(x);
+                                //取得单元格的内容
+                                Paragraph para = td.getParagraph(0);
+                                String text = para.text();
+                                text= text.replace("\u0007","");
+                                list.add(text);
+                            }
+                        }
+                    }
+                }
+            }
+            return list;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<String> getTextListByDoc(String targetDoc) throws IOException {
+        File file = new File(targetDoc);
+        FileInputStream fis = new FileInputStream(file.getAbsolutePath());
+        HWPFDocument document = new HWPFDocument(fis);
+        WordExtractor extractor = new WordExtractor(document);
+        String docContent = extractor.getText();
+        // 关闭文件输入流
+        fis.close();
+
+        String startMarker = "沥青路面工程施工合同";
+        String endMarker = "沥青路面工程施工合同";
+
+        Pattern pattern = Pattern.compile(startMarker + "[\\s\\S]*?" + endMarker);
+        Matcher matcher = pattern.matcher(docContent);
+        List<String> strings = new ArrayList<>();
+
+        // 查找匹配项
+        if (matcher.find()) {
+            // 获取匹配到的内容
+            String extractedContent = matcher.group(0);
+
+            // 去掉空格和换行符
+//                extractedContent = extractedContent.replaceAll("\\s+", "");
+//                System.out.println(extractedContent);
+            String[] lines = extractedContent.split("\n");
+            // 打印每一行的内容
+            for (String line : lines) {
+                if (!Objects.equals(line, "")){
+                    strings.add(line);
+                }
+            }
+        }
+        return strings;
+    }
+    private String getTableListByPdf(String targetPdf) throws ParseException {
+        String[] argsa = new String[]{"-f=JSON","-p=all", targetPdf,"-l"};
+        //CommandLineApp.main(argsa);
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = parser.parse(CommandLineApp.buildOptions(), argsa);
+        StringBuilder stringBuilder = new StringBuilder();
+        new CommandLineApp(stringBuilder, cmd).extractTables(cmd);
+        return stringBuilder.toString();
+    }
+    
+    private List<String> getTextListByPdf(String pdfContent){
+        String marker = "- 1 -";
+
+        // 查找分隔符位置
+        int index = pdfContent.indexOf(marker);
+
+        String extractedText = "";
+        // 提取分隔符之前的内容
+        if (index != -1) {
+            extractedText = pdfContent.substring(0, index);
+        }
+        String[] lines = extractedText.split("\n");
+        return new ArrayList<>(Arrays.asList(lines));
+    }
+
+    public static String readPDF(String fileName) {
+        String result = "";
+        File file = new File(fileName);
+        FileInputStream in = null;
+        try {
+            in = new FileInputStream(fileName);
+            // 新建一个PDF解析器对象
+            PDFParser parser = new PDFParser(new RandomAccessFile(file,"rw"));
+            // 对PDF文件进行解析
+            parser.parse();
+            // 获取解析后得到的PDF文档对象
+            PDDocument pdfdocument = parser.getPDDocument();
+            // 新建一个PDF文本剥离器
+            PDFTextStripper stripper = new PDFTextStripper();
+            stripper .setSortByPosition(false); //sort:设置为true 则按照行进行读取，默认是false
+            // 从PDF文档对象中剥离文本
+            result = stripper.getText(pdfdocument);
+        } catch (Exception e) {
+            System.out.println("读取PDF文件" + file.getAbsolutePath() + "生失败！" + e);
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e1) {
+                }
+            }
+        }
+        return result;
     }
 
     private String getContent(String path, String requestName) throws IOException {
