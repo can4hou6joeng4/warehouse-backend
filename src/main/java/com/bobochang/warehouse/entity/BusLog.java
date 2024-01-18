@@ -39,7 +39,7 @@ public class BusLog implements Serializable {
     /**
      * 操作时间
      */
-    private Date operTime;
+    private String operTime;
 
     /**
      * 操作来源ip

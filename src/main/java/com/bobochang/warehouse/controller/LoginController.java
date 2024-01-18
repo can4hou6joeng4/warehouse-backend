@@ -36,7 +36,7 @@ public class LoginController {
 
     @Autowired
     private GlobalVariable globalVariable;
-    
+
     @Autowired
     private RoleService roleService;
 
@@ -68,7 +68,7 @@ public class LoginController {
                     //生成token并响应给前端
                     CurrentUser currentUser = new CurrentUser(user.getUserId(), user.getUserCode(), user.getUserName(), roleCode);
                     String token = tokenUtils.loginSign(currentUser, user.getUserPwd());
-                    globalVariable.setValue(currentUser.getUserName());
+                    globalVariable.setValue(user.getRealName());
                     log.info("用户：" + currentUser.getUserName() + "登录成功");
                     return Result.ok("登录成功！", token);
                 } else {//查到的用户的密码和用户录入的密码不同

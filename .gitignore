@@ -1,5 +1,6 @@
 
 target/
+../warehouse-backend/src/main/resources/application.properties
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/test/**
 !**/src/main/**/target/
