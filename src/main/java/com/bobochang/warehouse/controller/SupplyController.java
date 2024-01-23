@@ -1,5 +1,6 @@
 package com.bobochang.warehouse.controller;
 
+import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.entity.Store;
 import com.bobochang.warehouse.entity.Supply;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/supply")
+@BusLog(name="供应商管理")
 public class SupplyController {
     @Autowired
     private SupplyService supplyService;
@@ -45,6 +47,7 @@ public class SupplyController {
      * @return
      */
     @RequestMapping("/supply-delete/{supplyId}")
+    @BusLog(descrip = "删除供应商")
     public Result deleteStore(@PathVariable Integer supplyId) {
         //执行业务
         Result result = supplyService.deleteSupply(supplyId);
@@ -58,6 +61,7 @@ public class SupplyController {
      * @return
      */
     @RequestMapping("/supply-update")
+    @BusLog(descrip = "更新供应商")
     public Result updateStore(@RequestBody Supply supply) {
         //执行业务
         Result result = supplyService.updateSupply(supply);
@@ -71,6 +75,7 @@ public class SupplyController {
      * @RequestBody Supply supply将请求传递的json数据封装到参数Supply对象;
      */
     @RequestMapping("/supply-add")
+    @BusLog(descrip = "添加供应商")
     public Result addStore(@RequestBody Supply supply) {
         //执行业务
         Result result = supplyService.saveSupply(supply);
@@ -96,6 +101,7 @@ public class SupplyController {
      * @return
      */
     @RequestMapping("/exportTable")
+    @BusLog(descrip = "导出供应商")
     public Result exportTable(Page page, Supply supply) {
         //分页查询仓库
         page = supplyService.querySupplyPage(page, supply);

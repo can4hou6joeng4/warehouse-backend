@@ -114,16 +114,11 @@ public class SalaryServiceImpl extends ServiceImpl<SalaryMapper, Salary>
             BigDecimal days = new BigDecimal(salary.getMonthDays());
             // 算出每日工资
             BigDecimal daySalary = salary.getSalary().divide(days, 4, BigDecimal.ROUND_HALF_UP);
-            System.out.println(daySalary);
 
             // 缺勤日期
             BigDecimal noCheckinDays = new BigDecimal(salary.getMonthDays() - salary.getCheckinDays());
-            System.out.println(salary.getMonthDays() - salary.getCheckinDays());
-
 
             payableSalary = salary.getSalary().subtract(noCheckinDays.multiply(daySalary));
-            System.out.println(noCheckinDays.multiply(daySalary));
-            System.out.println(payableSalary);
         }else{
             payableSalary = salary.getSalary();
         }

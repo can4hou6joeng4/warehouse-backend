@@ -1,5 +1,6 @@
 package com.bobochang.warehouse.controller;
 
+import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.dto.ContractReasonDto;
 import com.bobochang.warehouse.dto.EginnerContractDto;
@@ -25,6 +26,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/activiti")
 @Slf4j
+@BusLog(name = "流程管理")
 public class ActivitiController {
     @Autowired
     private ActivitiService activitiService;
@@ -66,6 +68,7 @@ public class ActivitiController {
      * @return
      */
     @PostMapping("/start-instance")
+    @BusLog(descrip = "启动流程")
     public Result startInstance(@RequestBody EginnerContractDto contract){
         System.out.println(contract.getRatioLists());
 //        return null;
@@ -100,6 +103,7 @@ public class ActivitiController {
      * @return
      */
     @PostMapping("/complete-task")
+    @BusLog(descrip = "完成流程任务")
     public Result completeTask(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                @RequestBody Flow flow){
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
@@ -108,6 +112,7 @@ public class ActivitiController {
     }
     
     @PostMapping("/skip-task")
+    @BusLog(descrip = "撤回流程任务")
     public Result skipTask(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                            @RequestBody ContractReasonDto contractReasonDto) throws Exception {
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();

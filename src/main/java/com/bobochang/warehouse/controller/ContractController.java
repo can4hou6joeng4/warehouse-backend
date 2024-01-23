@@ -253,6 +253,7 @@ public class ContractController {
      * @return
      */
     @PostMapping("/contract-agree")
+    @BusLog(descrip = "同意合同")
     public Result contractAgree(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                @RequestBody Contract contract){
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
@@ -274,6 +275,7 @@ public class ContractController {
      * @return
      */
     @PostMapping("/contract-again")
+    @BusLog(descrip = "重新审核")
     public Result contractAgain(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                @RequestBody Contract contract){
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
@@ -296,6 +298,7 @@ public class ContractController {
      * @throws Exception
      */
     @PostMapping("/contract-reject")
+    @BusLog(descrip = "合同驳回")
     public Result contractReject(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                  @RequestBody ContractReasonDto contractReasonDto) throws Exception {
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();

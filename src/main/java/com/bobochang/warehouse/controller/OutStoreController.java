@@ -141,6 +141,7 @@ public class OutStoreController {
      * @return
      */
     @PostMapping("/complete-task")
+    @BusLog(descrip = "完成出库")
     public Result completeTask(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                @RequestBody Flow flow){
         System.out.println(flow.getContractId());

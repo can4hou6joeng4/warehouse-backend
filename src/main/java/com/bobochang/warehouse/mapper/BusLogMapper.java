@@ -2,6 +2,10 @@ package com.bobochang.warehouse.mapper;
 
 import com.bobochang.warehouse.entity.BusLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.bobochang.warehouse.entity.Salary;
+import com.bobochang.warehouse.page.Page;
+
+import java.util.List;
 
 /**
 * @author HuihuaLi
@@ -11,6 +15,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface BusLogMapper extends BaseMapper<BusLog> {
 
+    int selectBuslogCount(BusLog busLog);
+
+    List<BusLog> queryBuslogPage(Page page, BusLog busLog);
+
+    List<String> getAllBusLogName();
 }
 
 

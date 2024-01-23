@@ -47,6 +47,7 @@ public class CustomerController {
 
 
     @RequestMapping("/customer-update")
+    @BusLog(descrip = "更新客户")
     public Result updateStore(@RequestBody Customer customer) {
         //执行业务
         Result result = customerService.updateCustomer(customer);
@@ -55,6 +56,7 @@ public class CustomerController {
     }
 
     @RequestMapping("/customer-add")
+    @BusLog(descrip = "添加客户")
     public Result addStore(@RequestBody Customer customer) {
         //执行业务
         Result result = customerService.addCustomer(customer);
@@ -63,6 +65,7 @@ public class CustomerController {
     }
 
     @RequestMapping("/customer-delete/{customerId}")
+    @BusLog(descrip = "删除客户")
     public Result deleteStore(@PathVariable Integer customerId) {
         //执行业务
         if(customerService.removeById(customerId)){

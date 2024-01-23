@@ -92,6 +92,7 @@ public class ProductMaterialController {
      * @return
      */
     @RequestMapping("/update")
+    @BusLog(descrip = "更新产品与材料比例")
     public Result updateProduct(@RequestBody ProductMaterial productMaterial,
                                 @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
 

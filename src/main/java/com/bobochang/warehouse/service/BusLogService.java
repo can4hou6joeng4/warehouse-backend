@@ -2,6 +2,9 @@ package com.bobochang.warehouse.service;
 
 import com.bobochang.warehouse.entity.BusLog;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.bobochang.warehouse.page.Page;
+
+import java.util.List;
 
 /**
 * @author HuihuaLi
@@ -10,4 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface BusLogService extends IService<BusLog> {
 
+    Page queryBuslogPage(Page page, com.bobochang.warehouse.entity.BusLog busLog);
+
+    List<String> getAllBusLogName();
 }

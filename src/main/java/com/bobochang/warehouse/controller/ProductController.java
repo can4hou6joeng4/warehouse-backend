@@ -107,7 +107,7 @@ public class ProductController {
      * 将请求头Token的值即客户端归还的token赋值给参数变量token;
      */
     @RequestMapping("/product-add")
-    @BusLog(descrip = "添加材料")
+    @BusLog(descrip = "添加产品")
     public Result addProduct(@RequestBody Product product,
                              @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
 
@@ -143,6 +143,7 @@ public class ProductController {
      * 将请求头Token的值即客户端归还的token赋值给参数变量token;
      */
     @RequestMapping("/product-update")
+    @BusLog(descrip = "产品更新")
     public Result updateProduct(@RequestBody Product product,
                                 @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
 

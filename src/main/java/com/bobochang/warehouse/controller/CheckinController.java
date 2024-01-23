@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.hash.Hash;
+import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.config.SystemConstants;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.entity.Checkin;
@@ -32,6 +33,7 @@ import java.util.HashMap;
 @RequestMapping("/checkin")
 @RestController
 @Slf4j
+@BusLog(name="考勤管理")
 public class CheckinController {
     @Autowired
     private CheckinService checkinService;
@@ -66,6 +68,7 @@ public class CheckinController {
      * @return
      */
     @PostMapping("/checkin")
+    @BusLog(descrip = "签到")
     public Result checkin(@RequestParam("photo") MultipartFile file,@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
         if(file==null){
             return Result.err(500,"没有上传文件");
@@ -100,6 +103,7 @@ public class CheckinController {
      * @return
      */
     @PostMapping("/checkin-noface")
+    @BusLog(descrip = "考勤签到")
     public Result checkinNoFace(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,@RequestBody Checkin checkin){
         int userId= getUserIdByToken(token);
         

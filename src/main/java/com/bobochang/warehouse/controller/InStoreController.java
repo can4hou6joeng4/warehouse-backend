@@ -68,6 +68,7 @@ public class InStoreController {
     }
     
     @RequestMapping("/instore-update")
+    @BusLog(descrip = "入库单更新")
     public Result updateInStore(@RequestBody InStore inStore){
         return inStoreService.updateInstore(inStore);
     }

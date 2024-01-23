@@ -179,6 +179,7 @@ public class MaterialController {
      * 删除商品的url接口/product/product-delete/{productId}
      */
     @RequestMapping("/material-delete/{materialId}")
+    @BusLog(descrip = "删除材料")
     public Result deleteMaterial(@PathVariable Integer materialId) {
         //执行业务
         Result result = materialService.deleteMaterial(materialId);
@@ -194,6 +195,7 @@ public class MaterialController {
      * 将请求头Token的值即客户端归还的token赋值给参数变量token;
      */
     @RequestMapping("/material-update")
+    @BusLog(descrip = "更新材料")
     public Result updateMaterial(@RequestBody Material material,
                                 @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
 

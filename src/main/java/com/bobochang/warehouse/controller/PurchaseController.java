@@ -1,6 +1,7 @@
 package com.bobochang.warehouse.controller;
 
 
+import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.dto.ContractReasonDto;
 import com.bobochang.warehouse.dto.PurchaseReasonDto;
@@ -19,6 +20,7 @@ import java.util.Map;
 
 @RequestMapping("/purchase")
 @RestController
+@BusLog(name="采购管理")
 public class PurchaseController {
 
     //注入PurchaseService
@@ -56,6 +58,7 @@ public class PurchaseController {
      * 添加采购单的url接口/purchase/purchase-add
      */
     @RequestMapping("/purchase-add")
+    @BusLog(descrip = "添加采购")
     public Result addPurchase(@RequestBody Purchase purchase) {
         System.out.println(purchase.getSupplyId());
         //执行业务
@@ -98,6 +101,7 @@ public class PurchaseController {
      * @RequestBody Purchase purchase将请求传递的json数据封装到参数Purchase对象;
      */
     @RequestMapping("/purchase-update")
+    @BusLog(descrip = "采购更新")
     public Result updatePurchase(@RequestBody Purchase purchase,@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         //执行业务
         Result result = purchaseService.updatePurchase(purchase);
@@ -127,6 +131,7 @@ public class PurchaseController {
      * 将请求头Token的值即客户端归还的token赋值给参数变量token;
      */
     @RequestMapping("/in-warehouse-record-add")
+    @BusLog(descrip = "生成入库单")
     public Result addInStore(@RequestBody Purchase purchase,
                              @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         //获取当前登录的用户
@@ -192,6 +197,7 @@ public class PurchaseController {
      * @return
      */
     @PostMapping("/purchase-agree")
+    @BusLog(descrip = "审核采购")
     public Result contractAgree(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                 @RequestBody PurchaseReasonDto purchaseReasonDto){
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
@@ -209,6 +215,7 @@ public class PurchaseController {
      * @return
      */
     @PostMapping("/purchase-again")
+    @BusLog(descrip = "重新递交审核")
     public Result contractAgain(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                 @RequestBody PurchaseReasonDto purchaseReasonDto) throws Exception {
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
@@ -225,6 +232,7 @@ public class PurchaseController {
      * @throws Exception
      */
     @PostMapping("/purchase-reject")
+    @BusLog(descrip = "驳回审核")
     public Result contractReject(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token,
                                  @RequestBody PurchaseReasonDto purchaseReasonDto) throws Exception {
         String userCode = tokenUtils.getCurrentUser(token).getUserCode();
