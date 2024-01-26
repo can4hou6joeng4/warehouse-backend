@@ -74,6 +74,7 @@ public class FileController {
             file.transferTo(targetFile);
 
             Map<String, Object> map = fileService.getContractContentByPdf(targetPdf);
+            map.put("fileName",fileName + "-" + flag + ".pdf");
             return Result.ok(map);
         }catch (Exception e){
             throw new RuntimeException(e);
@@ -99,6 +100,8 @@ public class FileController {
             // 保存合同附件（如果文件不存在或者已删除，则进行保存）
             file.transferTo(targetFile);
             Map<String, Object> map = fileService.getContractContentByDoc(targetDoc);
+            map.put("fileName",fileName + "-" + flag + ".doc");
+
             return Result.ok(map);
         }catch (Exception e){
             throw new RuntimeException(e);
