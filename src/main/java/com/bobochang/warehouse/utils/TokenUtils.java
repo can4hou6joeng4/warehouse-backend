@@ -37,16 +37,16 @@ public class TokenUtils {
     //token中存放用户名对应的名字
     private static final String CLAIM_NAME_USERCODE = "CLAIM_NAME_USERCODE";
     //token中存放用户真实姓名对应的名字
-    private static final String CLAIM_NAME_USERNAME = "CLAIM_NAME_USERNAME";
+    private static final String CLAIM_NAME_REALNAME = "CLAIM_NAME_REALNAME";
 
-    private static final String CLAIM_ROLE_USERROLE = "CLAIM_ROLE_USERNAME";
+    private static final String CLAIM_ROLE_USERROLE = "CLAIM_ROLE_USERROLE";
 
 
     private String sign(CurrentUser currentUser, String securityKey) {
         String token = JWT.create()
                 .withClaim(CLAIM_NAME_USERID, currentUser.getUserId())
                 .withClaim(CLAIM_NAME_USERCODE, currentUser.getUserCode())
-                .withClaim(CLAIM_NAME_USERNAME, currentUser.getUserName())
+                .withClaim(CLAIM_NAME_REALNAME, currentUser.getRealName())
                 .withClaim(CLAIM_ROLE_USERROLE, currentUser.getUserRole())
                 .withIssuedAt(new Date())//发行时间
                 .withExpiresAt(new Date(System.currentTimeMillis() + expireTime * 1000))//有效时间
@@ -83,12 +83,12 @@ public class TokenUtils {
         //从解码后的token中获取用户信息并封装到CurrentUser对象中返回
         int userId = decodedJWT.getClaim(CLAIM_NAME_USERID).asInt();//用户账号id
         String userCode = decodedJWT.getClaim(CLAIM_NAME_USERCODE).asString();//用户账号
-        String userName = decodedJWT.getClaim(CLAIM_NAME_USERNAME).asString();//用户姓名
+        String realName = decodedJWT.getClaim(CLAIM_NAME_REALNAME).asString();//用户姓名
         String userRole = decodedJWT.getClaim(CLAIM_ROLE_USERROLE).asString();//用户权限
-        if (StringUtils.isEmpty(userCode) || StringUtils.isEmpty(userName)) {
+        if (StringUtils.isEmpty(userCode) || StringUtils.isEmpty(realName)) {
             throw new BusinessException("令牌缺失用户信息，请登录！");
         }
-        return new CurrentUser(userId, userCode, userName,userRole);
+        return new CurrentUser(userId, userCode, realName, userRole);
     }
 
 }

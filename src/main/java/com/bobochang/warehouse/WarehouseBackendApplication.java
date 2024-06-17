@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -19,7 +20,8 @@ import java.lang.reflect.Field;
 
 
 @MapperScan("com.bobochang.warehouse.mapper")
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class,
+@EnableScheduling
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class,
         SecurityAutoConfiguration.class,
         ManagementWebSecurityAutoConfiguration.class
 })
@@ -39,21 +41,22 @@ public class WarehouseBackendApplication {
      * 在运行后自动执行，用于sysconfig的反射
      */
     @PostConstruct
-    public void init(){
+    public void init() {
         /*
           考勤时间设定
          */
         QueryWrapper queryWrapper = new QueryWrapper();
         List<SysConfig> list = sysConfigMapper.selectList(queryWrapper);
-        list.forEach(one->{
-            String key=one.getParamKey();
-            key= StrUtil.toCamelCase(key);
-            String value=one.getParamValue();
-            try{
-                Field field=constants.getClass().getDeclaredField(key);
-                field.set(constants,value);
-            }catch (Exception e){
-                log.error("执行异常",e);
+        list.forEach(one -> {
+            String key = one.getParamKey();
+            key = StrUtil.toCamelCase(key);
+            String value = one.getParamValue();
+            try {
+                Field field = constants.getClass().getDeclaredField(key);
+                field.set(constants, value);
+                log.info("key:{},value:{}", key, value);
+            } catch (Exception e) {
+                log.error("执行异常", e);
             }
         });
     }

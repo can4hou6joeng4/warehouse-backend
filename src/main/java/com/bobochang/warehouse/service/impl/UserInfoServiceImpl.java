@@ -1,6 +1,7 @@
 package com.bobochang.warehouse.service.impl;
 
 
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bobochang.warehouse.entity.Result;
 import com.bobochang.warehouse.entity.Unit;
@@ -54,7 +55,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserMapper, User>
     public Result saveUser(User user) {
         //根据用户名查询用户
         User oldUser = userMapper.findUserByCode(user.getUserCode());
-        if(oldUser!=null){//用户已存在
+        if (oldUser != null) {//用户已存在
             return Result.err(Result.CODE_ERR_BUSINESS, "该用户已存在！");
         }
         //用户不存在,对密码加密,添加用户
@@ -69,7 +70,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserMapper, User>
     public Result updateUserState(User user) {
         //根据用户id修改用户状态
         int i = userMapper.updateUserState(user);
-        if(i>0){
+        if (i > 0) {
             return Result.ok("修改成功！");
         }
         return Result.err(Result.CODE_ERR_BUSINESS, "修改失败！");
@@ -87,7 +88,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserMapper, User>
     public Result updateUserName(User user) {
         //根据用户id修改用户昵称
         int i = userMapper.updateNameById(user);
-        if(i>0){//修改成功
+        if (i > 0) {//修改成功
             return Result.ok("用户修改成功！");
         }
         //修改失败
@@ -106,7 +107,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserMapper, User>
         //根据用户id修改密码
         int i = userMapper.updatePwdById(user);
 
-        if(i>0){//密码修改成功
+        if (i > 0) {//密码修改成功
             return Result.ok("密码重置成功！");
         }
         //密码修改失败
@@ -115,17 +116,19 @@ public class UserInfoServiceImpl extends ServiceImpl<UserMapper, User>
 
     /**
      * 根据用户id查询用户的注册日期
+     *
      * @param userId
      * @return
      */
     @Override
     public String searchUserHiredate(int userId) {
-        String hiredate= String.valueOf(userMapper.findUserById(userId).getCreateTime());
-        return hiredate;
+        // 格式化日期 保留 yyyy-MM-dd
+        return DateUtil.format(userMapper.findUserById(userId).getCreateTime(), "yyyy-MM-dd");
     }
 
     /**
      * 按照用户id查询用户详细信息
+     *
      * @param userId
      * @return
      */

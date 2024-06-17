@@ -1,5 +1,7 @@
 package com.bobochang.warehouse.controller;
 
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONUtil;
 import com.bobochang.warehouse.annotation.BusLog;
 import com.bobochang.warehouse.constants.WarehouseConstants;
 import com.bobochang.warehouse.entity.User;
@@ -15,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 
 @RestController
 @Slf4j
@@ -66,10 +70,10 @@ public class LoginController {
                     //根据用户id查询用户的权限
                     String roleCode = roleService.findRolesByUserId(user.getUserId());
                     //生成token并响应给前端
-                    CurrentUser currentUser = new CurrentUser(user.getUserId(), user.getUserCode(), user.getUserName(), roleCode);
+                    CurrentUser currentUser = new CurrentUser(user.getUserId(), user.getUserCode(), user.getRealName(), roleCode);
                     String token = tokenUtils.loginSign(currentUser, user.getUserPwd());
                     globalVariable.setValue(user.getRealName());
-                    log.info("用户：" + currentUser.getUserName() + "登录成功");
+                    log.info("用户：" + currentUser.getRealName() + "登录成功");
                     return Result.ok("登录成功！", token);
                 } else {//查到的用户的密码和用户录入的密码不同
                     return Result.err(Result.CODE_ERR_BUSINESS, "密码不正确！");
@@ -107,7 +111,7 @@ public class LoginController {
         //从redis移除token
         stringRedisTemplate.delete(clientToken);
         stringRedisTemplate.delete("all:authTree");
-        log.info("用户：" + tokenUtils.getCurrentUser(clientToken).getUserName() + "退出系统");
+        log.info("用户：" + tokenUtils.getCurrentUser(clientToken).getRealName() + "退出系统");
         return Result.ok();
     }
 
@@ -132,7 +136,7 @@ public class LoginController {
                     //根据用户id查询用户的权限
                     String roleCode = roleService.findRolesByUserId(user.getUserId());
                     //生成token并响应给前端
-                    CurrentUser currentUser = new CurrentUser(user.getUserId(), user.getUserCode(), user.getUserName(), roleCode);
+                    CurrentUser currentUser = new CurrentUser(user.getUserId(), user.getUserCode(), user.getRealName(), roleCode);
                     String token = tokenUtils.loginSign(currentUser, user.getUserPwd());
                     return Result.ok("登录成功！", token);
                 } else {//查到的用户的密码和用户录入的密码不同
@@ -146,4 +150,23 @@ public class LoginController {
         }
     }
 
+    @GetMapping("/getPhoneNumber")
+    public Result getPhoneNumber(@RequestParam("code") String code, @RequestParam("grant_type") String grantType, @RequestParam("appid") String appid, @RequestParam("secret") String secret) {
+        // 根据
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("grant_type", grantType);
+        map.put("appid", appid);
+        map.put("secret", secret);
+        String resultOfAccessToken = HttpUtil.get("https://api.weixin.qq.com/cgi-bin/token", map);
+        // 获取 resultOfAccessToken 字符串中的access_token
+        String accessToken = JSONUtil.parseObj(resultOfAccessToken).getStr("access_token");
+        // 根据 access_token 和 code 获取手机号信息
+        HashMap<String, Object> getPhoneNumberInfo = new HashMap<>();
+        getPhoneNumberInfo.put("access_token", accessToken);
+        getPhoneNumberInfo.put("code", code);
+        String resultOfPhoneNumber = HttpUtil.post("https://api.weixin.qq.com/wxa/business/getuserphonenumber", getPhoneNumberInfo);
+        // 获取 resultOfPhoneNumber 字符串中的phone_info
+        String phoneNumber = JSONUtil.parseObj(resultOfPhoneNumber).getJSONObject("phone_info").getStr("phoneNumber");
+        return Result.ok(phoneNumber);
+    }
 }
